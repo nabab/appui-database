@@ -1,0 +1,46 @@
+[{
+  "text": "Databases",
+  "code": "databases",
+  "id_parent" : "appui",
+  "icon": "nf nf-fa-database",
+  "cfg": {
+    "show_code": 1,
+    "i18n": "en"
+  },
+  "items": [{
+    "text": "Connections",
+    "code": "connections",
+    "cfg": {
+      "show_code": 1,
+      "show_alias": 1,
+      "schema": "[{\"title\":\"Connection's name\",\"field\":\"text\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"user@host\",\"field\":\"code\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"password\",\"field\":\"pass\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"Environment\",\"options\":{},\"field\":\"environment\",\"showable\":true,\"editable\":true,\"type\":\"\",\"hidden\":false,\"source\":[{\"text\":\"Development\",\"value\":\"dev\"},{\"text\":\"Test\",\"value\":\"test\"},{\"text\":\"Production\",\"value\":\"prod\"}]}]",
+      "alias_name": "Server",
+      "id_root_alias": ["servers","|*appui-databases*|/","appui"]
+    }
+  }, {
+    "text": "Databases",
+    "code": "dbs",
+    "cfg": {
+      "allow_children": 1
+    }
+  }, {
+    "text": "Hosts",
+    "code": "hosts",
+    "cfg": {
+      "allow_children": 1
+    }
+  }, {
+    "text": "Synchronization",
+    "code": "sync",
+    "cfg": {
+      "allow_children": 1
+    }
+  }]
+}, {
+  "text": "Databases",
+  "code": "databases",
+  "id_parent": ["default","dashboard","appui"],
+  "id_alias": ["databases","appui-dashboard","plugins","|*appui-databases*|/","page","permissions","appui"],
+  "value": "{\"limit\":5,\"observe\":false,\"options\":[],\"closable\":true,\"buttonsLeft\":[],\"buttonsRight\":[],\"itemComponent\":\"appui-databases-widget-database\"}",
+  "after": 1
+}]

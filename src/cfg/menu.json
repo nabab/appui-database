@@ -1,0 +1,25 @@
+{
+  "text": "Databases",
+  "num": 13,
+  "icon": "nf nf-fa-database",
+  "items": [
+    {
+      "text": "Database ui",
+      "num": 1,
+      "icon": "nf nf-oct-database",
+      "link": "tabs/home"
+    },
+    {
+      "text": "Synchronization",
+      "num": 2,
+      "icon": "nf nf-mdi-sync",
+      "link": "sync"
+    },
+    {
+      "text": "DB designer",
+      "num": 3,
+      "icon": "nf nf-fae-tools",
+      "link": "creator"
+    }
+  ]
+}
