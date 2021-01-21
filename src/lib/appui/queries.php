@@ -44,7 +44,7 @@ class queries extends bbn\models\cls\db
 
   public function __construct(\bbn\db $db){
     parent::__construct($db);
-    $this->dbc = new \appui\databases($db);
+    $this->dbc = new \appui\database($db);
   }
 
   public function build($id){

@@ -4,7 +4,7 @@ use \bbn\x;
 if (dbsync::is_init()
   && ($dbs = array_map(function($a){
     return $a['code'];
-  }, $model->inc->options->full_options('sync', 'databases', 'appui')))
+  }, $model->inc->options->full_options('sync', 'database', 'appui')))
 ) {
   if (!empty($model->data['filters'])
     && !empty($model->data['filters']['conditions'])

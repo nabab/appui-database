@@ -1,3 +1,3 @@
 <!-- HTML Document -->
 
-<appui-databases-table-main :source="source"></appui-databases-table-main>
+<appui-database-table-main :source="source"></appui-database-table-main>

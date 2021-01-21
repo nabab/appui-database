@@ -12,7 +12,7 @@ $res = [
 ];
 if ( isset($model->data['table']) ){
   $q = new \bbn\appui\queriesOld($model->db);
-  $t = new \appui\databases($model->db);
+  $t = new \appui\database($model->db);
   $res['import'] = $t->import($model->data['table']);
   $res['cols'] = $t->full_columns($model->data['table']);
   if ( \is_array($res['tables'] = $q->linked_tables($model->data['table'])) ){

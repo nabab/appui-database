@@ -1,7 +1,7 @@
 <?php
-$path = $model->data_path('appui-databases') . 'sync/conflicts/';
+$path = $model->data_path('appui-database') . 'sync/conflicts/';
 return [[
-  'id' => 'appui-databases-0',
+  'id' => 'appui-database-0',
   'frequency' => 60,
   'function' => function(array $data) use($path){
     $res = [

@@ -7,7 +7,7 @@ $res = [
 ];
 if ($model->has_data(['start', 'limit'])
   && !empty($model->data['data']['file'])
-  && ($path = $model->data_path('appui-databases') . 'sync/conflicts/')
+  && ($path = $model->data_path('appui-database') . 'sync/conflicts/')
   && is_file($path.$model->data['data']['file'])
 ) {
   $data = json_decode(file_get_contents($path.$model->data['data']['file']), true);

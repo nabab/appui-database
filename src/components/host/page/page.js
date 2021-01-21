@@ -4,7 +4,7 @@
     data(){
       return {
         orientation: 'horizontal',
-        root: appui.plugins['appui-databases'] + '/',
+        root: appui.plugins['appui-database'] + '/',
         force: false,
         toolbar: [],
         hasMultipleSelected: false
@@ -44,7 +44,7 @@
       showDbCreation(){
         this.getPopup({
           title: bbn._("New database"),
-          component: 'appui-databases-db-form',
+          component: 'appui-database-db-form',
           width: 500,
           height: '20em',
           source: {
@@ -182,7 +182,7 @@
         												 placeholder="` + bbn._("Choose an action") + `"
 							                   @change="select"/>`,
         data() {
-          let host = this.closest('appui-databases-host-page');
+          let host = this.closest('appui-database-host-page');
           let r = [{
             text: bbn._("Analyze"),
             value: 'analyze'

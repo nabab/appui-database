@@ -1,4 +1,4 @@
-<div class="bbn-overlay bbn-flex-height appui-databases-sync-conflicts">
+<div class="bbn-overlay bbn-flex-height appui-database-sync-conflicts">
   <div class="bbn-header bbn-spadded">
     <span><?=_('Tables')?>:</span>
     <bbn-dropdown :source="tables"

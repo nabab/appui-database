@@ -6,7 +6,7 @@ if (dbsync::is_init()
   && $model->has_data(['id', 'source'])
   && ($dbs = array_map(function($a){
     return $a['code'];
-  }, $model->inc->options->full_options('sync', 'databases', 'appui')))
+  }, $model->inc->options->full_options('sync', 'database', 'appui')))
 ) {
   if (!is_array($model->data['id'])) {
     $model->data['id'] = [$model->data['id']];

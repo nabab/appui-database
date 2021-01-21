@@ -2,7 +2,7 @@
   return {
     data(){
       return {
-        root: appui.plugins['appui-databases'] + '/',
+        root: appui.plugins['appui-database'] + '/',
         tables: this.source.files,
         currentTable: null,
         currentFile: null,
@@ -101,7 +101,7 @@
             this.getPopup({
               title: bbn._("Records"),
               width: '90%',
-              component: 'appui-databases-sync-diff',
+              component: 'appui-database-sync-diff',
               source: {
                 origin: {
                   db: this.field,

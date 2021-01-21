@@ -159,7 +159,7 @@
               }
               else if ( c.maxlength == 10 ){
                 vm.vueComponent = 'tree-input';
-                vm.cfg.source = 'options/tree';
+                vm.cfg.source = appui.plugins['appui-option'] + '/tree';
               }
               else{
                 if ( !c.signed ){

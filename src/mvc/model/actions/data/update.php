@@ -4,7 +4,7 @@ if ( ($host = $model->data['host']) && ($db = $model->data['db']) && ($table = $
   $success =false;  
   $tmp = [];
   //instantiate the class appui/databases to $model->db
-  $t = new \appui\databases($model->db);
+  $t = new \appui\database($model->db);
   //connect using the class database to the given host and given db
   $db_alt = $t->connection($host, $db);
 

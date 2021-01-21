@@ -20,7 +20,7 @@ class databases extends bbn\models\cls\cache
   public function __construct(bbn\db $db){
     parent::__construct($db);
     self::optional_init();
-    $this->o = bbn\appui\options::get_instance();
+    $this->o = bbn\appui\option::get_instance();
   }
 
   public function connection(string $host, string $db){

@@ -17,7 +17,7 @@
     <bbn-router :nav="true"
                 :autoload="false"
     >
-      <bbns-container component="appui-databases-table-main-columns"
+      <bbns-container component="appui-database-table-main-columns"
                       url="columns"
                       title="<?=_('Columns')?>"
                       :source="source"
@@ -25,7 +25,7 @@
                       :pinned="true"
                       :menu="false"
       ></bbns-container>
-      <bbns-container component="appui-databases-table-main-keys"
+      <bbns-container component="appui-database-table-main-keys"
                       url="keys"
                       icon="nf nf-oct-key"
                       title="<?=_('Keys')?>"
@@ -33,7 +33,7 @@
                       :pinned="true"
                       :menu="false"
       ></bbns-container>
-      <bbns-container component="appui-databases-table-main-data"
+      <bbns-container component="appui-database-table-main-data"
                       url="data"
                       icon="nf nf-mdi-format_list_bulleted_type"
                       title="<?=_('Data')?>"
@@ -41,7 +41,7 @@
                       :pinned="true"
                       :menu="false"
       ></bbns-container>
-      <bbns-container component="appui-databases-table-main-externals"
+      <bbns-container component="appui-database-table-main-externals"
                       url="externals"
                       icon="nf nf-oct-link"
                       title="<?=_('Externals links')?>"
@@ -49,7 +49,7 @@
                       :pinned="true"
                       :menu="false"
       ></bbns-container>
-      <bbns-container component="appui-databases-table-main-history"
+      <bbns-container component="appui-database-table-main-history"
                       url="history"
                       icon="nf nf-mdi-clock_start"
                       title="<?=_('History')?>"

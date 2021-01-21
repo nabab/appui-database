@@ -1,7 +1,7 @@
 [{
   "text": "Plugins",
   "code": "plugins",
-  "id_parent": ["|*appui-databases*|/","page","permissions","appui"],
+  "id_parent": ["|*appui-database*|/","page","permissions","appui"],
   "items": [{
     "text": "appui-dashboard",
     "code": "appui-dashboard",

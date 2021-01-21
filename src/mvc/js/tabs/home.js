@@ -26,7 +26,7 @@
     methods: {
       addHost(engine, widgetKey) {
         this.getPopup({
-          component: 'appui-databases-host-form',
+          component: 'appui-database-host-form',
           source: {
             engine: engine
           },

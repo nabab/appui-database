@@ -5,13 +5,13 @@
                   :static="true"
                   icon="nf nf-pom-internal_interruption"
                   :source="source"
-                  component="appui-databases-sync-errors">
+                  component="appui-database-sync-errors">
   </bbns-container>
   <bbns-container title="<?=_('Conflicts')?>"
                   url="conflicts"
                   :static="true"
                   icon="nf nf-mdi-vector_difference"
                   :source="source"
-                  component="appui-databases-sync-conflicts">
+                  component="appui-database-sync-conflicts">
   </bbns-container>
 </bbn-router>

@@ -45,7 +45,7 @@
                    >
           <bbns-column field="name"
                        title="<?=_('Database')?>"
-                       component="appui-databases-db-cell"/>
+                       component="appui-database-db-cell"/>
           <bbns-column title="<?=_("Action")?>"
                        :width="200"
                        cls="bbn-c"

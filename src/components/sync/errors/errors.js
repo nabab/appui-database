@@ -3,7 +3,7 @@
   return {
     data(){
       return {
-        root: appui.plugins['appui-databases'] + '/',
+        root: appui.plugins['appui-database'] + '/',
         selected: []
       }
     },
@@ -78,7 +78,7 @@
                 this.getPopup({
                   title: bbn._("Records"),
                   width: '90%',
-                  component: 'appui-databases-sync-diff',
+                  component: 'appui-database-sync-diff',
                   source: {
                     origin: {
                       db: 'sync',
@@ -112,7 +112,7 @@
                 this.getPopup({
                   title: bbn._("Records"),
                   width: '90%',
-                  component: 'appui-databases-sync-diff',
+                  component: 'appui-database-sync-diff',
                   source: {
                     origin: {
                       db: row.db,
@@ -175,7 +175,7 @@
       }
     },
     created(){
-      appui.register('appui-databases-sync-errors', this);
+      appui.register('appui-database-sync-errors', this);
     },
     component: {
       expander: {
@@ -227,7 +227,7 @@
           }
         },
         data(){
-          let errors = appui.getRegistered('appui-databases-sync-errors');
+          let errors = appui.getRegistered('appui-database-sync-errors');
           return {
             errors: errors,
             formData: {

@@ -2,7 +2,7 @@
   return {
     data(){
       return {
-        root: appui.plugins['appui-databases'] + '/'
+        root: appui.plugins['appui-database'] + '/'
       }
     }
   }

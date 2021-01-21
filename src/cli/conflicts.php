@@ -8,8 +8,8 @@ if (dbsync::is_init()
   && ($tables = array_map(function($t){
     return substr($t, strpos($t, '.') + 1);
   }, dbsync::$tables))
-  && ($dbs = array_keys($ctrl->inc->options->code_ids('sync', 'databases', 'appui')))
-  && ($path = $ctrl->data_path('appui-databases') . 'sync/conflicts/')
+  && ($dbs = array_keys($ctrl->inc->options->code_ids('sync', 'database', 'appui')))
+  && ($path = $ctrl->data_path('appui-database') . 'sync/conflicts/')
 ) {
   foreach ($tables as $table) {
     if (($primaries = $ctrl->db->get_primary($table))

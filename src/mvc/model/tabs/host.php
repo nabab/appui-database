@@ -17,7 +17,7 @@ if ( $host_id = $model->inc->dbc->host_id($model->data['host']) ){
     return ['error' => $e->getMessage()];
   }
   if (empty($o['databases'])) {
-    $dbs = $model->get_model($model->plugin_url('appui-databases').'/data/dbs', [
+    $dbs = $model->get_model($model->plugin_url('appui-database').'/data/dbs', [
       'host_id' => $host_id
     ]);
   }

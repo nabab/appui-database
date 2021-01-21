@@ -15,7 +15,7 @@
       "show_alias": 1,
       "schema": "[{\"title\":\"Connection's name\",\"field\":\"text\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"user@host\",\"field\":\"code\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"password\",\"field\":\"pass\",\"type\":\"string\",\"options\":{},\"required\":true,\"hidden\":false,\"editable\":true,\"showable\":true},{\"title\":\"Environment\",\"options\":{},\"field\":\"environment\",\"showable\":true,\"editable\":true,\"type\":\"\",\"hidden\":false,\"source\":[{\"text\":\"Development\",\"value\":\"dev\"},{\"text\":\"Test\",\"value\":\"test\"},{\"text\":\"Production\",\"value\":\"prod\"}]}]",
       "alias_name": "Server",
-      "id_root_alias": ["servers","|*appui-databases*|/","appui"]
+      "id_root_alias": ["servers","|*appui-database*|/","appui"]
     }
   }, {
     "text": "Databases",
@@ -40,7 +40,7 @@
   "text": "Databases",
   "code": "databases",
   "id_parent": ["default","dashboard","appui"],
-  "id_alias": ["databases","appui-dashboard","plugins","|*appui-databases*|/","page","permissions","appui"],
-  "value": "{\"limit\":5,\"observe\":false,\"options\":[],\"closable\":true,\"buttonsLeft\":[],\"buttonsRight\":[],\"itemComponent\":\"appui-databases-widget-database\"}",
+  "id_alias": ["databases","appui-dashboard","plugins","|*appui-database*|/","page","permissions","appui"],
+  "value": "{\"limit\":5,\"observe\":false,\"options\":[],\"closable\":true,\"buttonsLeft\":[],\"buttonsRight\":[],\"itemComponent\":\"appui-database-widget-database\"}",
   "after": 1
 }]

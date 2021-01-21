@@ -1,3 +1,3 @@
 
-<appui-databases-export :source="source">
-</appui-databases-export>
+<appui-database-export :source="source">
+</appui-database-export>

@@ -13,7 +13,7 @@
         data.password = '';
       }
       return {
-        root: appui.plugins['appui-databases'],
+        root: appui.plugins['appui-database'],
         checked: 0,
         formData: data
       };

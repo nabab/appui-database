@@ -8,7 +8,7 @@ use bbn;
 use bbn\x;
 /** @var \bbn\mvc\controller $ctrl The current controller */
 //the base_url
-$root = $ctrl->plugin_url('appui-databases').'/';
+$root = $ctrl->plugin_url('appui-database').'/';
 
 // Root tabnav
 if (empty($ctrl->baseURL)) {
