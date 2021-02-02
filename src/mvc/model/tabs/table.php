@@ -1,12 +1,12 @@
 <?php
-/** @var $model \bbn\mvc\model */
+/** @var $model \bbn\Mvc\Model */
 $res['success'] = false;
 if (
-  $model->has_data(['host', 'db', 'engine'], true) &&
-  ($host_id = $model->inc->dbc->host_id($model->data['host'], $model->data['engine']))
+  $model->hasData(['host', 'db', 'engine'], true) &&
+  ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
 ){
-  if ($db_id = $model->inc->dbc->db_id($model->data['db'], $host_id)) {
-    $table_id = $model->inc->dbc->db_id($model->data['table'], $db_id);
+  if ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id)) {
+    $table_id = $model->inc->dbc->dbId($model->data['table'], $db_id);
   }
 
   $structure = $model->inc->dbc->modelize($model->data['table'], $model->data['db'], $host_id);
@@ -16,7 +16,7 @@ if (
     if (
       $a['unique'] &&
       (count($a['columns']) === 1) &&
-      ($tmp = $model->db->get_foreign_keys($a['columns'][0], $model->data['table'], $model->data['db']))
+      ($tmp = $model->db->getForeignKeys($a['columns'][0], $model->data['table'], $model->data['db']))
     ){
       $externals[$a['columns'][0]] = $tmp;
     }
@@ -40,7 +40,7 @@ if (
     'db_id' => $db_id ?: null,
     'table' => $model->data['table'],
     'table_id' => $table_id ?? null,
-    'is_real' => \in_array($model->data['table'], array_keys($conn->get_tables($model->data['db']))),
+    'is_real' => \in_array($model->data['table'], array_keys($conn->getTables($model->data['db']))),
     'is_virtual' => isset($table_id) ? true : false,
 		'info' => isset($table_id) ? $model->inc->options->option($table_id) : null,
     'structure' => $structure,
@@ -48,16 +48,16 @@ if (
     'constraints' => $constraints,
     'history' => false
   ];
-  if (($model->data['db'] === $model->db->get_current())
-      && class_exists('bbn\\appui\\history')
-      && \bbn\appui\history::has_history($model->db)
-      && ($tmp = \bbn\appui\history::get_table_cfg($model->data['db'].'.'.$model->data['table']))
+  if (($model->data['db'] === $model->db->getCurrent())
+      && class_exists('bbn\\Appui\\History')
+      && \bbn\Appui\History::hasHistory($model->db)
+      && ($tmp = \bbn\Appui\History::getTableCfg($model->data['db'].'.'.$model->data['table']))
   ) {
     $res['history'] = $tmp;
   }
  
   if ($res['is_real']) {
-    $res['size'] = \bbn\str::say_size($conn->table_size($model->data['table']));
+    $res['size'] = \bbn\Str::saySize($conn->tableSize($model->data['table']));
     $res['count'] = $conn->count($model->data['table']);
   }
 }

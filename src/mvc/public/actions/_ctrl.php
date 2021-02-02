@@ -36,5 +36,5 @@ while ( isset($bits[$i]) ){
   }
   $i++;
 }
-$ctrl->data['mapper'] = new \appui\database($ctrl->db);
+$ctrl->data['mapper'] = new \Appui\Database($ctrl->db);
 */

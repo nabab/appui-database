@@ -7,7 +7,7 @@
                url: 'home',
                icon: 'nf nf-fa-home',
                notext: true,
-               title: '<?=\bbn\str::escape_squotes(_('List'))?>',
+               title: '<?=\bbn\Str::escapeSquotes(_('List'))?>',
                load: true,
                bcolor: '#666',
                fcolor: '#FFF'

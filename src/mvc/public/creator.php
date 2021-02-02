@@ -6,4 +6,4 @@
  * Time: 14:56
  */
 $ctrl->combo("Query creator", true);
-//\bbn\x::hdump($ctrl->db->modelize());
+//\bbn\X::hdump($ctrl->db->modelize());

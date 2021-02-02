@@ -5,8 +5,8 @@
  * Time: 20:49
  */
 
-/** @var \bbn\mvc\controller $ctrl The current controller */
+/** @var \bbn\Mvc\Controller $ctrl The current controller */
 
-$ctrl->set_icon('nf nf-mdi-view_dashboard')
-  ->set_obj(['notext' => true])
+$ctrl->setIcon('nf nf-mdi-view_dashboard')
+  ->setObj(['notext' => true])
   ->combo(_('Home'), true);

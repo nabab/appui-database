@@ -6,16 +6,16 @@
  */
  
  
-/** @var \bbn\mvc\controller $ctrl The current controller */
-if ($ctrl->has_arguments(2)) {
-  $ctrl->set_data(
+/** @var \bbn\Mvc\Controller $ctrl The current controller */
+if ($ctrl->hasArguments(2)) {
+  $ctrl->setData(
     [
 	    'engine' => $ctrl->arguments[0],
       'host' => $ctrl->arguments[1]
     ]
   )
-   // ->set_url($ctrl->get_path().'/'.$ctrl->data['host'])
-    //->set_icon('nf nf-fa-server')
-    ->set_icon('nf nf-fa-th_list')
+   // ->setUrl($ctrl->getPath().'/'.$ctrl->data['host'])
+    //->setIcon('nf nf-fa-server')
+    ->setIcon('nf nf-fa-th_list')
     ->combo($ctrl->data['host'], true);
 }

@@ -5,10 +5,10 @@
  * Time: 20:15
  */
 use bbn;
-use bbn\x;
-/** @var \bbn\mvc\controller $ctrl The current controller */
+use bbn\X;
+/** @var \bbn\Mvc\Controller $ctrl The current controller */
 //the base_url
-$root = $ctrl->plugin_url('appui-database').'/';
+$root = $ctrl->pluginUrl('appui-database').'/';
 
 // Root tabnav
 if (empty($ctrl->baseURL)) {
@@ -16,8 +16,8 @@ if (empty($ctrl->baseURL)) {
   $combo = true;
   $title = _("Databases");
   $ctrl
-    ->set_color('#666', '#EEE')
-    ->set_icon('icon-database');
+    ->setColor('#666', '#EEE')
+    ->setIcon('icon-database');
 }
 // Routing
 else {
@@ -29,25 +29,25 @@ else {
   $engine = '';
   $combo = false;
   /*
-  if ($ctrl->has_arguments(2) && ($ctrl->arguments[1] === 'export')){
+  if ($ctrl->hasArguments(2) && ($ctrl->arguments[1] === 'export')){
     $url = APPUI_DATABASES_ROOT.'tabs/'.$ctrl->arguments[0].'/export';
-    $ctrl->set_url($url);
-    $ctrl->add_to_obj('./tabs/export', [], true);
+    $ctrl->setUrl($url);
+    $ctrl->addToObj('./tabs/export', [], true);
   }
   */
-  if ($ctrl->has_arguments(2)) {
-    if (!bbn\db::is_engine_supported($ctrl->arguments[0])) {
+  if ($ctrl->hasArguments(2)) {
+    if (!bbn\Db::isEngineSupported($ctrl->arguments[0])) {
       $ctrl->obj->error = _("Database engine not supported");
       return;
     }
     $engine = $ctrl->arguments[0];
 
     $host = $ctrl->arguments[1];
-    if ($ctrl->has_arguments(3)) {
+    if ($ctrl->hasArguments(3)) {
       //the db
       $db = $ctrl->arguments[2];
     }
-    if ($ctrl->has_arguments(4)) {
+    if ($ctrl->hasArguments(4)) {
       // the table
       $table = $ctrl->arguments[3];
     }
@@ -57,7 +57,7 @@ else {
     // Hosts list (home)
     if (!$engine) {
       //takes the controller in private tabs/home
-      $ctrl->add_to_obj('./tabs/home', [], true);
+      $ctrl->addToObj('./tabs/home', [], true);
       $url = $root.'home';
     }
     // Host details
@@ -66,12 +66,12 @@ else {
       $combo = true;
       $url = $root.$engine.'/'.$host;
       $title = $host;
-      $ctrl->set_icon(bbn\db::get_engine_icon($engine));
+      $ctrl->setIcon(bbn\Db::getEngineIcon($engine));
     }
   }
   // Lower level containers
-  elseif (\bbn\x::indexOf($ctrl->baseURL, $root) === 0) {
-    $bits = \bbn\x::split(substr($ctrl->baseURL, strlen($root)), '/');
+  elseif (\bbn\X::indexOf($ctrl->baseURL, $root) === 0) {
+    $bits = \bbn\X::split(substr($ctrl->baseURL, Strlen($root)), '/');
     if (end($bits) === '') {
       array_pop($bits);
     }
@@ -83,11 +83,11 @@ else {
           $combo = true;
           $title = $db;
           $url = $root.$engine.'/'.$host.'/'.$db;
-          $ctrl->set_icon('nf nf-fa-database');
+          $ctrl->setIcon('nf nf-fa-database');
         }
         else {
           //host
-          $ctrl->add_to_obj('./tabs/host/'.$engine.'/'.$host, [], true);
+          $ctrl->addToObj('./tabs/host/'.$engine.'/'.$host, [], true);
           $url = $root.$engine.'/'.$host.'/home';
         }
         break;
@@ -95,13 +95,13 @@ else {
       case 3:
         //the tab of selected table
         if (!empty($table) && ($table !== 'home')) {
-          $ctrl->add_to_obj('./tabs/table/'.$engine.'/'.$host.'/'.$db.'/'.$table, [], true);
+          $ctrl->addToObj('./tabs/table/'.$engine.'/'.$host.'/'.$db.'/'.$table, [], true);
           $url = $root.$engine.'/'.$engine.'/'.$host.'/'.$db.'/'.$table;
           $title = $table;
         }
         // The database homepage
         else {
-          $ctrl->add_to_obj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
+          $ctrl->addToObj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
           $url = $root.$engine.'/'.$host.'/'.$db.'/';
         }
         break;
@@ -117,5 +117,5 @@ if ($url) {
     $ctrl->combo($title, true);
   }
 
-  $ctrl->set_url($url);
+  $ctrl->setUrl($url);
 }

@@ -1,6 +1,6 @@
 <?php
-if ($model->has_data(['id', 'dbs'])
-  && ($m = $model->get_model(APPUI_DATABASES_ROOT.'data/sync/diff/dbs', [
+if ($model->hasData(['id', 'dbs'])
+  && ($m = $model->getModel(APPUI_DATABASES_ROOT.'data/sync/diff/dbs', [
     'id' => $model->data['id'],
     'dbs' => $model->data['dbs']
   ]))
@@ -14,10 +14,10 @@ if ($model->has_data(['id', 'dbs'])
         return false;
       }
       $a = array_map(function($t){
-        return \bbn\str::is_json($t) ? json_decode($t, true) : $t;
+        return \bbn\Str::isJson($t) ? json_decode($t, true) : $t;
       }, $a);
       $b = array_map(function($t){
-        return \bbn\str::is_json($t) ? json_decode($t, true) : $t;
+        return \bbn\Str::isJson($t) ? json_decode($t, true) : $t;
       }, $b);
       return $a !== $b;
     })

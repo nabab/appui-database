@@ -10,7 +10,7 @@
           </small>
         </div>
         <div>
-          <bbn-dropdown class="bbn-lg" placeholder="<?=_("Choose a saved list to view it")?>" :source="liste" :cfg="{dataTextField:'text', dataValueField: 'id', }" style="width: 100%" v-model="currentFilter"></bbn-dropdown>
+          <bbn-dropdown class="bbn-lg" placeholder="<?=_("Choose a saved list to view it")?>" :source="liste" :cfg="{dataTextField:'text', DataValueField: 'id', }" style="width: 100%" v-model="currentFilter"></bbn-dropdown>
         </div>
         <div style="width: 200px; vertical-align: middle" class="bbn-r bbn-lg">
           <bbn-button icon="nf nf-fa-calculator" @click="count()" style="background-color: #AC0606; color: #EEE"></bbn-button>

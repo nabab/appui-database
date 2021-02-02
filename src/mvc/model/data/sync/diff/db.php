@@ -1,24 +1,24 @@
 <?php
-/** @var $model \bbn\mvc\model */
-use bbn\appui\dbsync;
-use bbn\x;
-$current = $model->db->get_current();
-if (dbsync::is_init()
-    && $model->has_data(['db', 'id'])
-    && ($sync = dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $model->data['id']]))
+/** @var $model \bbn\Mvc\Model */
+use bbn\Appui\Dbsync;
+use bbn\X;
+$current = $model->db->getCurrent();
+if (dbsync::isInit()
+    && $model->hasData(['db', 'id'])
+    && ($sync = Dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $model->data['id']]))
 ) {
-  $sync->vals = x::json_base64_decode($sync->vals);
-  $sync->rows = x::json_base64_decode($sync->rows);
+  $sync->vals = X::jsonBase64Decode($sync->vals);
+  $sync->rows = X::jsonBase64Decode($sync->rows);
   if (!is_array($model->data['db'])) {
     $model->data['db'] = [$model->data['db']];
   }
   foreach ($model->data['db'] as $db) {
     // Changing to desired DB
     $model->db->change($db);
-    if ($db === $model->db->get_current()) {
-      $primaries = $model->db->get_primary($sync->tab);
+    if ($db === $model->db->getCurrent()) {
+      $primaries = $model->db->getPrimary($sync->tab);
       $all = array_merge($sync->rows, $sync->vals);
-      if (count($primaries) && \bbn\x::has_props($all, $primaries)) {
+      if (count($primaries) && \bbn\X::hasProps($all, $primaries)) {
         $filters = [];
         foreach ($primaries as $prim) {
           $filters[$prim] = $all[$prim];
@@ -40,7 +40,7 @@ if (dbsync::is_init()
     }
   }
 }
-if ($current !== $model->db->get_current()) {
+if ($current !== $model->db->getCurrent()) {
   $model->db->change($current);
 }
 return $model->data['res'];

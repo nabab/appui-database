@@ -4,7 +4,7 @@
  *
  **/
 
-/** @var $this \bbn\mvc\controller */
+/** @var $this \bbn\Mvc\Controller */
 
 //send data to tabs/result
-$ctrl->reroute('databases/tabs/result', $ctrl->get_model($ctrl->post));
+$ctrl->reroute('databases/tabs/result', $ctrl->getModel($ctrl->post));

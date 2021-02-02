@@ -6,6 +6,6 @@
  * Time: 02:48
  */
 
-/** @var \bbn\mvc\controller $ctrl */
+/** @var \bbn\Mvc\Controller $ctrl */
 
-$ctrl->obj = $ctrl->get_object_model();
+$ctrl->obj = $ctrl->getObjectModel();

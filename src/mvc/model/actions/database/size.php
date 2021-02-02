@@ -4,12 +4,12 @@
  *
  **/
 
-/** @var $model \bbn\mvc\model*/
+/** @var $model \bbn\Mvc\Model*/
 $res['success'] = false;
-if ($model->has_data(['host', 'db', 'engine'], true) &&
-    ($host_id = $model->inc->dbc->host_id($model->data['host'], $model->data['engine']))
+if ($model->hasData(['host', 'db', 'engine'], true) &&
+    ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
 ) {
-  $db_id = $model->inc->dbc->db_id($model->data['db'], $host_id);
+  $db_id = $model->inc->dbc->dbId($model->data['db'], $host_id);
   try {
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
@@ -19,7 +19,7 @@ if ($model->has_data(['host', 'db', 'engine'], true) &&
   }
   if ($conn->check()) {
     try {
-      $size = $conn->db_size($model->data['db']);
+      $size = $conn->dbSize($model->data['db']);
     }
     catch (\Exception $e) {
       $res['error'] = $e->getMessage();
@@ -33,7 +33,7 @@ if ($model->has_data(['host', 'db', 'engine'], true) &&
     }
     $res = [
       'success' => true,
-      'size' => $size ? \bbn\str::say_size($size) : 0,
+      'size' => $size ? \bbn\Str::saySize($size) : 0,
       'info' => $info ?? null
     ];
   }

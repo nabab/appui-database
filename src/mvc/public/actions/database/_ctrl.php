@@ -4,9 +4,9 @@
  *
  **/
 
-/** @var $ctrl \bbn\mvc\controller */
-if ($ctrl->has_arguments(3)) {
-  $ctrl->set_data(
+/** @var $ctrl \bbn\Mvc\Controller */
+if ($ctrl->hasArguments(3)) {
+  $ctrl->setData(
     [
       'engine' => $ctrl->arguments[0],
       'host' => $ctrl->arguments[1],
@@ -23,7 +23,7 @@ elseif (isset($ctrl->post['host_id'])) {
     return false;
   }
   if ($conn->check()) {
-    $ctrl->add_inc('conn', $conn);
+    $ctrl->addInc('conn', $conn);
     return true;
   }
 }

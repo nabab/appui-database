@@ -6,15 +6,15 @@
  */
 
 
-/** @var \bbn\mvc\model $model */
+/** @var \bbn\Mvc\Model $model */
 
-if ($model->has_data(['name', 'username', 'password', 'host', 'engine'])
-    && ($id_host = $model->inc->dbc->import_host($model->data['username'].'@'.$model->data['host'],
+if ($model->hasData(['name', 'username', 'password', 'host', 'engine'])
+    && ($id_host = $model->inc->dbc->importHost($model->data['username'].'@'.$model->data['host'],
                                                  $model->data['engine'],
                                                  ['password' => $model->data['password']]
                                                 ))
 ) {
-  $id_user = $model->db->last_id();
+  $id_user = $model->db->lastId();
   $res = [
     'success' => true,
     'data' => [

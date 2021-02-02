@@ -5,31 +5,31 @@
  * Time: 05:25
  */
 
-/** @var \bbn\mvc\model $model */
+/** @var \bbn\Mvc\Model $model */
 
 $res = ['success' => false];
 if ( isset($model->data['host'], $model->data['text']) ){
   $m = $model->data;
-  $t = new \appui\database($model->db);
+  $t = new \Appui\Database($model->db);
   $id = false;
   if ( isset($m['key']) ){
-    $id = $t->key_id($m['key'], $m['table'], $m['database'], $m['host']);
+    $id = $t->keyId($m['key'], $m['table'], $m['database'], $m['host']);
   }
   else if ( isset($m['column']) ){
-    $id = $t->column_id($m['column'], $m['table'], $m['database'], $m['host']);
+    $id = $t->columnId($m['column'], $m['table'], $m['database'], $m['host']);
   }
   else if ( isset($m['table']) ){
-    $id = $t->table_id($m['table'], $m['database'], $m['host']);
+    $id = $t->tableId($m['table'], $m['database'], $m['host']);
   }
   else if ( isset($m['database']) ){
-    $id = $t->db_id($m['database'], $m['host']);
+    $id = $t->dbId($m['database'], $m['host']);
   }
   else {
-    $id = $t->host_id($m['host']);
+    $id = $t->hostId($m['host']);
   }
   if ( $id ){
     $res['args'] = [$id, $model->data['text']];
-    $res['success'] = $model->inc->options->set_text($id, $model->data['text']);
+    $res['success'] = $model->inc->options->setText($id, $model->data['text']);
   }
 }
 return $res;

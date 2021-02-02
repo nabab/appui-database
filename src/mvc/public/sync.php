@@ -2,10 +2,10 @@
 /*
  * Describe what it does!
  *
- * @var $ctrl \bbn\mvc\controller
+ * @var $ctrl \bbn\Mvc\Controller
  *
  */
 $ctrl
-  ->set_icon('nf nf-fa-nf nf-fa-exchange')
-  ->set_url(APPUI_DATABASES_ROOT . 'sync')
+  ->setIcon('nf nf-fa-nf nf-fa-exchange')
+  ->setUrl(APPUI_DATABASES_ROOT . 'sync')
   ->combo(_("Synchronization"), true);

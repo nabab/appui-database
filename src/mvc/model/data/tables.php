@@ -2,14 +2,14 @@
 $res = [
   'data' => []
 ];
-if ($model->has_data(['host', 'db', 'engine'], true)) {
+if ($model->hasData(['host', 'db', 'engine'], true)) {
   $tables = [];
-  if ( ($host_id = $model->inc->dbc->host_id($model->data['host'], $model->data['engine'])) &&
-    ($db_id = $model->inc->dbc->db_id($model->data['db'], $host_id))
+  if ( ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine'])) &&
+    ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id))
   ){
-    $tables = $model->inc->dbc->full_tables($db_id);
+    $tables = $model->inc->dbc->fullTables($db_id);
     foreach ( $tables as $t ){
-      $res['data'][] = \bbn\x::merge_arrays($t, [
+      $res['data'][] = \bbn\X::mergeArrays($t, [
         'is_real' => false,
         'is_virtual' => true
       ]);
@@ -21,12 +21,12 @@ if ($model->has_data(['host', 'db', 'engine'], true)) {
   catch (\Exception $e) {
   }
   if ($dbconn
-      && ($real_tables = $dbconn->get_tables($model->data['db']))
+      && ($real_tables = $dbconn->getTables($model->data['db']))
   ){
     foreach ( $real_tables as $i => $t ){
-      $idx = \bbn\x::find($res['data'], ["name" => $t]);
-      $num_rcolumns = \count($dbconn->get_columns($dbconn->tfn($t, $model->data['db'])));
-      $keys = $dbconn->get_keys($dbconn->tfn($t, $model->data['db']));
+      $idx = \bbn\X::find($res['data'], ["name" => $t]);
+      $num_rcolumns = \count($dbconn->getColumns($dbconn->tfn($t, $model->data['db'])));
+      $keys = $dbconn->getKeys($dbconn->tfn($t, $model->data['db']));
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;
       if ( $idx !== null ){
         $res['data'][$idx]['num_real_columns'] = $num_rcolumns;

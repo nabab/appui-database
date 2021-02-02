@@ -1,6 +1,6 @@
 <?php
-use bbn\appui\dbsync;
-if (dbsync::is_init() && $model->has_data('id')) {
+use bbn\Appui\Dbsync;
+if (dbsync::isInit() && $model->hasData('id')) {
   if (!is_array($model->data['id'])) {
     $model->data['id'] = [$model->data['id']];
   }

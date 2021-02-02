@@ -3,11 +3,11 @@
  * Describe what it does!
  *
  **/
-use bbn\str;
+use bbn\Str;
 
-/** @var $model \bbn\mvc\model*/
-if ($model->has_data(['host_id', 'name'], true)) {
-  if (!str::check_name($model->data['name'])) {
+/** @var $model \bbn\Mvc\Model*/
+if ($model->hasData(['host_id', 'name'], true)) {
+  if (!str::checkName($model->data['name'])) {
     $model->data['res']['error'] = _("This name is not authorized");
   }
   else {
@@ -19,7 +19,7 @@ if ($model->has_data(['host_id', 'name'], true)) {
     }
 
     if ($conn->check()) {
-      $model->data['res']['return'] = $conn->create_database($model->data['name']);
+      $model->data['res']['return'] = $conn->createDatabase($model->data['name']);
       $model->data['res']['success'] = !!$model->data['res']['return'];
       $model->data['res']['is_same'] = $conn === $model->db;
     }

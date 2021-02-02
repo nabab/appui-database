@@ -1,5 +1,5 @@
 <?php
-$path = $model->data_path('appui-database') . 'sync/conflicts/';
+$path = $model->dataPath('appui-database') . 'sync/conflicts/';
 return [[
   'id' => 'appui-database-0',
   'frequency' => 60,
@@ -9,7 +9,7 @@ return [[
       'data' => []
     ];
     $res_files = [];
-    if ($files = \bbn\file\dir::get_files($path)) {
+    if ($files = \bbn\File\Dir::getFiles($path)) {
       foreach ($files as $file){
         preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.j{1}s{1}o{1}n{1}$/', basename($file), $f);
         if (!empty($f) && !empty($f[1]) && !empty($f[2])) {

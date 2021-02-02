@@ -14,7 +14,7 @@
     <bbn-table :source="root + 'data/sync/errors'"
               :pageable="true"
               :sortable="true"
-              :order="[{field: 'dt', dir: 'DESC'}]"
+              :order="[{field: 'dt', Dir: 'DESC'}]"
               :filterable="true"
               :expander="$options.component.expander"
               ref="table"

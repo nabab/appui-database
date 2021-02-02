@@ -4,7 +4,7 @@
  *
  **/
 
-/** @var $this \bbn\mvc\controller */
+/** @var $this \bbn\Mvc\Controller */
 $ctrl->obj->url = 'result/'.time();
 
 $ctrl->data = $ctrl->post;

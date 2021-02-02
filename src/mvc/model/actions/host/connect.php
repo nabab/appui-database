@@ -4,11 +4,11 @@
  *
  **/
 
-/** @var $model \bbn\mvc\model */
-if ($model->has_data(['engine', 'host', 'username', 'name', 'password'], true)) {
+/** @var $model \bbn\Mvc\Model */
+if ($model->hasData(['engine', 'host', 'username', 'name', 'password'], true)) {
   $model->data['res'];
   try {
-    $db = new \bbn\db([
+    $db = new \bbn\Db([
       'engine' => $model->data['engine'],
       'host' => $model->data['host'],
       'user' => $model->data['username'],

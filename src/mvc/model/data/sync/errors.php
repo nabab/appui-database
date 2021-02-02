@@ -1,22 +1,22 @@
 <?php
-use \bbn\appui\dbsync;
-use \bbn\x;
-if (dbsync::is_init()
+use \bbn\Appui\Dbsync;
+use \bbn\X;
+if (dbsync::isInit()
   && ($dbs = array_map(function($a){
     return $a['code'];
-  }, $model->inc->options->full_options('sync', 'database', 'appui')))
+  }, $model->inc->options->fullOptions('sync', 'database', 'appui')))
 ) {
   if (!empty($model->data['filters'])
     && !empty($model->data['filters']['conditions'])
-    && (($idx = x::find($model->data['filters']['conditions'], ['field' => 'diff'])) !== null)
+    && (($idx = X::find($model->data['filters']['conditions'], ['field' => 'diff'])) !== null)
   ) {
     $diff_cond = $model->data['filters']['conditions'][$idx]['value'];
     $limit = $model->data['limit'];
     $model->data['limit'] = 0;
     unset($model->data['filters']['conditions'][$idx]);
   }
-  $grid = new \bbn\appui\grid(dbsync::$dbs, $model->data, [
-    'table'=> dbsync::$dbs_table,
+  $grid = new \bbn\Appui\Grid(dbsync::$dbs, $model->data, [
+    'table'=> Dbsync::$dbs_table,
     'fields' => [],
     'filters' => [
       'conditions' => [[
@@ -26,11 +26,11 @@ if (dbsync::is_init()
     ]
   ]);
   if ($grid->check()) {
-    $data = $grid->get_datatable();
+    $data = $grid->getDatatable();
     foreach ($data['data'] as $i => $d) {
-      $data['data'][$i]['rows'] = x::json_base64_decode($d['rows']);
-      $data['data'][$i]['vals'] = x::json_base64_decode($d['vals']);
-      if (($m = $model->get_model(APPUI_DATABASES_ROOT.'data/sync/diff/is_different', [
+      $data['data'][$i]['rows'] = X::jsonBase64Decode($d['rows']);
+      $data['data'][$i]['vals'] = X::jsonBase64Decode($d['vals']);
+      if (($m = $model->getModel(APPUI_DATABASES_ROOT.'data/sync/diff/is_different', [
           'id' => $d['id'],
           'dbs' => $dbs
         ]))

@@ -4,7 +4,7 @@
  *
  **/
 
-/** @var $model \bbn\mvc\model*/
+/** @var $model \bbn\Mvc\Model*/
 if ($model->inc->conn->check()) {
 	if (is_string($model->data['db'])) {
 		$model->data['db'] = [$model->data['db']];
@@ -14,7 +14,7 @@ if ($model->inc->conn->check()) {
     $d = [];
     foreach ($model->data['db'] as $db) {
       if ($model->inc->conn->change($db)) {
-        $tables = $model->inc->conn->get_tables();
+        $tables = $model->inc->conn->getTables();
         $num_real_tables = \count($tables);
         $d[] = [
           'id' => null,

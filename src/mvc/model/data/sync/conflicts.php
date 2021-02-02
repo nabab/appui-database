@@ -1,13 +1,13 @@
 <?php
-use   bbn\file\dir;
+use   bbn\File\Dir;
 $res = [
   'success' => false,
   'data' => [],
   'total' => 0
 ];
-if ($model->has_data(['start', 'limit'])
+if ($model->hasData(['start', 'limit'])
   && !empty($model->data['data']['file'])
-  && ($path = $model->data_path('appui-database') . 'sync/conflicts/')
+  && ($path = $model->dataPath('appui-database') . 'sync/conflicts/')
   && is_file($path.$model->data['data']['file'])
 ) {
   $data = json_decode(file_get_contents($path.$model->data['data']['file']), true);

@@ -1,10 +1,10 @@
 <?php
-/** @var $model \bbn\mvc\model */
-use bbn\appui\dbsync;
-use bbn\x;
-if (dbsync::is_init()
-    && $model->has_data(['dbs', 'id'])
-    && ($sync = dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $model->data['id']]))
+/** @var $model \bbn\Mvc\Model */
+use bbn\Appui\Dbsync;
+use bbn\X;
+if (dbsync::isInit()
+    && $model->hasData(['dbs', 'id'])
+    && ($sync = Dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $model->data['id']]))
 ) {
   if (!is_array($model->data['dbs'])) {
     $model->data['dbs'] = [$model->data['dbs']];
@@ -12,7 +12,7 @@ if (dbsync::is_init()
   if ($dbs = array_values(array_filter($model->data['dbs'], function($d) use($sync){
     return $d !== $sync->db;
   }))) {
-    if (($m = $model->get_model(APPUI_DATABASES_ROOT.'data/sync/diff/db', [
+    if (($m = $model->getModel(APPUI_DATABASES_ROOT.'data/sync/diff/db', [
         'db' => $sync->db,
         'id' => $model->data['id']
       ]))
@@ -21,7 +21,7 @@ if (dbsync::is_init()
     ) {
       $model->data['res']['from'] = $m['data'][0];
     }
-    if (($m = $model->get_model(APPUI_DATABASES_ROOT.'data/sync/diff/db', [
+    if (($m = $model->getModel(APPUI_DATABASES_ROOT.'data/sync/diff/db', [
         'db' => $dbs,
         'id' => $model->data['id']
       ]))

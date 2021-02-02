@@ -1,7 +1,7 @@
 <?php
-/** @var \bbn\mvc\model $model */
-$dashboard = new \bbn\appui\dashboard($model->plugin_name());
+/** @var \bbn\Mvc\Model $model */
+$dashboard = new \bbn\Appui\Dashboard($model->pluginName());
 return [
-  'dashboard' => $dashboard->get_widgets_code($model->plugin_url().'/widgets/'),
+  'dashboard' => $dashboard->getWidgetsCode($model->pluginUrl().'/widgets/'),
   'current_db' => BBN_DATABASE
 ];

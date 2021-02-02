@@ -1,8 +1,8 @@
 <?php
-/** @var $model \bbn\mvc\model*/
-use \bbn\appui\dbsync;
+/** @var $model \bbn\Mvc\Model*/
+use \bbn\Appui\Dbsync;
 $res_files = [];
-$files = \bbn\file\dir::get_files($model->data_path('appui-database') . 'sync/conflicts/');
+$files = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');
 foreach ($files as $file){
   preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.j{1}s{1}o{1}n{1}$/', basename($file), $f);
   if (!empty($f) && !empty($f[1]) && !empty($f[2])) {
@@ -17,15 +17,15 @@ foreach ($files as $file){
 return [
   'dbs' => array_map(function($a){
     return $a['code'];
-  }, $model->inc->options->full_options('sync', 'database', 'appui')),
+  }, $model->inc->options->fullOptions('sync', 'database', 'appui')),
   'tables' => array_map(function($t) use($model){
-    $t = substr($t, strpos($t, '.') + 1);
+    $t = substr($t, Strpos($t, '.') + 1);
     return [
       'text' => $t,
       'value' => $t,
-      'columns' => array_keys($model->db->get_columns($t))
+      'columns' => array_keys($model->db->getColumns($t))
     ];
-  }, dbsync::$tables),
+  }, Dbsync::$tables),
   'files' => $res_files,
   'filesHash' => md5(json_encode($res_files)),
   'database' => BBN_DATABASE

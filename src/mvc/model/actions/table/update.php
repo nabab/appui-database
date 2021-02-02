@@ -5,7 +5,7 @@
  * Time: 05:25
  */
 
-/** @var \bbn\mvc\model $model */
+/** @var \bbn\Mvc\Model $model */
 
 $res = ['success' => false];
 if ( isset($model->data['table'], $model->data['mapper']) ){
@@ -15,11 +15,11 @@ else if ( !empty($model->data['host']) &&
   !empty($model->data['db']) &&
   !empty($model->data['table'])
 ){
-  if (!($id_db = $model->inc->dbc->db_id($model->data['db']))) {
-    $id_db = $model->inc->dbc->import_db($model->data['db'], $model->data['host']);
+  if (!($id_db = $model->inc->dbc->dbId($model->data['db']))) {
+    $id_db = $model->inc->dbc->importDb($model->data['db'], $model->data['host']);
   }
   if ($id_db) {
-    $res['success'] = $model->inc->dbc->import_table($model->data['table'], $id_db);
+    $res['success'] = $model->inc->dbc->importTable($model->data['table'], $id_db);
   }
 }
 return $res;

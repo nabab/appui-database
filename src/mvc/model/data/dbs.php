@@ -3,22 +3,22 @@
  * Describe what it does or you're a pussy
  *
  **/
-use bbn\x;
+use bbn\X;
 
-/** @var $model \bbn\mvc\model */
+/** @var $model \bbn\Mvc\Model */
 
 $res = [
   'data' => []
 ];
 
-if ($model->has_data('host_id', true)) {
+if ($model->hasData('host_id', true)) {
   try {
     $conn = $model->inc->dbc->connection($model->data['host_id']);
   }
   catch (\Exception $e) {
     return ['error' => $e->getMessage()];
   }
-  $real_dbs = $conn->get_databases();
+  $real_dbs = $conn->getDatabases();
   $db_excluded = [
     'sys',
     'test',
@@ -27,7 +27,7 @@ if ($model->has_data('host_id', true)) {
     'mysql',
     '#mysql50#lost+found'
   ];
-  $full_dbs = $model->inc->dbc->full_dbs($model->data['host_id']);
+  $full_dbs = $model->inc->dbc->fullDbs($model->data['host_id']);
   $res['data'] = array_map(
     function ($a) use (&$real_dbs) {
       $idx = array_search($a['name'], $real_dbs);
@@ -65,7 +65,7 @@ if ($model->has_data('host_id', true)) {
   foreach ($res['data'] as $i => $r) {
     $res['data'][$i] = array_merge($default, $r);
   }
-  x::sort_by($res['data'], 'name');
+  X::sortBy($res['data'], 'name');
 }
 $res['total'] = \count($res['data']);
 //$res['data'] = \array_slice($res['data'], $model->data['start'], $model->data['limit']);

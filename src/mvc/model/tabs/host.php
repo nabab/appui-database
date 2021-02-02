@@ -1,14 +1,14 @@
 <?php
-/** @var $model \bbn\mvc\model */
-if ( $host_id = $model->inc->dbc->host_id($model->data['host']) ){
+/** @var $model \bbn\Mvc\Model */
+if ( $host_id = $model->inc->dbc->hostId($model->data['host']) ){
   $o = $model->inc->options->option($host_id);
   $tmp = gethostbyname($o['text']);
   $id = '';
-  if (\bbn\str::is_ip($tmp)) {
+  if (\bbn\Str::isIp($tmp)) {
     $id = $tmp;
   }
 
-  $dbs = $model->inc->dbc->full_dbs($host_id);
+  $dbs = $model->inc->dbc->fullDbs($host_id);
 
   try {
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine']);
@@ -17,7 +17,7 @@ if ( $host_id = $model->inc->dbc->host_id($model->data['host']) ){
     return ['error' => $e->getMessage()];
   }
   if (empty($o['databases'])) {
-    $dbs = $model->get_model($model->plugin_url('appui-database').'/data/dbs', [
+    $dbs = $model->getModel($model->pluginUrl('appui-database').'/data/dbs', [
       'host_id' => $host_id
     ]);
   }

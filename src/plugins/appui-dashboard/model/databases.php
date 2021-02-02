@@ -1,10 +1,10 @@
 <?php
-/** @var \bbn\mvc\model $model */
+/** @var \bbn\Mvc\Model $model */
 
 $model->data['limit'] = isset($model->data['limit']) && is_int($model->data['limit']) ? $model->data['limit'] : 5;
 $model->data['start'] = isset($model->data['start']) && is_int($model->data['start']) ? $model->data['start'] : 0;
-$dbc                  = $model->inc->dbc ?? new \bbn\appui\database($model->db);
-$hosts                = $dbc->full_hosts();
+$dbc                  = $model->inc->dbc ?? new \bbn\Appui\Database($model->db);
+$hosts                = $dbc->fullHosts();
 $res                  = [
   'total' => count($hosts),
   'data' => []

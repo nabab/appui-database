@@ -1,7 +1,7 @@
 <?php
-/** @var $ctrl \bbn\mvc\controller */
+/** @var $ctrl \bbn\Mvc\Controller */
 if ( !\defined('APPUI_DATABASES_ROOT') ){
-  define('APPUI_DATABASES_ROOT', $ctrl->plugin_url('appui-database').'/');
+  define('APPUI_DATABASES_ROOT', $ctrl->pluginUrl('appui-database').'/');
 }
 $ctrl->data['root'] = APPUI_DATABASES_ROOT;
-$ctrl->add_inc("dbc", new \bbn\appui\database($ctrl->db));
+$ctrl->addInc("dbc", new \bbn\Appui\Database($ctrl->db));

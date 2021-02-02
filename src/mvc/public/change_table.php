@@ -5,6 +5,6 @@
  * Time: 13:40
  */
  
-/** @var \bbn\mvc\controller $ctrl The controller */
+/** @var \bbn\Mvc\Controller $ctrl The controller */
 
-$ctrl->obj = $ctrl->get_object_model($ctrl->post);
+$ctrl->obj = $ctrl->getObjectModel($ctrl->post);

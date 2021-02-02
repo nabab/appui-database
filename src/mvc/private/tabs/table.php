@@ -5,10 +5,10 @@
  * Time: 20:49
  */
  
-/** @var \bbn\mvc\controller $ctrl The current controller */
+/** @var \bbn\Mvc\Controller $ctrl The current controller */
 
-if ($ctrl->has_arguments(4)) {
-  $ctrl->set_data(
+if ($ctrl->hasArguments(4)) {
+  $ctrl->setData(
     [
       'engine' => $ctrl->arguments[0],
       'host' => $ctrl->arguments[1],
@@ -16,7 +16,7 @@ if ($ctrl->has_arguments(4)) {
       'table' => $ctrl->arguments[3]
     ]
   )
-    //->set_url($ctrl->get_path().'/'.$ctrl->data['host'].'/'.$ctrl->data['db'].'/'.$ctrl->data['table'])
-    ->set_icon('nf nf-fa-table')
+    //->setUrl($ctrl->getPath().'/'.$ctrl->data['host'].'/'.$ctrl->data['db'].'/'.$ctrl->data['table'])
+    ->setIcon('nf nf-fa-table')
     ->combo($ctrl->data['table'], true);
 }

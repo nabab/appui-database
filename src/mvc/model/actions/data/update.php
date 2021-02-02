@@ -4,7 +4,7 @@ if ( ($host = $model->data['host']) && ($db = $model->data['db']) && ($table = $
   $success =false;  
   $tmp = [];
   //instantiate the class appui/databases to $model->db
-  $t = new \appui\database($model->db);
+  $t = new \Appui\Database($model->db);
   //connect using the class database to the given host and given db
   $db_alt = $t->connection($host, $db);
 
@@ -31,7 +31,7 @@ if ( ($host = $model->data['host']) && ($db = $model->data['db']) && ($table = $
       $tmp = array_merge($old, $new); 
       if ( !empty($success) ){
         //if success clears the cache of the db
-        $db_alt->clear_all_cache();
+        $db_alt->clearAllCache();
       }
     }
   }
