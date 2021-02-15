@@ -71,7 +71,7 @@ else {
   }
   // Lower level containers
   elseif (\bbn\X::indexOf($ctrl->baseURL, $root) === 0) {
-    $bits = \bbn\X::split(substr($ctrl->baseURL, Strlen($root)), '/');
+    $bits = \bbn\X::split(substr($ctrl->baseURL, strlen($root)), '/');
     if (end($bits) === '') {
       array_pop($bits);
     }

@@ -1,0 +1,817 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: info@bbn.so\n"
+"last-Translator: BBN Solutions <support@bbn.solutions>\n"
+"Language-Team: DE <DE@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-02-15 01:09+0100\n"
+"POT-Revision-Date: 2021-02-15 01:09+0100\n"
+"Language: de\n"
+"X-Domain: appui-database\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "Exists in the host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "Doesn't exist in the host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "Exists as options"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "Doesn't exist as options"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "Info date"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/cell/cell.php
+msgid "The info has never been built"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/form/form.php
+msgid "Database name"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "Table successfully removed"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "Something went wrong while removing the table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "Refresh table's structure"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "Delete virtual table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "The table is not real"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+msgid "Are you sure you want to refresh this table?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
+msgid "Change orientation"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+msgid "Size"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
+msgid "Tables"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
+msgid "Number of columns stored according to the database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
+msgid "Virtuals"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
+msgid "Number of columns present in the database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
+msgid "Reals"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/filter/form/form.js
+msgid "Choose a value"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
+msgid "Are you sure you want to leave this form without saving your changes?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
+msgid "Name"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
+msgid "Administrator"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
+msgid "Username"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
+msgid "Password"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Create database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Refresh host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "With selected"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Choose an action on multiple databases"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Drop"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Analyze"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "New database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Are you sure you want to drop the database %s ?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Are you sure you want to drop these databases?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "This action is irreversible"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Choose an action"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Update structure in options"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Store structure as options"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
+msgid "Duplicate"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Engine"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.php
+msgid "Ip"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.php
+msgid "Action"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/conflicts/conflicts.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+msgid "Records"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Delete"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/conflicts/conflicts.php
+msgid "SELECT A TABLE"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
+msgid "DATABASE"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
+msgid "The record isn't present"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
+msgid "Field"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "See source"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "See destinations"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "See differences dbs"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.php
+msgid "Fix"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "This record doesn't exist anymore in the database(s)"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "This record doesn't exist anymore in the databases"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Are you sure you want to delete this record from sync?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Are you sure you want to delete the selected records from sync?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Select the data source"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Rows"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Values"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Source"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Are you sure you want to fix the selected records?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
+msgid "Are you sure you want to fix this record?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
+msgid "Refresh whole structure in database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
+msgid "View tables"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Columns"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
+msgid "Keys"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+msgid "Data"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+msgid "Externals links"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+msgid "History"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
+msgid "Position in the table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
+msgid "Are there keys on the column?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Type"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
+msgid "Length"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
+msgid "Can the field be null?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
+msgid "Default"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Unique"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
+msgid "Copy uid"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
+msgid "See referenced row"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.php
+msgid "Actions"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
+msgid "Edit data"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
+msgid "Data successfully updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/externals/externals.php
+msgid "Column"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/externals/externals.php
+msgid "Link in table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.php
+msgid "Constraint"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.js
+msgid "ON UPDATE"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.js
+msgid "ON DELETE"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
+msgid "Users"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/public/tabs.php
+msgid "Databases"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
+msgid "Procedures"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
+msgid "Function"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
+msgid "Saved queries"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
+msgid "Choose a saved list to view it"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
+msgid "See the following fields"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
+msgid "Choose the fields you want to appear"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/sync.php
+msgid "Errors"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/sync.php
+msgid "Conflicts"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tabs.php
+msgid "List"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Filter tree"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Give a user friendly title for your end users"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Select an element from the databases tree"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Informations"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Number of tables"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Total size"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Operations"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "New table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Create a new table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Search"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"Search anything anywhere... This is quite a broad search, maybe you need to be "
+"more specific and use a table instead"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Checks the health of each table looking for errors in the records"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Import"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Import from a file"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/private/tabs/export.php
+msgid "Export"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Export the database to a file"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Migrate"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Copy your database on the same or another server"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Deletes definitively the database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "bbn-ui"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Update"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"You need to do this if the tables' structure has been changed outside of the "
+"application, in order to update the structure of your tables in the current "
+"database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Add"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"Import your database's structure in the application if you want to use it inside "
+"it"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Remove"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"Delete all information stored about this database. it will not affect the "
+"database itself but all the objets and views you have created in this app."
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Information"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Collation"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Auto increment"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Number of columns"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Number of rows"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Data size"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Index size"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Creation date"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "New column"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Create a new column"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "New key"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Create a new key for this column"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Perform a search with any criteria"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Checks the table's health and looks for errors in the records"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Import Data"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Import from a file, JSON data, CSV or more"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Export the table to a file of many format"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Copy your table on the same database or another server"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Deletes definitively the table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"You need to do this if this table' structure has been changed outside of the "
+"application, in order to update the structure of your table in the current "
+"database"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Import your table's structure in the application if you want to use it inside it"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"Delete all information stored about this table. it will not affect the database "
+"itself but all the objets and views you have created in this app."
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Position"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "signed"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Nullable"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Yes"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "No"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Max. Length"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Default value"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Number of different values"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Count"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "The table is empty"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid ""
+"Show each value of this column ordered by rows' length. You can then apply a "
+"filter"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Export the column to SQL format"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Copy"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Copy the column to another table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Deletes definitively the column"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Default display"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Default editor"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
+msgid "Relation"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "tables updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "table updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "No table updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "columns updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "column updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "No column updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "keys updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "key updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "No key updated"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid ""
+"All the objects associated with this database will be also deleted. None of the "
+"data will be affected. Are you sure you widh to proceed?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "Database successfully removed from internal data"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid ""
+"All the objects associated with this table will be also deleted. None of the "
+"data will be affected. Are you sure you widh to proceed?"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
+msgid "Table successfully removed from internal data"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/home.js
+msgid "Add a new MySQL host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/home.js
+msgid "New Host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/home.js
+msgid "Edit Host"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/host.js
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/table.js
+msgid "View"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/actions/database/create.php
+msgid "This name is not authorized"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/actions/database/drop.php
+msgid "Impossible to delete the following databases"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/data/data.php
+msgid "Impossible to connect to db"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/data/data.php
+msgid "Impossible to make a grid with table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/data/data.php
+msgid "Impossible to get the data from table"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/private/tabs/home.php
+msgid "Home"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/public/sync.php
+msgid "Synchronization"
+msgstr ""
+
+#: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/public/tabs.php
+msgid "Database engine not supported"
+msgstr ""

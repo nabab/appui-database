@@ -23,7 +23,7 @@ class databases extends bbn\Models\Cls\Cache
     $this->o = bbn\Appui\Option::getInstance();
   }
 
-  public function connection(string $host, String $db){
+  public function connection(string $host, string $db){
     $id_host = !bbn\Str::isUid($host) ? $this->hostId($host) : $host;
     $db_user = [
       'code' => BBN_DB_USER,
@@ -147,7 +147,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param mixed $host
    * @return false|int
    */
-  public function db_id(string $db = '', String $host = ''){
+  public function db_id(string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($host) ){
       $host = $this->hostId($host ?: $this->db->host);
     }
@@ -227,7 +227,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return false|int
    */
-  public function table_id(string $table, String $db = '', String $host = ''){
+  public function table_id(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($db) ){
       $db = $this->dbId($db, $host);
     }
@@ -236,7 +236,7 @@ class databases extends bbn\Models\Cls\Cache
     }
   }
 
-  public function count_tables(string $db, String $host = ''){
+  public function count_tables(string $db, string $host = ''){
     if ( !\bbn\Str::isUid($db) ){
       $db = $this->dbId($db, $host);
     }
@@ -250,7 +250,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return array|false
    */
-  public function tables(string $db = '', String $host = ''){
+  public function tables(string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($db) ){
       $db = $this->dbId($db ?: $this->db->getCurrent(), $host ?: $this->db->host);
     }
@@ -421,14 +421,14 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return false|int
    */
-  public function column_id(string $column, String $table, String $db = '', String $host = ''){
+  public function column_id(string $column, string $table, string $db = '', string $host = ''){
     if ( \bbn\Str::isUid($table) ){
       return $this->o->fromCode($this->db->csn($column), 'columns', $table);
     }
     return self::getOptionId($this->db->csn($column), 'columns', $this->db->tsn($table), 'tables', $db ?: $this->db->getCurrent(), 'dbs', $host ?: $this->db->host, 'hosts');
   }
 
-  public function count_columns(string $table, String $db = '', String $host = ''){
+  public function count_columns(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($table) ){
       $table = $this->tableId($table, $db, $host);
     }
@@ -446,7 +446,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return array|false
    */
-  public function columns(string $table, String $db = '', String $host = ''){
+  public function columns(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($table) ){
       $table = $this->tableId($this->db->tsn($table), $db, $host);
     }
@@ -462,7 +462,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return array|false
    */
-  public function full_columns(string $table, String $db = '', String $host = ''){
+  public function full_columns(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($table) ){
       $table = $this->tableId($table, $db, $host);
     }
@@ -479,14 +479,14 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return false|int
    */
-  public function key_id(string $key, String $table, String $db = '', String $host = ''){
+  public function key_id(string $key, string $table, string $db = '', string $host = ''){
     if ( \bbn\Str::isUid($key) ){
       return $this->o->fromCode($key, $table);
     }
     return self::getOptionId($key, 'keys', $table, 'tables', $db ?: $this->db->getCurrent(), 'dbs', $host ?: $this->db->host, 'hosts');
   }
 
-  public function count_keys(string $table, String $db = '', String $host = ''){
+  public function count_keys(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($table) ){
       $table = $this->tableId($table, $db, $host);
     }
@@ -501,7 +501,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return array|bool|false
    */
-  public function keys(string $table, String $db = '', String $host = ''){
+  public function keys(string $table, string $db = '', string $host = ''){
     if ( !\bbn\Str::isUid($table) ){
       $table = $this->tableId($table, $db, $host);
     }
@@ -540,7 +540,7 @@ class databases extends bbn\Models\Cls\Cache
    * @param string $host
    * @return array|bool|false
    */
-  public function full_keys(string $table, String $db = '', String $host = ''){
+  public function full_keys(string $table, string $db = '', string $host = ''){
     return $this->keys($table, $db, $host);
   }
 
@@ -587,7 +587,7 @@ class databases extends bbn\Models\Cls\Cache
     return $id_host;
   }
 
-  public function import_db(string $db, String $id_host, $full = false){
+  public function import_db(string $db, string $id_host, $full = false){
     if ( $id_dbs = $this->o->fromCode('dbs', $id_host) ){
       if (
         !($id_db = $this->o->fromCode($db, $id_dbs)) &&
@@ -656,7 +656,7 @@ class databases extends bbn\Models\Cls\Cache
     return false;
   }
 
-  public function import_table(string $table, String $id_db){
+  public function import_table(string $table, string $id_db){
     if ( $id_tables = $this->o->fromCode('tables', $id_db) ){
       if (
         !($id_table = $this->o->fromCode($table, $id_tables)) &&
@@ -845,12 +845,12 @@ class databases extends bbn\Models\Cls\Cache
     return $res;
   }
 
-  public function remove(string $table, String $db = '', String $host = ''){
+  public function remove(string $table, string $db = '', string $host = ''){
     $id = $this->tableId($table, $db, $host);
     return $this->o->removeFull($id);
   }
 
-  public function remove_all(string $db = '', String $host = ''){
+  public function remove_all(string $db = '', string $host = ''){
     $id = $this->dbId($db, $host);
     return $this->o->removeFull($id);
   }
@@ -860,7 +860,7 @@ class databases extends bbn\Models\Cls\Cache
     return $this->o->removeFull($id);
   }
 
-  public function modelize(string $table = '', String $db = '', String $host = ''){
+  public function modelize(string $table = '', string $db = '', string $host = ''){
     if ( ($mod = $this->db->modelize($table)) && \is_array($mod) ){
       $keys = function(&$a) use(&$table, &$db, &$host){
         if ( \is_array($a['keys']) ){
