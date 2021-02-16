@@ -1,5 +1,5 @@
 {
-    "components\/db\/page\/page": {
+    "components\/db\/page": {
         "Table successfully removed": "Table successfully removed",
         "Something went wrong while removing the table": "Something went wrong while removing the table",
         "Refresh table's structure": "Refresh table's structure",
@@ -8,13 +8,14 @@
         "Are you sure you want to refresh this table?": "Are you sure you want to refresh this table?",
         "Change orientation": "Change orientation"
     },
-    "components\/host\/page\/page": {
+    "components\/host\/page": {
         "Change orientation": "Change orientation",
         "Create database": "Create database",
         "Refresh host": "Refresh host",
         "With selected": "With selected",
         "Choose an action on multiple databases": "Choose an action on multiple databases",
         "Drop": "Drop",
+        "Analyze": "Analyze",
         "New database": "New database",
         "Are you sure you want to drop the database %s ?": "Are you sure you want to drop the database %s ?",
         "Are you sure you want to drop these databases?": "Are you sure you want to drop these databases?",
@@ -24,19 +25,26 @@
         "Store structure as options": "Store structure as options",
         "Duplicate": "Duplicate"
     },
-    "components\/table\/main\/main": {
+    "components\/table\/main": {
         "Change orientation": "Change orientation",
         "Refresh whole structure in database": "Refresh whole structure in database",
         "View tables": "View tables"
     },
-    "components\/filter\/form\/form": {
+    "components\/filter\/form": {
         "Choose a value": "Choose a value"
     },
-    "components\/sync\/conflicts\/conflicts": {
+    "components\/table\/main\/keys": {
+        "Database": "Database",
+        "Constraint": "Constraint",
+        "ON UPDATE": "ON UPDATE",
+        "ON DELETE": "ON DELETE"
+    },
+    "components\/sync\/conflicts": {
         "Records": "Records"
     },
-    "components\/sync\/errors\/errors": {
+    "components\/sync\/errors": {
         "Records": "Records",
+        "Delete": "Delete",
         "See source": "See source",
         "See destinations": "See destinations",
         "See differences dbs": "See differences dbs",
@@ -47,21 +55,17 @@
         "Are you sure you want to delete the selected records from sync?": "Are you sure you want to delete the selected records from sync?",
         "Select the data source": "Select the data source",
         "Rows": "Rows",
+        "Values": "Values",
         "Source": "Source",
         "Are you sure you want to fix the selected records?": "Are you sure you want to fix the selected records?",
         "Are you sure you want to fix this record?": "Are you sure you want to fix this record?"
     },
-    "components\/table\/main\/data\/data": {
+    "components\/table\/main\/data": {
         "Copy uid": "Copy uid",
         "See referenced row": "See referenced row",
         "Actions": "Actions",
         "Edit data": "Edit data",
         "Data successfully updated": "Data successfully updated"
-    },
-    "components\/table\/main\/keys\/keys": {
-        "Constraint": "Constraint",
-        "ON UPDATE": "ON UPDATE",
-        "ON DELETE": "ON DELETE"
     },
     "mvc\/tree_db": {
         "tables updated": "tables updated",

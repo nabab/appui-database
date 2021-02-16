@@ -1,5 +1,5 @@
 {
-    "components\/db\/page\/page": {
+    "components\/db\/page": {
         "Table successfully removed": "",
         "Something went wrong while removing the table": "",
         "Refresh table's structure": "",
@@ -8,13 +8,14 @@
         "Are you sure you want to refresh this table?": "",
         "Change orientation": ""
     },
-    "components\/host\/page\/page": {
+    "components\/host\/page": {
         "Change orientation": "",
         "Create database": "",
         "Refresh host": "",
         "With selected": "",
         "Choose an action on multiple databases": "",
         "Drop": "",
+        "Analyze": "",
         "New database": "",
         "Are you sure you want to drop the database %s ?": "",
         "Are you sure you want to drop these databases?": "",
@@ -24,19 +25,26 @@
         "Store structure as options": "",
         "Duplicate": ""
     },
-    "components\/table\/main\/main": {
+    "components\/table\/main": {
         "Change orientation": "",
         "Refresh whole structure in database": "",
         "View tables": ""
     },
-    "components\/filter\/form\/form": {
+    "components\/filter\/form": {
         "Choose a value": ""
     },
-    "components\/sync\/conflicts\/conflicts": {
+    "components\/table\/main\/keys": {
+        "Database": "",
+        "Constraint": "",
+        "ON UPDATE": "",
+        "ON DELETE": ""
+    },
+    "components\/sync\/conflicts": {
         "Records": ""
     },
-    "components\/sync\/errors\/errors": {
+    "components\/sync\/errors": {
         "Records": "",
+        "Delete": "",
         "See source": "",
         "See destinations": "",
         "See differences dbs": "",
@@ -47,21 +55,17 @@
         "Are you sure you want to delete the selected records from sync?": "",
         "Select the data source": "",
         "Rows": "",
+        "Values": "",
         "Source": "",
         "Are you sure you want to fix the selected records?": "",
         "Are you sure you want to fix this record?": ""
     },
-    "components\/table\/main\/data\/data": {
+    "components\/table\/main\/data": {
         "Copy uid": "",
         "See referenced row": "",
         "Actions": "",
         "Edit data": "",
         "Data successfully updated": ""
-    },
-    "components\/table\/main\/keys\/keys": {
-        "Constraint": "",
-        "ON UPDATE": "",
-        "ON DELETE": ""
     },
     "mvc\/tree_db": {
         "tables updated": "",
