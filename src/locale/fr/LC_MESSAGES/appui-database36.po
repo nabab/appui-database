@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: info@bbn.so\n"
 "last-Translator: BBN Solutions <support@bbn.solutions>\n"
-"Language-Team: ES <ES@li.org>\n"
+"Language-Team: FR <FR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-15 01:09+0100\n"
-"POT-Revision-Date: 2021-02-15 01:09+0100\n"
-"Language: es\n"
+"POT-Creation-Date: 2021-02-16 05:17+0100\n"
+"POT-Revision-Date: 2021-02-16 05:17+0100\n"
+"Language: fr\n"
 "X-Domain: appui-database\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
@@ -43,15 +43,15 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 msgid "Table successfully removed"
-msgstr ""
+msgstr "Table supprimée avec succès"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 msgid "Something went wrong while removing the table"
-msgstr ""
+msgstr "Queque"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 msgid "Refresh table's structure"
-msgstr ""
+msgstr "Mettre à jour la structure de la table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 msgid "Delete virtual table"
@@ -63,66 +63,68 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 msgid "Are you sure you want to refresh this table?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir mettre à jour à jour la structure de cette table?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.js
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
 msgid "Change orientation"
-msgstr ""
+msgstr "Modifier l'orientation"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Host"
-msgstr ""
+msgstr "Hôte"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
 msgid "Tables"
-msgstr ""
+msgstr "Tables"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
 msgid "Number of columns stored according to the database"
-msgstr ""
+msgstr "Nombre de colonnes selon la base"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
 msgid "Virtuals"
-msgstr ""
+msgstr "Virtuels"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
 msgid "Number of columns present in the database"
-msgstr ""
+msgstr "Nombre de colonnes réellement présentes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/db/page/page.php
 msgid "Reals"
-msgstr ""
+msgstr "Réels"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/filter/form/form.js
 msgid "Choose a value"
-msgstr ""
+msgstr "Choisir une valeur"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
 msgid "Are you sure you want to leave this form without saving your changes?"
 msgstr ""
+"Êtes-vous sûr de vouloir quitter ce formulaire sans enregistrer vos "
+"modifications?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
 msgid "Administrator"
-msgstr ""
+msgstr "Administrateur"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/form/form.php
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
 msgid "Create database"
@@ -146,7 +148,7 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Analyze"
-msgstr ""
+msgstr "Analyser"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
 msgid "New database"
@@ -178,11 +180,11 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.js
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliquer"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Engine"
-msgstr ""
+msgstr "Type de base"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.php
 msgid "Ip"
@@ -190,11 +192,11 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Database"
-msgstr ""
+msgstr "Base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/host/page/page.php
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/conflicts/conflicts.js
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
@@ -204,7 +206,7 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/conflicts/conflicts.php
 msgid "SELECT A TABLE"
@@ -212,7 +214,7 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
 msgid "DATABASE"
-msgstr ""
+msgstr "Base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
 msgid "The record isn't present"
@@ -220,7 +222,7 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/diff/diff.php
 msgid "Field"
-msgstr ""
+msgstr "Champ"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
 msgid "See source"
@@ -265,11 +267,11 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Values"
-msgstr ""
+msgstr "Valeurs"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/sync/errors/errors.js
 msgid "Are you sure you want to fix the selected records?"
@@ -281,23 +283,23 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
 msgid "Refresh whole structure in database"
-msgstr ""
+msgstr "Mettre à jour l'ensemble de la structure dans la base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.js
 msgid "View tables"
-msgstr ""
+msgstr "Voir les tables"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Columns"
-msgstr ""
+msgstr "Colonnes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
 msgid "Keys"
-msgstr ""
+msgstr "Clés"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 msgid "Data"
-msgstr ""
+msgstr "Donnée"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 msgid "Externals links"
@@ -310,35 +312,35 @@ msgstr ""
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
 msgid "Position in the table"
-msgstr ""
+msgstr "Position dans la table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
 msgid "Are there keys on the column?"
-msgstr ""
+msgstr "Y-a-t-il des clefs sur la colonne?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
 msgid "Length"
-msgstr ""
+msgstr "Taille"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
 msgid "Can the field be null?"
-msgstr ""
+msgstr "La valeur peut-elle être nulle?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/main.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/columns/columns.php
 msgid "Default"
-msgstr ""
+msgstr "Défaut"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Unique"
-msgstr ""
+msgstr "Unique"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
 msgid "Copy uid"
@@ -351,7 +353,7 @@ msgstr ""
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/keys/keys.php
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/data/data.js
 msgid "Edit data"
@@ -363,11 +365,11 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Table"
-msgstr ""
+msgstr "Table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/externals/externals.php
 msgid "Column"
-msgstr ""
+msgstr "Colonne"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/components/table/main/externals/externals.php
 msgid "Link in table"
@@ -388,35 +390,35 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/public/tabs.php
 msgid "Databases"
-msgstr ""
+msgstr "Bases de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
 msgid "Procedures"
-msgstr ""
+msgstr "Procédures"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/lib/appui/databases.php
 msgid "Function"
-msgstr ""
+msgstr "Fonction"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
 msgid "Saved queries"
-msgstr ""
+msgstr "Requêtes sauvegardées"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
 msgid "Choose a saved list to view it"
-msgstr ""
+msgstr "Choisissez une liste sauvegardée pour la voir"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
 msgid "See the following fields"
-msgstr ""
+msgstr "Voir les champs suivants"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/queries.php
 msgid "Choose the fields you want to appear"
-msgstr ""
+msgstr "Choisissez les champs que vous voulez voir"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/sync.php
 msgid "Errors"
@@ -428,94 +430,99 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tabs.php
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Filter tree"
-msgstr ""
+msgstr "Filtrer l'arbre"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Give a user friendly title for your end users"
-msgstr ""
+msgstr "Donnez un titre compréhensible pour vos utilisateurs"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Select an element from the databases tree"
-msgstr ""
+msgstr "Sélectionner un élément depuis l'arbre de la base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Informations"
-msgstr ""
+msgstr "Informations"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Number of tables"
-msgstr ""
+msgstr "Nombre de tables"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Total size"
-msgstr ""
+msgstr "Taille totale"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Operations"
-msgstr ""
+msgstr "Opérations"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "New table"
-msgstr ""
+msgstr "Nouvelle table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Create a new table"
-msgstr ""
+msgstr "Créer une nouvelle table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Search"
-msgstr ""
+msgstr "Recherche"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
 "Search anything anywhere... This is quite a broad search, maybe you need to be "
 "more specific and use a table instead"
 msgstr ""
+"Chercher n'importe quoi n'importe où... C'est une requête qui peut être très "
+"vaste, et peut-être qu'une requête utilisant une table spécifique sera mieux "
+"adaptée"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Checks the health of each table looking for errors in the records"
 msgstr ""
+"Vérifier l'intégrité de chaque table en cherchant des erreurs dans les "
+"enregistrements"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Import"
-msgstr ""
+msgstr "Importation"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Import from a file"
-msgstr ""
+msgstr "Importation depuis un fichier"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/private/tabs/export.php
 msgid "Export"
-msgstr ""
+msgstr "Exportation"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Export the database to a file"
-msgstr ""
+msgstr "Exporter la base de données dans un fichier"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Migrate"
-msgstr ""
+msgstr "Migrer"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Copy your database on the same or another server"
-msgstr ""
+msgstr "Copier la base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Deletes definitively the database"
-msgstr ""
+msgstr "Supprimer définitivement la base de données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "bbn-ui"
-msgstr ""
+msgstr "bbn-ui"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Update"
-msgstr ""
+msgstr "Mettre à jour"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
@@ -523,102 +530,109 @@ msgid ""
 "application, in order to update the structure of your tables in the current "
 "database"
 msgstr ""
+"Il vous faut faire cela si la structure de la base de données a été modifiée "
+"à l'extérieur de l'application de facon à mettre à jour la structure des "
+"tables dans la base de données courante"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
 "Import your database's structure in the application if you want to use it inside "
 "it"
 msgstr ""
+"Importer la structure de la base de données afin de pouvoir l'utiliser dans "
+"l'application"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
 "Delete all information stored about this database. it will not affect the "
 "database itself but all the objets and views you have created in this app."
 msgstr ""
+"Supprimer toutes les informations concernant cette base données. Cela "
+"n'affectera pas la base de données elle-même"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Collation"
-msgstr ""
+msgstr "Collation"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Auto increment"
-msgstr ""
+msgstr "Incrémentation automatique"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Number of columns"
-msgstr ""
+msgstr "Nombre de colonnes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Number of rows"
-msgstr ""
+msgstr "Nombre de lignes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Data size"
-msgstr ""
+msgstr "Taille des données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Index size"
-msgstr ""
+msgstr "Taille des index"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Creation date"
-msgstr ""
+msgstr "Date de création"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "New column"
-msgstr ""
+msgstr "Nouvelle colonne"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Create a new column"
-msgstr ""
+msgstr "Créer une nouvelle colonne"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "New key"
-msgstr ""
+msgstr "Nouvelle clé"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Create a new key for this column"
-msgstr ""
+msgstr "Créer une nouvelle clé pour cette colonne"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Perform a search with any criteria"
-msgstr ""
+msgstr "Faire une recherche multi-critères"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Checks the table's health and looks for errors in the records"
-msgstr ""
+msgstr "Vérifier l'intégrité de la table et rechercher des erreurs"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Import Data"
-msgstr ""
+msgstr "Importer les données"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Import from a file, JSON data, CSV or more"
-msgstr ""
+msgstr "Importer un fichier, une valeur JSON, CSV ou autre"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Export the table to a file of many format"
-msgstr ""
+msgstr "Exporter la table vers un fichier"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Copy your table on the same database or another server"
-msgstr ""
+msgstr "Copier la table vers la même base de données ou un autre serveur"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Deletes definitively the table"
-msgstr ""
+msgstr "Supprime définitivement la table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
@@ -626,146 +640,155 @@ msgid ""
 "application, in order to update the structure of your table in the current "
 "database"
 msgstr ""
+"Vous devez exécuter cette action si la structure de cette table a été "
+"modifiée en dehors de cette application afin de mettre à jour la structure de "
+"votre table dans l'application"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Import your table's structure in the application if you want to use it inside it"
-msgstr ""
+msgstr "Importer la structure de la table afin de l'utiliser dans l'application"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
 "Delete all information stored about this table. it will not affect the database "
 "itself but all the objets and views you have created in this app."
 msgstr ""
+"Supprime toute l'information sur une table. Cela n'affectera pas la structure de "
+"la table elle-même mais juste ce qui peut en découler dans l'application"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "signed"
-msgstr ""
+msgstr "signé"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Nullable"
-msgstr ""
+msgstr "Valeur nulle"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Max. Length"
-msgstr ""
+msgstr "Taille maximale"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Default value"
-msgstr ""
+msgstr "Valeur par défaut"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Number of different values"
-msgstr ""
+msgstr "Nombre de valeurs différentes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Count"
-msgstr ""
+msgstr "Compte"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "The table is empty"
-msgstr ""
+msgstr "La table est vide"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid ""
 "Show each value of this column ordered by rows' length. You can then apply a "
 "filter"
-msgstr ""
+msgstr "Montre chaque valeur de cette colonne ordonnée par nombre de lignes"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Export the column to SQL format"
-msgstr ""
+msgstr "Exporter la colonne au format SQL"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Copy"
-msgstr ""
+msgstr "Copier"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Copy the column to another table"
-msgstr ""
+msgstr "Copier la colonne dans une autre table"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Deletes definitively the column"
-msgstr ""
+msgstr "Supprime la colonne définitivement"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Default display"
-msgstr ""
+msgstr "Default display"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Default editor"
-msgstr ""
+msgstr "Default editor"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/html/tree_db.php
 msgid "Relation"
-msgstr ""
+msgstr "Relation"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "tables updated"
-msgstr ""
+msgstr "tables updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "table updated"
-msgstr ""
+msgstr "table updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "No table updated"
-msgstr ""
+msgstr "No table updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "columns updated"
-msgstr ""
+msgstr "columns updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "column updated"
-msgstr ""
+msgstr "column updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "No column updated"
-msgstr ""
+msgstr "No column updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "keys updated"
-msgstr ""
+msgstr "keys updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "key updated"
-msgstr ""
+msgstr "key updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "No key updated"
-msgstr ""
+msgstr "No key updated"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid ""
 "All the objects associated with this database will be also deleted. None of the "
 "data will be affected. Are you sure you widh to proceed?"
 msgstr ""
+"All the objects associated with this database will be also deleted. None of the "
+"data will be affected. Are you sure you widh to proceed?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "Database successfully removed from internal data"
-msgstr ""
+msgstr "Database successfully removed from internal data"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid ""
 "All the objects associated with this table will be also deleted. None of the "
 "data will be affected. Are you sure you widh to proceed?"
 msgstr ""
+"All the objects associated with this table will be also deleted. None of the "
+"data will be affected. Are you sure you widh to proceed?"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tree_db.js
 msgid "Table successfully removed from internal data"
-msgstr ""
+msgstr "Table successfully removed from internal data"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/home.js
 msgid "Add a new MySQL host"
@@ -782,7 +805,7 @@ msgstr ""
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/host.js
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/js/tabs/table.js
 msgid "View"
-msgstr ""
+msgstr "Voir"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/model/actions/database/create.php
 msgid "This name is not authorized"
@@ -806,7 +829,7 @@ msgstr ""
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/private/tabs/home.php
 msgid "Home"
-msgstr ""
+msgstr "Accueil"
 
 #: /home/thomas/domains/apstapp.thomas.lan/_appui/vendor/bbn/appui-database/src/mvc/public/sync.php
 msgid "Synchronization"

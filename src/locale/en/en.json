@@ -1,1 +1,92 @@
-{"":{"Table successfully removed":"Table successfully removed","Something went wrong while removing the table":"Something went wrong while removing the table","Refresh table's structure":"Refresh table's structure","Delete virtual table":"Delete virtual table","The table is not real":"The table is not real","Are you sure you want to refresh this table?":"Are you sure you want to refresh this table?","Change orientation":"Change orientation","Choose a value":"Choose a value","Create database":"Create database","Refresh host":"Refresh host","With selected":"With selected","Choose an action on multiple databases":"Choose an action on multiple databases","Drop":"Drop","New database":"New database","Are you sure you want to drop the database %s ?":"Are you sure you want to drop the database %s ?","Are you sure you want to drop these databases?":"Are you sure you want to drop these databases?","This action is irreversible":"This action is irreversible","Choose an action":"Choose an action","Update structure in options":"Update structure in options","Store structure as options":"Store structure as options","Duplicate":"Duplicate","Records":"Records","See source":"See source","See destinations":"See destinations","See differences dbs":"See differences dbs","Fix":"Fix","This record doesn't exist anymore in the database(s)":"This record doesn't exist anymore in the database(s)","This record doesn't exist anymore in the databases":"This record doesn't exist anymore in the databases","Are you sure you want to delete this record from sync?":"Are you sure you want to delete this record from sync?","Are you sure you want to delete the selected records from sync?":"Are you sure you want to delete the selected records from sync?","Select the data source":"Select the data source","Rows":"Rows","Source":"Source","Are you sure you want to fix the selected records?":"Are you sure you want to fix the selected records?","Are you sure you want to fix this record?":"Are you sure you want to fix this record?","Refresh whole structure in database":"Refresh whole structure in database","View tables":"View tables","Copy uid":"Copy uid","See referenced row":"See referenced row","Actions":"Actions","Edit data":"Edit data","Data successfully updated":"Data successfully updated","Constraint":"Constraint","ON UPDATE":"ON UPDATE","ON DELETE":"ON DELETE","tables updated":"tables updated","table updated":"table updated","No table updated":"No table updated","columns updated":"columns updated","column updated":"column updated","No column updated":"No column updated","keys updated":"keys updated","key updated":"key updated","No key updated":"No key updated","All the objects associated with this database will be also deleted. None of the data will be affected. Are you sure you widh to proceed?":"All the objects associated with this database will be also deleted. None of the data will be affected. Are you sure you widh to proceed?","Database successfully removed from internal data":"Database successfully removed from internal data","All the objects associated with this table will be also deleted. None of the data will be affected. Are you sure you widh to proceed?":"All the objects associated with this table will be also deleted. None of the data will be affected. Are you sure you widh to proceed?","Table successfully removed from internal data":"Table successfully removed from internal data","Add a new MySQL host":"Add a new MySQL host","New Host":"New Host","Edit Host":"Edit host","View":"View"}}
+{
+    "components\/db\/page\/page": {
+        "Table successfully removed": "Table successfully removed",
+        "Something went wrong while removing the table": "Something went wrong while removing the table",
+        "Refresh table's structure": "Refresh table's structure",
+        "Delete virtual table": "Delete virtual table",
+        "The table is not real": "The table is not real",
+        "Are you sure you want to refresh this table?": "Are you sure you want to refresh this table?",
+        "Change orientation": "Change orientation"
+    },
+    "components\/host\/page\/page": {
+        "Change orientation": "Change orientation",
+        "Create database": "Create database",
+        "Refresh host": "Refresh host",
+        "With selected": "With selected",
+        "Choose an action on multiple databases": "Choose an action on multiple databases",
+        "Drop": "Drop",
+        "New database": "New database",
+        "Are you sure you want to drop the database %s ?": "Are you sure you want to drop the database %s ?",
+        "Are you sure you want to drop these databases?": "Are you sure you want to drop these databases?",
+        "This action is irreversible": "This action is irreversible",
+        "Choose an action": "Choose an action",
+        "Update structure in options": "Update structure in options",
+        "Store structure as options": "Store structure as options",
+        "Duplicate": "Duplicate"
+    },
+    "components\/table\/main\/main": {
+        "Change orientation": "Change orientation",
+        "Refresh whole structure in database": "Refresh whole structure in database",
+        "View tables": "View tables"
+    },
+    "components\/filter\/form\/form": {
+        "Choose a value": "Choose a value"
+    },
+    "components\/sync\/conflicts\/conflicts": {
+        "Records": "Records"
+    },
+    "components\/sync\/errors\/errors": {
+        "Records": "Records",
+        "See source": "See source",
+        "See destinations": "See destinations",
+        "See differences dbs": "See differences dbs",
+        "Fix": "Fix",
+        "This record doesn't exist anymore in the database(s)": "This record doesn't exist anymore in the database(s)",
+        "This record doesn't exist anymore in the databases": "This record doesn't exist anymore in the databases",
+        "Are you sure you want to delete this record from sync?": "Are you sure you want to delete this record from sync?",
+        "Are you sure you want to delete the selected records from sync?": "Are you sure you want to delete the selected records from sync?",
+        "Select the data source": "Select the data source",
+        "Rows": "Rows",
+        "Source": "Source",
+        "Are you sure you want to fix the selected records?": "Are you sure you want to fix the selected records?",
+        "Are you sure you want to fix this record?": "Are you sure you want to fix this record?"
+    },
+    "components\/table\/main\/data\/data": {
+        "Copy uid": "Copy uid",
+        "See referenced row": "See referenced row",
+        "Actions": "Actions",
+        "Edit data": "Edit data",
+        "Data successfully updated": "Data successfully updated"
+    },
+    "components\/table\/main\/keys\/keys": {
+        "Constraint": "Constraint",
+        "ON UPDATE": "ON UPDATE",
+        "ON DELETE": "ON DELETE"
+    },
+    "mvc\/tree_db": {
+        "tables updated": "tables updated",
+        "table updated": "table updated",
+        "No table updated": "No table updated",
+        "columns updated": "columns updated",
+        "column updated": "column updated",
+        "No column updated": "No column updated",
+        "keys updated": "keys updated",
+        "key updated": "key updated",
+        "No key updated": "No key updated",
+        "All the objects associated with this database will be also deleted. None of the data will be affected. Are you sure you widh to proceed?": "All the objects associated with this database will be also deleted. None of the data will be affected. Are you sure you widh to proceed?",
+        "Database successfully removed from internal data": "Database successfully removed from internal data",
+        "All the objects associated with this table will be also deleted. None of the data will be affected. Are you sure you widh to proceed?": "All the objects associated with this table will be also deleted. None of the data will be affected. Are you sure you widh to proceed?",
+        "Table successfully removed from internal data": "Table successfully removed from internal data"
+    },
+    "mvc\/tabs\/home": {
+        "Add a new MySQL host": "Add a new MySQL host",
+        "New Host": "New Host",
+        "Edit Host": "Edit host"
+    },
+    "mvc\/tabs\/host": {
+        "View": "View"
+    },
+    "mvc\/tabs\/table": {
+        "View": "View"
+    }
+}
