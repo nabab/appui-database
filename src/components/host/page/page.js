@@ -65,6 +65,22 @@
           }
         });
       },
+      toOption(db){
+        if (!bbn.fn.isString(db)) {
+          db = this.getRef('table').currentSelected;
+        }
+        bbn.fn.post(this.root + 'actions/database/options', {
+          host_id: this.source.info.id,
+          db: db
+        }, d => {
+          if (d.success) {
+            appui.success();
+          }
+          else {
+            appui.error();
+          }
+        });
+      },
       drop(db) {
         this.confirm(
           (bbn.fn.isString(db) ? bbn._("Are you sure you want to drop the database %s ?", db) : bbn._("Are you sure you want to drop these databases?"))

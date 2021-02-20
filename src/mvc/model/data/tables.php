@@ -5,7 +5,7 @@ $res = [
 if ($model->hasData(['host', 'db', 'engine'], true)) {
   $tables = [];
   if ( ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine'])) &&
-    ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id))
+    ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id, $model->data['engine']))
   ){
     $tables = $model->inc->dbc->fullTables($db_id);
     foreach ( $tables as $t ){
@@ -28,18 +28,22 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
       $num_rcolumns = \count($dbconn->getColumns($dbconn->tfn($t, $model->data['db'])));
       $keys = $dbconn->getKeys($dbconn->tfn($t, $model->data['db']));
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;
+      $num_vcolumns = \bbn\X::getField($tables, ['name' => $t], 'num_columns') ?: 0;
+      $num_vkeys = \bbn\X::getField($tables, ['name' => $t], 'num_keys') ?: 0;
       if ( $idx !== null ){
         $res['data'][$idx]['num_real_columns'] = $num_rcolumns;
         $res['data'][$idx]['num_real_keys'] = $num_rkeys;
         $res['data'][$idx]['is_real'] = true;
+        $res['data'][$idx]['num_columns'] = $num_vcolumns;
+        $res['data'][$idx]['num_keys'] = $num_vkeys;
       }
       else{
         $res['data'][] = [
           'id' => null,
           'text' => $t,
           'name' => $t,
-          'num_columns' => 0,
-          'num_keys' => 0,
+          'num_columns' => $num_vcolumns,
+          'num_keys' => $num_vkeys,
           'is_real' => true,
           'is_virtual' => false,
           'num_real_columns' => $num_rcolumns,

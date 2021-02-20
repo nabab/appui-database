@@ -26,7 +26,8 @@ if ( $host_id = $model->inc->dbc->hostId($model->data['host']) ){
     'dbs' => $dbs,
     'ip' => $id,
     'host' => $model->data['host'],
-		'info' => $o
+		'info' => $o,
+    'engine' => $model->data['engine']
   ];
 }
 return false;
