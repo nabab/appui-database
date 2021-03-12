@@ -20,7 +20,25 @@
                :source="root + 'data/sync/conflicts'"
                ref="table"
                :pageable="true"
-               :data="{file: currentFile}">
+               :data="{file: currentFile}"
+               :selection="true"
+               uid="id"
+               :toolbar="[{
+                  text: '<?=_('Fix')?>',
+                  icon: 'nf nf-mdi-auto_fix',
+                  action: fixSelected,
+                  disabled: !selected.length
+                }, {
+                  text: '<?=_('Fix All')?>',
+                  icon: 'nf nf-fa-magic',
+                  action: fixAll
+                }, {
+                  text: '<?=_('Delete')?>',
+                  icon: 'nf nf-fa-trash',
+                  action: deleteSelected,
+                  disabled: !selected.length
+                }]"
+                @hook:mounted="setWatch">
       <bbns-column field="id"
                    title="ID"/>
       <bbns-column v-for="(db, i) in source.dbs"
@@ -34,6 +52,10 @@
                      field: db
                    }"/>
       <bbns-column :buttons="[{
+                     text: '<?=_('Fix')?>',
+                     icon: 'nf nf-mdi-auto_fix',
+                     notext: true
+                   }, {
                      text: '<?=_('Delete')?>',
                      icon: 'nf nf-fa-trash',
                      notext: true

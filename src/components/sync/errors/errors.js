@@ -57,8 +57,8 @@
         return ar;
       },
       setWatch(){
-        this.getRef('table').$watch('selectedValues', n => {
-          this.selected = n;
+        this.getRef('table').$watch('currentSelected', n => {
+          this.selected.splice(0, this.selected.length, ...n);
         });
       },
       diff(row, db){
@@ -152,6 +152,16 @@
         if (this.selected) {
           this._fix(this.selected);
         }
+      },
+      scanClear(){
+        this.confirm(bbn._('Are you sure you want to scan all records and delete those with equal values ​​on the various databases?'), () => {
+          this.post(this.root + 'actions/sync/clear', d => {
+            if (d.success && (d.deleted !== undefined)) {
+              this.getRef('table').updateData();
+              appui.success(bbn._("%d rows deleted.", parseInt(d.deleted)));
+            }
+          })
+        })
       },
       _remove(id){
         this.post(this.root + 'actions/sync/remove', {id: id}, d => {

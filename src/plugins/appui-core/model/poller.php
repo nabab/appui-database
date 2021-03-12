@@ -11,7 +11,7 @@ return [[
     $res_files = [];
     if ($files = \bbn\File\Dir::getFiles($path)) {
       foreach ($files as $file){
-        preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.j{1}s{1}o{1}n{1}$/', basename($file), $f);
+        preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.yml$/', basename($file), $f);
         if (!empty($f) && !empty($f[1]) && !empty($f[2])) {
           $res_files[] = [
             'text' => $f[1],

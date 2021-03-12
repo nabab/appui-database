@@ -13,13 +13,13 @@ if ($model->hasData(['id', 'dbs'])
       if (json_encode($a) === json_encode($b)) {
         return false;
       }
-      $a = array_map(function($t){
+      $a = is_array($a) ? array_map(function($t){
         return \bbn\Str::isJson($t) ? json_decode($t, true) : $t;
-      }, $a);
-      $b = array_map(function($t){
+      }, $a) : $a;
+      $b = is_array($b) ? array_map(function($t){
         return \bbn\Str::isJson($t) ? json_decode($t, true) : $t;
-      }, $b);
-      return $a !== $b;
+      }, $b) : $b;
+      return is_array($a) || is_array($b) ? $a != $b : $a !== $b;
     })
   ];
 }

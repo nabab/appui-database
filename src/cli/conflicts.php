@@ -11,6 +11,10 @@ if (dbsync::isInit()
   && ($dbs = array_keys($ctrl->inc->options->codeIds('sync', 'database', 'appui')))
   && ($path = $ctrl->dataPath('appui-database') . 'sync/conflicts/')
 ) {
+  $filesCreated = 0;
+  $numConflicts = 0;
+  echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Number of databases: %d'), count($dbs)) . PHP_EOL;
+  echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Number of tables: %d'), count($tables)) . PHP_EOL;
   foreach ($tables as $table) {
     if (($primaries = $ctrl->db->getPrimary($table))
       && ($structure = $ctrl->db->modelize($table))
@@ -20,18 +24,18 @@ if (dbsync::isInit()
       foreach ($dbs as $db) {
         $ctrl->db->change($db);
         if ($db === $ctrl->db->getCurrent()) {
+          echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Getting data of the table %s'), $ctrl->db->cfn($table, $db)) . PHP_EOL;
           $tables_data[$db] = $ctrl->db->rselectAll($table);
         }
       }
       $ctrl->db->change($current_db);
+      echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scanning data of the tables %s'), $table) . PHP_EOL;
       foreach ($tables_data as $db => $rows) {
         foreach ($rows as $irow => $row) {
           $id = array_intersect_key($row, array_combine($primaries,  $primaries));
           if (($idx = X::find($res, ['id' => $id])) === null) {
             $toadd = false;
-            $tmp = [
-              'id' => $id
-            ];
+            $tmp = ['id' => $id];
             foreach ($dbs as $d) {
               if ($d !== $db) {
                 if (($i = X::find($tables_data[$d], $id)) === null) {
@@ -74,23 +78,31 @@ if (dbsync::isInit()
           }
         }
       }
+      echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scan of the tables %s completed, found %d conflicts'), $table, count($res)) . PHP_EOL;
       if (dir::createPath($path)) {
-        $file = $path.$table.'_'.date('Ymd_His').'.json';
+        $file = $path.$table.'_'.date('Ymd_His').'.yml';
+        echo date('d/m/Y H:i:s') . ' - ' . _('Checking an old data file') . PHP_EOL;
         if ($files = Dir::getFiles($path)) {
           foreach ($files as $f){
-            preg_match('/^(.*)(_\d{4}\d{2}\d{2}_\d{6}\.j{1}s{1}o{1}n{1})$/', basename($f), $ff);
+            preg_match('/^(.*)(_\d{4}\d{2}\d{2}_\d{6}\.yml)$/', basename($f), $ff);
             if (!empty($ff) && ($table === $ff[1])) {
               Dir::delete($f);
+              echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Removed %s'), $f) . PHP_EOL;
             }
           }
         }
         if (!empty($res)) {
-          file_put_contents($file, Json_encode($res, JSON_PRETTY_PRINT));
+          $numConflicts += count($res);
+          yaml_emit_file($file, $res);
+          $filesCreated++;
+          echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Created %s'), $file) . PHP_EOL;
         }
       }
     }
   }
 }
+echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Created %d files'), $filesCreated) . PHP_EOL;
 if ($current_db !== $ctrl->db->getCurrent()) {
   $ctrl->db->change($current_db);
 }
+echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Completed, found %s in total'), $numConflicts);

@@ -4,9 +4,7 @@ use \bbn\X;
 $current_db = $model->db->getCurrent();
 if (dbsync::isInit()
   && $model->hasData(['id', 'source'])
-  && ($dbs = array_map(function($a){
-    return $a['code'];
-  }, $model->inc->options->fullOptions('sync', 'database', 'appui')))
+  && ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appui')))
 ) {
   if (!is_array($model->data['id'])) {
     $model->data['id'] = [$model->data['id']];
@@ -61,7 +59,9 @@ if (dbsync::isInit()
                 }
               }
               // Update
-              else if ((json_encode($data) !== json_encode($cdata)) && !$model->db->update($sync->tab, $data, $filters)) {
+              else if ((json_encode($data) !== json_encode($cdata))
+                && !$model->db->update($sync->tab, $data, $filters)
+              ) {
                 throw new Error("Impossibile to update the row on '$db.{$sync->tab}' with this data: " . X::getDump($data) . PHP_EOL . "and these filters: " . X::getDump($filters));
               }
             }

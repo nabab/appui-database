@@ -10,7 +10,7 @@ if ($model->hasData(['start', 'limit'])
   && ($path = $model->dataPath('appui-database') . 'sync/conflicts/')
   && is_file($path.$model->data['data']['file'])
 ) {
-  $data = json_decode(file_get_contents($path.$model->data['data']['file']), true);
+  $data = yaml_parse_file($path.$model->data['data']['file']);
   $total = count($data);
   $res['data'] = array_splice($data, $model->data['start'], $model->data['limit']);
   $res['total'] = $total;
