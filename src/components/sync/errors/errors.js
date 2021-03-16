@@ -84,7 +84,8 @@
                       db: 'sync',
                       data: row.vals
                     },
-                    currents: d.data
+                    currents: d.data,
+                    table: row.tab
                   }
                 });
               }
@@ -118,7 +119,8 @@
                       db: row.db,
                       data: d.from.data
                     },
-                    currents: d.data
+                    currents: d.data,
+                    table: row.tab
                   }
                 });
               }
@@ -219,7 +221,7 @@
       },
       fixForm: {
         template: `
-<bbn-form :action="errors.root + 'actions/errors/sync/fix'"
+<bbn-form :action="errors.root + 'actions/sync/errors/fix'"
           @success="afterSubmit"
           :data="source"
           :source="formData"

@@ -40,11 +40,22 @@ if (dbsync::isInit()
     ) {
       $res = [];
       $tables_data = [];
+      $custom = $ctrl->getPluginModel('conflicts', [], $ctrl->pluginUrl('appui-database'));
       foreach ($dbs as $db) {
         $ctrl->db->change($db);
         if ($db === $ctrl->db->getCurrent()) {
           echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Getting data of the table %s'), $ctrl->db->cfn($table, $db)) . PHP_EOL;
-          $tables_data[$db] = $ctrl->db->rselectAll($table);
+          $fields = array_keys($structure['fields']);
+          if (!empty($custom)
+            && !empty($custom['excluded'])
+            && !empty($custom['excluded'][$table])
+          ) {
+            $excluded = $custom['excluded'][$table];
+            $fields = array_values(array_filter($fields, function($field) use($excluded){
+              return !in_array($field, $excluded);
+            }));
+          }
+          $tables_data[$db] = $ctrl->db->rselectAll($table, $fields);
         }
       }
       $ctrl->db->change($current_db);

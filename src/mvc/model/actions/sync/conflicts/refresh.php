@@ -12,6 +12,7 @@ if (!$model->hasData('table', true)) {
 $currentDb = $model->db->getCurrent();
 $filesCreated = 0;
 $numConflicts = 0;
+$custom = $model->getPluginModel('conflicts', [], $model->pluginUrl('appui-database'));
 if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui')))
   && ($path = $model->dataPath('appui-database') . 'sync/conflicts/')
 ) {
@@ -24,7 +25,17 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
     foreach ($dbs as $db) {
       $model->db->change($db);
       if ($db === $model->db->getCurrent()) {
-        $tables_data[$db] = $model->db->rselectAll($table);
+        $fields = array_keys($structure['fields']);
+        if (!empty($custom)
+          && !empty($custom['excluded'])
+          && !empty($custom['excluded'][$table])
+        ) {
+          $excluded = $custom['excluded'][$table];
+          $fields = array_values(array_filter($fields, function($field) use($excluded){
+            return !in_array($field, $excluded);
+          }));
+        }
+        $tables_data[$db] = $model->db->rselectAll($table, $fields);
       }
     }
     $model->db->change($currentDb);

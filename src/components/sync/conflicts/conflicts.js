@@ -165,6 +165,11 @@
             type: String
           }
         },
+        data(){
+          return {
+            conflicts: appui.getRegistered('appui-database-sync-conflicts')
+          }
+        },
         methods: {
           openDiff(){
             let currents = [];
@@ -185,7 +190,8 @@
                   db: this.field,
                   data: this.source[this.field]
                 },
-                currents: currents
+                currents: currents,
+                table: this.conflicts.currentTable
               }
             });
           }
