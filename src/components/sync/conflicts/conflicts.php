@@ -6,8 +6,13 @@
                   class="bbn-hsmargin"
                   ref="tablesList">
     </bbn-dropdown>
+    <bbn-button v-if="currentTable"
+                icon="nf nf-fa-refresh"
+                text="<?=_('Refresh')?>"
+                :notext="true"
+                @click="refreshFile"/>
     <i v-if="currentTableDate"
-       class="nf nf-fa-calendar bbn-right-xspace"/>
+       class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
     <span v-if="currentTableDate"
           v-text="currentTableDate"/>
     <i v-if="currentTableTime"
@@ -31,11 +36,12 @@
                 }, {
                   text: '<?=_('Fix All')?>',
                   icon: 'nf nf-fa-magic',
-                  action: fixAll
+                  action: fixAll,
+                  disabled: !currentTableTotal
                 }, {
                   text: '<?=_('Delete')?>',
                   icon: 'nf nf-fa-trash',
-                  action: deleteSelected,
+                  action: removeSelected,
                   disabled: !selected.length
                 }]"
                 @hook:mounted="setWatch">
@@ -54,11 +60,13 @@
       <bbns-column :buttons="[{
                      text: '<?=_('Fix')?>',
                      icon: 'nf nf-mdi-auto_fix',
-                     notext: true
+                     notext: true,
+                     action: fix
                    }, {
                      text: '<?=_('Delete')?>',
                      icon: 'nf nf-fa-trash',
-                     notext: true
+                     notext: true,
+                     action: remove
                    }]"
                    :width="100"
                    cls="bbn-c"/>

@@ -34,6 +34,9 @@
       isSame(val1, val2){
         return bbn.fn.isSame(val1, val2) || (bbn.fn.isNumber(val1) && bbn.fn.isNumber(val2) && (val1 == val2));
       },
+      renderField(row, col){
+        return bbn.fn.isNull(row[col.field]) ? '<i>NULL</i>' : row[col.field];
+      },
       getSource(d){
         let res = [];
         if (d.data && bbn.fn.numProperties(d.data)) {

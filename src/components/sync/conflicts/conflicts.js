@@ -7,7 +7,8 @@
         currentTable: null,
         currentFile: null,
         tableVisible: false,
-        selected: []
+        selected: [],
+        currentTableTotal: 0
       }
     },
     computed: {
@@ -31,6 +32,17 @@
       }
     },
     methods: {
+      refreshFile(){
+        this.confirm(bbn._('Are you sure you want to update the conflicts of this table (this could take a long time)?'), () => {
+          this.post(this.root + 'actions/sync/conflicts/refresh', {
+            table: this.currentTable
+          }, d => {
+            if (d.success) {
+              appui.success();
+            }
+          })
+        })
+      },
       loadDiff(table){
         this.tableVisible = false;
         this.currentFile = bbn.fn.getField(this.tables, 'file', {value: table});
@@ -63,7 +75,7 @@
           })
         }
       },
-      deleteSelected(){
+      removeSelected(){
         if (this.selected) {
           this.confirm(bbn._('Are you sure you want to delete the selected records from sync?'), () => {
             this._remove(this.selected);
@@ -72,7 +84,7 @@
       },
       fix(row){
         if (row.id) {
-          this._fix(row.id);
+          this._fix([row.id]);
         }
       },
       fixSelected(){
@@ -81,16 +93,24 @@
         }
       },
       fixAll(){
-
+        if (this.currentTableTotal) {
+          this._fix('all');
+        }
       },
       setWatch(){
-        this.getRef('table').$watch('currentSelected', n => {
+        let table = this.getRef('table');
+        table.$watch('currentSelected', n => {
           this.selected.splice(0, this.selected.length, ...n);
+        });
+        table.$watch('total', n => {
+          this.currentTableTotal = n;
         });
       },
       _remove(id){
-        return;
-        this.post(this.root + 'actions/sync/remove', {id: id}, d => {
+        this.post(this.root + 'actions/sync/conflicts/remove', {
+          id: id,
+          filename: this.currentFile
+        }, d => {
           if (d.success) {
             this.getRef('table').updateData();
             appui.success();
@@ -100,16 +120,20 @@
           }
         })
       },
-      _fix(id){
-        return;
+      _fix(ids){
         this.getPopup().open({
           title: bbn._('Select the data source'),
-          component: this.$options.component.fixForm,
+          component: this.$options.components.fixForm,
           source: {
-            id: id
+            ids: ids,
+            table: this.currentTable,
+            filename: this.currentFile
           }
         });
       }
+    },
+    created(){
+      appui.register('appui-database-sync-conflicts', this);
     },
     watch: {
       currentTable(newVal){
@@ -129,6 +153,7 @@
             <bbn-button icon="nf nf-oct-git_compare"
                         @click="openDiff"
                         :notext="true"
+                        text="` + bbn._('Compare') + `"
                         v-else/>
           </div>
         `,
@@ -163,6 +188,51 @@
                 currents: currents
               }
             });
+          }
+        }
+      },
+      fixForm: {
+        template: `
+<bbn-form :action="conflicts.root + 'actions/sync/conflicts/fix'"
+          @success="afterSubmit"
+          :data="source"
+          :source="formData"
+          :confirm-message="mess">
+  <div class="bbn-spadded bbn-grid-fields">
+  <label>` + bbn._('Source') + `</label>
+  <bbn-dropdown :source="conflicts.source.dbs"
+                v-model="formData.source"/>
+  </div>
+</bbn-form>
+        `,
+        props: {
+          source: {
+            type: Object
+          }
+        },
+        data(){
+          let conflicts = appui.getRegistered('appui-database-sync-conflicts');
+          return {
+            conflicts: conflicts,
+            formData: {
+              source: ''
+            },
+            mess: bbn.fn.isArray(this.source.ids)
+              ? (this.source.ids.length > 1
+                ? bbn._('Are you sure you want to fix the selected records?')
+                : bbn._('Are you sure you want to fix this record?'))
+              : bbn._('Are you sure you want to fix all records?')
+          }
+        },
+        methods: {
+          afterSubmit(d){
+            if (d.success) {
+              this.conflicts.getRef('table').updateData();
+              appui.success();
+            }
+            else {
+              appui.error();
+            }
           }
         }
       }

@@ -11,6 +11,25 @@ if (dbsync::isInit()
   && ($dbs = array_keys($ctrl->inc->options->codeIds('sync', 'database', 'appui')))
   && ($path = $ctrl->dataPath('appui-database') . 'sync/conflicts/')
 ) {
+  $t1 = [];
+  $t2 = [];
+  if ($files = Dir::getFiles($path)) {
+    foreach ($tables as $table) {
+      $found = false;
+      foreach ($files as $f){
+        preg_match('/^(.*)(_\d{4}\d{2}\d{2}_\d{6}\.yml)$/', basename($f), $ff);
+        if (!empty($ff) && ($table === $ff[1])) {
+          $t2[] = $table;
+          $found = true;
+          break;
+        }
+      }
+      if (!$found) {
+        $t1[] = $table;
+      }
+    }
+  }
+  $tables = array_merge($t1, $t2);
   $filesCreated = 0;
   $numConflicts = 0;
   echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Number of databases: %d'), count($dbs)) . PHP_EOL;

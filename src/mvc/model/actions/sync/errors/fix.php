@@ -1,7 +1,7 @@
 <?php
 use bbn\Appui\Dbsync;
 use \bbn\X;
-$current_db = $model->db->getCurrent();
+$currentDb = $model->db->getCurrent();
 if (dbsync::isInit()
   && $model->hasData(['id', 'source'])
   && ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appui')))
@@ -71,6 +71,9 @@ if (dbsync::isInit()
           }
         }
       }
+      if ($currentDb !== $model->db->getCurrent()) {
+        $model->db->change($currentDb);
+      }
       if (($m = $model->getModel(APPUI_DATABASES_ROOT.'data/sync/diff/is_different', [
           'id' => $id,
           'dbs' => $dbs
@@ -84,7 +87,7 @@ if (dbsync::isInit()
   }
   $model->data['res']['success'] = $todo === $did;
 }
-if ($current_db !== $model->db->getCurrent()) {
-  $model->db->change($current_db);
+if ($currentDb !== $model->db->getCurrent()) {
+  $model->db->change($currentDb);
 }
 return $model->data['res'];

@@ -136,7 +136,7 @@
           })
         }
       },
-      deleteSelected(){
+      removeSelected(){
         if (this.selected) {
           this.confirm(bbn._('Are you sure you want to delete the selected records from sync?'), () => {
             this._remove(this.selected);
@@ -155,7 +155,7 @@
       },
       scanClear(){
         this.confirm(bbn._('Are you sure you want to scan all records and delete those with equal values ​​on the various databases?'), () => {
-          this.post(this.root + 'actions/sync/clear', d => {
+          this.post(this.root + 'actions/sync/errors/clear', d => {
             if (d.success && (d.deleted !== undefined)) {
               this.getRef('table').updateData();
               appui.success(bbn._("%d rows deleted.", parseInt(d.deleted)));
@@ -164,7 +164,7 @@
         })
       },
       _remove(id){
-        this.post(this.root + 'actions/sync/remove', {id: id}, d => {
+        this.post(this.root + 'actions/sync/errors/remove', {id: id}, d => {
           if (d.success) {
             this.getRef('table').updateData();
             appui.success();
@@ -177,7 +177,7 @@
       _fix(id){
         this.getPopup().open({
           title: bbn._('Select the data source'),
-          component: this.$options.component.fixForm,
+          component: this.$options.components.fixForm,
           source: {
             id: id
           }
@@ -187,7 +187,7 @@
     created(){
       appui.register('appui-database-sync-errors', this);
     },
-    component: {
+    components: {
       expander: {
         template: `
 <div class="bbn-w-100">
@@ -219,7 +219,7 @@
       },
       fixForm: {
         template: `
-<bbn-form :action="errors.root + 'actions/sync/fix'"
+<bbn-form :action="errors.root + 'actions/errors/sync/fix'"
           @success="afterSubmit"
           :data="source"
           :source="formData"

@@ -5,7 +5,7 @@
             :sortable="true"
             :order="[{field: 'dt', dir: 'DESC'}]"
             :filterable="true"
-            :expander="$options.component.expander"
+            :expander="$options.components.expander"
             ref="table"
             :selection="true"
             uid="id"
@@ -18,7 +18,7 @@
             }, {
               text: '<?=_('Delete')?>',
               icon: 'nf nf-fa-trash',
-              action: deleteSelected,
+              action: removeSelected,
               disabled: !selected.length
             }, {
               text: '<?=_('Scan & clear')?>',
