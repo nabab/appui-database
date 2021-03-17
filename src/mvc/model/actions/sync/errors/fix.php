@@ -2,10 +2,16 @@
 use bbn\Appui\Dbsync;
 use \bbn\X;
 $currentDb = $model->db->getCurrent();
-if (dbsync::isInit()
-  && $model->hasData(['id', 'source'])
-  && ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appui')))
-) {
+if (!dbsync::isInit()) {
+  throw new Exception(_('Dbsync is not initialized'));
+}
+if (!$model->hasData('id', true)) {
+  throw new Exception(_('The "id" property is mandatory'));
+}
+if (!$model->hasData('source', true)) {
+  throw new Exception(_('The "source" property is mandatory'));
+}
+if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appui'))) {
   if (!is_array($model->data['id'])) {
     $model->data['id'] = [$model->data['id']];
   }

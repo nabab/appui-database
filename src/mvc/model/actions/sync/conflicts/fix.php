@@ -41,13 +41,29 @@ if (!empty($dbs)) {
   if ($currentDb !== $model->data['source']){
     $model->db->change($model->data['source']);
   }
+  $custom = $model->getPluginModel('conflicts');
   foreach ($model->data['ids'] as $id) {
     if ($model->data['source'] !== $model->db->getCurrent()){
       $model->db->change($model->data['source']);
     }
     if ($model->data['source'] === $model->db->getCurrent()) {
       if (($idxFile = \bbn\X::find($fileData, ['id' => $id])) !== null) {
-        $data = $model->db->rselect($model->data['table'], [], $id);
+        if ($structure = $model->db->modelize($model->data['table'])) {
+          $fields = array_keys($structure['fields']);
+          if (!empty($custom)
+            && !empty($custom['excluded'])
+            && !empty($custom['excluded'][$model->data['table']])
+          ) {
+            $excluded = $custom['excluded'][$model->data['table']];
+            $fields = array_values(array_filter($fields, function($field) use($excluded){
+              return !in_array($field, $excluded);
+            }));
+          }
+        }
+        else {
+          $fields = [];
+        }
+        $data = $model->db->rselect($model->data['table'], $fields, $id);
         $isDelete = empty($data);
         $tmpSucc = true;
         foreach ($dbs as $db) {
@@ -58,7 +74,22 @@ if (!empty($dbs)) {
           /** @todo disattivare controllo chiavi esterne */
   
           if ($db === $model->db->getCurrent()) {
-            $tmp = $model->db->rselect($model->data['table'], [], $id);
+            if ($structure = $model->db->modelize($model->data['table'])) {
+              $fields = array_keys($structure['fields']);
+              if (!empty($custom)
+                && !empty($custom['excluded'])
+                && !empty($custom['excluded'][$model->data['table']])
+              ) {
+                $excluded = $custom['excluded'][$model->data['table']];
+                $fields = array_values(array_filter($fields, function($field) use($excluded){
+                  return !in_array($field, $excluded);
+                }));
+              }
+            }
+            else {
+              $fields = [];
+            }
+            $tmp = $model->db->rselect($model->data['table'], $fields, $id);
             if ($isDelete
               && !empty($tmp)
               && !$model->db->delete($model->data['table'], $id)
