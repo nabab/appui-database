@@ -23,6 +23,10 @@ elseif (isset($ctrl->post['host_id'])) {
     return false;
   }
   if ($conn->check()) {
+    if (!empty($ctrl->post['db'])) {
+      $conn->change($ctrl->post['db']);
+    }
+
     $ctrl->addInc('conn', $conn);
     return true;
   }
