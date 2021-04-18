@@ -17,7 +17,8 @@ if (empty($ctrl->baseURL)) {
   $title = _("Databases");
   $ctrl
     ->setColor('#666', '#EEE')
-    ->setIcon('icon-database');
+    ->setIcon('icon-database')
+    ->addData(['icon' => 'nf nf-fa-home']);
 }
 // Routing
 else {
@@ -66,7 +67,9 @@ else {
       $combo = true;
       $url = $root.$engine.'/'.$host;
       $title = $host;
-      $ctrl->setIcon(bbn\Db::getEngineIcon($engine));
+      $icon = bbn\Db::getEngineIcon($engine);
+      $ctrl->setIcon($icon)
+            ->addData(['icon' => $icon]);
     }
   }
   // Lower level containers
@@ -83,7 +86,8 @@ else {
           $combo = true;
           $title = $db;
           $url = $root.$engine.'/'.$host.'/'.$db;
-          $ctrl->setIcon('nf nf-fa-database');
+          $ctrl->setIcon('nf nf-fa-database')
+            	 ->addData(['icon' => 'nf nf-fa-database']);
         }
         else {
           //host

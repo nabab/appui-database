@@ -6,7 +6,7 @@ if (
   ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
 ){
   if ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id)) {
-    $table_id = $model->inc->dbc->dbId($model->data['table'], $db_id);
+    $table_id = $model->inc->dbc->tableId($model->data['table'], $db_id);
   }
 
   $structure = $model->inc->dbc->modelize($model->data['table'], $model->data['db'], $host_id);
@@ -35,14 +35,18 @@ if (
   }
   $res = [
     'success' => true,
+    'root' => $model->data['root'],
     'host' => $model->data['host'],
+    'engine' => $model->data['engine'],
     'db' => $model->data['db'],
     'db_id' => $db_id ?: null,
     'table' => $model->data['table'],
+    'comment' => $conn->getTableComment($model->data['table']),
     'table_id' => $table_id ?? null,
     'is_real' => \in_array($model->data['table'], array_keys($conn->getTables($model->data['db']))),
     'is_virtual' => isset($table_id) ? true : false,
-		'info' => isset($table_id) ? $model->inc->options->option($table_id) : null,
+		'option' => isset($table_id) ? $model->inc->options->option($table_id) : null,
+    'col_info' => isset($table_id) ? $model->inc->dbc->fullColumns($table_id) : [],
     'structure' => $structure,
     'externals' => $externals,
     'constraints' => $constraints,

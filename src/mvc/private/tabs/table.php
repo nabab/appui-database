@@ -8,7 +8,7 @@
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 
 if ($ctrl->hasArguments(4)) {
-  $ctrl->setData(
+  $ctrl->addData(
     [
       'engine' => $ctrl->arguments[0],
       'host' => $ctrl->arguments[1],
@@ -16,7 +16,7 @@ if ($ctrl->hasArguments(4)) {
       'table' => $ctrl->arguments[3]
     ]
   )
-    //->setUrl($ctrl->getPath().'/'.$ctrl->data['host'].'/'.$ctrl->data['db'].'/'.$ctrl->data['table'])
+    ->setUrl($ctrl->data['root'].'/tabs/'.$ctrl->data['engine'].'/'.$ctrl->data['host'].'/'.$ctrl->data['db'].'/'.$ctrl->data['table'])
     ->setIcon('nf nf-fa-table')
     ->combo($ctrl->data['table'], true);
 }

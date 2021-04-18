@@ -63,16 +63,11 @@
             o.width = 30 + (5 * ((a.maxlength || 10) > 50 ? 50 : (a.maxlength || 10)));
           }
           else if (a.type === 'date') {
-            o.render = (b) => {
-              return b[n] ? ('<span>'+ bbn.fn.fdate(b[n]) + '</span>') : '-';
-            }
+            o.options.type = 'date';
             o.width = 80;
           }
           else if (a.type === 'datetime') {
-            o.render = (a) => {
-              bbn.fn.log(n)
-              return a[n] ? ('<span>'+ moment(a[n]).format('DD/MM/YYYY HH:mm:ss') + '</span>') : '-'
-            }
+            o.options.type = 'datetime';
             o.width = 120;
           }
 

@@ -2,10 +2,10 @@
 
 <bbn-router :autoload="true"
             :nav="true"
-             :source="[{
+            :source="[{
                static: true,
                url: 'home',
-               icon: 'nf nf-fa-home',
+               icon: '<?=$icon?>',
                notext: true,
                title: '<?=\bbn\Str::escapeSquotes(_('List'))?>',
                load: true,
