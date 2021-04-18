@@ -5,7 +5,9 @@
     <div style="width: 6em">
       <?=_("Name")?>
     </div>
-    <div v-text="table.source.table"/>
+    <bbn-editable v-model="table.source.table"
+                  @save="rename"
+                  :required="true"/>
 
     <div>
       <?=_("Comment")?>

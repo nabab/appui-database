@@ -7,6 +7,9 @@
       }
     },
     methods: {
+      rename(v) {
+        this.table.rename(v)
+      },
       saveComment(v, ov) {
         this.table.save('comment', v, ov)
       },
