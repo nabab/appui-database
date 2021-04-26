@@ -1,3 +1,3 @@
 <!-- HTML Document -->
 
-<appui-database-host-page :source="source"></appui-database-host-page>
+<appui-database-host :source="source"></appui-database-host>

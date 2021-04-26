@@ -33,6 +33,7 @@ if (
   }
   catch (\Exception $e) {
   }
+  $cfg = $model->inc->dbc->getGridConfig($model->data['table'], $model->data['db'], $model->data['host'], $model->data['engine']);
   $res = [
     'success' => true,
     'root' => $model->data['root'],
@@ -41,8 +42,9 @@ if (
     'db' => $model->data['db'],
     'db_id' => $db_id ?: null,
     'table' => $model->data['table'],
-    'comment' => $conn->getTableComment($model->data['table']),
+    'comment' => $conn->getTableComment($model->data['db'].'.'.$model->data['table']),
     'table_id' => $table_id ?? null,
+    'ocolumns' => $table_id ? $model->inc->options->fullOptions('columns', $table_id) : [],
     'is_real' => \in_array($model->data['table'], array_keys($conn->getTables($model->data['db']))),
     'is_virtual' => isset($table_id) ? true : false,
 		'option' => isset($table_id) ? $model->inc->options->option($table_id) : null,
@@ -50,8 +52,12 @@ if (
     'structure' => $structure,
     'externals' => $externals,
     'constraints' => $constraints,
-    'history' => false
+    'history' => false,
+    'tableCfg' => $cfg['js']['columns']
   ];
+  if (!isset($res['option']['dcolumns'])) {
+    $res['option']['dcolumns'] = [];
+  }
   if (($model->data['db'] === $model->db->getCurrent())
       && class_exists('bbn\\Appui\\History')
       && \bbn\Appui\History::hasHistory($model->db)
@@ -61,8 +67,8 @@ if (
   }
  
   if ($res['is_real']) {
-    $res['size'] = \bbn\Str::saySize($conn->tableSize($model->data['table']));
-    $res['count'] = $conn->count($model->data['table']);
+    $res['size'] = \bbn\Str::saySize($conn->tableSize($model->data['db'].'.'.$model->data['table']));
+    $res['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
   }
 }
 return $res;

@@ -11,15 +11,17 @@ if ($model->hasData('limit', true) && X::hasProps($d['data'], ['db', 'host', 'ta
   catch (\Exception $e) {
     throw new \Exception($e->getMessage());
   }
+
   if (!$conn->check()) {
     throw new \Exception(_("Impossible to connect to db").' '.$d['data']['db']);
   }
-  $grid = new \bbn\Appui\Grid($conn, $d, [
-    'table' => $d['data']['table']
-  ]);
+
+  $cfg = $model->inc->dbc->getGridConfig($d['data']['table'], $d['data']['db'], $d['data']['host'], $d['data']['engine']);
+  $grid = new \bbn\Appui\Grid($conn, $d, $cfg['php']);
   if (!$grid->check()) {
     throw new \Exception(_("Impossible to make a grid with table").' '.$d['data']['table']);
   }
+
   if ($table = $grid->getDatatable()) {
     foreach ($table['data'] as $idx => $t) {
       //die(var_dump($t));

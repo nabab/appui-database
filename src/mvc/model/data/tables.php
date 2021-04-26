@@ -19,14 +19,16 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
     $dbconn = $model->inc->dbc->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
+    return [
+      'success' => false,
+      'error' => $e->getMessage()
+    ];
   }
-  if ($dbconn
-      && ($real_tables = $dbconn->getTables($model->data['db']))
-  ){
+  if ($dbconn->check() && ($real_tables = $dbconn->getTables($model->data['db']))) {
     foreach ( $real_tables as $i => $t ){
       $idx = \bbn\X::find($res['data'], ["name" => $t]);
-      $num_rcolumns = \count($dbconn->getColumns($dbconn->tfn($t, $model->data['db'])));
-      $keys = $dbconn->getKeys($dbconn->tfn($t, $model->data['db']));
+      $num_rcolumns = \count($dbconn->getColumns($model->data['db'].'.'.$t));
+      $keys = $dbconn->getKeys($model->data['db'].'.'.$t);
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;
       $num_vcolumns = \bbn\X::getField($tables, ['name' => $t], 'num_columns') ?: 0;
       $num_vkeys = \bbn\X::getField($tables, ['name' => $t], 'num_keys') ?: 0;

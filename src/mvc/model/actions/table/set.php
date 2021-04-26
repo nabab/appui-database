@@ -21,6 +21,11 @@ if ($model->hasData(['engine', 'host', 'db', 'table', 'type', 'value', 'res'], t
         $model->data['res']['success'] = $model->inc->options->setText($table_id, $model->data['value'] ?: $demol->data['table']);
       }
       break;
+    case 'dcolumns':
+      if ($table_id && \is_array($model->data['value'])) {
+        $model->data['res']['success'] = $model->inc->options->setProp($table_id, ['dcolumns' => $model->data['value']]);
+      }
+      break;
     case 'comment':
       $model->data['res']['error'] = "This feature is not ready yet";
       break;

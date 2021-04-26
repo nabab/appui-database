@@ -100,7 +100,7 @@ else {
         //the tab of selected table
         if (!empty($table) && ($table !== 'home')) {
           $ctrl->addToObj('./tabs/table/'.$engine.'/'.$host.'/'.$db.'/'.$table, [], true);
-          $url = $root.$engine.'/'.$engine.'/'.$host.'/'.$db.'/'.$table;
+          $url = $root.$engine.'/'.$host.'/'.$db.'/'.$table;
           $title = $table;
         }
         // The database homepage

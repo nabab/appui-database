@@ -29,7 +29,7 @@ if ($model->hasData(['engine', 'host', 'db', 'table', 'name', 'res'], true)) {
     $exists = in_array($model->data['name'], $tables);
     if (!$exists) {
       try {
-        if ($model->renameTable($model->data['table'], $model->data['name'])) {
+        if ($conn->renameTable($model->data['table'], $model->data['name'])) {
           $renamed++;
         }
       }

@@ -198,7 +198,7 @@
         												 placeholder="` + bbn._("Choose an action") + `"
 							                   @change="select"/>`,
         data() {
-          let host = this.closest('appui-database-host-page');
+          let host = this.closest('appui-database-host');
           let r = [{
             text: bbn._("Analyze"),
             value: 'analyze'

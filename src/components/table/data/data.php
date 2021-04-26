@@ -1,6 +1,7 @@
 <div>
   <bbn-table :source="root + 'data/data'"
              ref="table"
+             :toolbar="[{text: _('New row'), action: 'insert'}]"
              :pageable="true"
              :sortable="true"
              :filterable="true"

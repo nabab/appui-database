@@ -30,7 +30,8 @@
                     :source="source"
                     :pinned="true"
                     :menu="false"/>
-    <bbns-container component="appui-database-table-externals"
+    <bbns-container v-if="source.externals.length"
+                    component="appui-database-table-externals"
                     url="externals"
                     icon="nf nf-oct-link"
                     title="<?=_('Externals links')?>"

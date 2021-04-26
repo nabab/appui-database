@@ -61,18 +61,19 @@
           this.root + 'actions/table/rename',
           bbn.fn.extend({
             name: newName
-          }, this.cfg)
-        ).then(d => {
-          if (!d.succes) {
-            appui.error(bbn._("Impossible to update the option"));
-            if (this.source.option[type] !== undefined) {
-              this.$set(this.source.option, type, oldValue);
+          }, this.cfg),
+          d => {
+            if (!d.succes) {
+              appui.error(bbn._("Impossible to update the option"));
+              if (this.source.option[type] !== undefined) {
+                this.$set(this.source.option, type, oldValue);
+              }
             }
-          }
-          else {
-            appui.success(bbn._("Option updated successfully"));
-          }
-        })
+            else {
+              appui.success(bbn._("Option updated successfully"));
+            }
+	        }
+        )
       },
       save(type, value, oldValue) {
         bbn.fn.post(
@@ -80,18 +81,20 @@
           bbn.fn.extend({
             type: type,
             value: value
-          }, this.cfg)
-        ).then(d => {
-          if (!d.succes) {
-            appui.error(bbn._("Impossible to update the option"));
-            if (this.source.option[type] !== undefined) {
-              this.$set(this.source.option, type, oldValue);
+          }, this.cfg),
+          d => {
+            bbn.fn.log("SAVE", d, arguments);
+            if (!d.success) {
+              appui.error(bbn._("Impossible to update the option"));
+              if (this.source.option[type] !== undefined) {
+                this.$set(this.source.option, type, oldValue);
+              }
+            }
+            else {
+              appui.success(bbn._("Option updated successfully"));
             }
           }
-          else {
-            appui.success(bbn._("Option updated successfully"));
-          }
-        })
+        );
       },
       format(n){
         return bbn.fn.money(n, false, '');
