@@ -8,7 +8,6 @@
         force: false,
         toolbar: [],
         hasMultipleSelected: false,
-        
       };
     },
     methods:{
@@ -19,7 +18,7 @@
         }, {
 					text: bbn._("Refresh host"),
           action: () => {
-            this.closest('bbn-container').reload()
+            this.closest('bbn-container').reload();
           }
         }];
         if (this.hasMultipleSelected) {
@@ -42,7 +41,7 @@
         }
         if (this.source.is_real) {
           ar.push({
-            content: '<span class="bbn-iblock">#' + bbn._("Size") 
+            content: '<span class="bbn-iblock">#' + bbn._("Size")
             	+ ': </span>&nbsp;<span class="bbn-b bbn-iblock">'
             	+ this.source.size + '</span>'
           });
@@ -53,11 +52,10 @@
         this.getPopup({
           title: bbn._("New table"),
           component: 'appui-database-table-form',
-          width: 500,
-          height: '20em',
           data: this.cfg,
           source: {
-            table_id: this.source.info.id
+            table_id: this.source.info.id,
+            types: this.source.types
           }
         })
       },
@@ -292,7 +290,8 @@
       }
       */
     },
-    mounted(){
+    mounted() {
+      bbn.fn.log("HELLO WORLD!", this.source)
       this.$nextTick(() => {
         this.toolbar = this.getToolbar();
       });

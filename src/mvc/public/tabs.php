@@ -9,7 +9,6 @@ use bbn\X;
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 //the base_url
 $root = $ctrl->pluginUrl('appui-database').'/';
-
 // Root tabnav
 if (empty($ctrl->baseURL)) {
   $url = $root.'tabs';
@@ -18,7 +17,9 @@ if (empty($ctrl->baseURL)) {
   $ctrl
     ->setColor('#666', '#EEE')
     ->setIcon('icon-database')
-    ->addData(['icon' => 'nf nf-fa-home']);
+    ->addData([
+      'icon' => 'nf nf-fa-home',
+    ]);
 }
 // Routing
 else {

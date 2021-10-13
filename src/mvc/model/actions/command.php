@@ -5,6 +5,7 @@
  **/
 
 /** @var $this \bbn\Mvc\Model*/
+
 $res = ['success' => false];
 if ( isset($model->data['request']) ){
   $parsed = $model->db->parseQuery($model->data['request']);
