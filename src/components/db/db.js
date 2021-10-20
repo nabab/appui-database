@@ -53,7 +53,12 @@
           title: bbn._("New table"),
           component: 'appui-database-table-form',
           data: this.cfg,
+          width: "120em",
+          height: "60em",
           source: {
+            host: this.source.host,
+            engine: this.source.engine,
+            db: this.source.db,
             table_id: this.source.info.id,
             types: this.source.types
           }
