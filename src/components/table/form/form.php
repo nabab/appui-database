@@ -1,23 +1,25 @@
 <!-- HTML Document -->
 
 <div class="bbn-padded" style="width: 50em; height: 20em" >
-  <bbn-form :source="source"
+  <bbn-form :source="formData"
             ref="form"
-            :data="formData">
+            :action="root + 'actions/table/create'"
+            :data="{db: source.db, host: source.host, engine: source.engine}"
+            :buttons="formButtons">
     <div class="bbn-grid-fields bbn-padded bbn-lg">
       <label><?=_("Table's name")?></label>
       <div>
-        <bbn-input class=" bbn-padded"v-model="source.comment"/>
+        <bbn-input class="bbn-padded" v-model="formData.name"/>
       </div>
 
       <label><?=_("Comment")?></label>
       <div>
-        <bbn-input class=" bbn-padded" v-model="source.name"/>
+        <bbn-input class="bbn-padded" v-model="formData.comment"/>
       </div>
     </div>
 
     <div class="bbn-grid-fields bbn-padded">
-      <template v-for="(col, i) in columns">
+      <template v-for="(col, i) in formData.columns">
         <div>
           <span v-if="edited === i" />
           <span v-else v-text="col.name" class="bbn-b"/>
@@ -28,6 +30,8 @@
                                       :engine="source.engine"
                                       :host="source.host"
                                       :db="source.db"
+                                      :predefined="source.predefined"
+                                      :tables="source.tables"
                                       @cancel="onCancel"
                                       @change="edited = -1"
                                       >

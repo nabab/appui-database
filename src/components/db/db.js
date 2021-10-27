@@ -60,7 +60,9 @@
             engine: this.source.engine,
             db: this.source.db,
             table_id: this.source.info.id,
-            types: this.source.types
+            types: this.source.types,
+            predefined: this.source.predefined,
+            tables: this.source.tables
           }
         })
       },

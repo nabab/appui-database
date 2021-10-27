@@ -7,11 +7,11 @@
   const defaultColumn = {
     name: "",
     type: "",
-    max_length: null,
-    unsigned: "",
+    maxlength: null,
+    signed: 0,
     decimal: null,
-    nullable: "",
-    default_value: "",
+    'null': "",
+    default: "",
     index: "",
     defaultExpression: 0,
     extra: "",
@@ -21,50 +21,63 @@
     data () {
       let data = {
         name: this.name,
-        comment: this.comment
+        comment: this.comment,
+        columns: []
       };
       return {
+        root: appui.plugins["appui-database"] + '/',
         name: '',
         comment: '',
-        columns: [],
         edited: -1,
         formData: data,
       };
     },
+    computed: {
+      formButtons() {
+        return ["cancel", {
+          text: bbn._("Submit"),
+          action: ()=> {
+            let form = this.$refs.form;
+          	form.submit();
+          },
+          disabled: false //form.isValid,
+        }];
+      }
+    },
     methods: {
       addColumn(idx, cfg) {
         bbn.fn.log("Add column", idx, cfg);
-        if (this.columns[idx]) {
-          this.columns.splice(idx, 0, bbn.fn.extend({}, defaultColumn, cfg || {}));
+        if (this.formData.columns[idx]) {
+          this.formData.columns.splice(idx, 0, bbn.fn.extend({}, defaultColumn, cfg || {}));
         }
         else {
-          this.columns.push(bbn.fn.extend({}, defaultColumn, cfg || {}));
-          idx = this.columns.length - 1;
+          this.formData.columns.push(bbn.fn.extend({}, defaultColumn, cfg || {}));
+          idx = this.formData.columns.length - 1;
         }
         this.edited = idx;
       },
       onCancel() {
-        this.columns.splice(this.edited, 1);
+        this.formData.columns.splice(this.edited, 1);
         this.edited = -1;
       },
       getColDescription(col) {
         let str = col.type;
-        if (col.max_length) {
-          str += " (" + col.max_length + ")";
+        if (col.maxlength) {
+          str += " (" + col.maxlength + ")";
         }
-        if (!col.nullable) {
+        if (!col.null) {
           str += " NOT NULL";
         }
-        if (col.default_value !== undefined) {
+        if (col.default !== undefined) {
           str += " DEFAULT ";
-          if (col.default_value === null) {
+          if (col.default === null) {
             str += "NULL";
           }
-          else if (!col.defaultExpression && bbn.fn.isString(col.default_value)) {
-            str += '"' + bbn.fn.replaceAll(col.default_value, '"', '\\"') + '"';
+          else if (!col.defaultExpression && bbn.fn.isString(col.default)) {
+            str += '"' + bbn.fn.replaceAll('"', '\\"', col.default) + '"';
           }
           else {
-            str += col.default_value;
+            str += col.default;
           }
         }
         return str;

@@ -11,7 +11,10 @@
       db: {},
       host: {},
       engine: {},
-      otypes: {}
+      otypes: {},
+      predefined: {},
+      tables: {},
+      types: {}
     },
     data(){
       let data = {
@@ -20,12 +23,15 @@
         db: this.db
       };
       return {
-        formIsValid: false,
+        formIsValid: true,
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
         formData: data,
         values: [],
+        radioType: 'free',
+        constraintTable: "",
+        constraintColumn: "",
         indexes: [
           {
             text: bbn._("None"),
@@ -103,6 +109,14 @@
       isValue () {
         return this.types.values.includes(this.source.type);
       },
+      predefinedOptions() {
+        return this.predefined.map(a => {
+          return {
+            text: a.text,
+            value: a.code
+          };
+        });
+      },
       defaultComponent () {
         if (this.defaultValueType === "defined") {
           if (this.types.int.includes(this.source.type)) {
@@ -134,10 +148,10 @@
       defaultComponentOptions () {
         if (this.defaultValueType === "defined") {
           if (this.types.int.includes(this.source.type)) {
-            if (this.source.max_length) {
+            if (this.source.maxlength) {
               return {
-                max: Math.pow(10, this.source.max_length),
-                min: this.source.unsigned ? 0 : - Math.pow(10, this.source.max_length)
+                max: Math.pow(10, this.source.maxlength),
+                min: this.source.signed ? 0 : - Math.pow(10, this.source.maxlength)
               };
             }
           }
@@ -148,7 +162,7 @@
           }
           else if (this.types.char.includes(this.source.type)) {
             return {
-              size: this.source.max_length
+              size: this.source.maxlength
             };
           }
           else if (this.types.date.includes(this.source.type)) {
@@ -177,7 +191,7 @@
             value: ''
           },
         ];
-        if (this.source.nullable) {
+        if (this.source.null) {
           res.unshift({text: bbn._("Null"), value: "null"});
         }
         bbn.fn.iterate(this.types, arr=>{
@@ -200,30 +214,33 @@
       change() {
         this.$emit("change");
       },
+			resetMaxLength() {
+				this.source.maxlength = null;
+      },
     },
     watch: {
       defaultComponent(v) {
         switch (v) {
           case "bbn-numeric":
-            this.source.default_value = 0;
+            this.source.default = 0;
             break;
           case "bbn-textarea":
           case "bbn-input":
           case "bbn-json-editor":
-            this.source.default_value = "";
+            this.source.default = "";
             break;
           case "bbn-datepicker":
           case "bbn-timepicker":
-            this.source.default_value = bbn.fn.dateSQL();
+            this.source.default = bbn.fn.dateSQL();
             break;
         }
       },
       defaultValueType(v) {
         if (v === "null") {
-          this.source.default_value = null;
+          this.source.default = null;
         }
         else {
-          this.source.default_value = "";
+          this.source.default = "";
         }
         if (v === "expression") {
           this.source.defaultExpression = 1;

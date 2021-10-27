@@ -1,5 +1,8 @@
 <?php
 /** @var $model \bbn\Mvc\Model */
+
+use bbn\X;
+
 $res['success'] = false;
 if (
   $model->hasData(['host', 'db', 'engine'], true) &&
@@ -7,6 +10,15 @@ if (
 ){
   $isReal = \in_array($model->data['db'], $model->db->getDatabases());
   $db_id = $model->inc->dbc->dbId($model->data['db'], $host_id);
+  try {
+    $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
+  }
+  catch (\Exception $e) {
+  }
+
+  $tables = [];
+  $fmodel = $conn->modelize();
+  X::ddump($fmodel);
   $res = [
     'success' => true,
     'host' => $model->data['host'],
@@ -17,12 +29,9 @@ if (
     'info' => $model->inc->options->option($db_id),
     'engine' => $model->data['engine'],
     'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
-  	'types' => bbn\Db\Languages\Sql::$types
+    'types' => bbn\Db\Languages\Sql::$types,
+    'predefined' => $model->inc->options->fullOptions('pcolumns', $model->data['engine'], 'database', 'appui'),
+    'tables' => $tables
   ];
-  try {
-    $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
-  }
-  catch (\Exception $e) {
-  }
 }
 return $res;
