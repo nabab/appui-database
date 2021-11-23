@@ -15,8 +15,8 @@
       currentTableDate(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && moment(d).isValid()) {
-            return moment(d).format('DD/MM/YYYY');
+          if (d && dayjs(d).isValid()) {
+            return dayjs(d).format('DD/MM/YYYY');
           }
         }
         return false;
@@ -24,8 +24,8 @@
       currentTableTime(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && moment(d).isValid()) {
-            return moment(d).format('HH:mm:ss');
+          if (d && dayjs(d).isValid()) {
+            return dayjs(d).format('HH:mm:ss');
           }
         }
         return false;
