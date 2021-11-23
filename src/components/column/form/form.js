@@ -11,7 +11,9 @@
       db: {},
       host: {},
       engine: {},
-      otypes: {}
+      otypes: {},
+      predefined: {},
+      tables: {},
     },
     data(){
       let data = {
@@ -26,6 +28,9 @@
         defaultValueType: '',
         formData: data,
         values: [],
+        radioType: 'free',
+        predefinedType: "",
+        columnsNamesOk: false,
         indexes: [
           {
             text: bbn._("None"),
@@ -82,7 +87,9 @@
           ],
           char: [
             'char',
-            'varchar'
+            'varchar',
+            'binary',
+            'varbinary'
           ],
           json: [
             'json'
@@ -102,6 +109,14 @@
       },
       isValue () {
         return this.types.values.includes(this.source.type);
+      },
+      predefinedOptions() {
+        return this.predefined.map(a => {
+          return {
+            text: a.text,
+            value: a.code
+          };
+        });
       },
       defaultComponent () {
         if (this.defaultValueType === "defined") {
@@ -134,10 +149,10 @@
       defaultComponentOptions () {
         if (this.defaultValueType === "defined") {
           if (this.types.int.includes(this.source.type)) {
-            if (this.source.max_length) {
+            if (this.source.maxlength) {
               return {
-                max: Math.pow(10, this.source.max_length),
-                min: this.source.unsigned ? 0 : - Math.pow(10, this.source.max_length)
+                max: Math.pow(10, this.source.maxlength),
+                min: this.source.signed ? 0 : - Math.pow(10, this.source.maxlength)
               };
             }
           }
@@ -148,7 +163,7 @@
           }
           else if (this.types.char.includes(this.source.type)) {
             return {
-              size: this.source.max_length
+              size: this.source.maxlength
             };
           }
           else if (this.types.date.includes(this.source.type)) {
@@ -166,6 +181,7 @@
         }
         return {};
       },
+
       defaultValueTypes() {
         let res =[
           {
@@ -177,7 +193,7 @@
             value: ''
           },
         ];
-        if (this.source.nullable) {
+        if (this.source.null) {
           res.unshift({text: bbn._("Null"), value: "null"});
         }
         bbn.fn.iterate(this.types, arr=>{
@@ -191,6 +207,37 @@
       nameIsEmpty() {
         return this.source.name === '';
       },
+      isFormValid() {
+        if (!this.source.name || !this.radioType || !this.columnsNamesOk) {
+          return false;
+        }
+        switch (this.radioType) {
+          case "constraint":
+            if (!this.source.constraint) {
+              return false;
+            }
+            break;
+          case "predefined":
+            if (!this.predefinedType) {
+              return false;
+            }
+            break;
+          case "free":
+            if (!this.source.type) {
+              return false;
+            }
+            if ((this.types.decimal.includes(this.source.type) || this.types.int.includes(this.source.type)) && !this.source.maxlength) {
+              return false;
+            }
+            if (this.types.decimal.includes(this.source.type) && !this.source.decimal) {
+              return false;
+            }
+            break;
+          default:
+            return false;
+        }
+        return true;
+      },
     },
     methods: {
       success(){},
@@ -200,30 +247,54 @@
       change() {
         this.$emit("change");
       },
+      resetAll() {
+        this.source.maxlength = null;
+        this.source.decimal = null;
+        this.source.default = "";
+        this.source.defaultExpression = 0;
+        this.source.signed = 0;
+        this.source.null = 0;
+        this.source.constraint = "";
+      },
+      checkColumnsNames() {
+        let cp = this.closest("appui-database-table-form");
+        let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
+        this.columnsNamesOk = num <= 1;
+      },
     },
     watch: {
+      'source.constraint'(v) {
+        if (v) {
+          let row = bbn.fn.getRow(this.tables, {value: v});
+          for (let n in row) {
+            if (this.source[n] !== undefined) {
+              this.source[n] = row[n];
+            }
+          }
+        }
+      },
       defaultComponent(v) {
         switch (v) {
           case "bbn-numeric":
-            this.source.default_value = 0;
+            this.source.default = 0;
             break;
           case "bbn-textarea":
           case "bbn-input":
           case "bbn-json-editor":
-            this.source.default_value = "";
+            this.source.default = "";
             break;
           case "bbn-datepicker":
           case "bbn-timepicker":
-            this.source.default_value = bbn.fn.dateSQL();
+            this.source.default = bbn.fn.dateSQL();
             break;
         }
       },
       defaultValueType(v) {
         if (v === "null") {
-          this.source.default_value = null;
+          this.source.default = null;
         }
         else {
-          this.source.default_value = "";
+          this.source.default = "";
         }
         if (v === "expression") {
           this.source.defaultExpression = 1;
@@ -232,14 +303,26 @@
           this.source.defaultExpression = 0;
         }
       },
-      source: {
-        deep: true,
-        handler() {
-          let form = this.$refs.form;
-          if (form) {
-            this.formIsValid = form.isValid();
-          }
+      predefinedType(v) {
+        if (v) {
+          let o = bbn.fn.getRow(this.predefined, {code: v});
+          let ar = ['type', 'maxlength', 'signed', 'decimal', 'null', 'default', 'index', 'defaultExpression', 'extra'];
+
+          bbn.fn.each(ar, a => {
+            if (o[a] !== undefined) {
+              this.$set(this.source, a, o[a]);
+            }
+          });
+          this.radioType = 'free';
+          this.predefinedType = "";
         }
+      },
+      radioType(v, ov) {
+        if ((ov === 'predefined') && (v === 'free')) {
+          return;
+        }
+        this.resetAll();
+        this.source.type = "";
       },
     },
   };
