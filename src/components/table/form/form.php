@@ -1,7 +1,7 @@
 <!-- HTML Document -->
 
 <div class="bbn-padded" style="width: 50em; height: 20em" >
-  <bbn-form
+  <bbn-form :source="formData"
             ref="form"
             :action="root + 'actions/table/create'"
             :data="tableData"
@@ -25,9 +25,8 @@
           <span v-else >
             <span>
               <i class="nf nf-mdi-key_variant bbn-padded"
-               style="zoom: 1.5"
-                 v-if="constraint === true"/>
-            </span>
+               	 style="zoom: 1.5"/>
+          	</span>
             <bbn-button :text="_('Move up')"
                         icon="nf nf-fa-long_arrow_up"
                         :notext="true"

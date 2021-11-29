@@ -250,9 +250,8 @@
       resetAll() {
         this.source.maxlength = null;
         this.source.decimal = null;
-        this.source.default = "";
         this.source.defaultExpression = 0;
-        this.source.signed = 0;
+        this.source.signed = 1;
         this.source.null = 0;
         this.source.constraint = "";
       },
@@ -291,10 +290,18 @@
       },
       defaultValueType(v) {
         if (v === "null") {
-          this.source.default = null;
+          this.$set(this.source , 'default', null);
+        }
+        else if (v === '') {
+          delete this.source.default;
         }
         else {
-          this.source.default = "";
+          if (this.types.decimal.includes(this.source.type) || this.types.int.includes(this.source.type)) {
+            this.$set(this.source, 'default', 0);
+          }
+          else {
+            this.$set(this.source, 'default', "");
+					}
         }
         if (v === "expression") {
           this.source.defaultExpression = 1;
