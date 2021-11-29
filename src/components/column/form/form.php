@@ -136,8 +136,8 @@
 
     <label> </label>
     <div>
-      <bbn-button @click="change" text="Change" :disabled="!isFormValid"/>
-      <bbn-button @click="cancel" text="Cancel"/>
+      <bbn-button @click="change" text="<?= _('Confirm') ?>" :disabled="!isFormValid"/>
+      <bbn-button @click="cancel" text="<?= _('Cancel') ?>"/>
     </div>
   </div>
 </div>

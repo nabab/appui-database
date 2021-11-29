@@ -6,10 +6,9 @@
     name: "",
     type: "",
     maxlength: null,
-    signed: 0,
+    signed: 1,
     decimal: null,
     'null': "",
-    default: "",
     index: "",
     defaultExpression: 0,
     extra: "",
@@ -90,7 +89,7 @@
                 columns: [
                   a.name
                 ],
-                unique: 0
+                unique: ['primary', 'unique'].includes(a[n]) ? 1 : 0
               };
             }
           }

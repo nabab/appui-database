@@ -4,7 +4,7 @@
  * Date: 18/07/2017
  * Time: 13:42
  */
- 
+
 /** @var \bbn\Mvc\Model $model The model */
 
 $res = [
