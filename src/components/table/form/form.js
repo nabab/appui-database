@@ -13,6 +13,8 @@
     defaultExpression: 0,
     extra: "",
     constraint: "",
+    delete: "cascade",
+    update: "cascade",
   };
   return {
     props: ['source'],
@@ -78,8 +80,8 @@
                 ref_db: this.source.db,
                 ref_table: tmp[0],
                 ref_column: tmp[1],
-                update: "CASCADE",
-                delete: "CASCADE",
+                update: this.update,
+                delete: this.delete,
                 unique: 0
               };
             }
