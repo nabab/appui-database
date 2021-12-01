@@ -42,8 +42,56 @@
         return row.null ? '<i class="nf nf-fa-check"> </i>' : ' ';
       },
       writeDefault(row) {
-        bbn.fn.log('row.default',row.default)
         return row.default || '-';
+      },
+      remove() {
+        return;
+      },
+      update() {
+        let cp = this.closest('bbn-container');
+        let cp2 = cp.closest("bbn-container");
+        let cp3 = cp2.closest('bbn-container').getComponent();
+        bbn.fn.log("cp3 = ", cp3.source)
+        this.getPopup({
+          title: '',
+          component: 'appui-database-column-form',
+          componentOptions: {
+            db: cp.source.db,
+            host: cp.source.host,
+            engine: cp.source.engine,
+            table: cp.source.table,
+            /*source: {},
+            otypes: {},
+            predefined: {},*/
+          },
+        })
+        bbn.fn.log('componentOptions=', cp.source.db, cp.source.host, cp.source.engine, cp.source.table);
+        return;
+      },
+      moveUp(idx) {
+        if (idx.position > 1) {
+       		let tmp = idx.position - 1;
+        	bbn.fn.move(this.tableSource, tmp, tmp - 1);
+       		bbn.fn.log('ca existe ?', idx, this.tableSource);
+        }
+        return;
+      },
+      moveDown (idx) {
+        if (idx.position < this.tableSource.length) {
+       		let tmp = idx.position - 1;
+        	bbn.fn.move(this.tableSource, tmp, tmp + 1);
+       		bbn.fn.log('ca existe ?', idx, this.tableSource);
+        }
+        return;
+      },
+      changeColPosition() {
+        return;
+      },
+      makePredefined() {
+        return;
+      },
+      addKey() {
+        return;
       },
     }
   }

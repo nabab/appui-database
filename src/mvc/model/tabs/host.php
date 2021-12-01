@@ -21,13 +21,17 @@ if ( $host_id = $model->inc->dbc->hostId($model->data['host']) ){
       'host_id' => $host_id
     ]);
   }
-
   return [
+    'success' => true,
+    'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
+    'types' => bbn\Db\Languages\Sql::$types,
+    'predefined' => $model->inc->options->fullOptions('pcolumns', $model->data['engine'], 'database', 'appui'),
     'dbs' => $dbs,
     'ip' => $id,
     'host' => $model->data['host'],
-		'info' => $o,
+    'info' => $o,
     'engine' => $model->data['engine']
   ];
 }
-return false;
+
+return ['success' => false];

@@ -39,6 +39,7 @@
           action: ()=> {
             let form = this.$refs.form;
             form.submit();
+            bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + this.formData.name + '/columns');
           },
           disabled: false,
         }];

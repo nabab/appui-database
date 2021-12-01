@@ -40,7 +40,6 @@
     },
     computed: {
       columns(){
-        
       },
       //indexs in soure.constraints
       menu(){
