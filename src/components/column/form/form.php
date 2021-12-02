@@ -48,9 +48,23 @@
 
     <template v-else-if="radioType === 'constraint'" >
       <div class="bbn-grid-full bbn-m bbn-vspadded">
-        <bbn-dropdown v-model="source.constraint"
+        <bbn-dropdown
+                      v-model="source.constraint"
                       :source="tables"
                       :placeholder="_('Choose the reference')"/>
+      </div>
+      <div  class="bbn-grid-full bbn-m bbn-vspadded">
+        <bbn-dropdown
+                      v-model="source.delete"
+                      :source="onDelete"
+                      :placeholder="_('On delete')"
+                      ></bbn-dropdown>
+      </div>
+      <div  class="bbn-grid-full bbn-m bbn-vspadded">
+        <bbn-dropdown
+                      v-model="source.update"
+                      :source="onUpdate"
+                      :placeholder="_('On update')"></bbn-dropdown>
       </div>
       <label><?=_("Nullable")?></label>
       <div>
@@ -132,6 +146,7 @@
       <div>
         <bbn-radio :source="indexes" v-model="source.index" />
       </div>
+
     </template>
 
     <label> </label>

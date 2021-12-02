@@ -31,6 +31,42 @@
         radioType: 'free',
         predefinedType: "",
         columnsNamesOk: false,
+        onDelete: [
+          {
+            text: bbn._("CASCADE"),
+          	value: 'CASCADE',
+          },
+          {
+            text: bbn._("SET NULL"),
+          	value: 'SET NULL',
+          },
+          {
+            text: bbn._("NO ACTION"),
+          	value: 'NO ACTION',
+          },
+          {
+            text: bbn._("RESTRICT"),
+            value: 'RESTRICT',
+          },
+        ],
+        onUpdate: [
+          {
+            text: bbn._("CASCADE"),
+          	value: 'CASCADE',
+          },
+          {
+            text: bbn._("SET NULL"),
+          	value: 'SET NULL',
+          },
+          {
+            text: bbn._("NO ACTION"),
+          	value: 'NO ACTION',
+          },
+          {
+            text: bbn._("RESTRICT"),
+            value: 'RESTRICT',
+          },
+        ],
         indexes: [
           {
             text: bbn._("None"),
@@ -254,6 +290,8 @@
         this.source.signed = 1;
         this.source.null = 0;
         this.source.constraint = "";
+        this.source.delete="cascade";
+        this.source.update="cascade"
       },
       checkColumnsNames() {
         let cp = this.closest("appui-database-table-form");
