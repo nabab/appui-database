@@ -43,13 +43,12 @@
                         field: 'key',
                         title: '<i class=\'nf nf-fa-key\' title=\'<?=\bbn\Str::escapeSquotes(_('Are there keys on the column?'))?>\'></i>',
                         render: writeKeyInCol,
-                        cls: 'bbn-c bbn-bg-black',
+                        cls: 'bbn-c bbn-bg-black bbn-xl',
                         width: '40'
                         }, {
                         field: 'name',
                         render: writeColumn,
                         title: '<?=\bbn\Str::escapeSquotes(_('Columns'))?>',
-                        cls: 'bbn-c'
                         }, {
                         field: 'type',
                         title: '<?=\bbn\Str::escapeSquotes(_('Type'))?>',

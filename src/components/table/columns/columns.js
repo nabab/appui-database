@@ -36,7 +36,11 @@
       },
       writeColumn(row) {
         let col = this.getStateColor(row);
-        return '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
+        let st = '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
+        if (this.source.constraints[row.name]) {
+          st += ' (' + bbn._('refers to') + ' ' + this.source.constraints[row.name].column + ' ' + bbn._('in') + ' ' + this.source.constraints[row.name].table + ')';
+        }
+        return st;
       },
       writeNull(row) {
         return row.null ? '<i class="nf nf-fa-check"> </i>' : ' ';
@@ -93,6 +97,6 @@
       addKey() {
         return;
       },
-    }
+    },
   }
 })();
