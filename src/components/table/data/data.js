@@ -69,6 +69,12 @@
           appui.error(bbn._('The field has value ' + (row[col.field] !== '') ? row[col.field] : '""'))
         }
       },
+      delete () {
+        return;
+      },
+      edit () {
+        return;
+      },
     }
   }
 })();

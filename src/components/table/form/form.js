@@ -13,8 +13,8 @@
     defaultExpression: 0,
     extra: "",
     constraint: "",
-    delete: "CASCADE",
-    update: "CASCADE",
+    delete: "",
+    update: "",
   };
   return {
     props: ['source'],

@@ -37,7 +37,7 @@ if ($model->hasData('limit', true) && X::hasProps($d['data'], ['db', 'host', 'ta
         $t
       );
     }
-
+	$table['config'] = $cfg;
     return $table;
   }
   else {

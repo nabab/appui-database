@@ -290,8 +290,8 @@
         this.source.signed = 1;
         this.source.null = 0;
         this.source.constraint = "";
-        this.source.delete="cascade";
-        this.source.update="cascade"
+        this.source.delete="CASCADE";
+        this.source.update="CASCADE"
       },
       checkColumnsNames() {
         let cp = this.closest("appui-database-table-form");
