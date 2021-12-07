@@ -4,7 +4,7 @@
  * Date: 18/07/2017
  * Time: 20:49
  */
- 
+
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 
 if ($ctrl->hasArguments(4)) {

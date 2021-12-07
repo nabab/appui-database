@@ -76,7 +76,7 @@
         if (idx.position > 1) {
        		let tmp = idx.position - 1;
         	bbn.fn.move(this.tableSource, tmp, tmp - 1);
-       		bbn.fn.log('idx + tableSource', idx, this.tableSource);
+          bbn.fn.log('idx + tableSource', idx, this.tableSource);
         }
         return;
       },
@@ -84,6 +84,7 @@
         if (idx.position < this.tableSource.length) {
        		let tmp = idx.position - 1;
         	bbn.fn.move(this.tableSource, tmp, tmp + 1);
+          bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
        		bbn.fn.log('ca existe ?', idx, this.tableSource);
         }
         return;
