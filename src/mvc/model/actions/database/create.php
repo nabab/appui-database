@@ -1,8 +1,4 @@
 <?php
-/*
- * Describe what it does!
- *
- **/
 use bbn\Str;
 
 /** @var $model \bbn\Mvc\Model*/
