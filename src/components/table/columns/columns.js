@@ -51,40 +51,44 @@
       remove() {
         return;
       },
-      update() {
+      update(data, col, idx) {
         let cp = this.closest('bbn-container');
-        let cp2 = cp.closest("bbn-container");
+        let cp2 = cp.closest("bbn-container").getComponent();
         let cp3 = cp2.closest('bbn-container').getComponent();
-        bbn.fn.log("cp3 = ", cp3.source)
+        bbn.fn.log("cp = ", cp);
+        data.oldname = data.name;
+        data.oldtype = data.type;
         this.getPopup({
-          title: '',
-          component: 'appui-database-column-form',
-          componentOptions: {
+          title: 'Edit a column',
+          component: 'appui-database-column-editor',
+          source : {
             db: cp.source.db,
             host: cp.source.host,
             engine: cp.source.engine,
             table: cp.source.table,
-            /*source: {},
-            otypes: {},
-            predefined: {},*/
+            otypes:  appui.databases.source.mysql.types,
+            predefined:  appui.databases.source.mysql.predefined,
+            source: data,
+            root: appui.databases.source.mysql.root,
           },
         })
-        bbn.fn.log('componentOptions=', cp.source.db, cp.source.host, cp.source.engine, cp.source.table);
+        bbn.fn.log('componentOptions =', cp.source.db, cp.source.host, cp.source.engine, cp.source.table, "data et le reste:", data, col, idx);
         return;
       },
       moveUp(idx) {
         if (idx.position > 1) {
-       		let tmp = idx.position - 1;
-        	bbn.fn.move(this.tableSource, tmp, tmp - 1);
-       		bbn.fn.log('idx + tableSource', idx, this.tableSource);
+          let tmp = idx.position - 1;
+          bbn.fn.move(this.tableSource, tmp, tmp - 1);
+          bbn.fn.log('idx + tableSource', idx, this.tableSource);
         }
         return;
       },
       moveDown (idx) {
         if (idx.position < this.tableSource.length) {
-       		let tmp = idx.position - 1;
-        	bbn.fn.move(this.tableSource, tmp, tmp + 1);
-       		bbn.fn.log('ca existe ?', idx, this.tableSource);
+          let tmp = idx.position - 1;
+          bbn.fn.move(this.tableSource, tmp, tmp + 1);
+          bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
+          bbn.fn.log('ca existe ?', idx, this.tableSource);
         }
         return;
       },

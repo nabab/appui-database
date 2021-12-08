@@ -20,11 +20,19 @@
                   :required="true"/>
 
     <div>
-      <?=_("Item viewer")?> 
+      <?=_("Item viewer")?>
       <bbn-tooltip source="<?=_("A component which will be used to show an item from this table in other lists or widgets")?>"/>
     </div>
+    <div>
+      <bbn-button :notext="true"
+                  icon="nf nf-custom-folder_open"
+                  text="_(Browse)"
+                  @click="browse"/>
+
     <bbn-editable v-model="table.source.option.itemComponent"
                   @save="saveItemComponent"/>
+    </div>
+
 
     <div>
       <?=_("Row editor")?> 

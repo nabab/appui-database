@@ -11,9 +11,7 @@
       db: {},
       host: {},
       engine: {},
-      otypes: {},
-      predefined: {},
-      tables: {},
+      table: {},
     },
     data(){
       let data = {
@@ -23,6 +21,8 @@
       };
       return {
         formIsValid: false,
+        otypes:  appui.databases.source[this.engine].types,
+        predefined:  appui.databases.source[this.engine].predefined,
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
@@ -34,15 +34,15 @@
         onDelete: [
           {
             text: bbn._("CASCADE"),
-          	value: 'CASCADE',
+            value: 'CASCADE',
           },
           {
             text: bbn._("SET NULL"),
-          	value: 'SET NULL',
+            value: 'SET NULL',
           },
           {
             text: bbn._("NO ACTION"),
-          	value: 'NO ACTION',
+            value: 'NO ACTION',
           },
           {
             text: bbn._("RESTRICT"),
@@ -52,15 +52,15 @@
         onUpdate: [
           {
             text: bbn._("CASCADE"),
-          	value: 'CASCADE',
+            value: 'CASCADE',
           },
           {
             text: bbn._("SET NULL"),
-          	value: 'SET NULL',
+            value: 'SET NULL',
           },
           {
             text: bbn._("NO ACTION"),
-          	value: 'NO ACTION',
+            value: 'NO ACTION',
           },
           {
             text: bbn._("RESTRICT"),
@@ -219,7 +219,7 @@
       },
 
       defaultValueTypes() {
-        let res =[
+        let res = [
           {
             text: bbn._("SQL Expression"),
             value: 'expression',
@@ -229,6 +229,7 @@
             value: ''
           },
         ];
+
         if (this.source.null) {
           res.unshift({text: bbn._("Null"), value: "null"});
         }
@@ -295,14 +296,20 @@
       },
       checkColumnsNames() {
         let cp = this.closest("appui-database-table-form");
-        let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
-        this.columnsNamesOk = num <= 1;
+        if (cp) {
+          let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
+          this.columnsNamesOk = num <= 1;
+        }
+        else {
+          cp = this.closest("bbn-form");
+          this.columnsNamesOk = cp.isModified() && cp.isValid();
+        }
       },
     },
     watch: {
       'source.constraint'(v) {
         if (v) {
-          let row = bbn.fn.getRow(this.tables, {value: v});
+          let row = bbn.fn.getRow(this.table, {value: v});
           for (let n in row) {
             if (this.source[n] !== undefined) {
               this.source[n] = row[n];
@@ -339,7 +346,7 @@
           }
           else {
             this.$set(this.source, 'default', "");
-					}
+          }
         }
         if (v === "expression") {
           this.source.defaultExpression = 1;

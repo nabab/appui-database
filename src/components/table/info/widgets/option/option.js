@@ -37,6 +37,19 @@
       },
       saveDisplayColumns(v, ov) {
         this.table.save('dcolumns', v, ov)
+      },
+      browse() {
+        this.getPopup({
+          title: "",
+          component: 'appui-database-table-info',
+          componentOptions: {
+            db: this.table.source.db,
+            host: this.table.source.host,
+            engine: this.table.source.engine,
+            table: this.table.source.table,
+          },
+        });
+        bbn.fn.log("keskia la d'dans ?", this.table.source);
       }
     }
   }

@@ -1,4 +1,4 @@
-<div class="bbn-w-100"
+<div class="bbn-block bbn-padded"
      style="min-width: 50em">
 
   <!---<span class="bbn-m bbn-b bbn-space-right bbn-iblock"
@@ -8,9 +8,9 @@
             v-text="source.name"/> -->
   <hr class="bbn-hr">
   <h3>
-    <?=_("New column")?>
+    <?=_("Column definition")?>
   </h3>
-  <div class="bbn-grid-fields bbn-padded" >
+  <div class="bbn-grid-fields" >
     <label class="bbn-lg"><?=_("Column's name")?></label>
     <div class="bbn-lg">
       <bbn-input v-model="source.name" :required="true" @change="checkColumnsNames"/>
