@@ -9,7 +9,7 @@
     },
     methods: {
       copy() {
-        bbn.fn.log(this.source, this.data);
+        bbn.fn.copy(this.source.id);
       },
       goto(){
         bbn.fn.log(this.source);

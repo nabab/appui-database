@@ -11,9 +11,7 @@
       db: {},
       host: {},
       engine: {},
-      otypes: {},
-      predefined: {},
-      tables: {},
+      table: {},
     },
     data(){
       let data = {
@@ -23,6 +21,8 @@
       };
       return {
         formIsValid: false,
+        otypes:  appui.databases.source[this.engine].types,
+        predefined:  appui.databases.source[this.engine].predefined,
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
@@ -31,6 +31,42 @@
         radioType: 'free',
         predefinedType: "",
         columnsNamesOk: false,
+        onDelete: [
+          {
+            text: bbn._("CASCADE"),
+            value: 'CASCADE',
+          },
+          {
+            text: bbn._("SET NULL"),
+            value: 'SET NULL',
+          },
+          {
+            text: bbn._("NO ACTION"),
+            value: 'NO ACTION',
+          },
+          {
+            text: bbn._("RESTRICT"),
+            value: 'RESTRICT',
+          },
+        ],
+        onUpdate: [
+          {
+            text: bbn._("CASCADE"),
+            value: 'CASCADE',
+          },
+          {
+            text: bbn._("SET NULL"),
+            value: 'SET NULL',
+          },
+          {
+            text: bbn._("NO ACTION"),
+            value: 'NO ACTION',
+          },
+          {
+            text: bbn._("RESTRICT"),
+            value: 'RESTRICT',
+          },
+        ],
         indexes: [
           {
             text: bbn._("None"),
@@ -183,7 +219,7 @@
       },
 
       defaultValueTypes() {
-        let res =[
+        let res = [
           {
             text: bbn._("SQL Expression"),
             value: 'expression',
@@ -193,6 +229,7 @@
             value: ''
           },
         ];
+
         if (this.source.null) {
           res.unshift({text: bbn._("Null"), value: "null"});
         }
@@ -254,17 +291,25 @@
         this.source.signed = 1;
         this.source.null = 0;
         this.source.constraint = "";
+        this.source.delete="CASCADE";
+        this.source.update="CASCADE"
       },
       checkColumnsNames() {
         let cp = this.closest("appui-database-table-form");
-        let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
-        this.columnsNamesOk = num <= 1;
+        if (cp) {
+          let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
+          this.columnsNamesOk = num <= 1;
+        }
+        else {
+          cp = this.closest("bbn-form");
+          this.columnsNamesOk = cp.isModified() && cp.isValid();
+        }
       },
     },
     watch: {
       'source.constraint'(v) {
         if (v) {
-          let row = bbn.fn.getRow(this.tables, {value: v});
+          let row = bbn.fn.getRow(this.table, {value: v});
           for (let n in row) {
             if (this.source[n] !== undefined) {
               this.source[n] = row[n];
@@ -301,7 +346,7 @@
           }
           else {
             this.$set(this.source, 'default', "");
-					}
+          }
         }
         if (v === "expression") {
           this.source.defaultExpression = 1;

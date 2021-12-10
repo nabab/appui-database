@@ -1,4 +1,4 @@
-<div class="bbn-w-100"
+<div class="bbn-block bbn-padded"
      style="min-width: 50em">
 
   <!---<span class="bbn-m bbn-b bbn-space-right bbn-iblock"
@@ -8,9 +8,9 @@
             v-text="source.name"/> -->
   <hr class="bbn-hr">
   <h3>
-    <?=_("New column")?>
+    <?=_("Column definition")?>
   </h3>
-  <div class="bbn-grid-fields bbn-padded" >
+  <div class="bbn-grid-fields" >
     <label class="bbn-lg"><?=_("Column's name")?></label>
     <div class="bbn-lg">
       <bbn-input v-model="source.name" :required="true" @change="checkColumnsNames"/>
@@ -47,15 +47,28 @@
     </div>
 
     <template v-else-if="radioType === 'constraint'" >
-      <div class="bbn-grid-full bbn-m bbn-vspadded">
-        <bbn-dropdown v-model="source.constraint"
-                      :source="tables"
-                      :placeholder="_('Choose the reference')"/>
-      </div>
+
       <label><?=_("Nullable")?></label>
       <div>
         <bbn-checkbox v-model="source.null" :value="true" :novalue="false"/>
       </div>
+
+      <bbn-dropdown
+                    class="bbn-wider"
+                    v-model="source.constraint"
+                    :source="tables"
+                    :placeholder="_('Choose the reference')"/>
+      <label ><?=_("On delete")?></label>
+      <bbn-dropdown
+                    class="bbn-narrow"
+                    v-model="source.delete"
+                    :source="onDelete"
+                    ></bbn-dropdown>
+      <label ><?=_("On update")?></label>
+      <bbn-dropdown
+                    class="bbn-narrow"
+                    v-model="source.update"
+                    :source="onUpdate"></bbn-dropdown>
 
       <label><?=_("Default Value")?></label>
       <bbn-radio :source="defaultValueTypes" v-model="defaultValueType" :required="true"/>
@@ -132,6 +145,7 @@
       <div>
         <bbn-radio :source="indexes" v-model="source.index" />
       </div>
+
     </template>
 
     <label> </label>

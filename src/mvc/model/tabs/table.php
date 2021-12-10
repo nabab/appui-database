@@ -1,5 +1,7 @@
 <?php
 /** @var $model \bbn\Mvc\Model */
+use bbn\X;
+
 $res['success'] = false;
 if (
   $model->hasData(['host', 'db', 'engine'], true) &&

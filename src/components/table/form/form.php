@@ -23,10 +23,12 @@
         <div>
           <span v-if="edited === i" />
           <span v-else >
-            <span>
-              <i class="nf nf-mdi-key_variant bbn-padded"
+            <span v-if="formData.columns[i].constraint !== ''">
+              <i  class="nf nf-mdi-key_variant bbn-padded"
                	 style="zoom: 1.5"/>
           	</span>
+            <span class="bbn-padded">
+            </span>
             <bbn-button :text="_('Move up')"
                         icon="nf nf-fa-long_arrow_up"
                         :notext="true"
@@ -49,7 +51,7 @@
                                       :host="source.host"
                                       :db="source.db"
                                       :predefined="source.predefined"
-                                      :tables="source.tables"
+                                      :table="source.table"
                                       @cancel="onCancel"
                                       @change="edited = -1"
                                       >

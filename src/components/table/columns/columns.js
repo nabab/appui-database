@@ -36,15 +36,71 @@
       },
       writeColumn(row) {
         let col = this.getStateColor(row);
-        return '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
+        let st = '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
+        if (this.source.constraints[row.name]) {
+          st += ' (' + bbn._('refers to') + ' ' + this.source.constraints[row.name].column + ' ' + bbn._('in') + ' ' + this.source.constraints[row.name].table + ')';
+        }
+        return st;
       },
       writeNull(row) {
         return row.null ? '<i class="nf nf-fa-check"> </i>' : ' ';
       },
       writeDefault(row) {
-        bbn.fn.log('row.default',row.default)
         return row.default || '-';
       },
-    }
+      remove() {
+        return;
+      },
+      update(data, col, idx) {
+        let cp = this.closest('bbn-container');
+        let cp2 = cp.closest("bbn-container").getComponent();
+        let cp3 = cp2.closest('bbn-container').getComponent();
+        bbn.fn.log("cp = ", cp);
+        data.oldname = data.name;
+        data.oldtype = data.type;
+        this.getPopup({
+          title: 'Edit a column',
+          component: 'appui-database-column-editor',
+          source : {
+            db: cp.source.db,
+            host: cp.source.host,
+            engine: cp.source.engine,
+            table: cp.source.table,
+            otypes:  appui.databases.source.mysql.types,
+            predefined:  appui.databases.source.mysql.predefined,
+            source: data,
+            root: appui.databases.source.mysql.root,
+          },
+        })
+        bbn.fn.log('componentOptions =', cp.source.db, cp.source.host, cp.source.engine, cp.source.table, "data et le reste:", data, col, idx);
+        return;
+      },
+      moveUp(idx) {
+        if (idx.position > 1) {
+          let tmp = idx.position - 1;
+          bbn.fn.move(this.tableSource, tmp, tmp - 1);
+          bbn.fn.log('idx + tableSource', idx, this.tableSource);
+        }
+        return;
+      },
+      moveDown (idx) {
+        if (idx.position < this.tableSource.length) {
+          let tmp = idx.position - 1;
+          bbn.fn.move(this.tableSource, tmp, tmp + 1);
+          bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
+          bbn.fn.log('ca existe ?', idx, this.tableSource);
+        }
+        return;
+      },
+      changeColPosition() {
+        return;
+      },
+      makePredefined() {
+        return;
+      },
+      addKey() {
+        return;
+      },
+    },
   }
 })();
