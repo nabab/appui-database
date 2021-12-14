@@ -8,7 +8,8 @@
         currentFile: null,
         tableVisible: false,
         selected: [],
-        currentTableTotal: 0
+        currentTableTotal: 0,
+        lastReception: false
       }
     },
     computed: {
@@ -27,6 +28,18 @@
           if (d && dayjs(d).isValid()) {
             return dayjs(d).format('HH:mm:ss');
           }
+        }
+        return false;
+      },
+      currentLastReceptionDate(){
+        if (this.lastReception && this.lastReception.isValid()) {
+          return this.lastReception.format('DD/MM/YYYY');
+        }
+        return false;
+      },
+      currentLastReceptionTime(){
+        if (this.lastReception && this.lastReception.isValid()) {
+          return this.lastReception.format('HH:mm:ss');
         }
         return false;
       }
@@ -54,16 +67,15 @@
         if ('conflictsFiles' in data) {
           let oldTables = bbn.fn.extend(true, [], this.tables);
           this.tables.splice(0, this.tables.length, ...data.conflictsFiles);
+          this.lastReception = dayjs();
           this.getRef('tablesList').updateData();
           if (this.currentTable) {
             let idx = bbn.fn.search(data.conflictsFiles, {value: this.currentTable});
             if (idx === -1) {
               this.currentTable = null;
             }
-            else {
-              if (bbn.fn.getField(oldTables, 'date', {value: this.currentTable}) !== data.conflictsFiles[idx].date) {
-                this.loadDiff(this.currentTable);
-              }
+            else if (bbn.fn.getField(oldTables, 'date', {value: this.currentTable}) !== data.conflictsFiles[idx].date) {
+              this.loadDiff(this.currentTable);
             }
           }
         }
@@ -134,6 +146,20 @@
     },
     created(){
       appui.register('appui-database-sync-conflicts', this);
+      try {
+        let sync = appui.getRegistered('appui-database-sync');
+        if (bbn.fn.isVue(sync)
+          && bbn.fn.isFunction(sync.startConflictsPoller)
+        ) {
+          sync.startConflictsPoller();
+        }
+      }
+      catch (e) {
+        bbn.fn.log(e);
+      }
+    },
+    beforeDestroy(){
+      appui.unregister('appui-database-sync-conflicts');
     },
     watch: {
       currentTable(newVal){

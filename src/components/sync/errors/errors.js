@@ -22,22 +22,22 @@
       },
       getButtons(row){
         let ar = [{
-          text: bbn._('See source'),
-          icon: 'nf nf-mdi-ray_start',
+          text: bbn._('Compare with the source'),
+          icon: 'nf nf-mdi-vector_difference_ba',
           notext: true,
           action: row => {
             this.diff(row, row.db)
           }
         }, {
-          text: bbn._('See destinations'),
-          icon: 'nf nf-mdi-ray_end',
+          text: bbn._('Compare with the destinations'),
+          icon: 'nf nf-mdi-vector_difference_ab',
           notext: true,
           action: row => {
             this.diff(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))
           }
         }, {
-          text: bbn._('See differences dbs'),
-          icon: 'nf nf-mdi-ray_vertex',
+          text: bbn._('Compare the source with the destinations'),
+          icon: 'nf nf-mdi-vector_difference',
           notext: true,
           action: row => {
             this.diffDbs(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))

@@ -1,24 +1,38 @@
 <div class="bbn-overlay bbn-flex-height appui-database-sync-conflicts">
-  <div class="bbn-header bbn-spadded">
-    <span><?=_('Tables')?>:</span>
-    <bbn-dropdown :source="tables"
-                  v-model="currentTable"
-                  class="bbn-hsmargin"
-                  ref="tablesList">
-    </bbn-dropdown>
-    <bbn-button v-if="currentTable"
-                icon="nf nf-fa-refresh"
-                text="<?=_('Refresh')?>"
-                :notext="true"
-                @click="refreshFile"/>
-    <i v-if="currentTableDate"
-       class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
-    <span v-if="currentTableDate"
-          v-text="currentTableDate"/>
-    <i v-if="currentTableTime"
-       class="nf nf-oct-clock bbn-right-xspace bbn-left-sspace"/>
-    <span v-if="currentTableTime"
-          v-text="currentTableTime"/>
+  <div class="bbn-header bbn-spadded bbn-flex-width bbn-vmiddle">
+    <div class="bbn-flex-fill bbn-vmiddle">
+      <span><?=_('Tables')?>:</span>
+      <bbn-dropdown :source="tables"
+                    v-model="currentTable"
+                    class="bbn-hsmargin"
+                    ref="tablesList"
+                    :placeholder="!tables.length ? (!lastReception ? _('Loading...') : _('No conflicts found')) : _('Select a table')"/>
+      <bbn-button v-if="currentTable"
+                  icon="nf nf-fa-refresh"
+                  text="<?=_('Refresh')?>"
+                  :notext="true"
+                  @click="refreshFile"/>
+      <i v-if="currentTableDate"
+         class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
+      <span v-if="currentTableDate"
+            v-text="currentTableDate"/>
+      <i v-if="currentTableTime"
+         class="nf nf-oct-clock bbn-right-xspace bbn-left-sspace"/>
+      <span v-if="currentTableTime"
+            v-text="currentTableTime"/>
+    </div>
+    <div class="bbn-vmiddle">
+      <span v-if="lastReception"><?=_('Tables list loaded on')?></span>
+      <span v-else><?=_('Tables not yet loaded')?></span>
+      <i v-if="currentLastReceptionDate"
+         class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
+      <span v-if="currentLastReceptionDate"
+            v-text="currentLastReceptionDate"/>
+      <i v-if="currentLastReceptionTime"
+         class="nf nf-oct-clock bbn-right-xspace bbn-left-sspace"/>
+      <span v-if="currentLastReceptionTime"
+            v-text="currentLastReceptionTime"/>
+    </div>
   </div>
   <div class="bbn-flex-fill">
     <bbn-table v-if="tableVisible"
