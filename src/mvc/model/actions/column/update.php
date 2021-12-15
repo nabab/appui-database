@@ -37,34 +37,34 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
     $model->data['data']['new_name'] = $model->data['data']['name'];
     $model->data['data']['col_name'] = $model->data['name'];
   }
-  if (X::hasProp($model->data['data'], 'oldtype', true) && ($model->data['oldtype'] !== $model->data['type'])) {
+  if (X::hasProp($model->data['data'], 'oldtype', true) && ($model->data['data']['oldtype'] !== $model->data['data']['type'])) {
     $model->data['data']['new_type'] = $model->data['data']['type'];
     $model->data['data']['col_type'] = $model->data['data']['oldtype'];
   }
-  if (X::hasProp($model->data['data'], 'oldnull', true) && ($model->data['oldnull'] !== $model->data['null'])) {
+  if (X::hasProp($model->data['data'], 'oldnull', true) && ($model->data['data']['oldnull'] !== $model->data['data']['null'])) {
     $model->data['data']['new_null'] = $model->data['data']['null'];
     $model->data['data']['col_null'] = $model->data['data']['oldnull'];
   }
-  if (X::hasProp($model->data['data'], 'oldkey', true) && ($model->data['oldkey'] !== $model->data['key'])) {
+  if (X::hasProp($model->data['data'], 'oldkey', true) && ($model->data['data']['oldkey'] !== $model->data['data']['key'])) {
     $model->data['data']['new_key'] = $model->data['data']['key'];
     $model->data['data']['col_key'] = $model->data['data']['oldkey'];
   }
-  if (X::hasProp($model->data['data'], 'oldsigned', true) && ($model->data['oldsigned'] !== $model->data['signed'])) {
+  if (X::hasProp($model->data['data'], 'oldsigned', true) && ($model->data['data']['oldsigned'] !== $model->data['data']['signed'])) {
     $model->data['data']['new_signed'] = $model->data['data']['signed'];
     $model->data['data']['col_signed'] = $model->data['data']['oldsigned'];
   }
-  if (X::hasProp($model->data['data'], 'oldmaxlength', true) && ($model->data['oldmaxlength'] !== $model->data['maxlength'])) {
+  if (X::hasProp($model->data['data'], 'oldmaxlength', true) && ($model->data['data']['oldmaxlength'] !== $model->data['data']['maxlength'])) {
     $model->data['data']['new_maxlength'] = $model->data['data']['maxlength'];
     $model->data['data']['col_maxlength'] = $model->data['data']['oldmaxlength'];
   }
   if (str_contains($model->data['data']['type'], 'text') === true) {
     $model->data['data']['default'] = null;
   }
-  if (X::hasProp($model->data['data'], 'olddefaultExpression', true) && ($model->data['olddefaultExpression'] !== $model->data['defaultExpression'])) {
+  if (X::hasProp($model->data['data'], 'olddefaultExpression', true) && ($model->data['data']['olddefaultExpression'] !== $model->data['data']['defaultExpression'])) {
     $model->data['data']['new_defaultExpression'] = $model->data['data']['defaultExpression'];
     $model->data['data']['col_defaultExpression'] = $model->data['data']['olddefaultExpression'];
   }
-  if (X::hasProp($model->data['data'], 'olddecimal', true) && ($model->data['olddecimal'] !== $model->data['decimal'])) {
+  if (X::hasProp($model->data['data'], 'olddecimal', true) && ($model->data['data']['olddecimal'] !== $model->data['data']['decimal'])) {
     $model->data['data']['new_decimal'] = $model->data['data']['default'];
     $model->data['data']['col_decimal'] = $model->data['data']['olddecimal'];
   }
