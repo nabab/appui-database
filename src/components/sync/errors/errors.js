@@ -182,7 +182,9 @@
           component: this.$options.components.fixForm,
           source: {
             id: id
-          }
+          },
+          height: 180,
+          width: 450
         });
       }
     },
@@ -226,10 +228,14 @@
           :data="source"
           :source="formData"
           :confirm-message="mess">
-  <div class="bbn-spadded bbn-grid-fields">
-  <label>` + bbn._('Source') + `</label>
-  <bbn-dropdown :source="list"
-                v-model="formData.source"/>
+  <div class="bbn-padded bbn-overlay bbn-middle">
+    <div>
+      <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
+      <div class="bbn-c">
+        <bbn-dropdown :source="list"
+                      v-model="formData.source"/>
+      </div>
+    </div>
   </div>
 </bbn-form>
         `,

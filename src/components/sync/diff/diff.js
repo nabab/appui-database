@@ -4,6 +4,10 @@
       source: {
         type: Object,
         validator: v => ('origin' in v) && ('currents' in v)
+      },
+      json: {
+        type: Boolean,
+        default: false
       }
     },
     computed:{
@@ -50,6 +54,12 @@
           });
         }
         return res;
+      }
+    },
+    components: {
+      json: {
+        template: '<bbn-jsoneditor :source="source"></bbn-jsoneditor>',
+        props: ['source']
       }
     }
   }

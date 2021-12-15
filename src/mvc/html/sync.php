@@ -14,4 +14,11 @@
                   :source="source"
                   component="appui-database-sync-conflicts">
   </bbns-container>
+  <bbns-container title="<?=_('Structures')?>"
+                  url="structures"
+                  :static="true"
+                  icon="nf nf-mdi-table_settings"
+                  :source="source"
+                  component="appui-database-sync-structures">
+  </bbns-container>
 </bbn-router>

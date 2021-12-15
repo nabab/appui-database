@@ -13,11 +13,11 @@
                   :notext="true"
                   @click="refreshFile"/>
       <i v-if="currentTableDate"
-         class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
+         class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentTableDate"
             v-text="currentTableDate"/>
       <i v-if="currentTableTime"
-         class="nf nf-oct-clock bbn-right-xspace bbn-left-sspace"/>
+         class="nf nf-oct-clock bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentTableTime"
             v-text="currentTableTime"/>
     </div>
@@ -25,11 +25,11 @@
       <span v-if="lastReception"><?=_('Tables list loaded on')?></span>
       <span v-else><?=_('Tables not yet loaded')?></span>
       <i v-if="currentLastReceptionDate"
-         class="nf nf-fa-calendar bbn-right-xspace bbn-left-sspace"/>
+         class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentLastReceptionDate"
             v-text="currentLastReceptionDate"/>
       <i v-if="currentLastReceptionTime"
-         class="nf nf-oct-clock bbn-right-xspace bbn-left-sspace"/>
+         class="nf nf-oct-clock bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentLastReceptionTime"
             v-text="currentLastReceptionTime"/>
     </div>

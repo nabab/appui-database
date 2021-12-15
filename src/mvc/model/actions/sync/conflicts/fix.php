@@ -38,92 +38,82 @@ if (($dbIdx = array_search($model->data['source'], $dbs, true)) !== false) {
 if (!empty($dbs)) {
   $succ = true;
   $currentDb = $model->db->getCurrent();
+  $table = $model->data['table'];
   if ($currentDb !== $model->data['source']){
     $model->db->change($model->data['source']);
   }
   $custom = $model->getPluginModel('conflicts');
+  $excluded = [];
+  if (!empty($custom)
+    && !empty($custom['excluded'])
+    && !empty($custom['excluded'][$table])
+  ) {
+    $excluded = $custom['excluded'][$table];
+  }
   foreach ($model->data['ids'] as $id) {
     if ($model->data['source'] !== $model->db->getCurrent()){
       $model->db->change($model->data['source']);
     }
     if ($model->data['source'] === $model->db->getCurrent()) {
       if (($idxFile = \bbn\X::find($fileData, ['id' => $id])) !== null) {
-        if ($structure = $model->db->modelize($model->data['table'])) {
-          $fields = array_keys($structure['fields']);
-          if (!empty($custom)
-            && !empty($custom['excluded'])
-            && !empty($custom['excluded'][$model->data['table']])
-          ) {
-            $excluded = $custom['excluded'][$model->data['table']];
-            $fields = array_values(array_filter($fields, function($field) use($excluded){
-              return !in_array($field, $excluded);
-            }));
-          }
+        $fields = array_keys($model->db->getColumns($table));
+        if (!empty($excluded)) {
+          $fields = array_values(array_filter($fields, function($field) use($excluded){
+            return !in_array($field, $excluded);
+          }));
         }
-        else {
-          $fields = [];
-        }
-        $data = $model->db->rselect($model->data['table'], $fields, $id);
+        $data = $model->db->rselect($table, $fields, $id);
         $isDelete = empty($data);
         $tmpSucc = true;
         foreach ($dbs as $db) {
           $model->db->change($db);
           $dbsyncIsEnabled = Dbsync::isEnabled();
           Dbsync::disable();
-          
-          /** @todo disattivare controllo chiavi esterne */
-  
-          if ($db === $model->db->getCurrent()) {
-            if ($structure = $model->db->modelize($model->data['table'])) {
-              $fields = array_keys($structure['fields']);
-              if (!empty($custom)
-                && !empty($custom['excluded'])
-                && !empty($custom['excluded'][$model->data['table']])
-              ) {
-                $excluded = $custom['excluded'][$model->data['table']];
+          $model->db->disableKeys();
+          try {
+            if ($db === $model->db->getCurrent()) {
+              $fields = array_keys($model->db->getColumns($db . '.' . $table));
+              if (!empty($excluded)) {
                 $fields = array_values(array_filter($fields, function($field) use($excluded){
                   return !in_array($field, $excluded);
                 }));
               }
-            }
-            else {
-              $fields = [];
-            }
-            $tmp = $model->db->rselect($model->data['table'], $fields, $id);
-            if ($isDelete
-              && !empty($tmp)
-              && !$model->db->delete($model->data['table'], $id)
-            ) {
-              $succ = false;
-              $tmpSucc = false;
-            }
-            if (!$isDelete
-              && empty($tmp)
-              && !$model->db->insert($model->data['table'], $data)
-            ) {
-              $succ = false;
-              $tmpSucc = false;
-            }
-            if (!$isDelete
-              && !empty($tmp)
-              && ($data != $tmp)
-            ) {
-              if (($toUpd = array_filter($data, function($v, $f) use($tmp){
-                  return is_array($v) || is_array($tmp[$f]) ? $v != $tmp[$f] : $v !== $tmp[$f];
-                }, ARRAY_FILTER_USE_BOTH))
-                && !$model->db->update($model->data['table'], $toUpd, $id)
+              $tmp = $model->db->rselect($table, $fields, $id);
+              if ($isDelete
+                && !empty($tmp)
+                && !$model->db->delete($table, $id)
               ) {
                 $succ = false;
                 $tmpSucc = false;
               }
+              if (!$isDelete
+                && empty($tmp)
+                && !$model->db->insert($table, $data)
+              ) {
+                $succ = false;
+                $tmpSucc = false;
+              }
+              if (!$isDelete
+                && !empty($tmp)
+                && ($data != $tmp)
+              ) {
+                if (($toUpd = array_filter($data, function($v, $f) use($tmp){
+                    return is_array($v) || is_array($tmp[$f]) ? $v != $tmp[$f] : $v !== $tmp[$f];
+                  }, ARRAY_FILTER_USE_BOTH))
+                  && !$model->db->update($table, $toUpd, $id)
+                ) {
+                  $succ = false;
+                  $tmpSucc = false;
+                }
+              }
             }
           }
-          if ($dbsyncIsEnabled) {
-            Dbsync::enable();
+          finally {
+            $model->db->enableKeys();
+            if ($dbsyncIsEnabled) {
+              Dbsync::enable();
+            }
           }
-  
-          /** @todo riattivare controllo chiavi esterne */
-  
         }
         if ($tmpSucc) {
           unset($fileData[$idxFile]);

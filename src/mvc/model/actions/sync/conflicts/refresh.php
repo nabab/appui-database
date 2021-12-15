@@ -15,11 +15,17 @@ $numConflicts = 0;
 if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui')))
   && ($path = $model->dataPath('appui-database') . 'sync/conflicts/')
 ) {
-  $custom = $model->getPluginModel('conflicts', [], $model->pluginUrl('appui-database'));
   $table = $model->data['table'];
-  if ((($primaries = $model->db->getPrimary($table))
-      || ($primaries = $model->db->getUniqueKeys($table)))
-    && ($structure = $model->db->modelize($table))
+  $custom = $model->getPluginModel('conflicts', [], $model->pluginUrl('appui-database'));
+  $excluded = [];
+  if (!empty($custom)
+    && !empty($custom['excluded'])
+    && !empty($custom['excluded'][$table])
+  ) {
+    $excluded = $custom['excluded'][$table];
+  }
+  if (($primaries = $model->db->getPrimary($table))
+    || ($primaries = $model->db->getUniqueKeys($table))
   ) {
     $res = [];
     $tablesData = [];
@@ -27,12 +33,8 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
       $model->db->change($db);
       if ($db === $model->db->getCurrent()) {
         echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Getting data of the table %s'), $model->db->cfn($table, $db));
-        $fields = array_keys($structure['fields']);
-        if (!empty($custom)
-          && !empty($custom['excluded'])
-          && !empty($custom['excluded'][$table])
-        ) {
-          $excluded = $custom['excluded'][$table];
+        $fields = array_keys($model->db->getColumns($db . '.' . $table));
+        if (!empty($excluded)) {
           $fields = array_values(array_filter($fields, function($field) use($excluded){
             return !in_array($field, $excluded);
           }));
@@ -65,10 +67,11 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
                 }
                 else {
                   $diff = false;
+                  $fieldsStructure = $model->db->getColumns($db . '.' . $table);
                   foreach ($row as $rf => $r) {
                     if (!is_null($r)
                       && !is_null($tablesData[$d][$i][$rf])
-                      && (($structure['fields'][$rf]['type'] === 'json')
+                      && (($fieldsStructure[$rf]['type'] === 'json')
                         || (str::isJson($r) && Str::isJson($tablesData[$d][$i][$rf])))
                     ){
                       if (json_decode($r, true) != json_decode($tablesData[$d][$i][$rf], true)){
