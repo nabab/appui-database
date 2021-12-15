@@ -20,7 +20,7 @@
           name: this.source.source.oldname,
         }, d => {
           if (d.success) {
-            this.getPopup().close();
+            bbn.fn.log(this.getPopup().close());
           }
         });
       },
@@ -39,9 +39,8 @@
           table: this.source.table,
           name: this.source.source.oldname,
         };
-        bbn.fn.log("this source source : ",this.source.source);
+        bbn.fn.log("this source source : ",this.source.source, data);
         bbn.fn.post(path, data, (d) => {
-          bbn.fn.log("It's d you know", d);
           if (d.success) {
             if (d.num) {
               this.confirm(bbn._("The column holds data which might get corrupted by this change"), () => {

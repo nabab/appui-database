@@ -29,7 +29,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   $data = $conn->getColumnValues($model->data['table'], $model->data['name']);
-  $mod = $model->db->modelize("Didier_Drogba");
+  $mod = $model->db->modelize("edition_test");
   $model->data['data']['alter_type'] = 'modify';
 
 
@@ -46,6 +46,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
     $model->data['data']['col_name'] = $model->data['name'];
   }
   if (X::hasProp($model->data['data'], 'oldtype', true) && ($model->data['data']['oldtype'] !== $model->data['data']['type'])) {
+
     $model->data['data']['new_type'] = $model->data['data']['type'];
     $model->data['data']['col_type'] = $model->data['data']['oldtype'];
   }
@@ -92,11 +93,19 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
       $model->data['name'] => $model->data['data'],
     ],
   ];
-  $res = [
-    'success' => true
-  ];
-  //X::ddump($res, $model->db->getAlterTable("Didier_Drogba", $update), $update, $model->data, $mod);
-  $conn->alter("Didier_Drogba", $update);
+  //X::ddump($res, $model->db->getAlterTable("edition_test", $update), $update, $model->data, $mod);
+  try {
+    if ($conn->alter("edition_test", $update)) {
+      $res = [
+        'success' => true
+      ];
+    }
+  }
+  catch (\Exception $e) {
+    $res = [
+      'error' => $e->getMessage()
+    ];
+    }
 }
 
 return $res;

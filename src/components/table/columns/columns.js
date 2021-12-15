@@ -65,6 +65,7 @@
         data.oldnull = data.null;
         data.oldkey = data.key;
         data.oldmaxlength = data.maxlength;
+        data.oldindex = data.index;
         this.getPopup({
           title: 'Edit a column',
           component: 'appui-database-column-editor',
