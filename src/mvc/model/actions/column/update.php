@@ -33,6 +33,14 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $model->data['data']['alter_type'] = 'modify';
 
 
+  if($model->data['data']['key'] === 'PRI') {
+    $keys =  [
+      'PRIMARY' => [
+        'columns' => [$model->data['name']]
+      ]
+    ];
+    $cols = [$model->data['name'] => ['PRIMARY']];
+  }
   if (X::hasProp($model->data['data'], 'oldname', true) && ($model->data['oldname'] !== $model->data['name'])) {
     $model->data['data']['new_name'] = $model->data['data']['name'];
     $model->data['data']['col_name'] = $model->data['name'];
@@ -78,12 +86,10 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   unset($model->data['data']['olddefaultExpression']);
   unset($model->data['data']['olddecimal']);
   $update = [
+    'keys' => $keys,
+    'cols' => $cols,
     'fields' => [
       $model->data['name'] => $model->data['data'],
-    ],
-    'cols' => [
-      // $model->data['data']['key'] = 'PRI' | à changer par 'PRIMARY' mais ce n'est pas passé dans la source.
-      $model->data['name'] => $model->data['data']['key'],
     ],
   ];
   $res = [

@@ -41,6 +41,7 @@
         };
         bbn.fn.log("this source source : ",this.source.source);
         bbn.fn.post(path, data, (d) => {
+          bbn.fn.log("It's d you know", d);
           if (d.success) {
             if (d.num) {
               this.confirm(bbn._("The column holds data which might get corrupted by this change"), () => {
