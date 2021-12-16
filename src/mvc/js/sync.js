@@ -18,9 +18,16 @@
         }
       },
       startConflictsPoller(){
-        if (!!this.source.filesHash) {
+        if (!!this.source.conflictsFilesHash) {
           this.setPollerProp({
-            conflictsHash: this.source.filesHash
+            conflictsHash: this.source.conflictsFilesHash
+          });
+        }
+      },
+      startStructuresPoller(){
+        if (!!this.source.structuresFilesHash) {
+          this.setPollerProp({
+            structuresHash: this.source.structuresFilesHash
           });
         }
       }
@@ -30,14 +37,27 @@
       appui.$on('appui-database', (type, data) => {
         if (type === 'message') {
           if ('sync' in data) {
-            try {
-              let conflictsComp = appui.getRegistered('appui-database-sync-conflicts');
-              if (bbn.fn.isVue(conflictsComp) && bbn.fn.isFunction(conflictsComp.receive)) {
-                conflictsComp.receive(data.sync);
+            if ('conflictsFiles' in data.sync) {
+              try {
+                let comp = appui.getRegistered('appui-database-sync-conflicts');
+                if (bbn.fn.isVue(comp) && bbn.fn.isFunction(comp.receive)) {
+                  comp.receive(data.sync.conflictsFiles);
+                }
+              }
+              catch (e) {
+                bbn.fn.log(e);
               }
             }
-            catch (e) {
-              bbn.fn.log(e);
+            if ('structuresFiles' in data.sync) {
+              try {
+                let comp = appui.getRegistered('appui-database-sync-structures');
+                if (bbn.fn.isVue(comp) && bbn.fn.isFunction(comp.receive)) {
+                  comp.receive(data.sync.structuresFiles);
+                }
+              }
+              catch (e) {
+                bbn.fn.log(e);
+              }
             }
           }
         }

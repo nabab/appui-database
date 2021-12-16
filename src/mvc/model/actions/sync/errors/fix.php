@@ -2,7 +2,7 @@
 use bbn\Appui\Dbsync;
 use \bbn\X;
 $currentDb = $model->db->getCurrent();
-if (!dbsync::isInit()) {
+if (!Dbsync::isInit()) {
   throw new Exception(_('Dbsync is not initialized'));
 }
 if (!$model->hasData('id', true)) {
@@ -31,7 +31,7 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
       ]))
       && !empty($m['success'])
       && !empty($m['data'])
-      && ($sync = Dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $id]))
+      && ($sync = Dbsync::$dbs->select(Dbsync::$dbs_table, [], ['id' => $id]))
     ) {
       $todo++;
       if ($model->data['source'] === 'sync') {
@@ -50,29 +50,35 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
             $cdata = $m['data'][$idx]['data'];
             $is_enabled = Dbsync::isEnabled();
             Dbsync::disable();
-            // Delete
-            if (empty($data)) {
-              if (!empty($cdata) && !$model->db->delete($sync->tab, $filters)) {
-                throw new Error("Impossibile to delete the row on '$db.{$sync->tab}' with these filters: " . X::getDump($filters));
-              }
-            }
-            // Insert or update
-            else {
-              // Insert
-              if (empty($cdata)) {
-                if (!$model->db->insert($sync->tab, $data)) {
-                  throw new Error("Impossibile to insert the row on '$db.{$sync->tab}' with this data: " . X::getDump($data));
+            try {
+              // Delete
+              if (empty($data)) {
+                if (!empty($cdata) && !$model->db->delete($sync->tab, $filters)) {
+                  throw new Error("Impossibile to delete the row on '$db.{$sync->tab}' with these filters: " . X::getDump($filters));
                 }
               }
-              // Update
-              else if ((json_encode($data) !== json_encode($cdata))
-                && !$model->db->update($sync->tab, $data, $filters)
-              ) {
-                throw new Error("Impossibile to update the row on '$db.{$sync->tab}' with this data: " . X::getDump($data) . PHP_EOL . "and these filters: " . X::getDump($filters));
+              // Insert or update
+              else {
+                $model->db->disableKeys();
+                // Insert
+                if (empty($cdata)) {
+                  if (!$model->db->insert($sync->tab, $data)) {
+                    throw new Error("Impossibile to insert the row on '$db.{$sync->tab}' with this data: " . X::getDump($data));
+                  }
+                }
+                // Update
+                else if ((json_encode($data) !== json_encode($cdata))
+                  && !$model->db->update($sync->tab, $data, $filters)
+                ) {
+                  throw new Error("Impossibile to update the row on '$db.{$sync->tab}' with this data: " . X::getDump($data) . PHP_EOL . "and these filters: " . X::getDump($filters));
+                }
               }
             }
-            if ($is_enabled) {
-              Dbsync::enable();
+            finally {
+              $model->db->enableKeys();
+              if ($is_enabled) {
+                Dbsync::enable();
+              }
             }
           }
         }
