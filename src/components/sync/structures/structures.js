@@ -24,16 +24,21 @@
       }
     },
     methods: {
-      refreshFile(){
-        this.confirm(bbn._('Are you sure you want to update the conflicts of this table?'), () => {
-          this.post(this.root + 'actions/sync/structures/refresh', {
-            table: this.currentTable
-          }, d => {
-            if (d.success) {
-              appui.success();
-            }
-          })
-        })
+      renderLast(row){
+        return row.last ? dayjs(row.last).format('DD/MM/YYYY HH:mm:ss') : '';
+      },
+      refreshFile(row){
+        if (row.table) {
+          this.confirm(bbn._('Are you sure you want to update the structure conflicts of this table?'), () => {
+            this.post(this.root + 'actions/sync/structures/refresh', {
+              table: row.table
+            }, d => {
+              if (d.success) {
+                appui.success();
+              }
+            })
+          });
+        }
       },
       receive(structuresFiles){
         this.tables.splice(0, this.tables.length, ...structuresFiles);
@@ -82,7 +87,7 @@
         },
         data(){
           return {
-            conflicts: appui.getRegistered('appui-database-sync-structures'),
+            structures: appui.getRegistered('appui-database-sync-structures'),
             sync: appui.getRegistered('appui-database-sync')
           }
         },
@@ -98,7 +103,7 @@
               }
             })
             this.getPopup({
-              title: bbn._("Records"),
+              title: bbn._("Structures"),
               width: '90%',
               component: 'appui-database-sync-diff',
               source: {
@@ -107,7 +112,7 @@
                   data: this.source[this.field]
                 },
                 currents: currents,
-                table: this.conflicts.currentTable,
+                table: this.source.table,
                 json: true
               }
             });

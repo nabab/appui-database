@@ -13,7 +13,8 @@
                   :fixed="true"
                   :width="350"
                   :render="source.json ? undefined : renderField"
-                  :component="source.json ? $options.components.json : undefined"/>
+                  :component="source.json ? $options.components.json : undefined"
+                  :options="{db: source.origin.db}"/>
       <bbns-column v-for="(c, i) in source.currents"
                   :key="i"
                   :field="c.db"
@@ -21,7 +22,8 @@
                   :cls="row => isSame(row[source.origin.db], row[c.db]) ? 'bbn-bg-green bbn-white' : 'bbn-bg-red bbn-white'"
                   :width="350"
                   :render="source.json ? undefined : renderField"
-                  :component="source.json ? $options.components.json : undefined"/>
+                  :component="source.json ? $options.components.json : undefined"
+                  :options="{db: c.db}"/>
     </bbn-table>
   </div>
 </div>

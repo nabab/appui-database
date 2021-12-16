@@ -15,7 +15,7 @@ if (($path = $model->dataPath('appui-database') . 'sync/structures/')
       $structures = yaml_parse_file($file);
       $tmp = [
         'file' => basename($file),
-        'date' => date_create_from_format('Ymd_His', $f[2])->format('Y-m-d H:i:s'),
+        'last' => date_create_from_format('Ymd_His', $f[2])->format('Y-m-d H:i:s'),
         'table' => $f[1]
       ];
       $tmp = \bbn\X::mergeArrays($tmp, $structures[0]);

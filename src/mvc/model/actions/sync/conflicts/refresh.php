@@ -72,7 +72,7 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
                     if (!is_null($r)
                       && !is_null($tablesData[$d][$i][$rf])
                       && (($fieldsStructure[$rf]['type'] === 'json')
-                        || (str::isJson($r) && Str::isJson($tablesData[$d][$i][$rf])))
+                        || (Str::isJson($r) && Str::isJson($tablesData[$d][$i][$rf])))
                     ){
                       if (json_decode($r, true) != json_decode($tablesData[$d][$i][$rf], true)){
                         $diff = true;

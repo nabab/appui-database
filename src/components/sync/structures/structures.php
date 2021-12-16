@@ -20,9 +20,12 @@
                :pageable="false">
       <bbns-column field="table"
                    title="<?=_('Table')?>"/>
-      <bbns-column field="date"
+      <bbns-column field="last"
                    type="datetime"
-                   title="<?=_('Date')?>"/>
+                   title="<?=_('Last check')?>"
+                   :width="150"
+                   cls="bbn-c"
+                   :render="renderLast"/>
       <bbns-column v-for="(db, i) in source.dbs"
                    :field="db"
                    :title="db"
@@ -33,6 +36,14 @@
                    :options="{
                      field: db
                    }"/>
+      <bbns-column :buttons="[{
+                     text: '<?=_('Refresh')?>',
+                     icon: 'nf nf-fa-refresh',
+                     notext: true,
+                     action: refreshFile
+                   }]"
+                   :width="50"
+                   cls="bbn-c"/>
     </bbn-table>
   </div>
 </div>

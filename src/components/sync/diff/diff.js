@@ -58,8 +58,20 @@
     },
     components: {
       json: {
-        template: '<bbn-jsoneditor :source="source"></bbn-jsoneditor>',
-        props: ['source']
+        template: `
+<bbn-json-editor :value="source[db]"
+                 :readonly="true"/>
+        `,
+        props: {
+          source: {
+            type: Object,
+            required: true
+          },
+          db: {
+            type: String,
+            required: true
+          }
+        }
       }
     }
   }

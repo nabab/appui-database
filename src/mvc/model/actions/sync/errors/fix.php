@@ -2,7 +2,7 @@
 use bbn\Appui\Dbsync;
 use \bbn\X;
 $currentDb = $model->db->getCurrent();
-if (!dbsync::isInit()) {
+if (!Dbsync::isInit()) {
   throw new Exception(_('Dbsync is not initialized'));
 }
 if (!$model->hasData('id', true)) {
@@ -31,7 +31,7 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
       ]))
       && !empty($m['success'])
       && !empty($m['data'])
-      && ($sync = Dbsync::$dbs->select(dbsync::$dbs_table, [], ['id' => $id]))
+      && ($sync = Dbsync::$dbs->select(Dbsync::$dbs_table, [], ['id' => $id]))
     ) {
       $todo++;
       if ($model->data['source'] === 'sync') {
