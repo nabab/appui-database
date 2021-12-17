@@ -11,7 +11,13 @@ $res                  = [
 ];
 
 if ($res['total']) {
-  $res['data'] = array_splice($hosts, $model->data['start'], $model->data['limit']);
+  $url = $model->pluginUrl('appui-database');
+  $res['data'] = array_map(function($o) use ($url) {
+    return [
+      'text' => $o['code'],
+      'url'  => $url . '/tabs/' . $o['code'] . '/home'
+    ];
+  }, array_splice($hosts, $model->data['start'], $model->data['limit']));
 }
 
 return $res;

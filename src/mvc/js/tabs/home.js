@@ -3,26 +3,6 @@
 (() => {
   return {
     props: ['source'],
-    computed: {
-      dashboardSrc(){
-        let data = [];
-        bbn.fn.iterate(this.source.dashboard, (a, n) => {
-          let it = bbn.fn.clone(a);
-          if (n === 'hosts_mysql') {
-            it.buttonsRight = [{
-              icon: "nf nf-fa-plus",
-              text: bbn._("Add a new MySQL host"),
-              action: () => {
-                this.addHost('mysql', a.key);
-              }
-            }];
-          }
-          bbn.fn.log("WIDGET", it, n);
-          data.push(it);
-        });
-        return data;
-      }
-    },
     methods: {
       addHost(engine, widgetKey) {
         this.getPopup({
@@ -44,7 +24,15 @@
             widget.reload();
           }
         });
-        
+      },
+      addMysqlHost(){
+        if (this.source.dashboard
+          && this.source.dashboard.widgets
+          && this.source.dashboard.widgets.hosts_mysql
+          && this.source.dashboard.widgets.hosts_mysql.key
+        ) {
+          this.addHost('mysql', this.source.dashboard.widgets.hosts_mysql.key);
+        }
       },
       insert(){
         return this.$refs.table.insert(null,{width: '500px', height: '450px'}, bbn._("New Host"));
