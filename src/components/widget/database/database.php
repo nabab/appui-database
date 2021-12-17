@@ -1,3 +1,3 @@
-<a :href="root + 'tabs/' + source.code + '/home'"
-    v-text="source.code"
+<a :href="source.url"
+    v-text="source.text"
 ></a>
