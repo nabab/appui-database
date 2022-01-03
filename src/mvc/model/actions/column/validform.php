@@ -14,6 +14,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
 	$database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   $data = $conn->getColumnValues($model->data['table'], $model->data['name']);
+  //X::ddump($conn, $data, $model->data['table'], $model->data['name'], $model->data['host'], $model->data['engine'], $model->data['db'], $model->data);
   $res = [
     'success' => true,
     'num' => count($data)
