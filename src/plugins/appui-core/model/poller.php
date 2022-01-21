@@ -11,6 +11,7 @@ return [[
     $pathConflicts = $path . 'sync/conflicts/';
     $pathStructures = $path . 'sync/structures/';
     $resConflictsFiles = [];
+    $resStructuresFiles = [];
     if ($conflictsFiles = \bbn\File\Dir::getFiles($pathConflicts)) {
       foreach ($conflictsFiles as $file){
         preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.yml$/', basename($file), $f);
