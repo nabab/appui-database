@@ -1,7 +1,8 @@
 <!-- HTML Document -->
 
 <div class="bbn-overlay">
-  <bbn-dashboard :source="dashboardSrc"
+  <bbn-dashboard :source="source.dashboard.widgets"
+                 :order="source.dashboard.order"
                  :sortable="true"
                  ref="dashboard"
                  class="bbn-background"/>

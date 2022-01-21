@@ -17,7 +17,7 @@ if (dbsync::isInit()
     // Changing to desired DB
     $model->db->change($db);
     if ($db === $model->db->getCurrent()) {
-      $primaries = $model->db->getPrimary($sync->tab);
+      $primaries = $model->db->getPrimary($sync->tab) ?: $model->db->getUniqueKeys($sync->tab);
       if ($structure = $model->db->modelize($sync->tab)) {
         $fields = array_keys($structure['fields']);
         if (!empty($custom)
@@ -33,8 +33,8 @@ if (dbsync::isInit()
       else {
         $fields = [];
       }
-      $all = array_merge($sync->rows, $sync->vals);
-      if (count($primaries) && \bbn\X::hasProps($all, $primaries)) {
+      $all = is_array($sync->rows) && is_array($sync->vals) ? array_merge($sync->rows, $sync->vals) : [];
+      if (!empty($primaries) && \bbn\X::hasProps($all, $primaries)) {
         $filters = [];
         foreach ($primaries as $prim) {
           $filters[$prim] = $all[$prim];
@@ -48,9 +48,9 @@ if (dbsync::isInit()
       }
       $model->data['res']['data'][] = [
         'db' => $db,
-        'data' => $model->db->rselect($sync->tab, $fields, $filters),
-        'query' => $model->db->last(),
-        'filters' => $filters
+        'data' => !empty($filters) ? $model->db->rselect($sync->tab, $fields, $filters) : [],
+        'query' => !empty($filters) ? $model->db->last() : '',
+        'filters' => $filters ?: []
       ];
       $model->data['res']['success'] = true;
     }

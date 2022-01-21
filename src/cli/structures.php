@@ -15,7 +15,7 @@ if (Dbsync::isInit()
   echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Number of databases: %d'), count($dbs)) . PHP_EOL;
   echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Number of tables: %d'), count($tables)) . PHP_EOL;
   foreach ($tables as $table) {
-    $m = $ctrl->getModel($ctrl->pluginUrl('appui-database') . '/actions/sync/conflicts/refresh', [
+    $m = $ctrl->getModel($ctrl->pluginUrl('appui-database') . '/actions/sync/structures/refresh', [
       'table' => $table
     ]);
     if (!empty($m['success'])){

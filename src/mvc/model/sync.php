@@ -1,12 +1,25 @@
 <?php
 /** @var $model \bbn\Mvc\Model*/
 use \bbn\Appui\Dbsync;
-$res_files = [];
-$files = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');
-foreach ($files as $file){
+$resConflictsFiles = [];
+$conflictsFiles = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');
+foreach ($conflictsFiles as $file){
   preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.j{1}s{1}o{1}n{1}$/', basename($file), $f);
   if (!empty($f) && !empty($f[1]) && !empty($f[2])) {
-    $res_files[] = [
+    $resConflictsFiles[] = [
+      'text' => $f[1],
+      'value' => $f[1],
+      'file' => basename($file),
+      'date' => date_create_from_format('Ymd_His', $f[2])->format('Y-m-d H:i:s')
+    ];
+  }
+}
+$resStructuresFiles = [];
+$structuresFiles = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');
+foreach ($structuresFiles as $file){
+  preg_match('/^(.*)_(\d{4}\d{2}\d{2}_\d{6})\.j{1}s{1}o{1}n{1}$/', basename($file), $f);
+  if (!empty($f) && !empty($f[1]) && !empty($f[2])) {
+    $resStructuresFiles[] = [
       'text' => $f[1],
       'value' => $f[1],
       'file' => basename($file),
@@ -26,7 +39,9 @@ return [
       'columns' => array_keys($model->db->getColumns($t))
     ];
   }, Dbsync::$tables),
-  'files' => $res_files,
-  'filesHash' => md5(json_encode($res_files)),
+  'conflictsFiles' => $resConflictsFiles,
+  'conflictsFilesHash' => md5(json_encode($resConflictsFiles)),
+  'structuresFiles' => $resStructuresFiles,
+  'structuresFilesHash' => md5(json_encode($resStructuresFiles)),
   'database' => BBN_DATABASE
 ];

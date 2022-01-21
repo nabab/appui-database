@@ -55,9 +55,17 @@
         let cp = this.closest('bbn-container');
         let cp2 = cp.closest("bbn-container").getComponent();
         let cp3 = cp2.closest('bbn-container').getComponent();
-        bbn.fn.log("cp = ", cp);
+        bbn.fn.log("cp = ", data);
+        data.olddecimal = data.decimal;
+        data.olddefault = data.default;
+        data.olddefaultExpression = data.defaultExpression;
         data.oldname = data.name;
         data.oldtype = data.type;
+        data.oldsigned = data.signed;
+        data.oldnull = data.null;
+        data.oldkey = data.key;
+        data.oldmaxlength = data.maxlength;
+        data.oldindex = data.index;
         this.getPopup({
           title: 'Edit a column',
           component: 'appui-database-column-editor',

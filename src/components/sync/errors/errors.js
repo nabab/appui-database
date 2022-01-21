@@ -22,22 +22,22 @@
       },
       getButtons(row){
         let ar = [{
-          text: bbn._('See source'),
-          icon: 'nf nf-mdi-ray_start',
+          text: bbn._('Compare with the source'),
+          icon: 'nf nf-mdi-vector_difference_ba',
           notext: true,
           action: row => {
             this.diff(row, row.db)
           }
         }, {
-          text: bbn._('See destinations'),
-          icon: 'nf nf-mdi-ray_end',
+          text: bbn._('Compare with the destinations'),
+          icon: 'nf nf-mdi-vector_difference_ab',
           notext: true,
           action: row => {
             this.diff(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))
           }
         }, {
-          text: bbn._('See differences dbs'),
-          icon: 'nf nf-mdi-ray_vertex',
+          text: bbn._('Compare the source with the destinations'),
+          icon: 'nf nf-mdi-vector_difference',
           notext: true,
           action: row => {
             this.diffDbs(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))
@@ -182,7 +182,9 @@
           component: this.$options.components.fixForm,
           source: {
             id: id
-          }
+          },
+          height: 180,
+          width: 450
         });
       }
     },
@@ -226,10 +228,14 @@
           :data="source"
           :source="formData"
           :confirm-message="mess">
-  <div class="bbn-spadded bbn-grid-fields">
-  <label>` + bbn._('Source') + `</label>
-  <bbn-dropdown :source="list"
-                v-model="formData.source"/>
+  <div class="bbn-padded bbn-overlay bbn-middle">
+    <div>
+      <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
+      <div class="bbn-c">
+        <bbn-dropdown :source="list"
+                      v-model="formData.source"/>
+      </div>
+    </div>
   </div>
 </bbn-form>
         `,
