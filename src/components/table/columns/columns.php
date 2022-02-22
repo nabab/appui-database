@@ -3,7 +3,7 @@
              :sortable="true"
              :filterable="true"
              :info="true"
-             button-mode="buttons"
+             button-mode="menu"
              :columns= "[
                         {
                           title: ' ',

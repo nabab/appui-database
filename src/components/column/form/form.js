@@ -11,13 +11,14 @@
       db: {},
       host: {},
       engine: {},
-      table: {},
+      tables: {},
     },
     data(){
       let data = {
         engine: this.engine,
         host: this.host,
-        db: this.db
+        db: this.db,
+        tables: this.tables
       };
       return {
         formIsValid: false,
