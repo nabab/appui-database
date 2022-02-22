@@ -80,7 +80,6 @@
             root: appui.databases.source.mysql.root,
           },
         })
-        bbn.fn.log('componentOptions =', cp.source.db, cp.source.host, cp.source.engine, cp.source.table, "data et le reste:", data, col, idx);
         return;
       },
       moveUp(idx) {
@@ -96,7 +95,6 @@
           let tmp = idx.position - 1;
           bbn.fn.move(this.tableSource, tmp, tmp + 1);
           bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
-          bbn.fn.log('ca existe ?', idx, this.tableSource);
         }
         return;
       },

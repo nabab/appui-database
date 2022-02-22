@@ -51,7 +51,7 @@
                                       :host="source.host"
                                       :db="source.db"
                                       :predefined="source.predefined"
-                                      :table="source.table"
+                                      :tables="source.tables"
                                       @cancel="onCancel"
                                       @change="edited = -1"
                                       >

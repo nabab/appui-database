@@ -10,13 +10,14 @@
   <h3>
     <?=_("Column definition")?>
   </h3>
-  <div class="bbn-grid-fields" >
-    <label class="bbn-lg"><?=_("Column's name")?></label>
-    <div class="bbn-lg">
-      <bbn-input v-model="source.name" :required="true" @change="checkColumnsNames"/>
-    </div>
+  <div class="bbn-grid-fields">
+    <label class="bbn-b"><?=_("Column's name")?></label>
+    <bbn-input class="bbn-wider bbn-bottom-space"
+               v-model="source.name"
+               :required="true"
+               @change="checkColumnsNames"/>
 
-    <div class="bbn-grid-full bbn-m bbn-vspadded">
+    <div class="bbn-grid-full bbn-m bbn-vspadded bbn-i bbn-c bbn-b">
       <?=_("What kind of column do you want to create ?")?>
     </div>
 
@@ -48,13 +49,8 @@
 
     <template v-else-if="radioType === 'constraint'" >
 
-      <label><?=_("Nullable")?></label>
-      <div>
-        <bbn-checkbox v-model="source.null" :value="true" :novalue="false"/>
-      </div>
-
-      <bbn-dropdown
-                    class="bbn-wider"
+      <label ><?=_("Reference Table")?></label>
+      <bbn-dropdown class="bbn-wider"
                     v-model="source.constraint"
                     :source="tables"
                     :placeholder="_('Choose the reference')"/>
@@ -148,8 +144,7 @@
 
     </template>
 
-    <label> </label>
-    <div>
+    <div class="bbn-grid-full bbn-c">
       <bbn-button @click="change" text="<?= _('Confirm') ?>" :disabled="!isFormValid"/>
       <bbn-button @click="cancel" text="<?= _('Cancel') ?>"/>
     </div>

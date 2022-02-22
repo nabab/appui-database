@@ -15,7 +15,6 @@
     constraint: "",
     delete: "",
     update: "",
-    default: "",
   };
   return {
     props: ['source'],

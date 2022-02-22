@@ -27,6 +27,5 @@
           v-text="option.text"/>
     <span class="bbn-m bbn-b bbn-space-right bbn-iblock"
           v-text="source.name"/>
-
   </div>
 </div>
