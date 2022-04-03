@@ -1,26 +1,26 @@
 {
-  "text": "Databases",
-  "code": "database",
-  "id_parent" : "appui",
-  "icon": "nf nf-fa-database",
   "cfg": {
     "show_code": 1,
+    "allow_children": 1,
+    "show_icon": 1,
     "i18n": "en"
   },
+  "id_parent": ["appui"],
+  "text": "Databases",
+  "code": "database",
+  "id_alias": ["plugin", "list", "templates", "option", "appui"],
+  "icon": "nf nf-fa-database",
+  "plugin": true,
   "items": [
     {
-      "code": "mysql",
+      "cfg": {
+        "show_code": 1
+      },
       "text": "MySQL",
+      "code": "mysql",
       "icon": "nf nf-dev-mysql",
-      "cfg": {
-        "show_code":1,
-        "show_icon":1,
-        "allow_children":1
-      },
       "items": [
         {
-          "text": "Connections",
-          "code": "connections",
           "cfg": {
             "show_code": 1,
             "show_alias": 1,
@@ -29,28 +29,35 @@
                 "title": "Connection's name",
                 "field": "text",
                 "type": "string",
+                "options": [],
                 "required": true,
+                "hidden": false,
                 "editable": true,
                 "showable": true
-              }, {
+              },
+              {
                 "title": "user@host",
-                "field":"code",
-                "type":"string",
-                "options":{},
-                "required":true,
-                "hidden":false,
-                "editable":true,
-                "showable":true
-              }, {
-                "title":"password",
-                "field":"pass",
-                "type":"string",
-                "required":true,
-                "hidden":false,
-                "editable":true,
-                "showable":true
-              }, {
+                "field": "code",
+                "type": "string",
+                "options": [],
+                "required": true,
+                "hidden": false,
+                "editable": true,
+                "showable": true
+              },
+              {
+                "title": "password",
+                "field": "pass",
+                "type": "string",
+                "options": [],
+                "required": true,
+                "hidden": false,
+                "editable": true,
+                "showable": true
+              },
+              {
                 "title": "Environment",
+                "options": [],
                 "field": "environment",
                 "showable": true,
                 "editable": true,
@@ -59,119 +66,91 @@
                 "source": [
                   {
                     "text": "Development",
-                    "value":"dev"
-                  }, {
-                    "text":"Test",
-                    "value":"test"
-                  },{
-                    "text":"Production",
-                    "value":"prod"
+                    "value": "dev"
+                  },
+                  {
+                    "text": "Test",
+                    "value": "test"
+                  },
+                  {
+                    "text": "Production",
+                    "value": "prod"
                   }
                 ]
               }
             ],
-            "alias_name": "Server",
-            "id_root_alias": ["servers","|*appui-database*|/","appui"]
-          }
-        }, {
+            "alias_name": "Server"
+          },
+          "text": "Connections",
+          "code": "connections"
+        },
+        {
+          "cfg": {
+            "allow_children": 1
+          },
           "text": "Databases",
-          "code": "dbs",
+          "code": "dbs"
+        },
+        {
+          "text": "Preconfigured Columns",
+          "code": "pcolumns",
+          "items": [
+            {
+              "text": "Datetime now not null",
+              "code": "dtnow",
+              "type": "datetime",
+              "default": "now()",
+              "defaultExpression": 1
+            },
+            {
+              "text": "Primary key binary 16",
+              "code": "pkb16",
+              "type": "binary",
+              "index": "primary",
+              "maxlength": 16
+            }
+          ],
           "cfg": {
             "show_code": 1,
-            "allow_children": 1
+            "show_value": 1
           }
         }
       ]
     },
     {
-      "code": "pgsql",
+      "cfg": {
+        "show_code": 1
+      },
       "text": "PostgreSQL",
+      "code": "pgsql",
       "icon": "nf nf-dev-postgresql",
-      "cfg": {
-        "show_code": 1,
-        "allow_children": 1
-      },
       "items": [
         {
           "text": "Connections",
-          "code": "connections",
-          "cfg": {
-            "show_code": 1,
-            "show_alias": 1,
-            "schema": [
-              {
-                "title": "Connection's name",
-                "field": "text",
-                "type": "string",
-                "required": true,
-                "editable": true,
-                "showable": true
-              }, {
-                "title": "user@host",
-                "field":"code",
-                "type":"string",
-                "options":{},
-                "required":true,
-                "hidden":false,
-                "editable":true,
-                "showable":true
-              }, {
-                "title":"password",
-                "field":"pass",
-                "type":"string",
-                "required":true,
-                "hidden":false,
-                "editable":true,
-                "showable":true
-              }, {
-                "title": "Environment",
-                "field": "environment",
-                "showable": true,
-                "editable": true,
-                "type": "",
-                "hidden": false,
-                "source": [
-                  {
-                    "text": "Development",
-                    "value":"dev"
-                  }, {
-                    "text":"Test",
-                    "value":"test"
-                  },{
-                    "text":"Production",
-                    "value":"prod"
-                  }
-                ]
-              }
-            ],
-            "alias_name": "Server",
-            "id_root_alias": ["servers","|*appui-database*|/","appui"]
-          }
-        }, {
+          "code": "connections"
+        },
+        {
           "text": "Databases",
-          "code": "dbs",
-          "cfg": {
-            "show_code": 1,
-            "allow_children": 1
-          }
+          "code": "dbs"
         }
       ]
     },
     {
-      "code": "sqlite",
       "text": "SQLite",
+      "code": "sqlite",
       "icon": "nf nf-dev-sqllite",
-      "cfg": {
-        "show_code": 1,
-        "allow_children": 1
-      },
       "items": [
         {
-          "text": "Paths",
-          "code": "paths",
+          "cfg": {
+            "show_code": 1
+          },
+          "text": "Databases",
+          "code": "dbs"
+        },
+        {
           "cfg": {
             "show_code": 1,
-            "show_alias": 1,
+            "show_value": 1,
             "schema": [
               {
                 "title": "Path",
@@ -180,7 +159,7 @@
                 "showable": true,
                 "editable": true,
                 "hidden": false,
-                "options": {}
+                "options": []
               },
               {
                 "title": "Root",
@@ -196,7 +175,7 @@
                   "cdn"
                 ],
                 "hidden": false,
-                "options": {}
+                "options": []
               },
               {
                 "title": "Environment",
@@ -211,56 +190,78 @@
                   "test",
                   "prod"
                 ],
-                "options": {}
+                "options": []
               }
-            ],
-            "alias_name": "Server",
-            "id_root_alias": ["servers","server","appui"]
-          }
-        }, {
-          "text": "Databases",
-          "code": "dbs",
-          "cfg": {
-            "show_code": 1,
-            "allow_children": 1
-          }
+            ]
+          },
+          "text": "Paths",
+          "code": "paths"
         }
       ]
-    }, {
-      "code": "sync",
-      "text": "Synchronization",
+    },
+    {
       "cfg": {
         "show_alias": 1,
-        "show_code": true
-      }
-    }, {
-      "text": "Permissions",
-      "code": "permissions",
-      "cfg": {
-        "allow_children": 1
+        "notext": 1
       },
+      "text": "Synchronization",
+      "code": "sync"
+    },
+    {
+      "text": "Plugins",
+      "code": "plugins",
       "items": [
         {
-          "text": "Access",
-          "code": "access"
-        }, {
-          "text": "Options",
-          "code": "options"
-        }, {
-          "text": "Plugins",
-          "code": "plugins",
+          "text": "Dashboard",
+          "code": "appui-dashboard",
+          "id_alias": ["dashboard", "appui"],
           "items": [
             {
-              "text": "Dashboard",
-              "code": "appui-dashboard",
-              "id_alias": ["list", "dashboard", "appui"],
-              "items": [{
-                "text": "Databases",
-                "code": "databases",
-                "limit":5,
-                "observe":false,
-                "closable":true,
-                "itemComponent": "appui-database-widget-database"
+              "text": "Widgets",
+              "code": "widgets",
+              "id_alias": ["widgets", "dashboard", "appui"],
+              "icon": "nf nf-mdi-widgets",
+              "items": [
+                {
+                  "text": "Databases",
+                  "code": "databases",
+                  "observe":false,
+                  "closable":true,
+                  "itemComponent": "appui-database-widget-database",
+                  "limit": 10
+                },
+                {
+                  "text": "MySQL Databases",
+                  "code": "dbs_mysql",
+                  "observe":false,
+                  "closable":true,
+                  "itemComponent": "appui-database-widget-database",
+                  "limit": 10
+                },
+                {
+                  "text": "MySQL Hosts",
+                  "code": "hosts_mysql",
+                  "observe":false,
+                  "closable":true,
+                  "itemComponent": "appui-database-widget-database",
+                  "limit": 10,
+                  "buttonsRight": "[{\"text\":\"Add a new MySQL host\",\"icon\":\"nf nf-fa-plus\",\"action\":\"addMysqlHost\"}]"
+                },
+                {
+                  "text": "SQLite Databases",
+                  "code": "dbs_sqlite",
+                  "observe":false,
+                  "closable":true,
+                  "itemComponent": "appui-database-widget-database",
+                  "limit": 10
+                },
+                {
+                  "text": "Tables",
+                  "code": "tables",
+                  "observe":false,
+                  "closable":true,
+                  "itemComponent": "appui-database-widget-database",
+                  "limit": 10
                 }
               ]
             }
