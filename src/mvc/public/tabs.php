@@ -4,8 +4,8 @@
  * Date: 18/07/2017
  * Time: 20:15
  */
+use bbn;
 use bbn\X;
-use bbn\Db;
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 //the base_url
 $root = $ctrl->pluginUrl('appui-database').'/';
@@ -38,7 +38,7 @@ else {
   }
   */
   if ($ctrl->hasArguments(2)) {
-    if (!Db::isEngineSupported($ctrl->arguments[0])) {
+    if (!bbn\Db::isEngineSupported($ctrl->arguments[0])) {
       $ctrl->obj->error = _("Database engine not supported");
       return;
     }
@@ -68,14 +68,14 @@ else {
       $combo = true;
       $url = $root.$engine.'/'.$host;
       $title = $host;
-      $icon = Db::getEngineIcon($engine);
+      $icon = bbn\Db::getEngineIcon($engine);
       $ctrl->setIcon($icon)
             ->addData(['icon' => $icon]);
     }
   }
   // Lower level containers
-  elseif (X::indexOf($ctrl->baseURL, $root) === 0) {
-    $bits = X::split(substr($ctrl->baseURL, strlen($root)), '/');
+  elseif (\bbn\X::indexOf($ctrl->baseURL, $root) === 0) {
+    $bits = \bbn\X::split(substr($ctrl->baseURL, strlen($root)), '/');
     if (end($bits) === '') {
       array_pop($bits);
     }
