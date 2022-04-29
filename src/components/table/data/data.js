@@ -17,7 +17,7 @@
         width: '100'
       });
       return {
-        root: appui.databases.source.root,
+        root: appui.plugins['appui-database'] + '/',
         columns: r
       };
       /*let cols = [];
