@@ -1,4 +1,6 @@
 <?php
+use bbn\X;
+
 $res = [
   'data' => []
 ];
@@ -9,7 +11,7 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
   ){
     $tables = $model->inc->dbc->fullTables($db_id);
     foreach ( $tables as $t ){
-      $res['data'][] = \bbn\X::mergeArrays($t, [
+      $res['data'][] = X::mergeArrays($t, [
         'is_real' => false,
         'is_virtual' => true
       ]);
@@ -26,12 +28,12 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
   }
   if ($dbconn->check() && ($real_tables = $dbconn->getTables($model->data['db']))) {
     foreach ( $real_tables as $i => $t ){
-      $idx = \bbn\X::find($res['data'], ["name" => $t]);
+      $idx = X::find($res['data'], ["name" => $t]);
       $num_rcolumns = \count($dbconn->getColumns($model->data['db'].'.'.$t));
       $keys = $dbconn->getKeys($model->data['db'].'.'.$t);
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;
-      $num_vcolumns = \bbn\X::getField($tables, ['name' => $t], 'num_columns') ?: 0;
-      $num_vkeys = \bbn\X::getField($tables, ['name' => $t], 'num_keys') ?: 0;
+      $num_vcolumns = $tables ? X::getField($tables, ['name' => $t], 'num_columns') : 0;
+      $num_vkeys = $tables ? X::getField($tables, ['name' => $t], 'num_keys') : 0;
       if ( $idx !== null ){
         $res['data'][$idx]['num_real_columns'] = $num_rcolumns;
         $res['data'][$idx]['num_real_keys'] = $num_rkeys;
