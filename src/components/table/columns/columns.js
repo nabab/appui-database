@@ -1,5 +1,55 @@
 ( () => {
   return {
+    data() {
+      let columns = [
+        {
+          title: ' ',
+          cls: 'bbn-c',
+          width: 40,
+          buttons: this.getButtons,
+        }, {
+          field: 'position',
+          title: '<a title=\'' + bbn._('Position in the table') + '>#</a>',
+          cls: 'bbn-c',
+          width: '40'
+        }, {
+          field: 'key',
+          title: '<i class=\'nf nf-fa-key\' title=\'' + bbn._('Are there keys on the column?') + '></i>',
+          render: this.writeKeyInCol,
+          cls: 'bbn-c bbn-bg-black bbn-xl',
+          width: '40'
+        }, {
+          field: 'name',
+          render: this.writeColumn,
+          title: bbn._('Columns'),
+        }, {
+          field: 'type',
+          title: '' + bbn._('Type'),
+          cls: 'bbn-c',
+          render: this.writeType,
+          width: '100'
+        }, {
+          field: 'maxlength',
+          title: '' + bbn._('Length'),
+          cls: 'bbn-c',
+          width: '70'
+        }, {
+          field: 'null',
+          title: '<i class=\'nf nf-fa-ban\' title=\'' + bbn._('Can the field be null?') + '></i>',
+          cls: 'bbn-c',
+          width: '40',
+          render: this.writeNull
+        }, {
+          field: 'default_value',
+          title: '' + bbn._('Default'),
+          render: this.writeDefault,
+          cls: 'bbn-c',
+          width: '80'
+        }];
+      return {
+        columns: columns,
+      };
+    },
     props: ['source'],
     computed: {
       tableSource(){
@@ -11,14 +61,64 @@
       }
     },
     methods: {
+      editOption(row) {
+        bbn.fn.log("Hello", arguments);
+        this.getPopup({
+          width: '30em',
+          height: '15em',
+          source: row,
+          title: false,
+          component: 'appui-database-table-columns-option'
+        });
+      },
+      getButtons(row) {
+        let button = [
+          {
+            text: bbn._('Update'),
+            action: () => {
+              this.update(row)
+            },
+            icon: 'nf nf-fa-edit'
+          },
+          {
+            text: bbn._('Remove'),
+            action: () => {
+              this.remove(row)
+            },
+            icon: 'nf nf-fa-times'
+          },
+          {
+            text: bbn._('Move Up'),
+            action: () => {
+              this.moveUp(row)
+            },
+            icon: 'nf nf-fa-arrow_up'
+          },
+          {
+            text: bbn._('Move Down'),
+            action: () => {
+              this.moveDown(row)
+            },
+            icon: 'nf nf-fa-arrow_down'
+          }
+        ];
+        if (row.option) {
+          button.push(
+            {
+              text: bbn._('Edit Option'),
+              action: () => {
+                this.editOption(row);
+              },
+              icon: 'nf nf-fa-edit'
+            }
+          )
+        }
+        return button;
+      },
       getStateColor(row) {
         let col = false;
-        if (!row.is_real) {
+        if (!row.option) {
           col = 'red';
-        } else if (!row.virtual) {
-          col = 'purple';
-        } else if (row.is_same) {
-          col = 'green';
         }
         return col;
       },
@@ -36,7 +136,13 @@
       },
       writeColumn(row) {
         let col = this.getStateColor(row);
-        let st = '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
+        let st = '';
+        if (row.option && (row.option.text != row.name)) {
+          st += row.option.text + " (" + row.name + ")";
+        }
+        else {
+        	st += '<span' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</span>';
+        }
         if (this.source.constraints[row.name]) {
           st += ' (' + bbn._('refers to') + ' ' + this.source.constraints[row.name].column + ' ' + bbn._('in') + ' ' + this.source.constraints[row.name].table + ')';
         }
@@ -94,7 +200,7 @@
         if (idx.position < this.tableSource.length) {
           let tmp = idx.position - 1;
           bbn.fn.move(this.tableSource, tmp, tmp + 1);
-          bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
+          //bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
         }
         return;
       },
