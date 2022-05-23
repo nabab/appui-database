@@ -34,7 +34,9 @@ if (
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
+    $res['error'] = $e->getMessage();
   }
+
   $cfg = $model->inc->dbc->getGridConfig($model->data['table'], $model->data['db'], $model->data['host'], $model->data['engine']);
   $res = [
     'success' => true,

@@ -62,7 +62,7 @@
             table_id: this.source.info.id,
             types: this.source.types,
             predefined: this.source.predefined,
-            tables: this.source.tables
+            constraints: this.source.constraints
           }
         })
       },
@@ -96,36 +96,31 @@
         });
       },
       drop(t) {
+        let cp = this;
         this.confirm(
-          (bbn.fn.isString(t) ? bbn._("Are you sure you want to drop the table %s ?", t) : bbn._("Are you sure you want to drop these tables?"))
-          + '<br>'
-          + bbn._("This action is irreversible"),
+          (bbn.fn.isString(t) ? bbn._("Are you sure you want to drop the table %s ?", t) : bbn._("Are you sure you want to drop these tables?")) +
+          '<br>' + bbn._("This action is irreversible"),
           () => {
-            if (!db) {
-              db = this.getRef('table').currentSelected;
+            if (!t) {
+              t = this.getRef('table').currentSelected;
            }
             bbn.fn.post(this.root + 'actions/table/drop', {
-              host_id: this.source.info.id,
-              db: db
+              host: this.source.host,
+              db: this.source.db,
+              engine: this.source.engine,
+              table: t
             }, d => {
               if (d.success) {
-                let t = this.getRef('table');
-                if (bbn.fn.isString(db)) {
-                  db = [db];
-                }
-                bbn.fn.each(db, a => {
-                  if (!d.undeleted || !d.undeleted.includes(a)) {
-                    t.delete(t.getIndex(a), false);
-                  }
+                t = this.getRef('table');
+                t.currentSelected.splice(0, t.currentSelected.length);
+                this.$nextTick(() => {
+                  t.updateData();
                 });
-                if (d.error) {
-	                appui.error(d.error);
-                }
+                appui.success(bbn._("Table dropped!"));
               }
               else if (d.error) {
                 appui.error(d.error);
               }
-              bbn.fn.log('success')
             })
           }
         )

@@ -1,9 +1,11 @@
 <?php
 
+use bbn\Appui\Database;
+
 /** @var $model \bbn\Mvc\Model */
 $model->data['limit'] = isset($model->data['limit']) && is_int($model->data['limit']) ? $model->data['limit'] : 5;
 $model->data['start'] = isset($model->data['start']) && is_int($model->data['start']) ? $model->data['start'] : 0;
-$dbc                  = $model->inc->dbc ?? new \bbn\Appui\Database($model->db);
+$dbc                  = $model->inc->dbc ?? new Database($model->db);
 $dbs                  = $dbc->fullDbs('', 'mysql');
 $res                  = [
   'total' => count($dbs),
@@ -16,7 +18,7 @@ if ($res['total']) {
     function ($a) use ($url) {
       return [
         'text' => $a['text'],
-        'url'  => $url.'/tabs/mysql-'.$a['code']
+        'url'  => $url.'/tabs/mysql-'.$a['name']
       ];
     },
     array_splice($dbs, $model->data['start'], $model->data['limit'])

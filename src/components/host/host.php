@@ -1,5 +1,11 @@
 <div class="bbn-overlay">
-  <bbn-splitter :orientation="orientation"
+  <div class="bbn-overlay bbn-middle"
+       v-if="source.error">
+    <div class="bbn-block bbn-padded bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
+         v-text="source.error"/>
+  </div>
+  <bbn-splitter v-else
+                :orientation="orientation"
                 :resizable="true"
                 :collapsible="true">
     <bbn-pane :resizable="true"

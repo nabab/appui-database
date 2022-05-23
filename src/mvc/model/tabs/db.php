@@ -16,14 +16,14 @@ if (
   catch (\Exception $e) {
   }
 
-  $tables = [];
+  $constraints = [];
   $fmodel = $conn->modelize();
   foreach ($fmodel as $tablename => $table) {
     if (!empty($table['keys']['PRIMARY']) && count($table['keys']['PRIMARY']['columns']) === 1) {
       $colname = $table['keys']['PRIMARY']['columns'][0];
       $column = $table['fields'][$colname];
       $column['value'] = $column['text'] = $conn->cfn($colname, $tablename);
-      $tables[] = $column;
+      $constraints[] = $column;
     }
   }
 
@@ -37,7 +37,7 @@ if (
     'info' => $model->inc->options->option($db_id),
     'engine' => $model->data['engine'],
     'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
-    'tables' => $tables
+    'constraints' => $constraints
   ];
 }
 return $res;

@@ -4,48 +4,38 @@
 (()=>{
   const defaultColumn = {
     name: "",
-    type: "",
     maxlength: null,
-    signed: 1,
-    decimal: null,
-    'null': "",
-    index: "",
+    decimals: null,
+    type: 'varchar',
     defaultExpression: 0,
-    extra: "",
-    constraint: "",
-    delete: "",
-    update: "",
+    default: null,
+    extra: '',
+    signed: 1,
+    "null": 0,
+    ref_table: '',
+    ref_column: '',
+    index: '',
+    delete:'CASCADE',
+    update:'CASCADE'
   };
   return {
     props: ['source'],
     data () {
-      let data = {
-        name: this.name,
-        comment: this.comment,
-        columns: []
-      };
       return {
         root: appui.plugins["appui-database"] + '/',
         name: '',
         comment: '',
         edited: -1,
-        formData: data,
+        formData: {
+          name: this.name,
+          comment: this.comment,
+          columns: []
+        },
         keys: [],
         cols: []
       };
     },
     computed: {
-      formButtons() {
-        return ["cancel", {
-          text: bbn._("Submit"),
-          action: ()=> {
-            let form = this.$refs.form;
-            form.submit();
-            bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + this.formData.name + '/columns');
-          },
-          disabled: false,
-        }];
-      },
       numMovableColumns() {
         let tmp = this.formData.columns.length;
         if (this.edited !== -1) {
@@ -62,38 +52,31 @@
           cols: {},
           fields: {}
         };
-        const excluded = ['name', 'index', 'constraint'];
+        const excluded = ['name', 'index', 'ref_table', 'ref_column'];
         bbn.fn.each(this.formData.columns, a => {
           res.fields[a.name] = {};
           for (let n in a) {
             if (!excluded.includes(n)) {
               res.fields[a.name][n] = a[n];
             }
-            if ((n === 'constraint') && a[n]) {
-              res.cols[a.name] = [a.name];
-              res.fields[a.name].key = 'MUL';
-              let tmp = a[n].split('.');
-              res.keys[a.name] = {
-                columns: [
-                  a.name
-                ],
-                ref_db: this.source.db,
-                ref_table: tmp[0],
-                ref_column: tmp[1],
-                update: this.update,
-                delete: this.delete,
-                unique: 0
-              };
-            }
-            else if ((n === 'index') && a[n]) {
-              res.cols[a.name] = [a[n] === 'primary' ? 'PRIMARY' : a.name];
-              res.fields[a.name].key = a[n] === 'primary' ? 'PRI' : 'MUL';
-              res.keys[a[n] === 'primary' ? 'PRIMARY' : a.name] = {
-                columns: [
-                  a.name
-                ],
-                unique: ['primary', 'unique'].includes(a[n]) ? 1 : 0
-              };
+          }
+          if (a.index) {
+            let kn = a.index === 'primary' ? 'PRIMARY' : a.name;
+            res.cols[a.name] = [kn];
+            res.fields[a.name].key = a.index === 'primary' ? 'PRI' : 'MUL';
+            res.keys[kn] = {
+              columns: [
+                a.name
+              ],
+              unique: ['primary', 'unique'].includes(a.index) ? 1 : 0
+            };
+
+            if (a.ref_column) {
+              res.keys[kn].ref_db = this.source.db;
+              res.keys[kn].ref_table = a.ref_table;
+              res.keys[kn].ref_column = a.ref_column;
+              res.keys[kn].update = this.update;
+              res.keys[kn].delete = this.delete;
             }
           }
         });
@@ -101,6 +84,30 @@
       },
     },
     methods: {
+      onCreate(d) {
+        if (d.success) {
+          let table = this.closest('bbn-floater').opener.getRef('table');
+          if (table) {
+            table.updateData();
+          }
+
+          bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + this.formData.name + '/columns');
+          this.getRef('form').closePopup();
+        }
+      },
+      removeColumn(idx) {
+        this.confirm(bbn._("Are you sure you want to remove this column?"), () => {
+          this.formData.columns.splice(idx, 1);
+        })
+        if (this.formData.columns[this.edited]) {
+          if (this.edited === idx) {
+            this.edited = -1;
+          }
+          else if (this.edited > idx) {
+            this.edited--;
+          }
+        }
+      },
       addColumn(idx, cfg) {
         bbn.fn.log("Add column", idx, cfg);
         if (this.formData.columns[idx]) {
@@ -110,21 +117,42 @@
           this.formData.columns.push(bbn.fn.extend({}, defaultColumn, cfg || {}));
           idx = this.formData.columns.length - 1;
         }
+
         this.edited = idx;
       },
-      onCancel() {
-        this.formData.columns.splice(this.edited, 1);
+      onChange() {
+        this.edited = -1;
+        this.$nextTick(() => {
+          this.getRef('form').update();
+        });
+      },
+      onCancel(o) {
+        if (o) {
+          this.formData.columns.splice(this.edited, 1, o);
+        }
+        else {
+          this.formData.columns.splice(this.edited, 1);
+        }
         this.edited = -1;
       },
       getColDescription(col) {
-        let str = col.type;
+        let str = '<strong>' + col.name + '</strong> ' + col.type;
         if (col.maxlength) {
-          str += " (" + col.maxlength + ")";
+          str += " (" + col.maxlength;
+          if (col.decimals) {
+            str += ', ' + col.decimals;
+          }
+          str += ")";
         }
+        if (col.signed === 0) {
+          str += ' UNSIGNED';
+        }
+
         if (!col.null) {
           str += " NOT NULL";
         }
-        if (this.defaultValueType) {
+
+        if (col.defaultExpression || col.default) {
           str += " DEFAULT ";
           if (col.default === null) {
             str += "NULL";

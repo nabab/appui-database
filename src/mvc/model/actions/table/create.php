@@ -8,23 +8,42 @@
 
 use bbn\X;
 
-$tableName = $model->data['name'];
-$structure = ['cols'=> $model->data['cols'], 'fields'=> $model->data['fields'], 'keys'=> $model->data['keys']];
+$res = ['success' => false];
+if ($model->hasData(['host', 'db', 'engine', 'name', 'fields'], true)) {
+  $table = $model->data['name'];
+  $db = $model->data['db'];
+  try {
+    $dbconn = $model->inc->dbc->connection($model->data['host'], $model->data['engine'], $db);
+  }
+  catch (Exception $e) {
+    $res['error'] = Str::text2html($e->getMessage());
+  }
 
-$statement = $model->db->getCreate($tableName, $structure);
-$mode = $model->db->getErrorMode();
-$model->db->setErrorMode('continue');
-try {
-  $res = $model->db->query($statement);
+  if ($dbconn->check()) {
+    if ($dbconn->tableExists($table, $db)) {
+      $res['error'] = X::_("The table %s already exists", $table);
+    }
+
+    $structure = ['cols'=> $model->data['cols'] ?? [], 'fields'=> $model->data['fields'], 'keys'=> $model->data['keys'] ?? []];
+    $res['statement'] = $model->db->getCreate($table, $structure);
+    $mode = $model->db->getErrorMode();
+    $model->db->setErrorMode('continue');
+    try {
+      $model->db->query($res['statement']);
+    }
+    catch (\Exception $e) {
+      $res['error'] = Str::text2html($e->getMessage());
+    }
+    $model->db->setErrorMode($mode);
+    $res['success'] = $dbconn->tableExists($table, $db);
+  }
 }
-catch (\Exception $e) {
-  $error = $model->db->getLastError();
-}
-$model->db->setErrorMode($mode);
+
+return $res;
+
 
 return [
   'query' => $statement,
-  'query2' => $model->db->getCreate('bbn_options'),
   'success' => $res,
   'error' => $error ?? null
 ];

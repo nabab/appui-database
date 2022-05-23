@@ -5,13 +5,34 @@
 */
 
 (()=>{
+  const defaults = {
+    maxlength: null,
+    decimals: null,
+    type: 'varchar',
+    defaultExpression: 0,
+    default: null,
+    extra: '',
+    signed: 1,
+    "null": 0,
+    ref_table: '',
+    ref_column: '',
+    index: '',
+    delete:'CASCADE',
+    update:'CASCADE'
+  };
+
   return {
     props: {
       source: {},
       db: {},
       host: {},
       engine: {},
-      tables: {},
+      constraints: {
+        type: Array,
+        default() {
+          return [];
+        }
+      },
     },
     data(){
       let data = {
@@ -21,7 +42,6 @@
         tables: this.tables
       };
       return {
-        formIsValid: false,
         otypes:  appui.databases.source[this.engine].types,
         predefined:  appui.databases.source[this.engine].predefined,
         root: appui.plugins['appui-database'] + '/',
@@ -29,7 +49,7 @@
         defaultValueType: '',
         formData: data,
         values: [],
-        radioType: 'free',
+        radioType: this.source.ref_column ? 'constraint' : (this.source.name ? 'free' : 'predefined'),
         predefinedType: "",
         columnsNamesOk: false,
         onDelete: [
@@ -90,6 +110,20 @@
             value: 'fulltext'
           }
         ],
+        constraintIndexes: [
+          {
+            text: bbn._("Primary"),
+            value: 'primary',
+          },
+          {
+            text: bbn._("Unique"),
+            value: 'unique'
+          },
+          {
+            text: bbn._("Index"),
+            value: 'index'
+          }
+        ],
         types: {
           int: [
             'int',
@@ -135,6 +169,22 @@
       };
     },
     computed: {
+      constraint: {
+        get() {
+          return this.source.ref_table && this.source.ref_column ? this.source.ref_table + '.' + this.source.ref_column : '';
+        },
+        set(v) {
+          if (v.indexOf('.') > 0) {
+            let bits = v.split('.');
+            this.$set(this.source, 'ref_table', bits[0]);
+            this.$set(this.source, 'ref_column', bits[1]);
+          }
+          else {
+            this.$set(this.source, 'ref_table', defaults.ref_table);
+            this.$set(this.source, 'ref_column', defaults.ref_column);
+          }
+        }
+      },
       colTypes () {
         return this.otypes.sort();
       },
@@ -151,7 +201,7 @@
         return this.predefined.map(a => {
           return {
             text: a.text,
-            value: a.code
+            value: a.id
           };
         });
       },
@@ -195,7 +245,7 @@
           }
           else if (this.types.decimal.includes(this.source.type)) {
             return {
-              decimals: this.source.decimal
+              decimals: this.source.decimals
             };
           }
           else if (this.types.char.includes(this.source.type)) {
@@ -251,7 +301,7 @@
         }
         switch (this.radioType) {
           case "constraint":
-            if (!this.source.constraint) {
+            if (!this.constraint) {
               return false;
             }
             break;
@@ -267,7 +317,7 @@
             if ((this.types.decimal.includes(this.source.type) || this.types.int.includes(this.source.type)) && !this.source.maxlength) {
               return false;
             }
-            if (this.types.decimal.includes(this.source.type) && !this.source.decimal) {
+            if (this.types.decimal.includes(this.source.type) && !this.source.decimals) {
               return false;
             }
             break;
@@ -276,24 +326,29 @@
         }
         return true;
       },
+      buttonTitle() {
+        let form = this.getRef('form');
+        if (form && form.originalData && form.originalData.name) {
+          return bbn._("Edit column");
+        }
+
+        return bbn._('Create column');
+      }
     },
     methods: {
-      success(){},
       cancel() {
-        this.$emit("cancel");
+        let o = this.getRef('form').originalData;
+        this.$emit("cancel", o.name ? o : null);
       },
       change() {
         this.$emit("change");
       },
       resetAll() {
-        this.source.maxlength = null;
-        this.source.decimal = null;
-        this.source.defaultExpression = 0;
-        this.source.signed = 1;
-        this.source.null = 0;
-        this.source.constraint = "";
-        this.source.delete="CASCADE";
-        this.source.update="CASCADE"
+        bbn.fn.iterate(defaults, (a, n) => {
+          if (!['name', 'type'].includes(n)) {
+            this.source[n] = a;
+          }
+        });
       },
       checkColumnsNames() {
         let cp = this.closest("appui-database-table-form");
@@ -308,13 +363,24 @@
       },
     },
     watch: {
-      'source.constraint'(v) {
+      constraint(v) {
         if (v) {
-          let row = bbn.fn.getRow(this.table, {value: v});
+          let row = bbn.fn.getRow(this.constraints, {value: v});
+          bbn.fn.log("COMPUTED CONSTRAINT", v, row, this.constraints);
           for (let n in row) {
+            if (['ref_table', 'ref_column'].includes(n)) {
+              continue;
+            }
+
             if (this.source[n] !== undefined) {
               this.source[n] = row[n];
             }
+            else {
+              this.$set(this.source, n, row[n]);
+            }
+          }
+          if (!this.source.index) {
+            this.source.index = 'index';
           }
         }
       },
@@ -358,22 +424,20 @@
       },
       predefinedType(v) {
         if (v) {
-          let o = bbn.fn.getRow(this.predefined, {code: v});
-          let ar = ['type', 'maxlength', 'signed', 'decimal', 'null', 'default', 'index', 'defaultExpression', 'extra'];
-
-          bbn.fn.each(ar, a => {
-            if (o[a] !== undefined) {
-              this.$set(this.source, a, o[a]);
-            }
+          let o = bbn.fn.getRow(this.predefined, {id: v});
+          bbn.fn.each(Object.keys(defaults), n => {
+            this.$set(this.source, n, o[n] === undefined ? defaults[n] : o[n]);
           });
-          this.radioType = 'free';
+          this.radioType = this.constraint ? 'constraint' : 'free';
           this.predefinedType = "";
+          this.$forceUpdate();
         }
       },
       radioType(v, ov) {
-        if ((ov === 'predefined') && (v === 'free')) {
+        if (ov === 'predefined') {
           return;
         }
+        bbn.fn.log(`RADIO TYPE IS CHANGED FROM ${ov} to ${v}`);
         this.resetAll();
         this.source.type = "";
       },
