@@ -46,16 +46,6 @@
                 "showable": true
               },
               {
-                "title": "password",
-                "field": "pass",
-                "type": "string",
-                "options": [],
-                "required": true,
-                "hidden": false,
-                "editable": true,
-                "showable": true
-              },
-              {
                 "title": "Environment",
                 "options": [],
                 "field": "environment",
