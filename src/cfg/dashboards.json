@@ -2,7 +2,6 @@
   {
     "text": "Plugins dashboard",
     "code": "plugins",
-    "id_option": ["list", "dashboard", "appui"],
     "items": [
       {
         "code": "databases",
@@ -29,7 +28,6 @@
   {
     "text": "Databases",
     "code": "appui-database",
-    "id_option": ["list", "appui-dashboard", "plugins", "database", "appui"],
     "items": [
       {
         "code": "databases",
