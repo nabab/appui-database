@@ -1,0 +1,29 @@
+[
+  {
+    "text": "Plugins dashboard",
+    "code": "plugins",
+    "id_option": ["list", "dashboard", "appui"],
+    "items": [
+      {
+        "code": "databases",
+        "id_option": ["databases", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "dbs_mysql",
+        "id_option": ["dbs_mysql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "hosts_mysql",
+        "id_option": ["hosts_mysql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "dbs_sqlite",
+        "id_option": ["dbs_sqlite", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "tables",
+        "id_option": ["tables", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      }
+    ]
+  }
+]
