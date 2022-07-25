@@ -43,7 +43,7 @@
             this.root + 'actions/show',
             bbn.fn.extend({id: row[col.field]}, this.source.constraints[col.field]),
             () => {
-              appui.success("JJJJJJ");
+              bbn.fn.log("SEE TO DO!")
             }
           )
         }
@@ -58,12 +58,8 @@
       },
       copy(row, col, idx){
         if (row[col.field]) {
-          this.$refs.copyUid.value = row[col.field];
-          this.$refs.copyUid.select();
-          document.execCommand('copy');
-          this.$nextTick(() =>{
-            appui.notify(false, {content:'Uid copied'}, 3);
-          });
+          bbn.fn.copy(row[col.field]);
+          appui.success(bbn._('UID copied'));
         }
         else {
           appui.error(bbn._('The field has value ' + (row[col.field] !== '') ? row[col.field] : '""'))
