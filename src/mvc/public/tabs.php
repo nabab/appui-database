@@ -10,7 +10,7 @@ use bbn\X;
 //the base_url
 $root = $ctrl->pluginUrl('appui-database').'/';
 // Root tabnav
-if (empty($ctrl->baseURL)) {
+if (empty(BBN_BASEURL)) {
   $url = $root.'tabs';
   $combo = true;
   $title = _("Databases");
@@ -55,7 +55,7 @@ else {
     }
   }
   // 1st level containers
-  if ($ctrl->baseURL === $root) {
+  if (BBN_BASEURL === $root) {
     // Hosts list (home)
     if (!$engine) {
       //takes the controller in private tabs/home
@@ -74,8 +74,8 @@ else {
     }
   }
   // Lower level containers
-  elseif (\bbn\X::indexOf($ctrl->baseURL, $root) === 0) {
-    $bits = \bbn\X::split(substr($ctrl->baseURL, strlen($root)), '/');
+  elseif (\bbn\X::indexOf(BBN_BASEURL, $root) === 0) {
+    $bits = \bbn\X::split(substr(BBN_BASEURL, strlen($root)), '/');
     if (end($bits) === '') {
       array_pop($bits);
     }
