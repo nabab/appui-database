@@ -1,4 +1,5 @@
 <?php
+use bbn\X;
 use   bbn\File\Dir;
 $res = [
   'success' => false,
@@ -12,7 +13,7 @@ if ($model->hasData(['start', 'limit'])
 ) {
   $data = yaml_parse_file($path.$model->data['data']['file']);
   $total = count($data);
-  $res['data'] = array_splice($data, $model->data['start'], $model->data['limit']);
+  $res['data'] = X::getRows($data, $model->data['filters'] ?? [], $model->data['order'] ?? [], $model->data['limit'], $model->data['start']);
   $res['total'] = $total;
   $res['success'] = true;
 }

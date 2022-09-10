@@ -39,6 +39,8 @@
                :source="root + 'data/sync/conflicts'"
                ref="table"
                :pageable="true"
+               :sortable="true"
+               :filterable="true"
                :data="{file: currentFile}"
                :selection="true"
                uid="id"
@@ -60,7 +62,8 @@
                 }]"
                 @hook:mounted="setWatch">
       <bbns-column field="id"
-                   title="ID"/>
+                   title="ID"
+                   :render="renderJSON"/>
       <bbns-column v-for="(db, i) in source.dbs"
                    :field="db"
                    :title="db"

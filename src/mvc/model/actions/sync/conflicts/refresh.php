@@ -24,96 +24,96 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
   ) {
     $excluded = $custom['excluded'][$table];
   }
-  if (($primaries = $model->db->getPrimary($table))
-    || ($primaries = $model->db->getUniqueKeys($table))
+  if (($primaries = $model->db->getPrimary($dbs[0] . '.' . $table))
+    || ($primaries = $model->db->getUniqueKeys($dbs[0] . '.' . $table))
   ) {
+    $fields = array_keys($model->db->getColumns($dbs[0] . '.' . $table));
+    if (!empty($excluded)) {
+      $fields = array_values(array_filter($fields, function($field) use($excluded){
+        return !in_array($field, $excluded);
+      }));
+    }
     $res = [];
     $tablesData = [];
     foreach ($dbs as $db) {
       $model->db->change($db);
       if ($db === $model->db->getCurrent()) {
         echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Getting data of the table %s'), $model->db->cfn($table, $db));
-        $fields = array_keys($model->db->getColumns($db . '.' . $table));
-        if (!empty($excluded)) {
-          $fields = array_values(array_filter($fields, function($field) use($excluded){
-            return !in_array($field, $excluded);
-          }));
-        }
-        $tablesData[$db] = $model->db->rselectAll($table, $fields);
+        $tablesData[$db] = $model->db->rselectAll($table, $primaries);
         echo sprintf(_(' (%d rows)'), count($tablesData[$db])) . PHP_EOL;
       }
     }
+
+    $is_single = count($primaries) === 1;
     $model->db->change($currentDb);
+    $done = [];
     foreach ($tablesData as $db => $rows) {
-      echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scanning data of the tables %s (%d rows to analyze)'), $db . '.' .$table, count($tablesData[$db])) . PHP_EOL;
-      foreach ($tablesData[$db] as $row) {
-        $id = array_intersect_key($row, array_combine($primaries,  $primaries));
-        if (($idx = X::find($res, ['id' => $id])) === null) {
+      $model->db->change($db);
+      $tot = count($rows);
+      $num = 0;
+      echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scanning data of the tables %s (%d rows to analyze)'), $db . '.' .$table, $tot) . PHP_EOL;
+      X::log(date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scanning data of the tables %s (%d rows to analyze)'), $db . '.' .$table, $tot), 'sync');
+      foreach ($rows as $i => $row) {
+        if (!($i % 1000)) {
+          if ($i) {
+            X::log("$db : $num / $i / $tot", 'sync');
+            $model->db->flush();
+          }
+        }
+
+        if (!in_array($is_single ? current($row) : $row, $done, true)) {
+          $done[] = $is_single ? current($row) : $row;
           $toadd = false;
-          $tmp = ['id' => $id];
+          $tmp = ['id' => $row];
           $tmpIdx = [];
+          $data = $model->db->rselect($table, $fields, $row);
           foreach ($dbs as $d) {
             if ($d !== $db) {
-              if (($i = X::find($tablesData[$d], $id)) === null) {
-                $tmp[$d] = false;
-                $tmp[$db] = $row;
-                $toadd = true;
-                $tmpIdx[$d] = false;
-              }
-              else {
-                $tmpIdx[$d] = $i;
-                if (json_encode($tablesData[$d][$i]) === json_encode($row)) {
+              $model->db->change($d);
+              if (in_array($row, $tablesData[$d])) {
+                $ddata = $model->db->rselect($table, $fields, $row);
+                if ($ddata === $data) {
                   $tmp[$d] = true;
                 }
                 else {
-                  $diff = false;
-                  $fieldsStructure = $model->db->getColumns($db . '.' . $table);
-                  foreach ($row as $rf => $r) {
-                    if (!is_null($r)
-                      && !is_null($tablesData[$d][$i][$rf])
-                      && (($fieldsStructure[$rf]['type'] === 'json')
-                        || (Str::isJson($r) && Str::isJson($tablesData[$d][$i][$rf])))
-                    ){
-                      if (json_decode($r, true) != json_decode($tablesData[$d][$i][$rf], true)){
-                        $diff = true;
-                        break;
-                      }
-                    }
-                    elseif ($r !== $tablesData[$d][$i][$rf]) {
-                      $diff = true;
-                      break;
-                    }
-                  }
-                  $tmp[$d] = $diff ? $tablesData[$d][$i] : true;
-                  if ($diff) {
-                    $tmp[$db] = $row;
+                  if ($diff = array_diff_assoc($data, $ddata)) {
+                    $tmp[$d] = $diff;
                     $toadd = true;
                   }
                 }
               }
+              else {
+                $tmp[$d] = $data;
+                $toadd = true;
+              }
+
+              $model->db->change($db);
             }
           }
+
           if ($toadd) {
+            $num++;
             $res[] = $tmp;
           }
-          foreach ($tmpIdx as $tdb => $tidx) {
-            if ($tidx !== false) {
-              array_splice($tablesData[$tdb], $tidx, 1);
-            }
-          }
+        }
+        else {
+          echo '*';
         }
       }
     }
+
     echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Scan of the tables %s completed, found %d conflicts'), $table, count($res)) . PHP_EOL;
     if (Dir::createPath($path)) {
       $file = $path.$table.'_'.date('Ymd_His').'.yml';
       echo date('d/m/Y H:i:s') . ' - ' . _('Checking an old data file') . PHP_EOL;
+      X::log(date('d/m/Y H:i:s') . ' - ' . _('Checking an old data file'), 'sync');
       if ($files = Dir::getFiles($path)) {
         foreach ($files as $f){
           preg_match('/^(.*)(_\d{4}\d{2}\d{2}_\d{6}\.yml)$/', basename($f), $ff);
           if (!empty($ff) && ($table === $ff[1])) {
             Dir::delete($f);
             echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Removed %s'), $f) . PHP_EOL;
+            X::log(date('d/m/Y H:i:s') . ' - ' . sprintf(_('Removed %s'), $f), 'sync');
           }
         }
       }
@@ -122,6 +122,7 @@ if (($dbs = array_keys($model->inc->options->codeIds('sync', 'database', 'appui'
         yaml_emit_file($file, $res);
         $fileCreated = true;
         echo date('d/m/Y H:i:s') . ' - ' . sprintf(_('Created %s'), $file) . PHP_EOL;
+        X::log(date('d/m/Y H:i:s') . ' - ' . sprintf(_('Created %s'), $file), 'sync');
       }
     }
   }

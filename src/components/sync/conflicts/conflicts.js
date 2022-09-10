@@ -45,6 +45,24 @@
       }
     },
     methods: {
+      renderJSON(row, col) {
+        bbn.fn.log(row);
+        let o = bbn.fn.isString(row.id) ? JSON.parse(row.id) : row.id;
+        if (o) {
+          let st = '';
+          let i = 0;
+          bbn.fn.iterate(o, (v, n) => {
+            if (i) {
+              st += '<br>';
+            }
+            st += '<strong>' + n + ':</strong> ' + v;
+            i++;
+          });
+
+          return st;
+        }
+        return row[col.field];
+      },
       refreshFile(){
         this.confirm(bbn._('Are you sure you want to update the conflicts of this table (this could take a long time)?'), () => {
           this.post(this.root + 'actions/sync/conflicts/refresh', {
