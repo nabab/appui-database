@@ -41,9 +41,9 @@
         }
         if (this.source.is_real) {
           ar.push({
-            content: '<span class="bbn-iblock">#' + bbn._("Size")
-            	+ ': </span>&nbsp;<span class="bbn-b bbn-iblock">'
-            	+ this.source.size + '</span>'
+            content: '<span class="bbn-iblock">#' + bbn._("Size") +
+            	': </span>&nbsp;<span class="bbn-b bbn-iblock">' +
+            	this.source.size + '</span>'
           });
         }
         return ar;
@@ -64,7 +64,7 @@
             predefined: this.source.predefined,
             constraints: this.source.constraints
           }
-        })
+        });
       },
       analyze(db) {
         if (!bbn.fn.isString(db)) {
@@ -121,9 +121,9 @@
               else if (d.error) {
                 appui.error(d.error);
               }
-            })
+            });
           }
-        )
+        );
       },
       exportDb(){
         //this.closest('bbn-router').route('host/export')
@@ -152,7 +152,7 @@
           '">' + row.name + '</a>';
       },
       refresh(row){
-        bbn.fn.log(',----',row, arguments, 'fine')
+        bbn.fn.log(',----',row, arguments, 'fine');
         //appui.confirm(bbn._('Are you sure you want to import|refresh this database?'), () => {
           this.post(this.root + 'actions/database/update', {
             engine: this.source.engine,
@@ -182,8 +182,6 @@
         }
       },
 
-    
-    
     /*
       delete(row){
         let admin = appui.app.user.isAdmin;
@@ -212,9 +210,7 @@
             else{
               appui.error(bbn._('Something went wrong while removing the table'));
             }
-          })  
-          
-          
+          })
         })
       },
       buttons(row){
@@ -237,9 +233,9 @@
         }
         return res;
       },
-    
+
       getStateColor(row){
-       
+
         let col = false;
         if (
           (row.num_columns !== row.num_real_columns) ||
@@ -293,7 +289,7 @@
       */
     },
     mounted() {
-      bbn.fn.log("HELLO WORLD!", this.source)
+      bbn.fn.log("HELLO WORLD!", this.source);
       this.$nextTick(() => {
         this.toolbar = this.getToolbar();
       });
@@ -328,17 +324,17 @@
           return {
             db: db,
             src: r
-          }
+          };
         },
         methods: {
           select(code) {
             bbn.fn.log("select", code, this.source);
             if (bbn.fn.isFunction(this.db[code])) {
-              this.db[code](this.source.name)
+              this.db[code](this.source.name);
             }
           }
         }
       }
     }
-  }
+  };
 })();
