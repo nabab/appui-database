@@ -15,6 +15,7 @@ if (defined('BBN_BASEURL')) {
     $url = $root.'tabs';
     $combo = true;
     $title = _("Databases");
+    $cp = "list-hosts";
     $ctrl
       ->setColor('#666', '#EEE')
       ->setIcon('icon-database')
@@ -57,6 +58,7 @@ if (defined('BBN_BASEURL')) {
     }
     // 1st level containers
     if (BBN_BASEURL === $root) {
+      $cp = "list-dbs";
       // Hosts list (home)
       if (!$engine) {
         //takes the controller in private tabs/home
@@ -71,55 +73,66 @@ if (defined('BBN_BASEURL')) {
         $title = $host;
         $icon = bbn\Db::getEngineIcon($engine);
         $ctrl->setIcon($icon)
-              ->addData(['icon' => $icon]);
+          ->addData(['icon' => $icon]);
       }
     }
     // Lower level containers
     elseif (\bbn\X::indexOf(BBN_BASEURL, $root) === 0) {
+      $cp = "list-tables";
       $bits = \bbn\X::split(substr(BBN_BASEURL, strlen($root)), '/');
       if (end($bits) === '') {
         array_pop($bits);
       }
-      switch (count($bits)) {
-          // Host
-        case 2:
-          if (!empty($db) && ($db !== 'home')) {
-            //db's nav
-            $combo = true;
-            $title = $db;
-            $url = $root.$engine.'/'.$host.'/'.$db;
-            $ctrl->setIcon('nf nf-fa-database')
+      if (end($bits) === 'console') {
+        $cp = 'console';
+      }
+      else {
+        switch (count($bits)) {
+            // Host
+          case 2:
+            if (!empty($db) && ($db !== 'home')) {
+              //db's nav
+              $combo = true;
+              $title = $db;
+              $url = $root.$engine.'/'.$host.'/'.$db;
+              $ctrl->setIcon('nf nf-fa-database')
                 ->addData(['icon' => 'nf nf-fa-database']);
-          }
-          else {
-            //host
-            $ctrl->addToObj('./tabs/host/'.$engine.'/'.$host, [], true);
-            $url = $root.$engine.'/'.$host.'/home';
-          }
-          break;
-          // DB
-        case 3:
-          //the tab of selected table
-          if (!empty($table) && ($table !== 'home')) {
-            $ctrl->addToObj('./tabs/table/'.$engine.'/'.$host.'/'.$db.'/'.$table, [], true);
-            $url = $root.$engine.'/'.$host.'/'.$db.'/'.$table;
-            $title = $table;
-          }
-          // The database homepage
-          else {
-            $ctrl->addToObj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
-            $url = $root.$engine.'/'.$host.'/'.$db.'/';
-          }
-          break;
-          // Table
-        case 4:
-          break;
+            }
+            else {
+              //host
+              $ctrl->addToObj('./tabs/host/'.$engine.'/'.$host, [], true);
+              $url = $root.$engine.'/'.$host.'/home';
+            }
+            break;
+            // DB
+          case 3:
+            //the tab of selected table
+            if (!empty($table) && ($table !== 'home')) {
+              $ctrl->addToObj('./tabs/table/'.$engine.'/'.$host.'/'.$db.'/'.$table, [], true);
+              $url = $root.$engine.'/'.$host.'/'.$db.'/'.$table;
+              $title = $table;
+            }
+            // The database homepage
+            else {
+              $ctrl->addToObj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
+              $url = $root.$engine.'/'.$host.'/'.$db.'/';
+            }
+            break;
+            // Table
+          case 4:
+            break;
+        }
       }
     }
   }
 
   if ($url) {
     if ( $combo ){
+      if ($cp) {
+        $ctrl->addData([
+          'component' => 'appui-database-' . $cp
+        ]);
+      }
       $ctrl->combo($title, true);
     }
 
