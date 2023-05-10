@@ -9,7 +9,7 @@
         icon: this.source?.icon,
         notext: true,
         title: bbn._('List'),
-        load: true,
+        component: "appui-database-host",
         bcolor: '#666',
         fcolor: '#FFF'
       }, {
@@ -18,7 +18,7 @@
         icon: "nf nf-md-console",
         notext: true,
         title: bbn._('Console'),
-        load: true,
+        component: "appui-database-console",
         bcolor: '#666',
         fcolor: '#FFF'
       }];

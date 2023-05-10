@@ -4,13 +4,18 @@
   return {
     data() {
       return {
-        code: ''
+        code: '',
+        database:'',
+        result: [],
       };
     },
     methods: {
       exec() {
-        this.post(appui.plugins["appui-database"] + '/console', {
-          code: this.code
+        this.post(appui.plugins["appui-database"] + '/request', {
+          code: this.code,
+					database: this.database
+        }, data => {
+          this.result = data.data;
         });
       }
     }
