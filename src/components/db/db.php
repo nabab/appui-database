@@ -1,10 +1,18 @@
 <!-- HTML Document -->
 <div class="bbn-overlay bbn-flex-height">
-  <div class="bbn-flex-fill">
+  <div v-if="!ready" class="bbn-overlay bbn-middle">
+    <bbn-loader></bbn-loader>
+  </div>
+  <div class="bbn-overlay bbn-middle"
+       v-else-if="currentData.error">
+    <div class="bbn-block bbn-padded bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
+         v-text="currentData.error"/>
+  </div>
+  <div class="bbn-flex-fill" v-else>
     <div class="bbn-100">
       <bbn-table ref="table"
                  @toggle="checkMultipleSelected"
-                 :source="root + 'data/tables/' + source.engine + '/' + source.host + '/' + source.db"
+                 :source="root + 'data/tables/' + currentData.engine + '/' + currentData.host + '/' + currentData.db"
                  :selection="true"
                  :pageable="true"
                  :showable="true"

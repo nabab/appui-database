@@ -48,9 +48,17 @@ if ($model->hasData('code')) {
   $cfg = $parser->parse($model->data['code']);
   $action = getQueryAction($model->data['code']);
 
+  // execute query
+	$data = [];
   if ($action === Actions::Select) {
     $data = $model->db->rselectAll($cfg)
-	}
+	} else if ($action === Actions::Delete) {
+    $data = $model->db->rselectAll($cfg);
+    $model->db->delete($cfg);
+  } else if ($action === Actions::Update) {
+    $data = $model->db->rselectAll($cfg);
+    $model->db->update($cfg);
+  }
   // return cfg
   return [
     'limit' => $cfg['limit'],

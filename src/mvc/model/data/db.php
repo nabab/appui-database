@@ -1,40 +1,45 @@
 <?php
-/*
- * Describe what it does
- *
- **/
-
 /** @var $model \bbn\Mvc\Model */
 
-$res = [
-  'data' => []
-];
+use bbn\X;
 
-if (!$model->hasData(['host_id', 'db', true])) {
+$res['success'] = false;
+if (
+  $model->hasData(['host', 'db', 'engine'], true) &&
+  ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
+){
+  $isReal = \in_array($model->data['db'], $model->db->getDatabases());
+  $db_id = $model->inc->dbc->dbId($model->data['db'], $host_id);
   try {
-    $conn = $model->inc->dbc->connection($model->data['host_id'], null, $model->data['db']);
+    $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
-    return ['error' => $e->getMessage()];
   }
-  $tables = $conn->getTables();
-  $num_real_tables = \count($tables);
-  if ( $idx !== null ){
-    $res['data'][$idx]['num_real_tables'] = $num_real_tables;
-    $res['data'][$idx]['is_real'] = true;
+
+  $constraints = [];
+  $fmodel = $conn->modelize();
+  foreach ($fmodel as $tablename => $table) {
+    if (!empty($table['keys']['PRIMARY']) && count($table['keys']['PRIMARY']['columns']) === 1) {
+      $colname = $table['keys']['PRIMARY']['columns'][0];
+      $column = $table['fields'][$colname];
+      $column['value'] = $column['text'] = $conn->cfn($colname, $tablename);
+      $constraints[] = $column;
+    }
   }
-  else{
-    $res['data'][] = [
-      'id' => null,
-      'name' => $db,
-      'text' => $db,
-      'num_tables' => 0,
-      'is_real' => true,
-      'is_virtual' => false,
-      'num_real_tables' => $num_real_tables
-    ];
-  }
+
+  $res = [
+    'success' => true,
+    'data' => [
+      'host' => $model->data['host'],
+      'db' => $model->data['db'],
+      'db_id' => $db_id,
+      'is_real' => $isReal,
+      'is_virtual' => $db_id ? true : false,
+      'info' => $model->inc->options->option($db_id),
+      'engine' => $model->data['engine'],
+      'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
+      'constraints' => $constraints
+    ]
+  ];
 }
-$res['total'] = \count($res['data']);
-$res['data'] = \array_slice($res['data'], $model->data['start'], $model->data['limit']);
 return $res;

@@ -25,17 +25,41 @@
         );
       });
     },
+    props: {
+      source: {
+        type: Object,
+      },
+      engine: {
+        type: String
+      },
+      host: {
+        type: String
+      },
+      database: {
+        type: String
+      },
+      table: {
+        type: String
+      }
+    },
     data(){
       return {
         orientation: "horizontal",
-        root: appui.databases.source.root,
-        option: this.source.option,
-        cfg: {
+        root: appui.plugins['appui-databases'] + '/',
+        option: this.source?.option,
+        cfg: this.source ? {
           engine: this.source.engine,
           host: this.source.host,
           db: this.source.db,
           table: this.source.table
-        }
+        } : {
+              engine: this.engine,
+          		host: this.host,
+          		db: this.database,
+          		table: this.table
+            },
+        currentData: this.source,
+        ready: !!this.source,
       };
     },
     computed: {
@@ -64,8 +88,8 @@
           d => {
             if (!d.succes) {
               appui.error(bbn._("Impossible to update the option"));
-              if (this.source.option[type] !== undefined) {
-                this.$set(this.source.option, type, oldValue);
+              if (this.currentData.option[type] !== undefined) {
+                this.$set(this.currentData.option, type, oldValue);
               }
             }
             else {
@@ -85,8 +109,8 @@
             bbn.fn.log("SAVE", d, arguments);
             if (!d.success) {
               appui.error(bbn._("Impossible to update the option"));
-              if (this.source.option[type] !== undefined) {
-                this.$set(this.source.option, type, oldValue);
+              if (this.currentData.option[type] !== undefined) {
+                this.$set(this.currentData.option, type, oldValue);
               }
             }
             else {
@@ -148,16 +172,24 @@
       },*/
       buttons(name){
         return '<bbn-button text="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
-          '<a href="' + this.source.root + 'tabs/db/' + this.source.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
+          '<a href="' + this.currentData.root + 'tabs/db/' + this.currentData.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
       }
     },
-    mounted(){
+    mounted() {
+      if (!this.ready) {
+        bbn.fn.post(appui.plugins['appui-database'] + '/data/table', this.cfg, d => {
+          if (d.success) {
+            this.currentData = d.data;
+            this.ready = true;
+          }
+        });
+      }
       this.$nextTick(() => {
         bbn.vue.closest(this, "bbn-container").addMenu({
           text: bbn._('Change orientation'),
           icon: 'nf nf-fa-compass',
           click(a){
-            this.orientation = this.source.orientation === 'horizontal' ? 'vertical' : 'horizontal';
+            this.orientation = this.currentData.orientation === 'horizontal' ? 'vertical' : 'horizontal';
           }
         })
       });
