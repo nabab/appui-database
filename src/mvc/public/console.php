@@ -5,7 +5,7 @@ use bbn\Str;
 /** @var $ctrl \bbn\Mvc\Controller */
 
 if (empty($ctrl->post)) {
-  $ctrl->combo(_("console"));
+  $ctrl->combo(_("console"), true);
 }
 else {
   $ctrl->action();
