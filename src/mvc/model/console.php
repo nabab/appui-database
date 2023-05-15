@@ -10,7 +10,7 @@ use bbn\Str;
 
 
 if ($model->hasData('code')) {
-  function getCellLength(array $tab, string $key)
+  $getCellLength = function(array $tab, string $key)
   {
     $res = strlen($key);
 
@@ -20,76 +20,76 @@ if ($model->hasData('code')) {
       }
     }
     return $res;
-  }
+  };
 
-  function getTabDelim(array $tab): string
+  $getTabDelim = function(array $tab) use ($getCellLength): string
   {
     $res = "+";
 
     $keys = array_keys($tab[0]);
     foreach ($keys as $key) {
-      foreach (range(0, getCellLength($tab, $key) + 2) as $i) {
+      foreach (range(0, $getCellLength($tab, $key) + 2) as $i) {
         $res .= '-';
       }
       $res .= '+';
     }
     return $res . "\n";
-  }
+  };
 
-  function getTabKeyRow(array $tab): string
+  $getTabKeyRow = function(array $tab) use ($getCellLength): string
   {
     $res = '|';
 
     $keys = array_keys($tab[0]);
     foreach ($keys as $key) {
       $res .= ' ' . $key;
-      $spaces = getCellLength($tab, $key) - strlen($key);
+      $spaces = $getCellLength($tab, $key) - strlen($key);
       foreach (range(0, $spaces) as $i) {
         $res .= ' ';
       }
       $res .= ' |';
     }
     return $res;
-  }
+  };
 
-  function getDataRowString(array $row, array $tab): string
+  $getDataRowString = function(array $row, array $tab) use ($getCellLength): string
   {
     $res = '|';
 
     foreach ($row as $key => $cell) {
       $res .= ' ' . $cell;
-      $spaces = getCellLength($tab, $key) - strlen($cell);
+      $spaces = $getCellLength($tab, $key) - strlen($cell);
       foreach (range(0, $spaces) as $i) {
         $res .= ' ';
       }
       $res .= ' |';
     }
     return $res;
-  }
+  };
 
-  function getDataRowsString(array $tab): string
+  $getDataRowsString = function(array $tab) use (&$getDataRowString): string
   {
     $res = '';
 
     foreach ($tab as $row) {
-      $res .= getDataRowString($row, $tab);
+      $res .= $getDataRowString($row, $tab);
       $res .= "\n";
     }
     return $res;
-  }
+  };
 
-  function tabToStr(array $tab): string
+  $tabToStr = function(array $tab) use (&$getTabDelim, &$getTabKeyRow, &$getDataRowsString): string
   {
     $res = "\n";
 
     $keys = array_keys($tab[0]);
-    $res .= getTabDelim($tab);
-    $res .= getTabKeyRow($tab) . "\n";
-    $res .= getTabDelim($tab);
-    $res .= getDataRowsString($tab);
-    $res .= getTabDelim($tab);
+    $res .= $getTabDelim($tab);
+    $res .= $getTabKeyRow($tab) . "\n";
+    $res .= $getTabDelim($tab);
+    $res .= $getDataRowsString($tab);
+    $res .= $getTabDelim($tab);
     return $res;
-  }
+  };
 
   enum Actions
   {
@@ -99,7 +99,7 @@ if ($model->hasData('code')) {
     case Delete;
   }
 
-  function getQueryAction(string $query): Actions
+  $getQueryAction = function(string $query): Actions
   {
     $exploded_query = explode(" ", $query);
     switch (strtolower($exploded_query[0])) {
@@ -119,31 +119,44 @@ if ($model->hasData('code')) {
         break;
     }
     return Actions::Select;
-  }
+  };
+
+  $createConnection = function(string $host, string $engine, string $db) use (&$model)
+  {
+    $res = null;
+
+    $hostId = $model->inc->dbc->hostId($host, $engine);
+    try {
+			$res = $model->inc->dbc->connection($hostId, $engine, $db);
+    } catch (\Exception $e) {
+      $res['error'] = $e->getMessage();
+    }
+    return $res;
+  };
 
   // change database if required
   if ($model->hasData('database') && ($model->data['database'] !== '')) {
     $model->db->change($model->data['database']);
   }
   // parse query into cfg
-  $parser = new SQLParser($model->db);
+  $connection = $createConnection('dev_clovis@db.m3l.co', 'mysql', $model->data['database']);
+  $parser = new SQLParser($connection);
   $cfg = $parser->parse($model->data['code']);
-  $action = getQueryAction($model->data['code']);
+  $action = $getQueryAction($model->data['code']);
 
   if ($action === Actions::Select) {
-    $data = $model->db->rselectAll($cfg);
+    $data = $connection->rselectAll($cfg);
   }
   // return cfg
   return [
     'limit' => $cfg['limit'],
     'data' => $data,
-    'str_tab' => tabToStr($data)
-  ];
-} else
-{
-  return [
-  	'model' => $model->data,
-		'databases' => $model->db->getDatabases()
+    'str_tab' => $tabToStr($data)
   ];
 }
+
+return [
+  'model' => $model->data,
+  'databases' => $model->db->getDatabases()
+];
 

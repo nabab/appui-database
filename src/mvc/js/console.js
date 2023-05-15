@@ -47,7 +47,6 @@
               database: this.currentDatabase
             }, data => {
               this.result = data.data;
-              //this.emitInput(this.currentValue + data.str_tab);
               let res = this.currentValue + data.str_tab;
               this.$parent.codes.push({code:res});
               this.currentValue = "";

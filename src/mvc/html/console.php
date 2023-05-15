@@ -13,11 +13,11 @@
 
 <script id="bbn-tpl-appui-database-console-request"
         type='text/x-template'>
-<div class="bbn-w-100 bbn-vmargin">
-  <div class="bbn-w-100 bbn-vpadding bbn-flex-width " v-if="mode === 'write'">
+<div class="bbn-w-90 bbn-margin bbn-padding bbn-radius bbn-bordered bbn-c">
+  <div class="bbn-w-100 bbn-padding bbn-flex-width bbn-c" v-if="mode === 'write'">
     <bbn-dropdown v-model="currentLanguage"
                   :source="['MySQL', 'MariaDB']"
-                  :placeholder="_('Choose Language')"/>
+                  :placeholder="_('Choose Database type')"/>
     <bbn-dropdown v-model="currentHost"
                   :source="['clovis_dev@']"
                   :placeholder="_('Choose host')"/>
@@ -25,7 +25,7 @@
                   :source="databases"
                   :placeholder="_('Choose database')"/>
   </div>
-  <div class="bbn-w-100 bbn-vpadding">
+  <div class="bbn-w-100 bbn-padding">
     <bbn-code v-model="currentValue"
               class="bbn-w-100"
               mode="sql"
@@ -38,7 +38,7 @@
   </bbn-code>
   </div>
   <div class="bbn-w-100 bbn-vpadding" v-if="mode === 'write'">
-    <bbn-button @click="exec" icon="nf nf-cod-run_all">
+    <bbn-button class="bbn-w-100" @click="exec" icon="nf nf-cod-run_all">
       Run query
   </bbn-button>
   </div>
