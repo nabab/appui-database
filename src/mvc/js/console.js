@@ -5,11 +5,7 @@
     data() {
       return {
         code: '',
-        codes: [{
-          code: 'SELECT * from bbn_users;',
-        }, {
-          code: 'SELECT id from bbn_users;'
-        }],
+        codes: [],
         database: '',
         result: [],
         numberOfQueries: 1
@@ -51,8 +47,10 @@
               database: this.currentDatabase
             }, data => {
               this.result = data.data;
-              this.emitInput(this.currentValue + data.str_tab);
-              bbn.fn.log("thedata:", data.data);
+              //this.emitInput(this.currentValue + data.str_tab);
+              let res = this.currentValue + data.str_tab;
+              this.$parent.codes.push({code:res});
+              this.currentValue = "";
             });
           }
         },
