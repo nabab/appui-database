@@ -6,7 +6,7 @@
   </template>
   <request v-model="code"
            :databases="source.databases"
-           :database="database"
+           :database="source.database"
            mode="write"/>
 </div>
 
@@ -15,15 +15,17 @@
         type='text/x-template'>
 <div class="bbn-w-90 bbn-margin bbn-padding bbn-radius bbn-bordered bbn-c">
   <div class="bbn-w-100 bbn-padding bbn-flex-width bbn-c" v-if="mode === 'write'">
-    <bbn-dropdown v-model="currentLanguage"
+    <!--bbn-dropdown v-model="currentLanguage"
                   :source="['MySQL', 'MariaDB']"
                   :placeholder="_('Choose Database type')"/>
     <bbn-dropdown v-model="currentHost"
-                  :source="['clovis_dev@']"
-                  :placeholder="_('Choose host')"/>
+                  :source="['clovis_dev@db.m3l.co']"
+                  :placeholder="_('Choose host')"/-->
     <bbn-dropdown v-model="currentDatabase"
                   :source="databases"
-                  :placeholder="_('Choose database')"/>
+                  :value="database"
+                  :autobind="true"
+                  />
   </div>
   <div class="bbn-w-100 bbn-padding">
     <bbn-code v-model="currentValue"

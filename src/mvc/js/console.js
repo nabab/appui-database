@@ -2,6 +2,18 @@
 
 (() => {
   return {
+    props: {
+      host: {
+        type: String,
+      },
+      engine: {
+        type: String,
+        default: 'mysql'
+      },
+      database: {
+        type: String,
+      }
+    },
     data() {
       return {
         code: '',

@@ -8,7 +8,6 @@ use bbn\X;
 use bbn\Str;
 /** @var $model \bbn\Mvc\Model*/
 
-
 if ($model->hasData('code')) {
   $getCellLength = function(array $tab, string $key)
   {
@@ -17,6 +16,7 @@ if ($model->hasData('code')) {
     foreach ($tab as $row) {
       if ($res < strlen($row[$key])) {
         $res = strlen($row[$key]);
+        //TODO: add limit
       }
     }
     return $res;
@@ -134,6 +134,14 @@ if ($model->hasData('code')) {
     return $res;
   };
 
+  $rowAffected = function(int $nbr, float $time)
+  {
+    if ($nbr > 1) {
+      return 'Query OK, ' . $nbr . 'row affected (' . $time . 'sec)';
+    }
+    return 'Query OK, ' . $nbr . 'rows affected (' . $time . 'sec)';
+  };
+
   // change database if required
   if ($model->hasData('database') && ($model->data['database'] !== '')) {
     $model->db->change($model->data['database']);
@@ -157,6 +165,7 @@ if ($model->hasData('code')) {
 
 return [
   'model' => $model->data,
+  'database' => $model->db->getCurrent(),
   'databases' => $model->db->getDatabases()
 ];
 
