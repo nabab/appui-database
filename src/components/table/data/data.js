@@ -18,7 +18,7 @@
       });
       return {
         root: appui.plugins['appui-database'] + '/',
-        columns: r
+        columns: this.getColumnsCfg()
       };
       /*let cols = [];
       if ( this.source.columns.length ){
@@ -37,6 +37,23 @@
     computed: {
     },
     methods:{
+      getColumnsCfg() {
+        let columnsStructure = this.source.structure;
+        bbn.fn.log("columnStructure");
+        let res = [];
+        for (const [key, value] of Object.entries(columnsStructure.fields)) {
+          let column = {
+            "field": key,
+            "text": key,
+            "width": value.maxlength
+          }
+          res.push(column);
+        }
+        bbn.fn.log('columnStructure:', columnsStructure);
+				bbn.fn.log('tablecfg:', this.source.tableCfg);
+        bbn.fn.log('res:', res);
+        return this.source.tableCfg;
+      },
       see(row, col){
         if (this.source.constraints[col.field] && row[col.field]) {
           this.post(

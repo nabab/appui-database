@@ -5,9 +5,9 @@
     data(){
       let tmp = [];
       let table = this.closest('appui-database-table');
-      bbn.fn.each(table.source.structure.fields, (c, name) => {
+      bbn.fn.each(table.currentData.structure.fields, (c, name) => {
         let text = name;
-        let otext = bbn.fn.getField(table.source.ocolumns, 'text', {code: text});
+        let otext = bbn.fn.getField(table.currentData.ocolumns, 'text', {code: text});
         tmp.push({value: name, text: otext || text});
       });
 
@@ -43,13 +43,13 @@
           title: "",
           component: 'appui-database-table-info',
           componentOptions: {
-            db: this.table.source.db,
-            host: this.table.source.host,
-            engine: this.table.source.engine,
-            table: this.table.source.table,
+            db: this.table.currentData.db,
+            host: this.table.host,
+            engine: this.table.currentData.engine,
+            table: this.table.currentData.table,
           },
         });
-        bbn.fn.log("keskia la d'dans ?", this.table.source);
+        bbn.fn.log("keskia la d'dans ?", this.table.currentData);
       }
     }
   }

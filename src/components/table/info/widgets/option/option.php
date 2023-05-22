@@ -2,7 +2,7 @@
 
 <div class="bbn-padded">
   <div class="bbn-state-error bbn-padded bbn-c"
-       v-if="!table.source.table_id">
+       v-if="!table.currentData.table_id">
     <?=_("No option")?>
   </div>
   <div class="bbn-grid-fields"
@@ -10,12 +10,12 @@
     <div style="width: 6em">
       <?=_("ID")?>
     </div>
-    <div v-text="table.source.table_id"/>
+    <div v-text="table.currentData.table_id"/>
 
     <div>
       <?=_("Title")?>
     </div>
-    <bbn-editable v-model="table.source.option.text"
+    <bbn-editable v-model="table.currentData.option.text"
                   @save="saveTitle"
                   :required="true"/>
 
@@ -29,16 +29,16 @@
                   text="_(Browse)"
                   @click="browse"/>
 
-    <bbn-editable v-model="table.source.option.itemComponent"
+    <bbn-editable v-model="table.currentData.option.itemComponent"
                   @save="saveItemComponent"/>
     </div>
 
 
     <div>
-      <?=_("Row editor")?> 
+      <?=_("Row editor")?>
       <bbn-tooltip source="<?=_("A component which will be used to edit a whole item from this table")?>"/>
     </div>
-    <bbn-editable v-model="table.source.option.editor"
+    <bbn-editable v-model="table.currentData.option.editor"
                   @edit="editEditor"
                   @save="saveEditor"/>
 
@@ -48,7 +48,7 @@
     </div>
     <div style="height: 10em">
       <div class="bbn-100">
-        <bbn-editable v-model="table.source.option.dcolumns"
+        <bbn-editable v-model="table.currentData.option.dcolumns"
                       component="bbn-multiselect"
                       :componentOptions="{source: columns}"
                       @save="saveDisplayColumns"
