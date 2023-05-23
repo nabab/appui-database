@@ -1,38 +1,10 @@
 (() => {
   return {
     data(){
-      let r = this.source.tableCfg;
-      r.push({
-        title: bbn._('Actions'),
-        fixed: 'right',
-        buttons: [{
-          notext: true,
-          icon: 'nf nf-fa-edit',
-          action: 'edit'
-        }, {
-          notext: true,
-          icon: 'nf nf-fa-times',
-          action: 'delete'
-        }],
-        width: '100'
-      });
       return {
         root: appui.plugins['appui-database'] + '/',
         columns: this.getColumnsCfg()
       };
-      /*let cols = [];
-      if ( this.source.columns.length ){
-        bbn.fn.each(this.source.columns, (c) => {
-          if ( cols.length > 5 ){
-            c.hidden = true;
-          }
-          cols.push(c);
-        })
-      }
-      return {
-        //columns: cols;
-      }*/
-
     },
     computed: {
     },
