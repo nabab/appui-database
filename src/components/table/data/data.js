@@ -103,7 +103,7 @@
             }
           ],
           'fixed': "right",
-          'title': "Action",
+          'title': bbn._("Action"),
           'width': "100",
         };
       },
