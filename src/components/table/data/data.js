@@ -89,7 +89,7 @@
       },
       getForeignKeyEditor(fieldName) {
         const constraints = this.source.constraints[fieldName];
-        if (constraints.num <= 1000) {
+        if (false && constraints.num <= 1000) {
           return 'bbn-dropdown';
         }
         return 'appui-database-data-browser';
@@ -158,9 +158,6 @@
           res.push(column);
         }
         res.push(this.addButtonsColumn());
-        bbn.fn.log('columnStructure:', columnsStructure);
-        bbn.fn.log('tablecfg:', this.source.tableCfg);
-        bbn.fn.log('res:', res);
         return res;
       },
       see(row, col){
