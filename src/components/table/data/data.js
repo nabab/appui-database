@@ -97,7 +97,13 @@
       getForeignKeyEditorData(column, fieldName) {
         column.options = {
           source: appui.plugins['appui-database'] + '/data/external-values',
-          data: fieldName
+          data: {
+            host: this.source.host,
+            db: this.source.db,
+            engine: this.source.engine,
+            table: this.source.table,
+            column: fieldName
+          }
         };
         return column;
       },
