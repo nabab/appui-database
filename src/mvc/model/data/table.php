@@ -1,6 +1,7 @@
 <?php
 /** @var $model \bbn\Mvc\Model */
 use bbn\X;
+use bbn\Str;
 
 $res['success'] = false;
 if (
@@ -20,6 +21,15 @@ if (
   catch (\Exception $e) {
     $res['error'] = $e->getMessage();
   }
+  foreach ($structure['fields'] as $k => &$f) {
+    if ($f['type'] === 'longtext') {
+      $example = $conn->selectOne($model->data['table'], $k, [[$k, 'isnotnull']]);
+      if (Str::isJson($example)) {
+        $f['type'] = 'json';
+      }
+    }
+  }
+  unset($f);
   foreach ( $structure['keys'] as $k => $a ){
     if (
       $a['unique'] &&

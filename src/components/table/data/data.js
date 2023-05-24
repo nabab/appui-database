@@ -9,17 +9,22 @@
     computed: {
     },
     methods:{
-      getColumnWidth(type) {
-        if (type === 'date') {
-          return 100;
+      getColumnWidth(column, type) {
+        switch(type) {
+          case 'date':
+            column.width = 100;
+            break;
+          case 'datetime':
+            column.width = 140;
+            break;
+          case 'binary':
+            column.width = 60;
+            break;
+          default:
+            column.minWidth = '10em';
+            break;
         }
-        if (type === 'datetime') {
-          return 140;
-        }
-        if (type === 'binary') {
-          return 60;
-        }
-        return 0;
+        return column;
       },
       typeIsNum(type) {
         return (type === 'int' || type === 'tinyint' || type === 'bigint' || type === 'smallint' || type == 'mediumint' || type === 'real' || type === 'double' || type === 'decimal' || type === 'float');
@@ -43,7 +48,7 @@
         if (this.typeIsText(type)) {
           return 'bbn-textarea';
         }
-        if (type === 'longtext' || type === 'json') {
+        if (type === 'json') {
           return 'bbn-json-editor';
         }
         if (type === 'enum' || type === 'set') {
@@ -54,7 +59,10 @@
         }
         return '';
       },
-      getComponent(type) {
+      getComponent(component, type) {
+        if (component) {
+          return (component);
+        }
         if (type === 'binary') {
           return "appui-database-data-binary";
         }
@@ -86,6 +94,13 @@
         }
         return 'appui-database-data-browser';
       },
+      getForeignKeyEditorData(column, fieldName) {
+        column.options = {
+          source: appui.plugins['appui-database'] + '/data/external-values',
+          data: fieldName
+        };
+        return column;
+      },
       getEnumOptions(value) {
         return {
           source: value.extra.split("','").map(a => {
@@ -97,17 +112,17 @@
         if (value === 'tinyint') {
           return isSigned ?
             { 'min': -127, 'max': 127} :
-          	{ 'min': 0, 'max': 256};
+          { 'min': 0, 'max': 256};
         }
         if (value === 'smallint') {
           return isSigned ?
             {'min': -32768, 'max': 32768} :
-          	{'min': 0, 'max': 65535};
+          {'min': 0, 'max': 65535};
         }
         if (value === 'mediumint') {
           return isSigned ?
             {'min': -8388608, 'max': 8388608} :
-          	{'min': 0, 'max': 16777215};
+          {'min': 0, 'max': 16777215};
         }
         return {'min': MIN_SAFE_INTEGER, 'max': MAX_SAFE_INTEGER};
       },
@@ -118,15 +133,14 @@
           let column = {
             "field": key,
             "text": key,
-            "width": this.getColumnWidth(value.type),
-            "editor": this.getColumnEditor(value.type, value.key),
-            "component": this.getComponent(value.type),
+            "editor": this.getColumnEditor(key, value.type, value.key),
+            "component": this.getComponent(value.component, value.type),
             "cls": 'bbn-c'
           };
-          if (column.width === 0) {
-            column.minWidth = "10em";
-            delete column.width;
+          if (value.key === 'MUL') {
+            column = this.getForeignKeyEditorData(column, key);
           }
+          column = this.getColumnWidth(column, value.type);
           if (value.type === 'enum' || value.type === 'set') {
             column.options.source = this.getEnumOptions(value);
           }
