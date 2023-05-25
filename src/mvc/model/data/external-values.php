@@ -65,6 +65,7 @@ if (X::hasProps($data ?? [], ['host', 'engine', 'db', 'table', 'column'], true))
       'text' => $entrie[$displayColumnName]
     ];
   }
+  $res['success'] = true;
 } else {
   $res['error'] = _('missing parameters');
 }
