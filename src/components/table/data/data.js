@@ -89,22 +89,33 @@
       },
       getForeignKeyEditor(fieldName) {
         const constraints = this.source.constraints[fieldName];
-        if (false && constraints.num <= 1000) {
+        if (constraints.num <= 1000) {
           return 'bbn-dropdown';
         }
         return 'appui-database-data-browser';
       },
       getForeignKeyEditorData(column, fieldName) {
-        column.options = {
-          source: appui.plugins['appui-database'] + '/data/external-values',
-          data: {
-            host: this.source.host,
-            db: this.source.db,
-            engine: this.source.engine,
-            table: this.source.table,
-            column: fieldName
-          }
-        };
+        if (column.editor === 'bbn-dropdown') {
+	        column.options = {
+  	        source: appui.plugins['appui-database'] + '/data/external-values',
+    	      data: {
+      	      host: this.source.host,
+        	    db: this.source.structure.keys[fieldName].ref_db,
+          	  engine: this.source.engine,
+            	table: this.source.structure.keys[fieldName].ref_table,
+            	column: this.source.structure.keys[fieldName].ref_column
+          	}
+        	};
+        } else {
+          column.options = {
+            source: {
+      	      host: this.source.host,
+        	    db: this.source.structure.keys[fieldName].ref_db,
+          	  engine: this.source.engine,
+            	table: this.source.structure.keys[fieldName].ref_table
+            }
+          };
+        }
         return column;
       },
       getEnumOptions(value) {
