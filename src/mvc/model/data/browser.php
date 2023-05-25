@@ -10,9 +10,10 @@ use bbn\Str;
 
 if ($model->hasData('limit') {
   // Data for table
-  $cfg
-  new bbn\Appui\Grid($model->db, $model->data, $cfg);
+  $cfg = [];
+  $grid = new bbn\Appui\Grid($model->db, $model->data, $cfg);
+  return ['grid' => $grid];
 } else {
   // Structure for table
-	
+	return ['id' => ''];
 }

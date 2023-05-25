@@ -2,9 +2,8 @@
 
 <div class="appui-database-data-browser">
   <bbn-input :source="source"></bbn-input>
-  <a :href="link">
-    <bbn-button icon="nf nf-custom-folder_open"
-              :text="_('Browse')">
-    </bbn-button>
-  </a>
+  <bbn-button icon="nf nf-custom-folder_open"
+              :text="_('Browse')"
+              @click.stop="browse">
+  </bbn-button>
 </div>

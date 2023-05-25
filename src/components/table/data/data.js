@@ -89,7 +89,8 @@
       },
       getForeignKeyEditor(fieldName) {
         const constraints = this.source.constraints[fieldName];
-        if (constraints.num <= 1000) {
+        // false is for testing the data browser
+        if (false && constraints.num <= 1000) {
           return 'bbn-dropdown';
         }
         return 'appui-database-data-browser';

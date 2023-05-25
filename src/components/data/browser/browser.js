@@ -12,8 +12,8 @@
           db: this.source.db,
           engine: this.source.engine,
           table: this.source.table
-        })
-      };
+        });
+      }
     },
     computed: {
       link() {
