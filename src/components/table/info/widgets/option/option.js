@@ -27,16 +27,16 @@
         });
       },
       saveTitle(v, ov) {
-        this.table.save('title', v, ov)
+        this.table.save('title', v, ov);
       },
       saveItemComponent(v, ov) {
-        this.table.save('itemComponent', v, ov)
+        this.table.save('itemComponent', v, ov);
       },
       saveEditor(v, ov) {
-        this.table.save('editor', v, ov)
+        this.table.save('editor', v, ov);
       },
       saveDisplayColumns(v, ov) {
-        this.table.save('dcolumns', v, ov)
+        this.table.save('dcolumns', v, ov);
       },
       browse() {
         this.getPopup({
@@ -52,5 +52,5 @@
         bbn.fn.log("keskia la d'dans ?", this.table.currentData);
       }
     }
-  }
+  };
 })();
