@@ -67,7 +67,8 @@ if (
       'externals' => $externals,
       'constraints' => $constraints,
       'history' => false,
-      'tableCfg' => $cfg['js']['columns']
+      'tableCfg' => $cfg['js']['columns'],
+      'projectId' => BBN_PROJECT
     ]
   ];
   if (!isset($res['data']['option']['dcolumns'])) {

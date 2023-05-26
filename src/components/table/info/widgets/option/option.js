@@ -50,6 +50,18 @@
           },
         });
         bbn.fn.log("keskia la d'dans ?", this.table.currentData);
+      },
+      browseItemViewer() {
+        this.getPopup({
+          title: "Select Item viewer",
+          component: "appui-database-itemviewerselector"
+        });
+      },
+      browseRowEditor() {
+        this.getPopup({
+          title: "Select Row Editor",
+          component: "appui-database-roweditorselector"
+        });
       }
     }
   };

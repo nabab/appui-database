@@ -24,10 +24,9 @@
       <bbn-tooltip source="<?=_("A component which will be used to show an item from this table in other lists or widgets")?>"/>
     </div>
     <div>
-      <bbn-button :notext="true"
-                  icon="nf nf-custom-folder_open"
-                  text="_(Browse)"
-                  @click="browse"/>
+      <bbn-button icon="nf nf-custom-folder_open"
+                  :text="_('Browse Item Viewers')"
+                  @click="browseItemViewer"/>
 
     <bbn-editable v-model="table.currentData.option.itemComponent"
                   @save="saveItemComponent"/>
@@ -37,6 +36,11 @@
     <div>
       <?=_("Row editor")?>
       <bbn-tooltip source="<?=_("A component which will be used to edit a whole item from this table")?>"/>
+    </div>
+    <div>
+      <bbn-button icon="nf nf-custom-folder_open"
+                  :text="_('Browse Row Editors')"
+                  @click="browseRowEditor"/>
     </div>
     <bbn-editable v-model="table.currentData.option.editor"
                   @edit="editEditor"
