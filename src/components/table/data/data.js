@@ -1,12 +1,26 @@
 (() => {
   return {
-    data(){
+    props: {
+      selector: {
+        type: Boolean,
+        default: false
+      },
+      refColumn: {
+        type: String,
+        default: ''
+      }
+    },
+    data() {
       return {
         root: appui.plugins['appui-database'] + '/',
-        columns: this.getColumnsCfg()
+        columns: this.getColumnsCfg(),
+        selected: null
       };
     },
     computed: {
+      myStorageName() {
+        return this.selector ? 'toto-selector' : 'toto-data';
+      }
     },
     methods:{
       getColumnWidth(column, type) {
@@ -97,23 +111,24 @@
       },
       getForeignKeyEditorData(column, fieldName) {
         if (column.editor === 'bbn-dropdown') {
-	        column.options = {
-  	        source: appui.plugins['appui-database'] + '/data/external-values',
-    	      data: {
-      	      host: this.source.host,
-        	    db: this.source.structure.keys[fieldName].ref_db,
-          	  engine: this.source.engine,
-            	table: this.source.structure.keys[fieldName].ref_table,
-            	column: this.source.structure.keys[fieldName].ref_column
-          	}
-        	};
+          column.options = {
+            source: appui.plugins['appui-database'] + '/data/external-values',
+            data: {
+              host: this.source.host,
+              db: this.source.structure.keys[fieldName].ref_db,
+              engine: this.source.engine,
+              table: this.source.structure.keys[fieldName].ref_table,
+              column: this.source.structure.keys[fieldName].ref_column
+            }
+          };
         } else {
           column.options = {
             source: {
-      	      host: this.source.host,
-        	    db: this.source.structure.keys[fieldName].ref_db,
-          	  engine: this.source.engine,
-            	table: this.source.structure.keys[fieldName].ref_table
+              host: this.source.host,
+              db: this.source.structure.keys[fieldName].ref_db,
+              engine: this.source.engine,
+              table: this.source.structure.keys[fieldName].ref_table,
+              refColumn: this.source.structure.keys[fieldName].ref_column,
             }
           };
         }
@@ -144,6 +159,10 @@
         }
         return {'min': MIN_SAFE_INTEGER, 'max': MAX_SAFE_INTEGER};
       },
+      getForeignKeyComponent(column, fieldName) {
+        delete column.component;
+        return column;
+      },
       getColumnsCfg() {
         let columnsStructure = this.source.structure;
         let res = [];
@@ -157,10 +176,11 @@
           };
           if (value.key === 'MUL') {
             column = this.getForeignKeyEditorData(column, key);
+            column = this.getForeignKeyComponent(column, key);
           }
           column = this.getColumnWidth(column, value.type);
           if (value.type === 'enum' || value.type === 'set') {
-            column.options.source = this.getEnumOptions(value);
+            column.options = {source: this.getEnumOptions(value)};
           }
           if (column.editor === 'bbn-numeric') {
             column.options = this.getNumericOptions(value.type);
@@ -169,7 +189,9 @@
           }
           res.push(column);
         }
-        res.push(this.addButtonsColumn());
+        if (!this.selector) {
+          res.push(this.addButtonsColumn());
+        }
         return res;
       },
       see(row, col){
@@ -200,6 +222,15 @@
           appui.error(bbn._('The field has value ' + (row[col.field] !== '') ? row[col.field] : '""'));
         }
       },
-    }
+      clickRow(data) {
+        if (!this.selector) {
+          return;
+        }
+        this.selected = data[this.refColumn];
+        bbn.fn.log(this.selected);
+        this.$parent.currentValue = data[this.refColumn];
+        this.getPopup().close();
+      }
+    },
   };
 })();

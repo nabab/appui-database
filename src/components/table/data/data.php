@@ -6,7 +6,8 @@
              :sortable="true"
              :filterable="true"
              :showable="true"
-             editable="popup"
+             :editable="selector ? false : 'popup'"
+             :full-storage-name="myStorageName"
              :columns="columns"
              :url="root + 'actions/data/update'"
              :data="{
@@ -15,6 +16,7 @@
                table: source.table,
                engine: source.engine
              }"
+             @click-row="clickRow"
              @editSuccess="success"
   >
   </bbn-table>

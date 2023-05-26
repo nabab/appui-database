@@ -5,5 +5,5 @@
 ?>
 
 <div>
-  The data browser will be here!
+  <appui-database-data-browser :source="source"/>
 </div>
