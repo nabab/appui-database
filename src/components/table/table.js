@@ -96,11 +96,11 @@
               appui.success(bbn._("Option updated successfully"));
             }
 	        }
-        )
+        );
       },
       save(type, value, oldValue) {
         bbn.fn.post(
-          this.root + 'actions/table/set',
+          appui.plugins['appui-database'] + '/actions/table/set',
           bbn.fn.extend({
             type: type,
             value: value
