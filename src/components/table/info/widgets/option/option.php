@@ -47,12 +47,13 @@
       <bbn-tooltip source="<?=_("Pick the column(s) that you want to see from this table in other lists")?>"/>
     </div>
     <div style="height: 10em">
-      <div class="bbn-100">
+      <div class="bbn-80">
         <bbn-editable v-model="table.currentData.option.dcolumns"
                       component="bbn-multiselect"
                       :componentOptions="{source: columns}"
                       @save="saveDisplayColumns"
-                      :required="true"/>
+                      :required="true"
+                      class="bbn-80"/>
       </div>
     </div>
   </div>

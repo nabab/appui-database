@@ -14,7 +14,7 @@
       return {
         table: table,
         columns: tmp
-      }
+      };
     },
     methods: {
       editEditor(ev, editableCp) {
