@@ -32,7 +32,7 @@
         return uid;
       },
       getComponentFullName(uid) {
-				let componentName = (this.trimUid(uid)).replaceAll('/', '-');
+        let componentName = (this.trimUid(uid)).replaceAll('/', '-');
         return this.getprefix() + componentName;
       },
       select(item) {
@@ -54,9 +54,11 @@
       });
     },
     watch: {
-      currentPathId(v) {
-        this.dataTree.id_path = v;
-        this.getRef('tree').updateData();
+      currentPathId(v, ov) {
+        if (ov) {
+          this.dataTree.id_path = v;
+          this.getRef('tree').updateData();
+        }
       }
     }
   };
