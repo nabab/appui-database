@@ -32,14 +32,8 @@
       saveItemComponent(v, ov) {
         this.table.save('itemComponent', v, ov);
       },
-      saveEditor(v, ov) {
-        this.table.save('editor', v, ov);
-      },
       saveDisplayColumns(v, ov) {
         this.table.save('dcolumns', v, ov);
-      },
-      saveViewer(v, ov) {
-        this.table.save('viewer', v, ov);
       },
       browse() {
         this.getPopup({
