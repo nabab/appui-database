@@ -38,6 +38,9 @@
       saveDisplayColumns(v, ov) {
         this.table.save('dcolumns', v, ov);
       },
+      saveViewer(v, ov) {
+        this.table.save('viewer', v, ov);
+      },
       browse() {
         this.getPopup({
           title: "",

@@ -16,13 +16,30 @@
       };
     },
     methods: {
-      select() {
-        bbn.fn.log(arguments);
+      trimUid(uid) {
+        for (let i = uid.length - 1; uid[i] != '/'; i--) {
+          uid = uid.slice(0, -1);
+        }
+        uid = uid.slice(0, -1);
+        return uid;
+      },
+      getComponentFullName(uid) {
+        let prefix = 'appui-database';
+				let componentName = (this.trimUid(uid)).replaceAll('/', '-');
+        return prefix + componentName;
+      },
+      select(item) {
+        const data = item.data;
+        if (!data.is_vue) {
+          return;
+        }
+        let table = this.closest('appui-database-table');
+        table.save('editor', this.getComponentFullName(data.uid), '');
+        this.getPopup().close();
       }
     },
     mounted() {
       bbn.fn.post(appui.plugins['appui-database'] + '/list-project', {}, d => {
-        bbn.fn.log('data:', d);
         this.project = d.project;
         this.currentPathId = d.project.path[d.project.path.length - 1].id;
         this.dataTree.id_project = d.project.id;
@@ -32,7 +49,6 @@
     watch: {
       currentPathId(v) {
         this.dataTree.id_path = v;
-        //this.getRef('tree').$forceUpdate();
         this.getRef('tree').updateData();
       }
     }
