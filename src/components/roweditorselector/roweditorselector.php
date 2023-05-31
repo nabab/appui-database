@@ -1,9 +1,6 @@
 <!-- HTML Document -->
 
 <div class="appui-database-roweditorselector bbn-padding">
-  <div>
-    Row Editor Selector
-  </div>
   <bbn-loader v-if="!ready">
   </bbn-loader>
   <div class="bbn-w-100" v-if="ready">
