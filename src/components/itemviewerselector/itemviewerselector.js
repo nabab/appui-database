@@ -16,6 +16,14 @@
       };
     },
     methods: {
+      getPrefix() {
+        for (let i in this.project.path) {
+          if (i.id === this.currentPathId) {
+            return i.code;
+          }
+        }
+        return bbn.env.appPrefix;
+      },
       trimUid(uid) {
         for (let i = uid.length - 1; uid[i] != '/'; i--) {
           uid = uid.slice(0, -1);
@@ -24,9 +32,8 @@
         return uid;
       },
       getComponentFullName(uid) {
-        let prefix = 'appui-database';
 				let componentName = (this.trimUid(uid)).replaceAll('/', '-');
-        return prefix + componentName;
+        return this.getPrefix() + componentName;
       },
       select(item) {
         const data = item.data;
@@ -49,7 +56,7 @@
     watch: {
       currentPathId(v) {
         this.dataTree.id_path = v;
-        this.getRef('tree').updateData();
+        //this.getRef('tree').updateData();
       }
     }
   };
