@@ -76,28 +76,28 @@
           {
             text: bbn._('Edit column'),
             action: () => {
-              this.update(row)
+              this.update(row);
             },
             icon: 'nf nf-fa-edit'
           },
           {
             text: bbn._('Remove'),
             action: () => {
-              this.remove(row)
+              this.remove(row);
             },
             icon: 'nf nf-fa-times'
           },
           {
             text: bbn._('Move Up'),
             action: () => {
-              this.moveUp(row)
+              this.moveUp(row);
             },
             icon: 'nf nf-fa-arrow_up'
           },
           {
             text: bbn._('Move Down'),
             action: () => {
-              this.moveDown(row)
+              this.moveDown(row);
             },
             icon: 'nf nf-fa-arrow_down'
           }
@@ -111,7 +111,7 @@
               },
               icon: 'nf nf-fa-edit'
             }
-          )
+          );
         }
         return button;
       },
@@ -185,7 +185,7 @@
             source: data,
             root: appui.databases.source.mysql.root,
           },
-        })
+        });
         return;
       },
       moveUp(idx) {
@@ -214,5 +214,5 @@
         return;
       },
     },
-  }
+  };
 })();
