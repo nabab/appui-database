@@ -74,7 +74,7 @@
       getButtons(row) {
         let button = [
           {
-            text: bbn._('Update'),
+            text: bbn._('Edit column'),
             action: () => {
               this.update(row)
             },
