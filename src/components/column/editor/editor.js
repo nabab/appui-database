@@ -5,7 +5,16 @@
         type: Object,
         required: true,
       },
-      root: appui.plugins["appui-database"] + '/',
+      otypes: {},
+      engine: {},
+      host: {},
+      db: {},
+      table: {},
+      predefined: {},
+      root: {
+        type: String,
+        default: appui.plugins["appui-database"] + '/'
+      },
     },
     methods: {
       update() {
@@ -65,5 +74,5 @@
         }
       }
     }
-  }
+  };
 })();

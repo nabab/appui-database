@@ -5,6 +5,10 @@
              :info="true"
              button-mode="menu"
              :columns= "columns"
+             :toolbar="['insert']"
+             editor="appui-database-column-editor"
+             editable="popup"
+             :editor-options="editorOptions"
              >
   </bbn-table>
 </div>

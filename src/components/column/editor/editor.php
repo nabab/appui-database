@@ -3,17 +3,17 @@
 
 <bbn-form
           ref="form"
-          :source="source.source"
+          :source="source"
           :buttons="[]">
   <appui-database-column-form
                               ref="colform"
-                              :source="source.source"
-                              :otypes="source.otypes"
-                              :engine="source.engine"
-                              :host="source.host"
-                              :db="source.db"
-                              :predefined="source.predefined"
-                              :table="source.table"
+                              :source="source"
+                              :otypes="otypes"
+                              :engine="engine"
+                              :host="host"
+                              :db="db"
+                              :predefined="predefined"
+                              :table="table"
                               @change="submit"
                               @cancel="cancel"
                               >
