@@ -8,7 +8,7 @@
   <appui-database-column-form
                               ref="colform"
                               :source="source.source"
-                              :otypes="source.types"
+                              :otypes="source.otypes"
                               :engine="source.engine"
                               :host="source.host"
                               :db="source.db"

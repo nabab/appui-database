@@ -27,6 +27,14 @@
       db: {},
       host: {},
       engine: {},
+      otypes: {
+        type: Array,
+        default: []
+      },
+      predefined: {
+        type: Array,
+        default: []
+      },
       constraints: {
         type: Array,
         default() {
@@ -42,8 +50,6 @@
         tables: this.tables
       };
       return {
-        otypes:  appui.databases.source[this.engine].types,
-        predefined:  appui.databases.source[this.engine].predefined,
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',

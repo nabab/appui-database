@@ -161,7 +161,6 @@
         let cp = this.closest('bbn-container');
         let cp2 = cp.closest("bbn-container").getComponent();
         let cp3 = cp2.closest('bbn-container').getComponent();
-        bbn.fn.log("cp = ", data);
         data.olddecimal = data.decimal;
         data.olddefault = data.default;
         data.olddefaultExpression = data.defaultExpression;
@@ -172,6 +171,7 @@
         data.oldkey = data.key;
         data.oldmaxlength = data.maxlength;
         data.oldindex = data.index;
+        let editColumnsData = this.source.editColumnsData;
         this.getPopup({
           title: 'Edit a column',
           component: 'appui-database-column-editor',
@@ -180,10 +180,10 @@
             host: cp.source.host,
             engine: cp.source.engine,
             table: cp.source.table,
-            otypes:  appui.databases.source.mysql.types,
-            predefined:  appui.databases.source.mysql.predefined,
+            otypes:  editColumnsData.mysql.types,
+            predefined: editColumnsData.mysql.predefined,
             source: data,
-            root: appui.databases.source.mysql.root,
+            root: editColumnsData.mysql.root,
           },
         });
         return;
