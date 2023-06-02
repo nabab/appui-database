@@ -86,5 +86,14 @@ if (
     $res['data']['size'] = \bbn\Str::saySize($conn->tableSize($model->data['db'].'.'.$model->data['table']));
     $res['data']['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
   }
+
+  $engines = ['mysql', 'sqlite', 'postgre'];
+  foreach ($engines as $engine) {
+    $res['data']['editColumnsData'][$engine] =   [
+      'types' => bbn\Db\Languages\Sql::$types,
+      'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'database', 'appui'),
+      'root' => APPUI_DATABASES_ROOT
+    ];
+  }
 }
 return $res;

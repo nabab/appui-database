@@ -1,4 +1,4 @@
-<div class="appui-database-form-column">
+<div class="appui-database-form-column bbn-padding">
   <!---<span class="bbn-m bbn-b bbn-space-right bbn-iblock"
             v-if="option && (option.text !== option.code)"
             v-text="option.text"/>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="bbn-grid-full bbn-m bbn-vspadded bbn-i bbn-c bbn-b">
-        <?=_("What kind of column do you want to create ?")?>
+        {{question}}
       </div>
 
       <div class="bbn-grid-full bbn-m bbn-vspadded">

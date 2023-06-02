@@ -42,9 +42,6 @@
                   :text="_('Browse Row Editors')"
                   @click="browseRowEditor"/>
     </div>
-    <bbn-editable v-model="table.currentData.option.editor"
-                  @edit="editEditor"
-                  @save="saveEditor"/>
 
     <div>
       <?=_("Display columns")?>

@@ -2,12 +2,8 @@
 (() => {
   return {
     props: ['source'],
-    methods: {
-      viewButton(id, idx, data){
-        bbn.fn.log("VIEW", arguments);
-        return '<a href="' + appui.plugins['appui-database'] + '/tabs/tables/' + data.code + '">' +
-          '<bbn-button icon="nf nf-fa-eye" text="' + bbn._("View") + '" :notext="true"></bbn-button></a>';
-      }
-    },
+    created() {
+      appui.databases = this;
+    }
   };
 })();
