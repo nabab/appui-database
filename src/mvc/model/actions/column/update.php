@@ -28,7 +28,6 @@ $data =  [
 if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
-  $data = $conn->getColumnValues($model->data['table'], $model->data['name']);
   $mod = $model->db->modelize("edition_test");
   $model->data['data']['alter_type'] = 'modify';
 

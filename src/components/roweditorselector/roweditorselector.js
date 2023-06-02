@@ -33,7 +33,7 @@
       },
       getComponentFullName(uid) {
         let componentName = (this.trimUid(uid)).replaceAll('/', '-');
-        return this.getprefix() + componentName;
+        return this.getPrefix() + componentName;
       },
       select(item) {
         const data = item.data;

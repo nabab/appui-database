@@ -27,6 +27,14 @@
       db: {},
       host: {},
       engine: {},
+      otypes: {
+        type: Array,
+        default: []
+      },
+      predefined: {
+        type: Array,
+        default: []
+      },
       constraints: {
         type: Array,
         default() {
@@ -42,8 +50,8 @@
         tables: this.tables
       };
       return {
-        otypes:  appui.databases.source[this.engine].types,
-        predefined:  appui.databases.source[this.engine].predefined,
+        buttonText: bbn._('Create column'),
+        question: bbn._('What kind of column do you want to create ?'),
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
@@ -325,14 +333,6 @@
             return false;
         }
         return true;
-      },
-      buttonTitle() {
-        let form = this.getRef('form');
-        if (form && form.originalData && form.originalData.name) {
-          return bbn._("Edit column");
-        }
-
-        return bbn._('Create column');
       }
     },
     methods: {
@@ -442,5 +442,11 @@
         this.source.type = "";
       },
     },
+    mounted() {
+      if (this.source.name != '') {
+        this.buttonTitle = bbn._('Edit column');
+      	this.question = bbn._('Edit you column here:');
+      }
+    }
   };
 })();

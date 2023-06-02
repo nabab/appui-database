@@ -5,19 +5,28 @@
         type: Object,
         required: true,
       },
-      root: appui.plugins["appui-database"] + '/',
+      otypes: {},
+      engine: {},
+      host: {},
+      db: {},
+      table: {},
+      predefined: {},
+      root: {
+        type: String,
+        default: appui.plugins["appui-database"] + '/'
+      },
     },
     methods: {
       update() {
         let i = 1;
         let path = appui.plugins["appui-database"] + "/" + "actions/column/update";
         bbn.fn.post(path, {
-          data: this.source.source,
-          db: this.source.db,
-          host: this.source.host,
-          engine: this.source.engine,
-          table: this.source.table,
-          name: this.source.source.oldname,
+          data: this.source,
+          db: this.db,
+          host: this.host,
+          engine: this.engine,
+          table: this.table,
+          name: this.getRef('form').originalData.name,
         }, d => {
           if (d.success) {
             bbn.fn.log(this.getPopup().close());
@@ -33,13 +42,12 @@
         }*/
         let path = appui.plugins["appui-database"] + "/" + "actions/column/validform";
         let data = {
-          db: this.source.db,
-          host: this.source.host,
-          engine: this.source.engine,
-          table: this.source.table,
-          name: this.source.source.oldname,
+          db: this.db,
+          host: this.host,
+          engine: this.engine,
+          table: this.table,
+          name: this.getRef('form').originalData.name,
         };
-        bbn.fn.log("this source source : ",this.source.source, data);
         bbn.fn.post(path, data, (d) => {
           if (d.success) {
             if (d.num) {
@@ -65,5 +73,5 @@
         }
       }
     }
-  }
+  };
 })();

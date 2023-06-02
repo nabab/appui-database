@@ -53,11 +53,11 @@
           db: this.source.db,
           table: this.source.table
         } : {
-              engine: this.engine,
-          		host: this.host,
-          		db: this.database,
-          		table: this.table
-            },
+          engine: this.engine,
+          host: this.host,
+          db: this.database,
+          table: this.table
+        },
         currentData: this.source,
         ready: !!this.source,
       };
@@ -72,10 +72,10 @@
         },{
           text: 'Structure'
         }, {
-            text: 'Data'
-          }, {
-            text: 'Operation'
-          }]
+          text: 'Data'
+        }, {
+          text: 'Operation'
+        }];
       }
     },
     methods:{
@@ -95,7 +95,7 @@
             else {
               appui.success(bbn._("Option updated successfully"));
             }
-	        }
+          }
         );
       },
       save(type, value, oldValue) {
