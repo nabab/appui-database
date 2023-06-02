@@ -50,7 +50,7 @@
         tables: this.tables
       };
       return {
-        buttonText: bbn._('Create column'),
+        buttonTitle: bbn._('Create column'),
         question: bbn._('What kind of column do you want to create ?'),
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
