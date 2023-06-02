@@ -28,7 +28,7 @@ $data =  [
 if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
-  $mod = $model->db->modelize("edition_test");
+  $mod = $conn->modelize($model->data['table']);
   $model->data['data']['alter_type'] = 'modify';
 
 
