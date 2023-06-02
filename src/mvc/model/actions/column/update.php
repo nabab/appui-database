@@ -92,9 +92,8 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
       $model->data['name'] => $model->data['data'],
     ],
   ];
-  //X::ddump($res, $model->db->getAlterTable("edition_test", $update), $update, $model->data, $mod);
   try {
-    if ($conn->alter("edition_test", $update)) {
+    if ($conn->alter($model->data['table'], $update)) {
       $res = [
         'success' => true
       ];
