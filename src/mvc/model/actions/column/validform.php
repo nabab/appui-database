@@ -14,12 +14,12 @@ if ($model->hasData(['engine', 'db', 'host', 'table'])) {
   $database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   $data = [];
-  if ($model->haData('name')) {
+  if ($model->hasData('name') && $model->data['name'] !== '') {
     $data = $conn->getColumnValues($model->data['table'], $model->data['name']);
   }
   $res = [
     'success' => true,
-    'num' => count($data);
+    'num' => count($data)
   ];
 }
 
