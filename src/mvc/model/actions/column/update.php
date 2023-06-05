@@ -29,19 +29,20 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $database = new bbn\Appui\Database($model->db);
   $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   $mod = $conn->modelize($model->data['table']);
-	$cfg = [];
+  $cfg = [];
+  $colEndName = $model->data['data']['name'];
 
-  if ($model->data['name'] !== '') {
+  if ($model->data['name'] === '') {
+    $cfg['fields'] = [
+      $colEndName => [
+        'type' => $model->data['data']['type'],
+        'maxlength' => $model->data['data']['maxlength']
+      ]
+    ];
+  } else {
     $alterCfg = $mod['fields'][$model->data['name']];
     $cfg['alter_type'] = 'modify';
-  } else {
-    $alterCfg = $mod['data']['data'];
-    $cfg['alter_type'] = 'add';
   }
-
-  $cfg['fields'] = [
-    $alterCfg
-  ];
 
   try {
     if ($conn->alter($model->data['table'], $cfg)) {
@@ -53,10 +54,10 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   catch (\Exception $e) {
     $res = [
       'error' => $e->getMessage(),
-      'errorData' => $alterCfg
+      'data' => $model->data,
+      'mod' => $mod
     ];
   }
-  $res['sql'] = $conn->last();
 }
 
 return $res;
