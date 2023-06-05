@@ -33,14 +33,9 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
   $colEndName = $model->data['data']['name'];
 
   if ($model->data['name'] === '') {
-    $cfg['fields'] = [
-      $colEndName => [
-        'type' => $model->data['data']['type'],
-        'maxlength' => $model->data['data']['maxlength']
-      ]
-    ];
+    $cfg['fields'][$colEndName] = $model->data['data'];
   } else {
-    $alterCfg = $mod['fields'][$model->data['name']];
+    $cfg['fields'][$model->data['name']] = $model->data['data'];
     $cfg['alter_type'] = 'modify';
   }
 
