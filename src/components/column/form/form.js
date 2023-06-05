@@ -50,8 +50,6 @@
         tables: this.tables
       };
       return {
-        buttonTitle: bbn._('Create column'),
-        question: bbn._('What kind of column do you want to create ?'),
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
@@ -446,6 +444,9 @@
       if (this.source.name != '') {
         this.buttonTitle = bbn._('Edit column');
       	this.question = bbn._('Edit you column here:');
+      } else {
+        this.buttonTitle = bbn._('Create column');
+        this.question = bbn._('What kind of column do you want to create ?');
       }
     }
   };
