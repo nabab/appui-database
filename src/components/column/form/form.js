@@ -50,6 +50,8 @@
         tables: this.tables
       };
       return {
+        question: '',
+        buttonTitle: '',
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
