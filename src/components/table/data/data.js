@@ -157,7 +157,7 @@
             {'min': -8388608, 'max': 8388608} :
           {'min': 0, 'max': 16777215};
         }
-        return {'min': MIN_SAFE_INTEGER, 'max': MAX_SAFE_INTEGER};
+        return {'min': Number.MIN_SAFE_INTEGER, 'max': Number.MAX_SAFE_INTEGER};
       },
       getForeignKeyComponent(column, fieldName) {
         delete column.component;
