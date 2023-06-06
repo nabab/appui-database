@@ -9,7 +9,8 @@
             mode="small"
             ref="form"
             :confirm-leave="false"
-            :source="source">
+            :source="source"
+            @success="onSuccess">
     <div class="bbn-grid-fields bbn-c">
 
       <div class="bbn-grid-full bbn-m bbn-i bbn-c">

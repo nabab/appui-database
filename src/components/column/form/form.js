@@ -50,6 +50,8 @@
         tables: this.tables
       };
       return {
+        isNew: this.source.name === '',
+        oldName: this.source.name,
         question: '',
         buttonTitle: '',
         root: appui.plugins['appui-database'] + '/',
@@ -336,6 +338,19 @@
       }
     },
     methods: {
+      onSuccess(data) {
+        const table = this.closest('bbn-floater')?.opener;
+        if (table) {
+          const cp = table.closest('appui-database-table-columns');
+          if (cp) {
+            if (this.isNew) {
+              cp.insertColumn(data);
+            } else {
+              cp.updateColumn(data);
+            }
+          }
+        }
+      },
       cancel() {
         let o = this.getRef('form').originalData;
         this.$emit("cancel", o.name ? o : null);
@@ -443,9 +458,9 @@
       },
     },
     mounted() {
-      if (this.source.name != '') {
+      if (!this.isNew) {
         this.buttonTitle = bbn._('Edit column');
-      	this.question = bbn._('Edit you column here:');
+        this.question = bbn._('Edit you column here:');
       } else {
         this.buttonTitle = bbn._('Create column');
         this.question = bbn._('What kind of column do you want to create ?');

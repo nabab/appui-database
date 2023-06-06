@@ -36,7 +36,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
     $cfg['fields'][$colEndName] = $model->data['data'];
   } else {
     $cfg['fields'][$model->data['name']] = $model->data['data'];
-    $cfg['alter_type'] = 'modify';
+    $cfg['fields'][$model->data['name']]['alter_type'] = 'modify';
   }
 
   try {
