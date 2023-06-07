@@ -141,35 +141,6 @@
         }
         return col;
       },
-      /*writeNull(row){
-        return row.null ? '<i class="nf nf-fa-check"> </i>' : ' ';
-      },*/
-      /*writeType(row){
-        if ( row.type === 'int' ){
-          row.type += ' (<em>' + ( row.signed ? '' : 'un') + 'signed)</em>';
-        }
-        return row.type;
-      },*/
-      /*writeColumn(row){
-        let col = this.getStateColor(row);
-        return '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
-      },*/
-      /*writeKey(row){
-        let col = this.getStateColor(row);
-        return '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
-      },*/
-      /*writeColInKey(row){
-        return row.columns.join(", ");
-      },*/
-      /*writeKeyInCol(row){
-        if ( !row.key ){
-          return ' ';
-        }
-        return '<i class="nf nf-fa-key ' + (row.key === 'PRI' ? 'bbn-yellow' : 'bbn-grey') + '"> </i>';
-      },*/
-      /*writeDefault(row){
-        return row.default_value || '-';
-      },*/
       buttons(name){
         return '<bbn-button text="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
           '<a href="' + this.currentData.root + 'tabs/db/' + this.currentData.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';

@@ -26,7 +26,9 @@ if ($model->hasData('host', 'engine', 'db', 'table', 'column')) {
       $res['success'] = true;
 		  $connection->clearCache($model->data['table'], 'columns');
       //also update options here
-      $database->importDb($model->data['db'], $model->data['host'], true);
+      $dbId = $database->dbId($model->data['db'], $model->data['host'], $model->data['engine']);
+      $hostId = $database->hostId($model->data['host'], $model->data['engine']);
+      $database->importTable($model->data['table'], $dbId, $model->data['host']);
     }
   } catch (\Exception $e) {
     $res['error'] = $e;

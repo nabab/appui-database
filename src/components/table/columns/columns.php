@@ -9,6 +9,7 @@
              editor="appui-database-column-editor"
              editable="popup"
              :editor-options="editorOptions"
+             ref="table"
              >
   </bbn-table>
 </div>
