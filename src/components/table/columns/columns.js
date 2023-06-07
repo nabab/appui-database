@@ -165,7 +165,18 @@
         writeDefault(row) {
           return row.default || '-';
         },
-        remove() {
+        remove(data) {
+          const requestData = {
+            engine: this.cp.source.engine,
+            host: this.cp.source.host,
+            table: this.cp.source.table,
+            db: this.cp.source.db,
+            column: data,
+          };
+          bbn.fn.log("remove post data", requestData);
+          bbn.fn.post(appui.plugins['appui-database'] + '/actions/column/remove', requestData, d => {
+            bbn.fn.log("remove callback data:", d);
+          });
           return;
         },
         update(data, col, idx) {
