@@ -88,9 +88,7 @@
           let button = [
             {
               text: bbn._('Edit column'),
-              action: 'edit',/*() => {
-                this.update(row);
-              },*/
+              action: 'edit',
               icon: 'nf nf-fa-edit'
             },
             {
