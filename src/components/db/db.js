@@ -1,6 +1,20 @@
 // Javascript Document
 (() => {
   return {
+    props: {
+      source: {
+        type: Object,
+      },
+      engine: {
+        type: String
+      },
+      host: {
+        type: String
+      },
+      database: {
+        type: String
+      }
+    },
     data(){
       return {
         orientation: 'horizontal',
@@ -8,6 +22,8 @@
         force: false,
         toolbar: [],
         hasMultipleSelected: false,
+        currentData: this.source,
+        ready: !!this.source,
       };
     },
     methods:{
@@ -39,11 +55,11 @@
             }
           });
         }
-        if (this.source.is_real) {
+        if (this.currentData?.is_real) {
           ar.push({
             content: '<span class="bbn-iblock">#' + bbn._("Size") +
             	': </span>&nbsp;<span class="bbn-b bbn-iblock">' +
-            	this.source.size + '</span>'
+            	this.currentData.size + '</span>'
           });
         }
         return ar;
@@ -56,13 +72,13 @@
           width: "120em",
           height: "60em",
           source: {
-            host: this.source.host,
-            engine: this.source.engine,
-            db: this.source.db,
-            table_id: this.source.info.id,
-            types: this.source.types,
-            predefined: this.source.predefined,
-            constraints: this.source.constraints
+            host: this.currentData.host,
+            engine: this.currentData.engine,
+            db: this.currentData.db,
+            table_id: this.currentData.info.id,
+            types: this.currentData.types,
+            predefined: this.currentData.predefined,
+            constraints: this.currentData.constraints
           }
         });
       },
@@ -72,7 +88,7 @@
         }
 
         bbn.fn.post(this.root + 'actions/table/analyze', {
-          host_id: this.source.info.id,
+          host_id: this.currentData.info.id,
           db: db
         }, d => {
           if (d.success) {
@@ -84,7 +100,7 @@
           db = this.getRef('table').currentSelected;
         }
         bbn.fn.post(this.root + 'actions/table/options', {
-          host_id: this.source.info.id,
+          host_id: this.currentData.info.id,
           db: db
         }, d => {
           if (d.success) {
@@ -105,9 +121,9 @@
               t = this.getRef('table').currentSelected;
            }
             bbn.fn.post(this.root + 'actions/table/drop', {
-              host: this.source.host,
-              db: this.source.db,
-              engine: this.source.engine,
+              host: this.currentData.host,
+              db: this.currentData.db,
+              engine: this.currentData.engine,
               table: t
             }, d => {
               if (d.success) {
@@ -127,7 +143,7 @@
       },
       exportDb(){
         //this.closest('bbn-router').route('host/export')
-        bbn.fn.link(this.root + 'tabs/' + this.source.engine + '/' + this.source.host + '/export');
+        bbn.fn.link(this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/export');
       },
       getStateColor(row){
         let col = false;
@@ -147,7 +163,7 @@
       },
       writeDB(row){
         let col = this.getStateColor(row);
-        return '<a href="' + this.root + 'tabs/' + this.source.engine + '/' + this.source.host + '/' + row.name + '" class="bbn-b' +
+        return '<a href="' + this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/' + row.name + '" class="bbn-b' +
           (col ? ' bbn-' + col : '') +
           '">' + row.name + '</a>';
       },
@@ -155,8 +171,8 @@
         bbn.fn.log(',----',row, arguments, 'fine');
         //appui.confirm(bbn._('Are you sure you want to import|refresh this database?'), () => {
           this.post(this.root + 'actions/database/update', {
-            engine: this.source.engine,
-            host: this.source.host,
+            engine: this.currentData.engine,
+            host: this.currentData.host,
             db: row.name
           }, (d) => {
             if ( d.success ){
@@ -255,17 +271,17 @@
         return col;
       },
       writeURL(row){
-        return this.root + 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + row.name;
+        return this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/' + this.currentData.db + '/' + row.name;
       },
       writeTable(row){
         let col = this.getStateColor(row);
         if ( row.is_real ){
-          return '<a href="' + this.root + 'tabs/' + this.source.engine + '/' +this.source.host + '/' + this.source.db + '/' + row.name + '" class="bbn-b' +
+          return '<a href="' + this.root + 'tabs/' + this.currentData.engine + '/' +this.currentData.host + '/' + this.currentData.db + '/' + row.name + '" class="bbn-b' +
           (col ? ' bbn-' + col : '') +
           '">' + row.name + '</a>';
         }
         else {
-          return '<span title="'+ bbn._('The table is not real') +'" href="' + this.root + 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + row.name + '" class="bbn-b' +
+          return '<span title="'+ bbn._('The table is not real') +'" href="' + this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/' + this.currentData.db + '/' + row.name + '" class="bbn-b' +
           (col ? ' bbn-' + col : '') +
           '">' + row.name + '</span>';
         }
@@ -273,9 +289,9 @@
       refresh(row){
         appui.confirm(bbn._('Are you sure you want to refresh this table?'), () => {
           this.post(this.root + 'actions/table/update', {
-            engine: this.source.engine,
-            host: this.source.host,
-            db: this.source.db,
+            engine: this.currentData.engine,
+            host: this.currentData.host,
+            db: this.currentData.db,
             table: row.name
           }, (d) => {
             if ( d.success ){
@@ -289,7 +305,18 @@
       */
     },
     mounted() {
-      bbn.fn.log("HELLO WORLD!", this.source);
+      if (!this.ready) {
+        bbn.fn.post(appui.plugins['appui-database'] + '/data/db', {
+          engine: this.engine,
+          host: this.host,
+          db: this.database
+        }, d => {
+          if (d.success) {
+            this.currentData = d.data;
+            this.ready = true;
+          }
+        })
+      }
       this.$nextTick(() => {
         this.toolbar = this.getToolbar();
       });
@@ -312,7 +339,7 @@
             text: bbn._("Analyze"),
             value: 'analyze'
           }, {
-            text: this.source.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
+            text: this.currentData.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
             value: 'toOption'
           }, {
             text: bbn._("Duplicate"),
@@ -330,7 +357,7 @@
           select(code) {
             bbn.fn.log("select", code, this.source);
             if (bbn.fn.isFunction(this.db[code])) {
-              this.db[code](this.source.name);
+              this.db[code](this.currentData.name);
             }
           }
         }

@@ -1,8 +1,11 @@
 <div class="bbn-overlay">
+  <div v-if="!ready" class="bbn-overlay bbn-middle">
+    <bbn-loader></bbn-loader>
+  </div>
   <div class="bbn-overlay bbn-middle"
-       v-if="source.error">
+       v-else-if="currentData.error">
     <div class="bbn-block bbn-padded bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
-         v-text="source.error"/>
+         v-text="currentData.error"/>
   </div>
   <bbn-splitter v-else
                 :orientation="orientation"
@@ -20,28 +23,28 @@
           <?=_("Engine")?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
-             v-text="source.engine"/>
+             v-text="currentData.engine"/>
 
         <div class="bbn-w-100 bbn-m bbn-spadded bbn-c">
           <?=_("Host")?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
-             v-text="source.host"/>
+             v-text="currentData.host"/>
 
         <div class="bbn-w-100 bbn-spadded bbn-c"
-             v-if="source.ip && (source.host !== source.ip)">
+             v-if="currentData.ip && (currentData.host !== currentData.ip)">
           <?=_("Ip")?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
-             v-if="source.ip && (source.host !== source.ip)"
-             v-text="source.ip"/>
+             v-if="currentData.ip && (currentData.host !== currentData.ip)"
+             v-text="currentData.ip"/>
       </div>
     </bbn-pane>
     <bbn-pane :resizable="true">
       <div class="bbn-overlay">
         <bbn-table ref="table"
                    @toggle="checkMultipleSelected"
-                   :source="source.dbs.data"
+                   :source="currentData.dbs.data"
                    :selection="true"
                    :pageable="true"
                    :limit="50"

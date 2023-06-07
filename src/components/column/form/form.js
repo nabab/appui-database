@@ -27,6 +27,14 @@
       db: {},
       host: {},
       engine: {},
+      otypes: {
+        type: Array,
+        default: []
+      },
+      predefined: {
+        type: Array,
+        default: []
+      },
       constraints: {
         type: Array,
         default() {
@@ -42,8 +50,10 @@
         tables: this.tables
       };
       return {
-        otypes:  appui.databases.source[this.engine].types,
-        predefined:  appui.databases.source[this.engine].predefined,
+        isNew: this.source.name === '',
+        oldName: this.source.name,
+        question: '',
+        buttonTitle: '',
         root: appui.plugins['appui-database'] + '/',
         checked: 0,
         defaultValueType: '',
@@ -325,17 +335,22 @@
             return false;
         }
         return true;
-      },
-      buttonTitle() {
-        let form = this.getRef('form');
-        if (form && form.originalData && form.originalData.name) {
-          return bbn._("Edit column");
-        }
-
-        return bbn._('Create column');
       }
     },
     methods: {
+      onSuccess(data) {
+        const table = this.closest('bbn-floater')?.opener;
+        if (table) {
+          const cp = table.closest('appui-database-table-columns');
+          if (cp) {
+            if (this.isNew) {
+              cp.insertColumn(data);
+            } else {
+              cp.updateColumn(data);
+            }
+          }
+        }
+      },
       cancel() {
         let o = this.getRef('form').originalData;
         this.$emit("cancel", o.name ? o : null);
@@ -442,5 +457,14 @@
         this.source.type = "";
       },
     },
+    mounted() {
+      if (!this.isNew) {
+        this.buttonTitle = bbn._('Edit column');
+        this.question = bbn._('Edit you column here:');
+      } else {
+        this.buttonTitle = bbn._('Create column');
+        this.question = bbn._('What kind of column do you want to create ?');
+      }
+    }
   };
 })();

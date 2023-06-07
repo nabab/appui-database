@@ -2,6 +2,6 @@
 
 (() => {
   return {
-    bbn.fn.log("THIS", this);
-  }
+    props: ['source']
+  };
 })();

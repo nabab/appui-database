@@ -1,13 +1,26 @@
 // Javascript Document
 (() => {
   return {
+    props: {
+      source: {
+        type: Object,
+      },
+      engine: {
+        type: String
+      },
+      host: {
+        type: String
+      }
+    },
     data(){
       return {
         orientation: 'horizontal',
         root: appui.plugins['appui-database'] + '/',
         force: false,
         toolbar: [],
-        hasMultipleSelected: false
+        hasMultipleSelected: false,
+        currentData: this.source,
+        ready: !!this.source,
       };
     },
     methods:{
@@ -174,6 +187,14 @@
       }
     },
     mounted(){
+      if (!this.ready) {
+        bbn.fn.post(appui.plugins['appui-database'] + '/data/host', {engine: this.engine, host: this.host}, d => {
+          if (d.success) {
+            this.currentData = d.data;
+            this.ready = true;
+          }
+        })
+      }
       this.$nextTick(() => {
         this.toolbar = this.getToolbar();
         this.closest("bbn-container").addMenu({

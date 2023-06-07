@@ -10,4 +10,6 @@
               icon="nf nf-fa-eye"
               text="_('See referenced row')"
               @click="goto"/>
+  <span v-if="isForeignKey"
+        v-text="displayValue"/>
 </div>

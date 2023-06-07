@@ -29,6 +29,12 @@ if ($model->hasData(['engine', 'host', 'db', 'table', 'type', 'value', 'res'], t
     case 'comment':
       $model->data['res']['error'] = "This feature is not ready yet";
       break;
+    case 'editor':
+      $model->data['res']['success'] = $model->inc->options->setProp($table_id, ['editor' => $model->data['value']]);
+      break;
+    case 'viewer':
+      $model->data['res']['success'] = $model->inc->options->setProp($table_id, ['viewer' => $model->data['value']]);
+      break;
   }
 }
 
