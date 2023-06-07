@@ -41,7 +41,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
 
   try {
     if ($conn->alter($model->data['table'], $cfg)) {
-      $conn->clearAllCache();
+      $conn->clearCache($model->data['table'], 'columns');
       // Also update options here
       $res = [
         'success' => true
