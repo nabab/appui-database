@@ -43,6 +43,9 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'name'])) {
     if ($conn->alter($model->data['table'], $cfg)) {
       $conn->clearCache($model->data['table'], 'columns');
       // Also update options here
+      $dbId = $database->dbId($model->data['db'], $model->data['host'], $model->data['engine']);
+      $hostId = $database->hostId($model->data['host'], $model->data['engine']);
+      $database->importTable($model->data['table'], $dbId, $model->data['host']);
       $res = [
         'success' => true
       ];
