@@ -1,4 +1,11 @@
 // Javascript Document
 (() => {
-  return {};
+  return {
+    data(){
+      return {
+      };
+    },
+    methods:{
+    }
+  }
 })();

@@ -15,32 +15,7 @@
         }
       }];
 
-      bbn.vue.addPrefix('appui-database-table-', (tag, resolve, reject) => {
-        return bbn.vue.queueComponent(
-          tag,
-          'components/table/' + bbn.fn.replaceAll('-', '/', tag).substr('appui-database-table-'.length),
-          mixins,
-          resolve,
-          reject
-        );
-      });
-    },
-    props: {
-      source: {
-        type: Object,
-      },
-      engine: {
-        type: String
-      },
-      host: {
-        type: String
-      },
-      database: {
-        type: String
-      },
-      table: {
-        type: String
-      }
+      bbn.cp.addPrefix('appui-database-table-', null, mixins);
     },
     data(){
       return {
