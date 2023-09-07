@@ -53,6 +53,10 @@ if ($model->hasData('host_id', true)) {
     'has_history' => null,
     'last_check' => null
   ];
+  if ($model->hasData('engine', true)) {
+    $default['engine'] = $model->data['engine'];
+  }
+
   foreach ( $real_dbs as $i => $db ){
     if (!in_array($db, $db_excluded)) {
       $res['data'][] = [
