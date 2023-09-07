@@ -1,11 +1,19 @@
 // Javascript Document
 (()=> {
   return {
-    data(){
+    data() {
       let db = this.closest('appui-database-db');
-      let link = db.root + 'tabs/' + db.currentData.engine + '/' + db.currentData.host + '/' + db.currentData.db + '/' + this.currentData.name + '/home';
       return {
-        link: link
+        db: null
+      }
+    },
+    mounted() {
+      this.db = this.closest('appui-database-db');
+    },
+    computed: {
+      link() {
+        const db = this.db;
+        return db ? db.root + 'tabs/' + db.source.engine + '/' + db.source.host + '/' + db.source.db + '/' + this.source.name + '/home' : ''
       }
     }
   }
