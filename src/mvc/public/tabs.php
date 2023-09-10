@@ -126,3 +126,4 @@ if (defined('BBN_BASEURL')) {
     $ctrl->setUrl($url);
   }
 }
+
