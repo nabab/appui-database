@@ -9,7 +9,7 @@
           type: 'components',
           id_path: ''
         },
-        root: appui.plugins['appui-newide'] + '/',
+        root: appui.plugins['appui-ide'] + '/',
         ready: false,
         project: [],
         currentPathId: ''
