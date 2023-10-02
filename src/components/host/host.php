@@ -3,7 +3,7 @@
     <bbn-loader></bbn-loader>
   </div>
   <div class="bbn-overlay bbn-middle"
-       v-else-if="currentData.error">
+       v-else-if="currentData?.error">
     <div class="bbn-block bbn-padded bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
          v-text="currentData.error"/>
   </div>
@@ -12,7 +12,7 @@
                 :resizable="true"
                 :collapsible="true">
     <bbn-pane :resizable="true"
-              size="20%">
+              :size="250">
       <div class="bbn-100 bbn-lg">
         <div class="bbn-header bbn-spadded">
           <bbn-button icon="nf nf-mdi-export"

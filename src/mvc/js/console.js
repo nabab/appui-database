@@ -29,8 +29,8 @@
     components: {
       request: {
         mixins: [
-          bbn.vue.basicComponent,
-          bbn.vue.inputComponent,
+          bbn.cp.mixins.basic,
+          bbn.cp.mixins.input,
         ],
         props: {
           database: {

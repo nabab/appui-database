@@ -2,7 +2,6 @@
 
 
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
-
 if ($ctrl->hasArguments(4)) {
   $ctrl->addData(
     [
@@ -15,5 +14,6 @@ if ($ctrl->hasArguments(4)) {
   )
     //setUrl($ctrl->data['root'].'/'.$ctrl->data['engine'].'/'.$ctrl->data['host'].'/'.$ctrl->data['db'].'/'.$ctrl->data['table'])
     ->setIcon('nf nf-fa-table')
+    ->setUrl($ctrl->pluginUrl('appui-database') . '/table/' . $ctrl->data['engine'] . '/' . $ctrl->data['host'] . '/' . $ctrl->data['db'] . '/' . $ctrl->data['table'])
     ->combo($ctrl->data['table'], $ctrl->data);
 }

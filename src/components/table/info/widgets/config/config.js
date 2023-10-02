@@ -4,6 +4,7 @@
     data(){
       return {
         root: appui.plugins['appui-database'],
+        table: this.closest('appui-database-table'),
       }
     },
     methods: {

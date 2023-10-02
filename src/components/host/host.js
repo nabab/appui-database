@@ -10,7 +10,9 @@
       },
       host: {
         type: String
-      }
+      },
+      info: {},
+      name: {}
     },
     data(){
       return {

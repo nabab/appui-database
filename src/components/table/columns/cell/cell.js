@@ -13,7 +13,11 @@
     computed: {
       link() {
         const db = this.db;
-        return db ? db.root + 'tabs/' + db.source.engine + '/' + db.source.host + '/' + db.source.db + '/' + this.source.name + '/home' : ''
+        if (!db) {
+          return '';
+        }
+        let o = db.source || db;
+        return db ? db.root + 'tabs/' + o.engine + '/' + o.host + '/' + o.db + '/' + o.name + '/home' : ''
       }
     }
   }

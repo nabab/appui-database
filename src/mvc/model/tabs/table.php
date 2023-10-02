@@ -57,7 +57,8 @@ if (
     'externals' => $externals,
     'constraints' => $constraints,
     'history' => false,
-    'tableCfg' => $cfg['js']['columns']
+    'tableCfg' => $cfg['js']['columns'],
+    'editColumnsData' => [],
   ];
   if (!isset($res['option']['dcolumns'])) {
     $res['option']['dcolumns'] = [];
@@ -73,6 +74,14 @@ if (
   if ($res['is_real']) {
     $res['size'] = \bbn\Str::saySize($conn->tableSize($model->data['db'].'.'.$model->data['table']));
     $res['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
+  }
+  $engines = ['mysql', 'sqlite', 'postgre'];
+  foreach ($engines as $engine) {
+    $res['editColumnsData'][$engine] =   [
+      'types' => bbn\Db\Languages\Sql::$types,
+      'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'database', 'appui'),
+      'root' => APPUI_DATABASES_ROOT
+    ];
   }
 }
 return $res;

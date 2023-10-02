@@ -68,7 +68,8 @@ if (
       'constraints' => $constraints,
       'history' => false,
       'tableCfg' => $cfg['js']['columns'],
-      'projectId' => BBN_PROJECT
+      'projectId' => BBN_PROJECT,
+      'editColumnsData' => [],
     ]
   ];
   if (!isset($res['data']['option']['dcolumns'])) {

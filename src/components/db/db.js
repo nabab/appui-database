@@ -339,7 +339,7 @@
             text: bbn._("Analyze"),
             value: 'analyze'
           }, {
-            text: this.currentData.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
+            text: db.currentData.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
             value: 'toOption'
           }, {
             text: bbn._("Duplicate"),
@@ -357,7 +357,7 @@
           select(code) {
             bbn.fn.log("select", code, this.source);
             if (bbn.fn.isFunction(this.db[code])) {
-              this.db[code](this.currentData.name);
+              this.db[code](this.db.currentData.name);
             }
           }
         }

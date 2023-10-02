@@ -2,7 +2,24 @@
 (() => {
   "use strict";
   return {
-    created(){
+    props: {
+      source: {
+        type: Object
+      },
+      engine: {
+        type: String
+      },
+      host: {
+        type: String
+      },
+      database: {
+        type: String
+      },
+      table: {
+        type: String
+      }
+    },
+    statics(){
       let mixins = [{
         data(){
           return {
@@ -21,7 +38,6 @@
       return {
         orientation: "horizontal",
         root: appui.plugins['appui-databases'] + '/',
-        option: this.source?.option,
         cfg: this.source ? {
           engine: this.source.engine,
           host: this.source.host,
@@ -33,11 +49,14 @@
           db: this.database,
           table: this.table
         },
-        currentData: this.source,
+        currentData: this.source || null,
         ready: !!this.source,
       };
     },
     computed: {
+      option() {
+        return this.source?.option || this.currentData?.option || {};
+      },
       columns(){
       },
       //indexs in soure.constraints
@@ -118,10 +137,10 @@
       },
       buttons(name){
         return '<bbn-button text="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
-          '<a href="' + this.currentData.root + 'tabs/db/' + this.currentData.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
+          '<a href="' + this.root + 'tabs/db/' + this.cfg.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
       }
     },
-    mounted() {
+    created() {
       if (!this.ready) {
         bbn.fn.post(appui.plugins['appui-database'] + '/data/table', this.cfg, d => {
           if (d.success) {
@@ -130,12 +149,14 @@
           }
         });
       }
+    },
+    mounted() {
       this.$nextTick(() => {
-        bbn.vue.closest(this, "bbn-container").addMenu({
+        this.closest("bbn-container").addMenu({
           text: bbn._('Change orientation'),
           icon: 'nf nf-fa-compass',
           click(a){
-            this.orientation = this.currentData.orientation === 'horizontal' ? 'vertical' : 'horizontal';
+            this.orientation = this.currentData?.orientation === 'horizontal' ? 'vertical' : 'horizontal';
           }
         })
       });
