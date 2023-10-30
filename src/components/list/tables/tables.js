@@ -4,7 +4,7 @@
     props: ['source'],
     data(){
       const routerSource = [{
-        static: true,
+        fixed: true,
         url: 'home',
         icon: this.source?.icon,
         notext: true,
@@ -13,7 +13,7 @@
         bcolor: '#666',
         fcolor: '#FFF'
       }, {
-        static: true,
+        fixed: true,
         url: 'console',
         icon: "nf nf-md-console",
         notext: true,

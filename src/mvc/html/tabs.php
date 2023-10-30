@@ -3,7 +3,7 @@
 <bbn-router :autoload="true"
             :nav="true"
             :source="[{
-               static: true,
+               fixed: true,
                url: 'home',
                icon: '<?=$icon?>',
                notext: true,
