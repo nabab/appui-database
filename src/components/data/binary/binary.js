@@ -42,7 +42,7 @@
             column: this.column
           }
         }, d => {
-          bbn.fn.log(d);
+          bbn.fn.log("DISPLAY VALUE", d);
         });
         return res;
       }
@@ -52,7 +52,7 @@
         bbn.fn.copy(this.source.id);
       },
       goto(){
-        bbn.fn.log(this.source);
+        //bbn.fn.log(this.source);
       }
     }
   };

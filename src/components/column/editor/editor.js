@@ -29,7 +29,7 @@
           name: this.getRef('form').originalData.name,
         }, d => {
           if (d.success) {
-            bbn.fn.log(this.getPopup().close());
+            this.getPopup().close();
           }
         });
       },
