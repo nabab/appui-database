@@ -3,14 +3,14 @@
     <div class="bbn-form-full bbn-filter-control">
       <bbn-splitter style="height: 40px; width: 100%; border: 0" class="bbn-w-100" orientation="horizontal">
         <div style="width: 400px; vertical-align: middle; line-height: 40px" class="bbn-c bbn-lg">
-          <?=_("Saved queries")?>
+          <?= _("Saved queries") ?>
           <small>
             <label><input type="radio" value="mine" checked="checked"> Les miennes</label>
             <label><input type="radio" value="all"> Toutes</label>
           </small>
         </div>
         <div>
-          <bbn-dropdown class="bbn-lg" placeholder="<?=_("Choose a saved list to view it")?>" :source="liste" :cfg="{dataTextField:'text', DataValueField: 'id', }" style="width: 100%" v-model="currentFilter"></bbn-dropdown>
+          <bbn-dropdown class="bbn-lg" placeholder="<?= _("Choose a saved list to view it") ?>" :source="liste" :cfg="{dataTextField:'text', DataValueField: 'id', }" style="width: 100%" v-model="currentFilter"></bbn-dropdown>
         </div>
         <div style="width: 200px; vertical-align: middle" class="bbn-r bbn-lg">
           <bbn-button icon="nf nf-fa-calculator" @click="count()" style="background-color: #AC0606; color: #EEE"></bbn-button>
@@ -21,8 +21,8 @@
       </bbn-splitter>
     </div>
     <div class="bbn-form-full bbn-filter-control">
-      <h3><?=_("See the following fields")?></h3>
-      <bbn-multiselect ref="aa" :sortable="true" class="bbn-lg" :source="fields" name="select[]" placeholder="<?=_("Choose the fields you want to appear")?>" v-model="columns"></bbn-multiselect>
+      <h3><?= _("See the following fields") ?></h3>
+      <bbn-multiselect ref="aa" :sortable="true" class="bbn-lg" :source="fields" name="select[]" placeholder="<?= _("Choose the fields you want to appear") ?>" v-model="columns"></bbn-multiselect>
     </div>
     <appui-queries-filter-control :fields="fields" :conditions="conditions" :concat="concat" ref="filter" :num="num" :first="true"></appui-queries-filter-control>
     <div class="bbn-form-full">
@@ -92,7 +92,7 @@ var st = '';
 for ( var n in kendo.ui.FilterCell.fn.options.operators ){
   st += "\n" + '<script type="text/html" id="appui_' + n + '_operator">' + "\n" + '  <select name="operator" class="k-input">' + "\n";
   for ( var m in kendo.ui.FilterCell.fn.options.operators[n] ){
-    st += '    <option value="' + m + '"><?=_("' + kendo.ui.FilterCell.fn.options.operators[n][m] + '")?></option>' + "\n";
+    st += '    <option value="' + m + '"><?= _("' + kendo.ui.FilterCell.fn.options.operators[n][m] + '") ?></option>' + "\n";
   }
   st +=  '  </select>' + "\n" + '</script>';
 }

@@ -1,15 +1,15 @@
 <div class="bbn-overlay bbn-flex-height appui-database-sync-conflicts">
   <div class="bbn-header bbn-spadded bbn-flex-width bbn-vmiddle">
     <div class="bbn-flex-fill bbn-vmiddle">
-      <span><?=_('Tables')?>:</span>
+      <span><?= _('Tables') ?>:</span>
       <bbn-dropdown :source="tables"
                     v-model="currentTable"
                     class="bbn-hsmargin"
                     ref="tablesList"
-                    :placeholder="!tables.length ? (!lastReception ? _('Loading...') : _('No conflicts found')) : _('Select a table')"/>
+                    :placeholder="!tables.length ? (!lastReception ? _('Loading') + '...' : _('No conflicts found')) : _('Select a table')"/>
       <bbn-button v-if="currentTable"
                   icon="nf nf-fa-refresh"
-                  text="<?=_('Refresh')?>"
+                  text="<?= _('Refresh') ?>"
                   :notext="true"
                   @click="refreshFile"/>
       <i v-if="currentTableDate"
@@ -22,8 +22,8 @@
             v-text="currentTableTime"/>
     </div>
     <div class="bbn-vmiddle">
-      <span v-if="lastReception"><?=_('Tables list loaded on')?></span>
-      <span v-else><?=_('Tables not yet loaded')?></span>
+      <span v-if="lastReception"><?= _('Tables list loaded on') ?></span>
+      <span v-else><?= _('Tables not yet loaded') ?></span>
       <i v-if="currentLastReceptionDate"
          class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentLastReceptionDate"
@@ -45,17 +45,17 @@
                :selection="true"
                uid="id"
                :toolbar="[{
-                  text: '<?=_('Fix')?>',
+                  text: '<?= _('Fix') ?>',
                   icon: 'nf nf-mdi-auto_fix',
                   action: fixSelected,
                   disabled: !selected.length
                 }, {
-                  text: '<?=_('Fix All')?>',
+                  text: '<?= _('Fix All') ?>',
                   icon: 'nf nf-fa-magic',
                   action: fixAll,
                   disabled: !currentTableTotal
                 }, {
-                  text: '<?=_('Delete')?>',
+                  text: '<?= _('Delete') ?>',
                   icon: 'nf nf-fa-trash',
                   action: removeSelected,
                   disabled: !selected.length
@@ -75,12 +75,12 @@
                      field: db
                    }"/>
       <bbns-column :buttons="[{
-                     text: '<?=_('Fix')?>',
+                     text: '<?= _('Fix') ?>',
                      icon: 'nf nf-mdi-auto_fix',
                      notext: true,
                      action: fix
                    }, {
-                     text: '<?=_('Delete')?>',
+                     text: '<?= _('Delete') ?>',
                      icon: 'nf nf-fa-trash',
                      notext: true,
                      action: remove
@@ -93,7 +93,7 @@
       <div class="bbn-xl bbn-b bbn-vmiddle">
         <i class="bbn-right-sspace nf nf-mdi-subdirectory_arrow_left"
            style="transform: rotate(90deg)"/>
-        <span><?=_('SELECT A TABLE')?></span>
+        <span><?= _('SELECT A TABLE') ?></span>
       </div>
     </div>
   </div>

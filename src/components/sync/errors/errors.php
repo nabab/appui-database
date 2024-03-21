@@ -11,17 +11,17 @@
             uid="id"
             @hook:mounted="setWatch"
             :toolbar="[{
-              text: '<?=_('Fix')?>',
+              text: '<?= _('Fix') ?>',
               icon: 'nf nf-mdi-auto_fix',
               action: fixSelected,
               disabled: !selected.length
             }, {
-              text: '<?=_('Delete')?>',
+              text: '<?= _('Delete') ?>',
               icon: 'nf nf-fa-trash',
               action: removeSelected,
               disabled: !selected.length
             }, {
-              text: '<?=_('Scan & clear')?>',
+              text: '<?= _('Scan & clear') ?>',
               icon: 'nf nf-mdi-washing_machine',
               action: scanClear
             }]">

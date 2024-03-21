@@ -4,9 +4,9 @@
   <div class="bbn-w-100">
     <bbn-table :source="tableSource"
                :scrollable="false"
-              no-data="<?=_("The record isn't present")?>">
+              no-data="<?= _("The record isn't present") ?>">
       <bbns-column field="field"
-                   title="<?=_('Field')?>"
+                   title="<?= _('Field') ?>"
                    :fixed="true"
                    :width="170"/>
       <bbns-column :field="source.origin.db"

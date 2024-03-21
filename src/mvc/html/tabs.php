@@ -5,9 +5,9 @@
             :source="[{
                fixed: true,
                url: 'home',
-               icon: '<?=$icon?>',
+               icon: '<?= $icon ?>',
                notext: true,
-               title: '<?=\bbn\Str::escapeSquotes(_('List'))?>',
+               title: '<?= \bbn\Str::escapeSquotes(_('List')) ?>',
                load: true,
                bcolor: '#666',
                fcolor: '#FFF'

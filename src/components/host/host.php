@@ -20,20 +20,20 @@
                       @click="exportDb"/>
         </div>
         <div class="bbn-w-100 bbn-spadded bbn-c">
-          <?=_("Engine")?>
+          <?= _("Engine") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
              v-text="currentData.engine"/>
 
         <div class="bbn-w-100 bbn-m bbn-spadded bbn-c">
-          <?=_("Host")?>
+          <?= _("Host") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
              v-text="currentData.host"/>
 
         <div class="bbn-w-100 bbn-spadded bbn-c"
              v-if="currentData.ip && (currentData.host !== currentData.ip)">
-          <?=_("Ip")?>
+          <?= _("Ip") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadded bbn-c"
              v-if="currentData.ip && (currentData.host !== currentData.ip)"
@@ -53,9 +53,9 @@
                    uid="name"
                    >
           <bbns-column field="name"
-                       title="<?=_('Database')?>"
+                       title="<?= _('Database') ?>"
                        component="appui-database-db-cell"/>
-          <bbns-column title="<?=_("Action")?>"
+          <bbns-column title="<?= _("Action") ?>"
                        :width="200"
                        cls="bbn-c"
                        :component="$options.components.dropdown"/>

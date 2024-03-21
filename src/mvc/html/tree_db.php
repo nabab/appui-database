@@ -4,7 +4,7 @@
       <bbn-splitter orientation="vertical">
         <bbn-pane :size="40" class="bbn-w-100 bbn-vpadded bbn-c">
           <bbn-input v-model="search"
-                     placeholder="<?=_("Filter tree")?>"
+                     placeholder="<?= _("Filter tree") ?>"
                      style="width: 80%"
                      button-left="nf nf-fa-times"
                      action-left="clear"
@@ -45,13 +45,13 @@
             <bbn-input v-model="currentTitle"
                        v-on:focus="pretitle()"
                        v-on:blur="retitle()"
-                       placeholder="<?=_("Give a user friendly title for your end users")?>"
+                       placeholder="<?= _("Give a user friendly title for your end users") ?>"
                        style="width: 80%">
             </bbn-input>
           </div>
           <div class="bbn-xxl bbn-h-100 bbn-c bbn-middle"
                v-else>
-            <?=_("Select an element from the databases tree")?>
+            <?= _("Select an element from the databases tree") ?>
           </div>
         </bbn-pane>
         <bbn-pane class="bbn-databases-main">
@@ -79,147 +79,147 @@
 <script type="text/x-template" id="tpl-bbn-databases-desc-database">
   <div class="bbn-margin bbn-content">
 
-    <h3 class="bbn-c"><?=_("Informations")?></h3>
+    <h3 class="bbn-c"><?= _("Informations") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Host")?>
+      <?= _("Host") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.host ? value.host : 'localhost'">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Number of tables")?>
+      <?= _("Number of tables") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.num_tables">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Total size")?>
+      <?= _("Total size") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.size">
     </div>
 
-    <h3 class="bbn-c"><?=_("Operations")?></h3>
+    <h3 class="bbn-c"><?= _("Operations") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-table"
-                  title="<?=_("New table")?>"
+                  title="<?= _("New table") ?>"
                   @click="create">
-        <?=_("New table")?>
+        <?= _("New table") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Create a new table")?>
+      <?= _("Create a new table") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-search"
-                  title="<?=_("Search")?>"
+                  title="<?= _("Search") ?>"
                   @click="search">
-        <?=_("Search")?>
+        <?= _("Search") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Search anything anywhere... This is quite a broad search, maybe you need to be more specific and use a table instead")?>
+      <?= _("Search anything anywhere... This is quite a broad search, maybe you need to be more specific and use a table instead") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-chart_area"
-                  title="<?=_("Analyze")?>"
+                  title="<?= _("Analyze") ?>"
                   @click="analyze">
-        <?=_("Analyze")?>
+        <?= _("Analyze") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Checks the health of each table looking for errors in the records")?>
+      <?= _("Checks the health of each table looking for errors in the records") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-arrow_circle_up"
-                  title="<?=_("Import")?>"
+                  title="<?= _("Import") ?>"
                   @click="importation">
-        <?=_("Import")?>
+        <?= _("Import") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Import from a file")?>
+      <?= _("Import from a file") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-arrow_circle_down"
-                  title="<?=_("Export")?>"
+                  title="<?= _("Export") ?>"
                   @click="exportation">
-        <?=_("Export")?>
+        <?= _("Export") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Export the database to a file")?>
+      <?= _("Export the database to a file") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-arrow_circle_right"
-                  title="<?=_("Migrate")?>"
+                  title="<?= _("Migrate") ?>"
                   @click="migration">
-        <?=_("Migrate")?>
+        <?= _("Migrate") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Copy your database on the same or another server")?>
+      <?= _("Copy your database on the same or another server") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-times"
-                  title="<?=_("Delete")?>"
+                  title="<?= _("Delete") ?>"
                   @click="deletion">
-        <?=_("Delete")?>
+        <?= _("Delete") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Deletes definitively the database")?>
+      <?= _("Deletes definitively the database") ?>
     </div>
 
-    <h3 class="bbn-c"><?=_("bbn-ui")?></h3>
+    <h3 class="bbn-c"><?= _("bbn-ui") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value.in_db">
       <bbn-button icon="nf nf-fa-sync_alt"
-                  title="<?=_("Update")?>"
+                  title="<?= _("Update") ?>"
                   @click="update">
-        <?=_("Update")?>
+        <?= _("Update") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="value.in_db">
-      <?=_("You need to do this if the tables' structure has been changed outside of the application, in order to update the structure of your tables in the current database")?>
+      <?= _("You need to do this if the tables' structure has been changed outside of the application, in order to update the structure of your tables in the current database") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="!value.in_db">
       <bbn-button icon="nf nf-fa-plus"
-                  title="<?=_("Add")?>"
+                  title="<?= _("Add") ?>"
                   @click="update">
-        <?=_("Add")?>
+        <?= _("Add") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="!value.in_db">
-      <?=_("Import your database's structure in the application if you want to use it inside it")?>
+      <?= _("Import your database's structure in the application if you want to use it inside it") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value.in_db">
       <bbn-button icon="nf nf-fa-minus"
-                  title="<?=_("Remove")?>"
+                  title="<?= _("Remove") ?>"
                   @click="remove">
-        <?=_("Remove")?>
+        <?= _("Remove") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="value.in_db">
-      <?=_("Delete all information stored about this database. it will not affect the database itself but all the objets and views you have created in this app.")?>
+      <?= _("Delete all information stored about this database. it will not affect the database itself but all the objets and views you have created in this app.") ?>
     </div>
 
   </div>
@@ -228,176 +228,176 @@
 <script type="text/x-template" id="tpl-bbn-databases-desc-table">
   <div class="bbn-margin bbn-content">
 
-    <h3 class="bbn-c"><?=_("Information")?></h3>
+    <h3 class="bbn-c"><?= _("Information") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Host")?>
+      <?= _("Host") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.host ? value.host : 'localhost'"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Database")?>
+      <?= _("Database") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.id.split('.')[0]"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Engine")?>
+      <?= _("Engine") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.engine"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Collation")?>
+      <?= _("Collation") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.collation"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r" v-if="value.auto_increment">
-      <?=_("Auto increment")?>
+      <?= _("Auto increment") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.auto_increment" v-if="value.auto_increment"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Number of columns")?>
+      <?= _("Number of columns") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.num_columns"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Number of rows")?>
+      <?= _("Number of rows") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.num_rows"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Data size")?>
+      <?= _("Data size") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.data_size"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Index size")?>
+      <?= _("Index size") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.index_size"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Total size")?>
+      <?= _("Total size") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="value.size"></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Creation date")?>
+      <?= _("Creation date") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b" v-text="creation"></div>
 
-    <h3 class="bbn-c"><?=_("Operations")?></h3>
+    <h3 class="bbn-c"><?= _("Operations") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-columns" title="<?=_("New column")?>" @click="create">
-        <?=_("New column")?>
+      <bbn-button icon="nf nf-fa-columns" title="<?= _("New column") ?>" @click="create">
+        <?= _("New column") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Create a new column")?>
+      <?= _("Create a new column") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-key" title="<?=_("New key")?>" @click="create">
-        <?=_("New key")?>
+      <bbn-button icon="nf nf-fa-key" title="<?= _("New key") ?>" @click="create">
+        <?= _("New key") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Create a new key for this column")?>
+      <?= _("Create a new key for this column") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-search" title="<?=_("Search")?>" @click="search">
-        <?=_("Search")?>
+      <bbn-button icon="nf nf-fa-search" title="<?= _("Search") ?>" @click="search">
+        <?= _("Search") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Perform a search with any criteria")?>
+      <?= _("Perform a search with any criteria") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-area_chart" title="<?=_("Analyze")?>" @click="analyze">
-        <?=_("Analyze")?>
+      <bbn-button icon="nf nf-fa-area_chart" title="<?= _("Analyze") ?>" @click="analyze">
+        <?= _("Analyze") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Checks the table's health and looks for errors in the records")?>
+      <?= _("Checks the table's health and looks for errors in the records") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-arrow_circle_up" title="<?=_("Import")?>" @click="importation">
-        <?=_("Import Data")?>
+      <bbn-button icon="nf nf-fa-arrow_circle_up" title="<?= _("Import") ?>" @click="importation">
+        <?= _("Import Data") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Import from a file, JSON data, CSV or more")?>
+      <?= _("Import from a file, JSON data, CSV or more") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-arrow_circle_down" title="<?=_("Export")?>" @click="exportation">
-        <?=_("Export")?>
+      <bbn-button icon="nf nf-fa-arrow_circle_down" title="<?= _("Export") ?>" @click="exportation">
+        <?= _("Export") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Export the table to a file of many format")?>
+      <?= _("Export the table to a file of many format") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-arrow_circle_right" title="<?=_("Migrate")?>" @click="migration">
-        <?=_("Migrate")?>
+      <bbn-button icon="nf nf-fa-arrow_circle_right" title="<?= _("Migrate") ?>" @click="migration">
+        <?= _("Migrate") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Copy your table on the same database or another server")?>
+      <?= _("Copy your table on the same database or another server") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <bbn-button icon="nf nf-fa-times" title="<?=_("Delete")?>" @click="deletion">
-        <?=_("Delete")?>
+      <bbn-button icon="nf nf-fa-times" title="<?= _("Delete") ?>" @click="deletion">
+        <?= _("Delete") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Deletes definitively the table")?>
+      <?= _("Deletes definitively the table") ?>
     </div>
 
-    <h3 class="bbn-c"><?=_("bbn-ui")?></h3>
+    <h3 class="bbn-c"><?= _("bbn-ui") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value.in_db">
       <bbn-button icon="nf nf-fa-sync_alt"
-                  title="<?=_("Update")?>"
+                  title="<?= _("Update") ?>"
                   @click="update">
-        <?=_("Update")?>
+        <?= _("Update") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="value.in_db">
-      <?=_("You need to do this if this table' structure has been changed outside of the application, in order to update the structure of your table in the current database")?>
+      <?= _("You need to do this if this table' structure has been changed outside of the application, in order to update the structure of your table in the current database") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="!(value.in_db)">
       <bbn-button icon="nf nf-fa-plus"
-                  title="<?=_("Add")?>"
+                  title="<?= _("Add") ?>"
                   @click="update">
-        <?=_("Add")?>
+        <?= _("Add") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="!value.in_db">
-      <?=_("Import your table's structure in the application if you want to use it inside it")?>
+      <?= _("Import your table's structure in the application if you want to use it inside it") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value.in_db">
       <bbn-button icon="nf nf-fa-minus"
-                  title="<?=_("Remove")?>"
+                  title="<?= _("Remove") ?>"
                   @click="remove">
-        <?=_("Remove")?>
+        <?= _("Remove") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded"
          v-if="value.in_db">
-      <?=_("Delete all information stored about this table. it will not affect the database itself but all the objets and views you have created in this app.")?>
+      <?= _("Delete all information stored about this table. it will not affect the database itself but all the objets and views you have created in this app.") ?>
     </div>
 
   </div>
@@ -406,39 +406,39 @@
 <script type="text/x-template" id="tpl-bbn-databases-desc-column">
   <div class="bbn-margin bbn-content">
 
-    <h3 class="bbn-c"><?=_("Information")?></h3>
+    <h3 class="bbn-c"><?= _("Information") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Table")?>
+      <?= _("Table") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.id.split('.')[0] + '.' + value.id.split('.')[1]">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Position")?>
+      <?= _("Position") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.position">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Type")?>
+      <?= _("Type") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
-         v-html="value.type + (value.signed ? ' <em><?=_("signed")?></em>' : '')">
+         v-html="value.type + (value.signed ? ' <em><?= _("signed") ?></em>' : '')">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Nullable")?>
+      <?= _("Nullable") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
-         v-text="value.nullable ? '<?=_("Yes")?>' : '<?=_("No")?>'">
+         v-text="value.nullable ? '<?= _("Yes")?>' : '<?=_("No") ?>'">
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r"
          v-if="value.maxlength">
-      <?=_("Max. Length")?>
+      <?= _("Max. Length") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-text="value.maxlength"
@@ -447,7 +447,7 @@
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value && (value.type === 'enum')">
-      <?=_("Values")?>
+      <?= _("Values") ?>
     </div>
     <ul class="bbn-block-right bbn-w-70 bbn-b bbn-vspadded"
         v-if="value && (value.type === 'enum')">
@@ -458,7 +458,7 @@
 
     <div class="bbn-block-left bbn-w-30 bbn-r"
          v-if="value.default_value">
-      <?=_("Default value")?>
+      <?= _("Default value") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-if="value.default_value"
@@ -466,84 +466,84 @@
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Number of different values")?>
+      <?= _("Number of different values") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b">
       <bbn-button icon="nf nf-fa-sync_alt"
-                  title="<?=_("Count")?>"
+                  title="<?= _("Count") ?>"
                   @click="count_values()"
                   v-if="value.count">
-        <?=_("Count")?>
+        <?= _("Count") ?>
       </bbn-button>
       <span class="bbn-hmargin"
             v-text="num_values ? num_values : ''">
 
       </span>
-      <span v-if="!value.count"><?=_("The table is empty")?></span>
+      <span v-if="!value.count"><?= _("The table is empty") ?></span>
     </div>
 
-    <h3 class="bbn-c"><?=_("Operations")?></h3>
+    <h3 class="bbn-c"><?= _("Operations") ?></h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-search"
-                  title="<?=_("Search")?>"
+                  title="<?= _("Search") ?>"
                   @click="search">
-        <?=_("Search")?>
+        <?= _("Search") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Perform a search with any criteria")?>
+      <?= _("Perform a search with any criteria") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-list"
-                  title="<?=_("Values")?>"
+                  title="<?= _("Values") ?>"
                   @click="importation">
-        <?=_("Values")?>
+        <?= _("Values") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Show each value of this column ordered by rows' length. You can then apply a filter")?>
+      <?= _("Show each value of this column ordered by rows' length. You can then apply a filter") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-arrow_circle_down"
-                  title="<?=_("Export")?>"
+                  title="<?= _("Export") ?>"
                   @click="exportation">
-        <?=_("Export")?>
+        <?= _("Export") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Export the column to SQL format")?>
+      <?= _("Export the column to SQL format") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-arrow_circle_right"
-                  title="<?=_("Migrate")?>"
+                  title="<?= _("Migrate") ?>"
                   @click="migration">
-        <?=_("Copy")?>
+        <?= _("Copy") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Copy the column to another table")?>
+      <?= _("Copy the column to another table") ?>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
       <bbn-button icon="nf nf-fa-times"
-                  title="<?=_("Delete")?>"
+                  title="<?= _("Delete") ?>"
                   @click="deletion">
-        <?=_("Delete")?>
+        <?= _("Delete") ?>
       </bbn-button>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
-      <?=_("Deletes definitively the column")?>
+      <?= _("Deletes definitively the column") ?>
     </div>
 
     <h3 class="bbn-c">app-ui</h3>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded"
          v-if="value.randomData">
-      <?=_("Default display")?> &nbsp;
+      <?= _("Default display") ?> &nbsp;
       <i class="nf nf-fa-forward bbn-lg bbn-p"
          @click="nextRandom()"> </i>
     </div>
@@ -553,7 +553,7 @@
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r bbn-vspadded">
-      <?=_("Default editor")?>
+      <?= _("Default editor") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-vspadded">
       <component :is="editor"></component>
@@ -566,22 +566,22 @@
   <div class="bbn-margin bbn-content">
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <h3><?=_("Columns")?></h3>
+      <h3><?= _("Columns") ?></h3>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b">
       <h3 v-for="c in value.columns">{{c}}</h3>
     </div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r">
-      <?=_("Unique")?>
+      <?= _("Unique") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
-         v-text="value.unique ? '<?=_("Yes")?>' : '<?=_("No")?>'"
+         v-text="value.unique ? '<?= _("Yes")?>' : '<?=_("No") ?>'"
     ></div>
 
     <div class="bbn-block-left bbn-w-30 bbn-r"
          v-if="value.ref_column">
-      <?=_("Relation")?>
+      <?= _("Relation") ?>
     </div>
     <div class="bbn-block-right bbn-w-70 bbn-b"
          v-if="value.ref_column"

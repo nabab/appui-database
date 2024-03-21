@@ -2,8 +2,8 @@
   <div class="bbn-header bbn-padded bbn-flex-width bbn-vmiddle">
     <div class="bbn-flex-fill bbn-vmiddle"></div>
     <div class="bbn-vmiddle">
-      <span v-if="lastReception"><?=_('Tables list loaded on')?></span>
-      <span v-else><?=_('Tables not yet loaded')?></span>
+      <span v-if="lastReception"><?= _('Tables list loaded on') ?></span>
+      <span v-else><?= _('Tables not yet loaded') ?></span>
       <i v-if="currentLastReceptionDate"
          class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
       <span v-if="currentLastReceptionDate"
@@ -19,10 +19,10 @@
                ref="table"
                :pageable="false">
       <bbns-column field="table"
-                   title="<?=_('Table')?>"/>
+                   title="<?= _('Table') ?>"/>
       <bbns-column field="last"
                    type="datetime"
-                   title="<?=_('Last check')?>"
+                   title="<?= _('Last check') ?>"
                    :width="150"
                    cls="bbn-c"
                    :render="renderLast"/>
@@ -37,7 +37,7 @@
                      field: db
                    }"/>
       <bbns-column :buttons="[{
-                     text: '<?=_('Refresh')?>',
+                     text: '<?= _('Refresh') ?>',
                      icon: 'nf nf-fa-refresh',
                      notext: true,
                      action: refreshFile

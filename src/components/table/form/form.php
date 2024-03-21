@@ -13,18 +13,18 @@
     <div class="bbn-flex-width">
       <div>
         <h3 class="bbn-c">
-          <?=_("Table information")?>
+          <?= _("Table information") ?>
         </h3>
         <div class="bbn-grid-fields bbn-nowrap">
 
-          <label><?=_("Table's name")?></label>
+          <label><?= _("Table's name") ?></label>
           <div>
             <bbn-input class="bbn-padded"
                        v-model="formData.name"
                        :required="true"/>
           </div>
 
-          <label><?=_("Comment")?></label>
+          <label><?= _("Comment") ?></label>
           <div>
             <bbn-input class="bbn-padded"
                        v-model="formData.comment"/>

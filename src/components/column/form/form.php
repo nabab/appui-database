@@ -53,33 +53,33 @@
 
       <template v-else-if="radioType === 'constraint'" >
 
-        <label ><?=_("Reference Table")?></label>
+        <label ><?= _("Reference Table") ?></label>
         <bbn-dropdown class="bbn-wider"
                       v-model="constraint"
                       :required="true"
                       :source="constraints"
                       :placeholder="_('Choose the reference')"/>
 
-        <label ><?=_("On delete")?></label>
+        <label ><?= _("On delete") ?></label>
         <bbn-dropdown class="bbn-narrow"
                       v-model="source.delete"
                       :required="true"
                       :source="onDelete"/>
 
-        <label ><?=_("On update")?></label>
+        <label ><?= _("On update") ?></label>
         <bbn-dropdown class="bbn-narrow"
                       v-model="source.update"
                       :required="true"
                       :source="onUpdate"/>
 
-        <label><?=_("Nullable")?></label>
+        <label><?= _("Nullable") ?></label>
         <div>
           <bbn-checkbox v-model="source.null"
                         :value="true"
                         :novalue="false"/>
         </div>
 
-        <label><?=_("Default Value")?></label>
+        <label><?= _("Default Value") ?></label>
         <bbn-radio :source="defaultValueTypes"
                    v-model="defaultValueType"
                    :required="true"/>
@@ -97,7 +97,7 @@
                      :required="true"/>
         </div>
 
-        <label><?=_("Indexes")?></label>
+        <label><?= _("Indexes") ?></label>
         <div>
           <bbn-radio :source="constraintIndexes"
                      v-model="source.index"/>
@@ -105,7 +105,7 @@
       </template>
 
       <template v-else-if="radioType === 'free'">
-        <label><?=_("Column's type")?></label>
+        <label><?= _("Column's type") ?></label>
         <div>
           <bbn-dropdown :source="colTypes"
                         v-model="source.type"
@@ -113,13 +113,13 @@
                         @change="resetAll"/>
         </div>
 
-        <label v-if="isValue" ><?=_("Values")?></label>
+        <label v-if="isValue" ><?= _("Values") ?></label>
         <div v-if="isValue">
           <bbn-values v-model="values"
                       :required="true"/>
         </div>
 
-        <label v-if="isNumber || isChar"><?=_("Max length")?></label>
+        <label v-if="isNumber || isChar"><?= _("Max length") ?></label>
         <div v-if="isNumber || isChar">
           <bbn-numeric v-model="source.maxlength"
                        :min="1"
@@ -127,7 +127,7 @@
                        :required="true"/>
         </div>
 
-        <label v-if="types.decimal.includes(source.type)"><?=_("Precision")?></label>
+        <label v-if="types.decimal.includes(source.type)"><?= _("Precision") ?></label>
         <div v-if="types.decimal.includes(source.type)">
           <bbn-numeric v-model="source.decimals"
                        :min="1"
@@ -135,21 +135,21 @@
                        :required="true"/>
         </div>
 
-        <label v-if="isNumber" ><?=_("Unsigned")?></label>
+        <label v-if="isNumber" ><?= _("Unsigned") ?></label>
         <div v-if="isNumber">
           <bbn-checkbox :value="0"
                         :novalue="1"
                         v-model="source.signed"/>
         </div>
 
-        <label><?=_("Nullable")?></label>
+        <label><?= _("Nullable") ?></label>
         <div>
           <bbn-checkbox v-model="source.null"
                         :value="true"
                         :novalue="false"/>
         </div>
 
-        <label><?=_("Default Value")?></label>
+        <label><?= _("Default Value") ?></label>
         <bbn-radio :source="defaultValueTypes"
                    v-model="defaultValueType" />
 
@@ -166,7 +166,7 @@
                      :required="true"/>
         </div>
 
-        <label><?=_("Indexes")?></label>
+        <label><?= _("Indexes") ?></label>
         <div>
           <bbn-radio :source="indexes"
                      v-model="source.index"/>
