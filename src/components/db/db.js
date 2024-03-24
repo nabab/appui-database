@@ -200,7 +200,7 @@
 
     /*
       delete(row){
-        let admin = appui.app.user.isAdmin;
+        let admin = appui.user.isAdmin;
         this.confirm('Do you want to remove this table?', () => {
           this.post(this.root + 'actions/database/remove_virtual', {
             row: row,
