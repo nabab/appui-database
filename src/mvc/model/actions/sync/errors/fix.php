@@ -54,7 +54,7 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
               // Delete
               if (empty($data)) {
                 if (!empty($cdata) && !$model->db->delete($sync->tab, $filters)) {
-                  throw new Error("Impossibile to delete the row on '$db.{$sync->tab}' with these filters: " . X::getDump($filters));
+                  throw Error("Impossibile to delete the row on '$db.{$sync->tab}' with these filters: " . X::getDump($filters));
                 }
               }
               // Insert or update
@@ -63,14 +63,14 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
                 // Insert
                 if (empty($cdata)) {
                   if (!$model->db->insert($sync->tab, $data)) {
-                    throw new Error("Impossibile to insert the row on '$db.{$sync->tab}' with this data: " . X::getDump($data));
+                    throw Error("Impossibile to insert the row on '$db.{$sync->tab}' with this data: " . X::getDump($data));
                   }
                 }
                 // Update
                 else if ((json_encode($data) !== json_encode($cdata))
                   && !$model->db->update($sync->tab, $data, $filters)
                 ) {
-                  throw new Error("Impossibile to update the row on '$db.{$sync->tab}' with this data: " . X::getDump($data) . PHP_EOL . "and these filters: " . X::getDump($filters));
+                  throw Error("Impossibile to update the row on '$db.{$sync->tab}' with this data: " . X::getDump($data) . PHP_EOL . "and these filters: " . X::getDump($filters));
                 }
               }
             }
