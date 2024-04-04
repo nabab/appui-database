@@ -8,3 +8,5 @@ composer.phar
 [core]
 filemode = false
 *.* text eol=lf
+.history
+.vscode

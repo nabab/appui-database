@@ -75,8 +75,8 @@ if (defined('BBN_BASEURL')) {
       }
     }
     // Lower level containers
-    elseif (\bbn\X::indexOf(BBN_BASEURL, $root) === 0) {
-      $bits = \bbn\X::split(substr(BBN_BASEURL, strlen($root)), '/');
+    elseif (X::indexOf(BBN_BASEURL, $root) === 0) {
+      $bits = X::split(substr(BBN_BASEURL, strlen($root)), '/');
       if (end($bits) === '') {
         array_pop($bits);
       }
