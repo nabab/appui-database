@@ -17,7 +17,7 @@
                engine: source.engine
              }"
              @click-row="clickRow"
-             @editSuccess="success"
+             @editsuccess="success"
   >
   </bbn-table>
   <input type="text" ref="copyUid" style="opacity:0;position:absolute" class="test">
