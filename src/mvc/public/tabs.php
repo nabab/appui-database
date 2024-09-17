@@ -108,7 +108,7 @@ if (defined('BBN_BASEURL')) {
           // The database homepage
           else {
             $ctrl->addToObj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
-            $url = $root.$engine.'/'.$host.'/'.$db.'/';
+            $url = $root.$engine.'/'.$host.'/'.$db.'/home';
           }
           break;
           // Table
