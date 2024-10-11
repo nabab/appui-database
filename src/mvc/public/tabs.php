@@ -17,7 +17,7 @@ if (defined('BBN_BASEURL')) {
     $title = _("Databases");
     $ctrl
       ->setColor('#666', '#EEE')
-      ->setIcon('icon-database')
+      ->setIcon('nf nf-fa-database')
       ->addData([
         'icon' => 'nf nf-fa-home',
       ]);
