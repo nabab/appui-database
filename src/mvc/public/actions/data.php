@@ -1,6 +1,6 @@
 <?php
 
-/** @var $ctrl \bbn\Mvc\Controller */
+/** @var bbn\Mvc\Controller $ctrl */
 if (isset($ctrl->post['action'])) {
   $ctrl->getModel($ctrl->post);
   if (isset($ctrl->inc->conn) && $ctrl->inc->conn->check()) {

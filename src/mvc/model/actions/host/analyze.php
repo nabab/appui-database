@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 
 $threads = $model->db->getRow("SHOW STATUS LIKE 'Threads_created'")['Value'];
 $connections = $model->db->getRow("SHOW STATUS like 'Connections'")['Value'];

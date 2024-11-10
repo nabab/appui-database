@@ -1,5 +1,5 @@
 <?php
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 use \bbn\Appui\Dbsync;
 $resConflictsFiles = [];
 $conflictsFiles = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');

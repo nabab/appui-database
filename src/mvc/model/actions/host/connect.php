@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \bbn\Mvc\Model */
+/** @var bbn\Mvc\Model $model */
 if ($model->hasData(['engine', 'host', 'username', 'name', 'password'], true)) {
   $model->data['res'];
   try {

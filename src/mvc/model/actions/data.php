@@ -4,11 +4,11 @@
  *
  **/
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 
 use bbn\Appui\Database;
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 if ($model->hasData(['engine', 'host', 'db', 'table', 'name', 'res'], true)) {
   $dbc = new Database($model->db);
   try {

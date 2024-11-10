@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 $res['success'] = false;
 if ($model->hasData(['host', 'db', 'engine'], true) &&
     ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))

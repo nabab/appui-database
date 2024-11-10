@@ -1,5 +1,5 @@
 <?php
-/** @var $model \bbn\Mvc\Model */
+/** @var bbn\Mvc\Model $model */
 use bbn\Appui\Dbsync;
 use bbn\X;
 $current = $model->db->getCurrent();

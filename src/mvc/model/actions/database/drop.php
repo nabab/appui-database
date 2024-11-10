@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 if ($model->hasData(['host_id', 'db'], true)) {
   if (!is_array($model->data['db'])) {
     $model->data['db'] = [$model->data['db']];

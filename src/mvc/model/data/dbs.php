@@ -5,7 +5,7 @@
  **/
 use bbn\X;
 
-/** @var $model \bbn\Mvc\Model */
+/** @var bbn\Mvc\Model $model */
 
 $res = [
   'data' => []

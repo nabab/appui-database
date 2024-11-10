@@ -1,6 +1,6 @@
 <?php
 
-/** @var $ctrl \bbn\Mvc\Controller */
+/** @var bbn\Mvc\Controller $ctrl */
 if ( !empty($ctrl->arguments[0]) ){
   $ctrl->combo(_('Export'), true);
 }

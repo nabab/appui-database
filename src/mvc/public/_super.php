@@ -1,5 +1,5 @@
 <?php
-/** @var $ctrl \bbn\Mvc\Controller */
+/** @var bbn\Mvc\Controller $ctrl */
 if ( !\defined('APPUI_DATABASES_ROOT') ){
   define('APPUI_DATABASES_ROOT', $ctrl->pluginUrl('appui-database').'/');
 }

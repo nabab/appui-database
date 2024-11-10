@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 if ($model->inc->conn->check()) {
 	if (is_string($model->data['db'])) {
 		$model->data['db'] = [$model->data['db']];

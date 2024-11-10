@@ -1,6 +1,6 @@
 <?php
 if ($model->hasData(['host', 'engine'])) {
-  /** @var $model \bbn\Mvc\Model */
+  /** @var bbn\Mvc\Model $model */
   if ( $host_id = $model->inc->dbc->hostId($model->data['host']) ){
     $o = $model->inc->options->option($host_id);
     $tmp = gethostbyname($o['text']);

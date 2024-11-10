@@ -7,7 +7,7 @@
 use bbn\X;
 use bbn\Str;
 use Exception;
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 
 $res = ['success' => false, 'num_deleted' => 0];
 if ($model->hasData(['host', 'db', 'engine', 'table'], true)) {

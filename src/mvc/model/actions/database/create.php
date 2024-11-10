@@ -1,7 +1,7 @@
 <?php
 use bbn\Str;
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 if ($model->hasData(['host_id', 'name'], true)) {
   if (!str::checkName($model->data['name'])) {
     $model->data['res']['error'] = _("This name is not authorized");

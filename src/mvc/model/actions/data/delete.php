@@ -4,7 +4,7 @@
  *
  **/
 
-/** @var $model \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 die(var_dump($model->data));
 if ($model->inc->conn && $model->inc->conn->check && $model->hasData('table'))) {
   $primary = $model->inc->conn->getUniquePrimary($model->data['table']);
