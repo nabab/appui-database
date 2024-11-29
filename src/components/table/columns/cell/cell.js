@@ -17,7 +17,7 @@
           return '';
         }
         let o = db.source || db;
-        return db ? db.root + 'tabs/' + o.engine + '/' + o.host + '/' + o.db + '/' + o.name + '/home' : ''
+        return db ? db.root + 'tabs/' + o.engine + '/' + o.host + '/' + o.db + '/' + this.source.name + '/home' : ''
       }
     }
   }

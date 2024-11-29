@@ -5,6 +5,7 @@ if ($model->inc->user->isDev()) {
     'dashboard' => [],
     'current_db' => BBN_DATABASE
   ];
+  X::ddump($model->pluginName());
   if (($dashboard = new \bbn\Appui\Dashboard($model->pluginName()))) {
     $widgets = $dashboard->getUserWidgetsCode($model->pluginUrl('appui-dashboard').'/data/');
     $res['dashboard'] = [

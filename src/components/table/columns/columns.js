@@ -176,7 +176,7 @@
           };
           bbn.fn.post(appui.plugins['appui-database'] + '/actions/column/remove', requestData, d => {
             if (d.success) {
-              this.$delete(this.source.structure.fields, data.name);
+              delete this.source.structure.fields[data.name];
               this.$forceUpdate();
               this.$nextTick( () => {
                 this.getRef('table').updateData();
