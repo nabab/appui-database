@@ -2,7 +2,7 @@
 
 <bbn-form :action="root + 'actions/table/option'"
           :source="source.option">
-  <div class="bbn-grid-fields bbn-padded">
+  <div class="bbn-grid-fields bbn-padding">
     <label>Title</label>
     <div>
       <bbn-input v-model="source.option.text"/>

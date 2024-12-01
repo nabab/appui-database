@@ -21,11 +21,11 @@
                    :placeholder="_('Column\'s name')"/>
       </div>
 
-      <div class="bbn-grid-full bbn-m bbn-vspadded bbn-i bbn-c bbn-b">
+      <div class="bbn-grid-full bbn-m bbn-vspadding bbn-i bbn-c bbn-b">
         {{question}}
       </div>
 
-      <div class="bbn-grid-full bbn-m bbn-vspadded">
+      <div class="bbn-grid-full bbn-m bbn-vspadding">
         <bbn-radio :source="[{
                             text: _('A predefined one'),
                             value: 'predefined'
@@ -43,7 +43,7 @@
                    ref="radioType"/>
       </div>
 
-      <div class="bbn-grid-full bbn-m bbn-vspadded bbn-c"
+      <div class="bbn-grid-full bbn-m bbn-vspadding bbn-c"
            v-if="radioType === 'predefined'">
         <bbn-dropdown class="bbn-wider"
                       :source="predefinedOptions"
@@ -174,7 +174,7 @@
 
       </template>
     </div>
-    <div class="bbn-c bbn-w-100 bbn-vpadded">
+    <div class="bbn-c bbn-w-100 bbn-vpadding">
       <bbn-button :text="buttonTitle"
                   :action="change"
                   :disabled="!isFormValid"

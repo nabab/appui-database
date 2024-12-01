@@ -1,5 +1,5 @@
 <!-- HTML Document -->
 
-<div class="bbn-padded">
+<div class="bbn-padding">
   
 </div>

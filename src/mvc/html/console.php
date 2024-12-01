@@ -13,7 +13,7 @@
 
 <script id="bbn-tpl-appui-database-console-request"
         type='text/x-template'>
-<div class="bbn-w-90 bbn-margin bbn-padding bbn-radius bbn-bordered bbn-c">
+<div class="bbn-w-90 bbn-margin bbn-padding bbn-radius bbn-border bbn-c">
   <div class="bbn-w-100 bbn-padding bbn-flex-width bbn-c" v-if="mode === 'write'">
     <!--bbn-dropdown v-model="currentLanguage"
                   :source="['MySQL', 'MariaDB']"

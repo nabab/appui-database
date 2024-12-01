@@ -248,7 +248,7 @@
           :data="source"
           :source="formData"
           :confirm-message="mess">
-  <div class="bbn-padded bbn-overlay bbn-middle">
+  <div class="bbn-padding bbn-overlay bbn-middle">
     <div>
       <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
       <div class="bbn-c">

@@ -1,7 +1,7 @@
 <!-- HTML Document -->
 
-<div class="bbn-padded">
-  <div class="bbn-state-error bbn-padded bbn-c"
+<div class="bbn-padding">
+  <div class="bbn-state-error bbn-padding bbn-c"
        v-if="!table.currentData.table_id">
     <?= _("No option") ?>
   </div>

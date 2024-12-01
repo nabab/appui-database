@@ -5,7 +5,7 @@
   </div>
   <div class="bbn-overlay bbn-middle"
        v-else-if="currentData?.error">
-    <div class="bbn-block bbn-padded bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
+    <div class="bbn-block bbn-padding bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
          v-text="currentData.error"/>
   </div>
   <div class="bbn-flex-fill" v-else>

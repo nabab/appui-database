@@ -1,4 +1,4 @@
-<form class="bbn-padded">
+<form class="bbn-padding">
   <h1 v-text="_('Query builder')" class="bbn-c"></h1>
   <div class="bbn-form-label">Main table for the query</div>
   <div class="bbn-form-field">

@@ -197,14 +197,14 @@
 <div class="bbn-w-100">
   <div v-if="hasRows"
        class="bbn-w-50">
-    <div class="bbn-header bbn-spadded">` + bbn._('Rows') + `</div>
-    <div class="bbn-xspadded bbn-bordered bbn-w-100">
+    <div class="bbn-header bbn-spadding">` + bbn._('Rows') + `</div>
+    <div class="bbn-xspadding bbn-border bbn-w-100">
       <bbn-json-editor :value="source.rows" readonly></bbn-json-editor>
     </div>
   </div>
   <div :class="{'bbn-w-50': hasRows, 'bbn-w-100': !hasRows}">
-    <div class="bbn-header bbn-spadded">` + bbn._('Values') + `</div>
-    <div class="bbn-xspadded bbn-bordered bbn-w-100">
+    <div class="bbn-header bbn-spadding">` + bbn._('Values') + `</div>
+    <div class="bbn-xspadding bbn-border bbn-w-100">
       <bbn-json-editor :value="source.vals" readonly></bbn-json-editor>
     </div>
   </div>
@@ -228,7 +228,7 @@
           :data="source"
           :source="formData"
           :confirm-message="mess">
-  <div class="bbn-padded bbn-overlay bbn-middle">
+  <div class="bbn-padding bbn-overlay bbn-middle">
     <div>
       <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
       <div class="bbn-c">

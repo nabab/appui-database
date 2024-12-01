@@ -1,6 +1,6 @@
 <!-- HTML Document -->
 
-<div class="bbn-padded">
+<div class="bbn-padding">
   <div class="bbn-grid-fields">
     <div style="width: 6em">
       <?= _("Name") ?>

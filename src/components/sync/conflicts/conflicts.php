@@ -1,5 +1,5 @@
 <div class="bbn-overlay bbn-flex-height appui-database-sync-conflicts">
-  <div class="bbn-header bbn-spadded bbn-flex-width bbn-vmiddle">
+  <div class="bbn-header bbn-spadding bbn-flex-width bbn-vmiddle">
     <div class="bbn-flex-fill bbn-vmiddle">
       <span><?= _('Tables') ?>:</span>
       <bbn-dropdown :source="tables"

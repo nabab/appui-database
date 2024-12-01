@@ -1,5 +1,5 @@
 <!-- HTML Document -->
-<div class="bbn-w-100 bbn-no-wrap bbn-c bbn-padded">
+<div class="bbn-w-100 bbn-no-wrap bbn-c bbn-padding">
   <bbn-input @keydown.enter.stop.prevent="lookupUID"
              :placeholder="_('Look up UID in History')"
              size="16"

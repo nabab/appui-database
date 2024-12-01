@@ -1,5 +1,5 @@
 <div class="bbn-overlay bbn-flex-height appui-database-sync-structures">
-  <div class="bbn-header bbn-padded bbn-flex-width bbn-vmiddle">
+  <div class="bbn-header bbn-padding bbn-flex-width bbn-vmiddle">
     <div class="bbn-flex-fill bbn-vmiddle"></div>
     <div class="bbn-vmiddle">
       <span v-if="lastReception"><?= _('Tables list loaded on') ?></span>

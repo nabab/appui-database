@@ -1,5 +1,5 @@
 <div class="bbn-w-100">
-  <div class="bbn-w-100 bbn-header bbn-no-border bbn-c bbn-b bbn-upper bbn-spadded"
+  <div class="bbn-w-100 bbn-header bbn-no-border bbn-c bbn-b bbn-upper bbn-spadding"
        v-text="source.table"/>
   <div class="bbn-w-100">
     <bbn-table :source="tableSource"

@@ -1,6 +1,6 @@
 <!-- HTML Document -->
 
-<div class="appui-database-table-form bbn-padded bbn-c bbn-w-100">
+<div class="appui-database-table-form bbn-padding bbn-c bbn-w-100">
   <bbn-form :source="formData"
             ref="form"
             :scrollable="false"
@@ -19,19 +19,19 @@
 
           <label><?= _("Table's name") ?></label>
           <div>
-            <bbn-input class="bbn-padded"
+            <bbn-input class="bbn-padding"
                        v-model="formData.name"
                        :required="true"/>
           </div>
 
           <label><?= _("Comment") ?></label>
           <div>
-            <bbn-input class="bbn-padded"
+            <bbn-input class="bbn-padding"
                        v-model="formData.comment"/>
           </div>
 
           <div> </div>
-          <div class="bbn-vpadded">
+          <div class="bbn-vpadding">
             <bbn-button @click="addColumn()"
                         :disabled="edited !== -1"
                         :text="_('Add a new column')"/>

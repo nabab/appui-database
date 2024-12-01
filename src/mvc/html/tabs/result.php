@@ -2,7 +2,7 @@
 
 <bbn-splitter orientation="vertical" v-if="is_data">
   <bbn-pane size="10%" :resizable="true">
-    <div class="bbn-l bbn-padded bbn-l bbn-grid-fields">
+    <div class="bbn-l bbn-padding bbn-l bbn-grid-fields">
       <span>Query: </span>
       <span v-text="request"></span>
 
@@ -12,7 +12,7 @@
 		
   </bbn-pane>
   <bbn-pane v-if="(type === 'write')">
-    <div class="bbn-vlpadded">
+    <div class="bbn-vlpadding">
       <span v-text="(num > 0) ? ( 'Number of row(s) affected from the request ' + num ) : ( 'No rows affected from the request' )">
 
       </span>
@@ -26,7 +26,7 @@
                >
     </bbn-table>
 
-    <div v-if="isArray(results) && ( num === 1 ) && ( results.length === 1 )" class="bbn-vlpadded">
+    <div v-if="isArray(results) && ( num === 1 ) && ( results.length === 1 )" class="bbn-vlpadding">
       <span v-for="(r, i) in results[0]" v-html="i + ' : ' + r + '<br><br>' "></span>
     </div>
 

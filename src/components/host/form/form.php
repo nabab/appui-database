@@ -5,7 +5,7 @@
           :action="root + '/actions/host/add'"
           @success="success"
           confirm-leave="<?= _("Are you sure you want to leave this form without saving your changes?") ?>">
-  <div class="bbn-grid-fields bbn-padded">
+  <div class="bbn-grid-fields bbn-padding">
     <div><?= _('Host') ?></div>
     <bbn-input v-model="formData.host"
                name="host"
