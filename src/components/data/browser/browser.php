@@ -1,7 +1,7 @@
 <!-- HTML Document -->
 
 <div class="appui-database-data-browser">
-  <bbn-input v-model="currentValue"
+  <bbn-input bbn-model="currentValue"
              :disabled="true">
   </bbn-input>
   <bbn-button icon="nf nf-custom-folder_open"

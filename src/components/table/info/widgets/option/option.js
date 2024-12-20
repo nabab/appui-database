@@ -29,11 +29,21 @@
       saveTitle(v, ov) {
         this.table.save('title', v, ov);
       },
-      saveItemComponent(v, ov) {
-        this.table.save('itemComponent', v, ov);
+      saveEditor(v, ov) {
+        this.table.save('editor', v, ov);
+      },
+      saveViewer(v, ov) {
+        this.table.save('viewer', v, ov);
       },
       saveDisplayColumns(v, ov) {
         this.table.save('dcolumns', v, ov);
+      },
+      setDisplayColumns() {
+        this.getPopup({
+          title: false,
+          component: "appui-database-table-columns-multipicker",
+          source: this.source
+        });
       },
       browse() {
         this.getPopup({
@@ -50,13 +60,13 @@
       },
       browseItemViewer() {
         this.getPopup({
-          title: "Select Item viewer",
+          title: false,
           component: "appui-database-itemviewerselector"
         });
       },
       browseRowEditor() {
         this.getPopup({
-          title: "Select Row Editor",
+          title: false,
           component: "appui-database-roweditorselector"
         });
       }

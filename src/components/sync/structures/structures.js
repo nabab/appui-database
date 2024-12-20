@@ -68,13 +68,13 @@
         template: `
           <div class="bbn-middle">
             <i class="bbn-right-sspace nf nf-fa-times bbn-red bbn-middle"
-               v-if="!source[field]"
+               bbn-if="!source[field]"
                style="height:2.1em"/>
             <bbn-button icon="nf nf-mdi-vector_difference"
                         @click="openDiff"
                         :notext="true"
                         text="` + bbn._('Compare') + `"
-                        v-else/>
+                        bbn-else/>
           </div>
         `,
         props: {

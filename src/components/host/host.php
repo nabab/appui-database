@@ -1,13 +1,13 @@
 <div class="bbn-overlay">
-  <div v-if="!ready" class="bbn-overlay bbn-middle">
+  <div bbn-if="!ready" class="bbn-overlay bbn-middle">
     <bbn-loader></bbn-loader>
   </div>
   <div class="bbn-overlay bbn-middle"
-       v-else-if="currentData?.error">
+       bbn-else-if="currentData?.error">
     <div class="bbn-block bbn-padding bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
-         v-text="currentData.error"/>
+         bbn-text="currentData.error"/>
   </div>
-  <bbn-splitter v-else
+  <bbn-splitter bbn-else
                 :orientation="orientation"
                 :resizable="true"
                 :collapsible="true">
@@ -23,21 +23,21 @@
           <?= _("Engine") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
-             v-text="currentData.engine"/>
+             bbn-text="currentData.engine"/>
 
         <div class="bbn-w-100 bbn-m bbn-spadding bbn-c">
           <?= _("Host") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
-             v-text="currentData.host"/>
+             bbn-text="currentData.host"/>
 
         <div class="bbn-w-100 bbn-spadding bbn-c"
-             v-if="currentData.ip && (currentData.host !== currentData.ip)">
+             bbn-if="currentData.ip && (currentData.host !== currentData.ip)">
           <?= _("Ip") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
-             v-if="currentData.ip && (currentData.host !== currentData.ip)"
-             v-text="currentData.ip"/>
+             bbn-if="currentData.ip && (currentData.host !== currentData.ip)"
+             bbn-text="currentData.ip"/>
       </div>
     </bbn-pane>
     <bbn-pane :resizable="true">

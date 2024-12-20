@@ -3,39 +3,39 @@
     <div class="bbn-flex-fill bbn-vmiddle">
       <span><?= _('Tables') ?>:</span>
       <bbn-dropdown :source="tables"
-                    v-model="currentTable"
+                    bbn-model="currentTable"
                     class="bbn-hsmargin"
                     ref="tablesList"
                     :placeholder="!tables.length ? (!lastReception ? _('Loading') + '...' : _('No conflicts found')) : _('Select a table')"/>
-      <bbn-button v-if="currentTable"
+      <bbn-button bbn-if="currentTable"
                   icon="nf nf-fa-refresh"
                   text="<?= _('Refresh') ?>"
                   :notext="true"
                   @click="refreshFile"/>
-      <i v-if="currentTableDate"
+      <i bbn-if="currentTableDate"
          class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
-      <span v-if="currentTableDate"
-            v-text="currentTableDate"/>
-      <i v-if="currentTableTime"
+      <span bbn-if="currentTableDate"
+            bbn-text="currentTableDate"/>
+      <i bbn-if="currentTableTime"
          class="nf nf-oct-clock bbn-right-xsspace bbn-left-sspace"/>
-      <span v-if="currentTableTime"
-            v-text="currentTableTime"/>
+      <span bbn-if="currentTableTime"
+            bbn-text="currentTableTime"/>
     </div>
     <div class="bbn-vmiddle">
-      <span v-if="lastReception"><?= _('Tables list loaded on') ?></span>
-      <span v-else><?= _('Tables not yet loaded') ?></span>
-      <i v-if="currentLastReceptionDate"
+      <span bbn-if="lastReception"><?= _('Tables list loaded on') ?></span>
+      <span bbn-else><?= _('Tables not yet loaded') ?></span>
+      <i bbn-if="currentLastReceptionDate"
          class="nf nf-fa-calendar bbn-right-xsspace bbn-left-sspace"/>
-      <span v-if="currentLastReceptionDate"
-            v-text="currentLastReceptionDate"/>
-      <i v-if="currentLastReceptionTime"
+      <span bbn-if="currentLastReceptionDate"
+            bbn-text="currentLastReceptionDate"/>
+      <i bbn-if="currentLastReceptionTime"
          class="nf nf-oct-clock bbn-right-xsspace bbn-left-sspace"/>
-      <span v-if="currentLastReceptionTime"
-            v-text="currentLastReceptionTime"/>
+      <span bbn-if="currentLastReceptionTime"
+            bbn-text="currentLastReceptionTime"/>
     </div>
   </div>
   <div class="bbn-flex-fill">
-    <bbn-table v-if="tableVisible"
+    <bbn-table bbn-if="tableVisible"
                :source="root + 'data/sync/conflicts'"
                ref="table"
                :pageable="true"
@@ -64,7 +64,7 @@
       <bbns-column field="id"
                    title="ID"
                    :render="renderJSON"/>
-      <bbns-column v-for="(db, i) in source.dbs"
+      <bbns-column bbn-for="(db, i) in source.dbs"
                    :field="db"
                    :title="db"
                    :key="i"
@@ -88,7 +88,7 @@
                    :width="100"
                    cls="bbn-c"/>
     </bbn-table>
-    <div v-else-if="!currentTable"
+    <div bbn-else-if="!currentTable"
          class="bbn-overlay bbn-middle">
       <div class="bbn-xl bbn-b bbn-vmiddle">
         <i class="bbn-right-sspace nf nf-mdi-subdirectory_arrow_left"

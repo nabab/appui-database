@@ -3,8 +3,12 @@
   return {
     data(){
       return {
-        root: appui.plugins['appui-database'],
-        table: this.closest('appui-database-table'),
+        root: appui.plugins['appui-database'] + '/'
+      }
+    },
+    computed: {
+      size() {
+        return this.source.size ? bbn.fn.formatBytes(this.source.size) : '0b';
       }
     },
     methods: {

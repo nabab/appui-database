@@ -19,16 +19,22 @@
       getPrefix() {
         for (let i in this.project.path) {
           if (i.id === this.currentPathId) {
-            return i.code;
+            return i.code + '-';
           }
         }
-        return bbn.env.appPrefix;
+
+        return bbn.env.appPrefix + '-';
       },
       trimUid(uid) {
         for (let i = uid.length - 1; uid[i] != '/'; i--) {
           uid = uid.slice(0, -1);
         }
+
         uid = uid.slice(0, -1);
+        if (!uid.indexOf('/')) {
+          uid = uid.slice(1);
+        }
+
         return uid;
       },
       getComponentFullName(uid) {
@@ -48,16 +54,17 @@
     mounted() {
       bbn.fn.post(appui.plugins['appui-database'] + '/list-project', {}, d => {
         this.project = d.project;
-        this.currentPathId = d.project.path[d.project.path.length - 1].id;
         this.dataTree.id_project = d.project.id;
+        this.currentPathId = d.project.path[0].id;
         this.ready = true;
       });
     },
     watch: {
-      currentPathId(v, ov) {
-        if (ov) {
-          this.dataTree.id_path = v;
-          this.getRef('tree').updateData();
+      currentPathId(v) {
+        this.dataTree.id_path = v;
+        const tree = this.getRef('tree');
+        if (tree) {
+          tree.updateData();
         }
       }
     }

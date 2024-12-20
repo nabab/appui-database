@@ -195,7 +195,7 @@
       expander: {
         template: `
 <div class="bbn-w-100">
-  <div v-if="hasRows"
+  <div bbn-if="hasRows"
        class="bbn-w-50">
     <div class="bbn-header bbn-spadding">` + bbn._('Rows') + `</div>
     <div class="bbn-xspadding bbn-border bbn-w-100">
@@ -233,7 +233,7 @@
       <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
       <div class="bbn-c">
         <bbn-dropdown :source="list"
-                      v-model="formData.source"/>
+                      bbn-model="formData.source"/>
       </div>
     </div>
   </div>

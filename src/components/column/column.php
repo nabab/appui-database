@@ -1,31 +1,31 @@
 <div class="bbn-w-100">
-  <bbn-form v-if="editTable">
+  <bbn-form bbn-if="editTable">
     <label><?= _("Column name") ?></label>
-    <bbn-input v-model="source.name"/>
+    <bbn-input bbn-model="source.name"/>
 
-    <div class="bbn-grid-full" v-if="source.name">
+    <div class="bbn-grid-full" bbn-if="source.name">
       <bbn-checkbox label="<?= _("Configure the option") ?>"
-                    v-model="editOption"/>
+                    bbn-model="editOption"/>
     </div>
   </bbn-form>
-  <bbn-form v-else-if="editOption"
+  <bbn-form bbn-else-if="editOption"
             :source="option">
 
     <label><?= _("Column title") ?></label>
-    <bbn-input v-model="option.text"/>
+    <bbn-input bbn-model="option.text"/>
 
     <label><?= _("Column editor") ?></label>
-    <bbn-input v-model="option.editor"/>
+    <bbn-input bbn-model="option.editor"/>
 
     <label><?= _("Column component") ?></label>
-    <bbn-input v-model="option.component"/>
+    <bbn-input bbn-model="option.component"/>
 
   </bbn-form>
-  <div v-else>
+  <div bbn-else>
     <span class="bbn-m bbn-b bbn-space-right bbn-iblock"
-          v-if="option && (option.text !== option.code)"
-          v-text="option.text"/>
+          bbn-if="option && (option.text !== option.code)"
+          bbn-text="option.text"/>
     <span class="bbn-m bbn-b bbn-space-right bbn-iblock"
-          v-text="source.name"/>
+          bbn-text="source.name"/>
   </div>
 </div>

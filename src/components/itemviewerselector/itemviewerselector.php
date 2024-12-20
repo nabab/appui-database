@@ -1,22 +1,29 @@
 <!-- HTML Document -->
 
-<div class="appui-database-itemviewerselector bbn-padding">
-  <bbn-loader v-if="!ready">
-  </bbn-loader>
-  <div class="bbn-w-100" v-if="ready">
-    <div class="bbn-w-100">
+<div class="appui-database-itemviewerselector bbn-iblock">
+  <div class="bbn-padding" bbn-if="ready">
+    <h3 class="bbn-c"><?= _("Item viewer selector") ?></h3>
+    <p>
+      <?= _("Select the component that will be used to show the item in other lists or widgets") ?>
+    </p>
+    <div class="bbn-grid-fields">
+      <label><?= _("Root") ?></label>
       <bbn-dropdown :source="project.path"
-                    v-if="ready"
+                    bbn-if="ready"
                     source-value="id"
-                    v-model="currentPathId"
+                    class="bbn-wide"
+                    bbn-model="currentPathId"
                     :disabled="false"/>
-    </div>
-    <div class="bbn-w-100">
-      <bbn-tree :source="root + 'data/tree'"
-                :data="dataTree"
-                ref="tree"
-                @select="select"
-                :scrollable="false"/>
+
+      <div class="bbn-label"> </div>
+      <div>
+        <bbn-tree :source="root + 'data/tree'"
+                  :data="dataTree"
+                  ref="tree"
+                  @select="select"
+                  :scrollable="false"/>
+      </div>
     </div>
   </div>
+  <bbn-loader bbn-else/>
 </div>

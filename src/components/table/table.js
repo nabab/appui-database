@@ -70,6 +70,14 @@
         }, {
           text: 'Operation'
         }];
+      },
+      fields() {
+        const ar = [];
+        bbn.fn.iterate(this.source.structure.fields, (f, name) => {
+          ar.push(bbn.fn.extend({name}, f));
+        });
+
+        return bbn.fn.order(ar, 'position');
       }
     },
     methods:{
@@ -103,11 +111,9 @@
             bbn.fn.log("SAVE", d, arguments);
             if (!d.success) {
               appui.error(bbn._("Impossible to update the option"));
-              if (this.currentData.option[type] !== undefined) {
-                this.$set(this.currentData.option, type, oldValue);
-              }
             }
             else {
+              this.currentData.option[type] = value;
               appui.success(bbn._("Option updated successfully"));
             }
           }

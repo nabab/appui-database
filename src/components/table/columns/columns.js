@@ -20,6 +20,7 @@
           width: '40'
         }, {
           field: 'name',
+          minWidth: 200,
           render: this.writeColumn,
           title: bbn._('Columns'),
         }, {
@@ -27,6 +28,16 @@
           title: '' + bbn._('Type'),
           cls: 'bbn-c',
           render: this.writeType,
+          width: '100'
+        }, {
+          field: 'option.viewer',
+          title: bbn._('Viewer'),
+          cls: 'bbn-c',
+          width: '100'
+        }, {
+          field: 'option.editor',
+          title: bbn._('Editor'),
+          cls: 'bbn-c',
           width: '100'
         }, {
           field: 'maxlength',
@@ -37,7 +48,7 @@
           field: 'null',
           title: '<i class=\'nf nf-fa-ban\' title=\'' + bbn._('Can the field be null?') + '></i>',
           cls: 'bbn-c',
-          width: '40',
+          width: '70',
           render: this.writeNull
         }, {
           field: 'default_value',

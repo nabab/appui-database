@@ -31,6 +31,7 @@ if (
     }
   }
   try {
+    /** @var bbn\Db $conn */
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
@@ -49,13 +50,14 @@ if (
     'comment' => $conn->getTableComment($model->data['db'].'.'.$model->data['table']),
     'table_id' => $table_id ?? null,
     'ocolumns' => $table_id ? $model->inc->options->fullOptions('columns', $table_id) : [],
-    'is_real' => \in_array($model->data['table'], array_keys($conn->getTables($model->data['db']))),
+    'is_real' => \in_array($model->data['table'], $conn->getTables($model->data['db'])),
     'is_virtual' => isset($table_id) ? true : false,
 		'option' => isset($table_id) ? $model->inc->options->option($table_id) : null,
     'col_info' => isset($table_id) ? $model->inc->dbc->fullColumns($table_id) : [],
     'structure' => $structure,
     'externals' => $externals,
     'constraints' => $constraints,
+    'primary' => $structure['keys']['PRIMARY'] ? $structure['keys']['PRIMARY']['columns'] : [],
     'history' => false,
     'tableCfg' => $cfg['js']['columns'],
     'editColumnsData' => [],
@@ -72,7 +74,7 @@ if (
   }
  
   if ($res['is_real']) {
-    $res['size'] = \bbn\Str::saySize($conn->tableSize($model->data['db'].'.'.$model->data['table']));
+    $res['size'] = $conn->tableSize($model->data['db'].'.'.$model->data['table']);
     $res['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
   }
   $engines = ['mysql', 'sqlite', 'postgre'];

@@ -1,9 +1,9 @@
 <div class="appui-database-form-column bbn-padding">
   <!---<span class="bbn-m bbn-b bbn-space-right bbn-iblock"
-            v-if="option && (option.text !== option.code)"
-            v-text="option.text"/>
+            bbn-if="option && (option.text !== option.code)"
+            bbn-text="option.text"/>
       <span class="bbn-m bbn-b bbn-space-right bbn-iblock"
-            v-text="source.name"/> -->
+            bbn-text="source.name"/> -->
   <bbn-form :scrollable="false"
             :buttons="false"
             mode="small"
@@ -15,7 +15,7 @@
 
       <div class="bbn-grid-full bbn-m bbn-i bbn-c">
         <bbn-input class="bbn-wider bbn-bottom-space"
-                   v-model="source.name"
+                   bbn-model="source.name"
                    :required="true"
                    @change="checkColumnsNames"
                    :placeholder="_('Column\'s name')"/>
@@ -39,137 +39,137 @@
                             value: 'free'
                             }]"
                    storage-full-name="appui-database-column-form-radio-type"
-                   v-model="radioType"
+                   bbn-model="radioType"
                    ref="radioType"/>
       </div>
 
       <div class="bbn-grid-full bbn-m bbn-vspadding bbn-c"
-           v-if="radioType === 'predefined'">
+           bbn-if="radioType === 'predefined'">
         <bbn-dropdown class="bbn-wider"
                       :source="predefinedOptions"
-                      v-model="predefinedType"
+                      bbn-model="predefinedType"
                       :placeholder="_('Choose a predefined column type')"/>
       </div>
 
-      <template v-else-if="radioType === 'constraint'" >
+      <template bbn-else-if="radioType === 'constraint'" >
 
         <label ><?= _("Reference Table") ?></label>
         <bbn-dropdown class="bbn-wider"
-                      v-model="constraint"
+                      bbn-model="constraint"
                       :required="true"
                       :source="constraints"
                       :placeholder="_('Choose the reference')"/>
 
         <label ><?= _("On delete") ?></label>
         <bbn-dropdown class="bbn-narrow"
-                      v-model="source.delete"
+                      bbn-model="source.delete"
                       :required="true"
                       :source="onDelete"/>
 
         <label ><?= _("On update") ?></label>
         <bbn-dropdown class="bbn-narrow"
-                      v-model="source.update"
+                      bbn-model="source.update"
                       :required="true"
                       :source="onUpdate"/>
 
         <label><?= _("Nullable") ?></label>
         <div>
-          <bbn-checkbox v-model="source.null"
+          <bbn-checkbox bbn-model="source.null"
                         :value="true"
                         :novalue="false"/>
         </div>
 
         <label><?= _("Default Value") ?></label>
         <bbn-radio :source="defaultValueTypes"
-                   v-model="defaultValueType"
+                   bbn-model="defaultValueType"
                    :required="true"/>
 
-        <div v-if="['defined', 'expression'].includes(defaultValueType)">
+        <div bbn-if="['defined', 'expression'].includes(defaultValueType)">
         </div>
-        <div v-if="defaultValueType === 'defined'">
+        <div bbn-if="defaultValueType === 'defined'">
           <component :is="defaultComponent"
-                     v-bind="defaultComponentOptions"
-                     v-model="source.default"
+                     bbn-bind="defaultComponentOptions"
+                     bbn-model="source.default"
                      :required="true"/>
         </div>
-        <div v-else-if="defaultValueType === 'expression'">
-          <bbn-input v-model="source.default"
+        <div bbn-else-if="defaultValueType === 'expression'">
+          <bbn-input bbn-model="source.default"
                      :required="true"/>
         </div>
 
         <label><?= _("Indexes") ?></label>
         <div>
           <bbn-radio :source="constraintIndexes"
-                     v-model="source.index"/>
+                     bbn-model="source.index"/>
         </div>
       </template>
 
-      <template v-else-if="radioType === 'free'">
+      <template bbn-else-if="radioType === 'free'">
         <label><?= _("Column's type") ?></label>
         <div>
           <bbn-dropdown :source="colTypes"
-                        v-model="source.type"
+                        bbn-model="source.type"
                         :required="true"
                         @change="resetAll"/>
         </div>
 
-        <label v-if="isValue" ><?= _("Values") ?></label>
-        <div v-if="isValue">
-          <bbn-values v-model="values"
+        <label bbn-if="isValue" ><?= _("Values") ?></label>
+        <div bbn-if="isValue">
+          <bbn-values bbn-model="values"
                       :required="true"/>
         </div>
 
-        <label v-if="isNumber || isChar"><?= _("Max length") ?></label>
-        <div v-if="isNumber || isChar">
-          <bbn-numeric v-model="source.maxlength"
+        <label bbn-if="isNumber || isChar"><?= _("Max length") ?></label>
+        <div bbn-if="isNumber || isChar">
+          <bbn-numeric bbn-model="source.maxlength"
                        :min="1"
                        :max="1000"
                        :required="true"/>
         </div>
 
-        <label v-if="types.decimal.includes(source.type)"><?= _("Precision") ?></label>
-        <div v-if="types.decimal.includes(source.type)">
-          <bbn-numeric v-model="source.decimals"
+        <label bbn-if="types.decimal.includes(source.type)"><?= _("Precision") ?></label>
+        <div bbn-if="types.decimal.includes(source.type)">
+          <bbn-numeric bbn-model="source.decimals"
                        :min="1"
                        :max="20"
                        :required="true"/>
         </div>
 
-        <label v-if="isNumber" ><?= _("Unsigned") ?></label>
-        <div v-if="isNumber">
+        <label bbn-if="isNumber" ><?= _("Unsigned") ?></label>
+        <div bbn-if="isNumber">
           <bbn-checkbox :value="0"
                         :novalue="1"
-                        v-model="source.signed"/>
+                        bbn-model="source.signed"/>
         </div>
 
         <label><?= _("Nullable") ?></label>
         <div>
-          <bbn-checkbox v-model="source.null"
+          <bbn-checkbox bbn-model="source.null"
                         :value="true"
                         :novalue="false"/>
         </div>
 
         <label><?= _("Default Value") ?></label>
         <bbn-radio :source="defaultValueTypes"
-                   v-model="defaultValueType" />
+                   bbn-model="defaultValueType" />
 
-        <div v-if="['defined', 'expression'].includes(defaultValueType)">
+        <div bbn-if="['defined', 'expression'].includes(defaultValueType)">
         </div>
-        <div v-if="defaultValueType === 'defined'">
+        <div bbn-if="defaultValueType === 'defined'">
           <component :is="defaultComponent"
-                     v-bind="defaultComponentOptions"
-                     v-model="source.default"
+                     bbn-bind="defaultComponentOptions"
+                     bbn-model="source.default"
                      :required="true"/>
         </div>
-        <div v-else-if="defaultValueType === 'expression'">
-          <bbn-input v-model="source.default"
+        <div bbn-else-if="defaultValueType === 'expression'">
+          <bbn-input bbn-model="source.default"
                      :required="true"/>
         </div>
 
         <label><?= _("Indexes") ?></label>
         <div>
           <bbn-radio :source="indexes"
-                     v-model="source.index"/>
+                     bbn-model="source.index"/>
         </div>
 
       </template>

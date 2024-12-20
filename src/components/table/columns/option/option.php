@@ -5,15 +5,15 @@
   <div class="bbn-grid-fields bbn-padding">
     <label>Title</label>
     <div>
-      <bbn-input v-model="source.option.text"/>
+      <bbn-input bbn-model="source.option.text"/>
     </div>
     <label>Component</label>
     <div>
-      <bbn-input v-model="source.option.component"/>
+      <bbn-input bbn-model="source.option.component"/>
     </div>
     <label>Editor</label>
     <div>
-      <bbn-input v-model="source.option.editor"/>
+      <bbn-input bbn-model="source.option.editor"/>
     </div>
   </div>
 </bbn-form>

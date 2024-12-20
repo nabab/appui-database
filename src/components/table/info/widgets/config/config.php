@@ -1,30 +1,32 @@
 <!-- HTML Document -->
 
 <div class="bbn-padding">
-  <div class="bbn-grid-fields">
-    <div style="width: 6em">
-      <?= _("Name") ?>
+  <div class="bbn-grid-fields" bbn-if="source.table">
+    <div class="bbn-label bbn-lg">
+      
     </div>
-    <bbn-editable v-model="table.currentData.table"
+    <bbn-editable class="bbn-lg bbn-b"
+                  bbn-model="source.table"
                   @save="rename"
-                  :required="true"/>
-
-    <div>
-      <?= _("Comment") ?>
-    </div>
-    <bbn-editable v-model="table.currentData.comment"
-                  @save="saveComment"
                   :required="true"/>
 
     <div>
       <?= _("Size") ?>:
     </div>
-    <div v-text="table.currentData.size"/>
+    <div bbn-text="size"/>
 
-    <div v-if="table.currentData.is_real">
+    <div bbn-if="source.is_real">
       #<?= _("Records") ?>:
     </div>
-    <div v-text="format(table.currentData.count)"
-         v-if="table.currentData.is_real"/>
+    <div bbn-text="format(source.count)"
+         bbn-if="source.is_real"/>
+
+    <div>
+      <?= _("Comment") ?>
+    </div>
+    <bbn-editable bbn-model="source.comment"
+                  @save="saveComment"
+                  :required="true"/>
+
   </div>
 </div>

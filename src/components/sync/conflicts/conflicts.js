@@ -192,13 +192,13 @@
         template: `
           <div class="bbn-middle">
             <i class="bbn-right-sspace nf nf-fa-times bbn-red bbn-middle"
-               v-if="!source[field]"
+               bbn-if="!source[field]"
                style="height:2.1em"/>
             <bbn-button icon="nf nf-mdi-vector_difference"
                         @click="openDiff"
                         :notext="true"
                         text="` + bbn._('Compare') + `"
-                        v-else/>
+                        bbn-else/>
           </div>
         `,
         props: {
@@ -253,7 +253,7 @@
       <div class="bbn-c bbn-bottom-space">` + bbn._('Select the source from where the data will be taken and copied to the different databases') + `</div>
       <div class="bbn-c">
         <bbn-dropdown :source="conflicts.source.dbs"
-                      v-model="formData.source"/>
+                      bbn-model="formData.source"/>
       </div>
     </div>
   </div>

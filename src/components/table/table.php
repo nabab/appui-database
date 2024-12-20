@@ -1,16 +1,16 @@
 <!-- HTML Document -->
 <div class="bbn-overlay appui-database-table" >
-  <div v-if="!ready" class="bbn-overlay bbn-middle">
+  <div bbn-if="!ready" class="bbn-overlay bbn-middle">
     <bbn-loader></bbn-loader>
   </div>
   <div class="bbn-overlay bbn-middle"
-       v-else-if="currentData?.error">
+       bbn-else-if="currentData?.error">
     <div class="bbn-block bbn-padding bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
-         v-text="currentData.error"/>
+         bbn-text="currentData.error"/>
   </div>
   <bbn-router :nav="true"
               :autoload="false"
-              v-else>
+              bbn-else>
     <bbns-container component="appui-database-table-info"
                     url="info"
                     title="<?= _('Info') ?>"
@@ -39,7 +39,7 @@
                     :source="currentData"
                     :pinned="true"
                     :menu="false"/>
-    <bbns-container v-if="currentData.externals.length"
+    <bbns-container bbn-if="currentData.externals.length"
                     component="appui-database-table-externals"
                     url="externals"
                     icon="nf nf-oct-link"

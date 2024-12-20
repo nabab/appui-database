@@ -20,14 +20,14 @@
           <label><?= _("Table's name") ?></label>
           <div>
             <bbn-input class="bbn-padding"
-                       v-model="formData.name"
+                       bbn-model="formData.name"
                        :required="true"/>
           </div>
 
           <label><?= _("Comment") ?></label>
           <div>
             <bbn-input class="bbn-padding"
-                       v-model="formData.comment"/>
+                       bbn-model="formData.comment"/>
           </div>
 
           <div> </div>
@@ -38,7 +38,7 @@
 
           </div>
 
-          <template v-for="(col, i) in formData.columns">
+          <template bbn-for="(col, i) in formData.columns">
             <div class="bbn-nowrap bbn-s">
               <span class="bbn-right-smargin">
                 <i class="nf nf-mdi-key_variant"
@@ -65,13 +65,13 @@
                           @click="removeColumn(i)"
                           :disabled="edited !== -1"/>
             </div>
-            <div v-html="getColDescription(col)"
+            <div bbn-html="getColDescription(col)"
                  class="bbn-s"/>
           </template>
         </div>
       </div>
       <div class="bbn-flex-fill">
-        <div v-if="edited > -1">
+        <div bbn-if="edited > -1">
           <appui-database-column-form :source="formData.columns[edited]"
                                       :otypes="source.types"
                                       :engine="source.engine"

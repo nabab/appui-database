@@ -2,60 +2,65 @@
 
 <div class="bbn-padding">
   <div class="bbn-state-error bbn-padding bbn-c"
-       v-if="!table.currentData.table_id">
+       bbn-if="!source.table_id">
     <?= _("No option") ?>
   </div>
   <div class="bbn-grid-fields"
-       v-else>
-    <div style="width: 6em">
+       bbn-else>
+    <label>
       <?= _("ID") ?>
-    </div>
-    <div v-text="table.currentData.table_id"/>
+    </label>
+    <div bbn-text="source.table_id"/>
 
-    <div>
+    <label>
       <?= _("Title") ?>
-    </div>
-    <bbn-editable v-model="table.currentData.option.text"
+    </label>
+    <bbn-editable bbn-model="source.option.text"
                   @save="saveTitle"
                   :required="true"/>
 
-    <div>
+    <label>
       <?= _("Item viewer") ?>
       <bbn-tooltip source="<?= _("A component which will be used to show an item from this table in other lists or widgets") ?>"/>
-    </div>
+    </label>
     <div>
-      <bbn-button icon="nf nf-custom-folder_open"
-                  :text="_('Browse Item Viewers')"
+      <span bbn-if="source.option.viewer"
+            bbn-html="source.option.viewer + '<br>'"/>
+      <bbn-button icon="nf nf-fa-edit"
+                  :text="source.option.viewer ? _('Change') : _('Set')"
                   @click="browseItemViewer"/>
-
-    <bbn-editable v-model="table.currentData.option.itemComponent"
-                  @save="saveItemComponent"/>
+      <bbn-button bbn-if="source.option.viewer"
+                  icon="nf nf-fa-trash"
+                  :text="_('Unset')"
+                  @click="saveViewer(null, source.option.viewer)"/>
     </div>
 
-
-    <div>
+    <label>
       <?= _("Row editor") ?>
       <bbn-tooltip source="<?= _("A component which will be used to edit a whole item from this table") ?>"/>
-    </div>
+    </label>
     <div>
-      <bbn-button icon="nf nf-custom-folder_open"
-                  :text="_('Browse Row Editors')"
+      <span bbn-if="source.option.editor"
+            bbn-html="source.option.editor + '<br>'"/>
+      <bbn-button icon="nf nf-fa-edit"
+                  :text="source.option.editor ? _('Change') : _('Set')"
                   @click="browseRowEditor"/>
+      <bbn-button bbn-if="source.option.editor"
+                  icon="nf nf-fa-trash"
+                  :text="_('Unset')"
+                  @click="saveEditor(null, source.option.editor)"/>
     </div>
 
-    <div>
+    <label>
       <?= _("Display columns") ?>
       <bbn-tooltip source="<?= _("Pick the column(s) that you want to see from this table in other lists") ?>"/>
-    </div>
-    <div style="height: 10em">
-      <div class="bbn-80">
-        <bbn-editable v-model="table.currentData.option.dcolumns"
-                      component="bbn-multiselect"
-                      :componentOptions="{source: columns}"
-                      @save="saveDisplayColumns"
-                      :required="true"
-                      class="bbn-80"/>
-      </div>
+    </label>
+    <div>
+      <span bbn-if="source.option.dcolumns?.length"
+            bbn-html="source.option.dcolumns.join(', ') + '<br>'"/>
+      <bbn-button icon="nf nf-fa-edit"
+                  :text="source.option.dcolumns?.length ? _('Change') : _('Set')"
+                  @click="setDisplayColumns"/>
     </div>
   </div>
 </div>

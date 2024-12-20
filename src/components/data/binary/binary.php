@@ -5,11 +5,11 @@
               icon="nf nf-mdi-content_copy"
               text="_('Copy uid')"
               @click="copy"/>
-  <bbn-button v-if="isConstraint"
+  <bbn-button bbn-if="isConstraint"
               :notext="true"
               icon="nf nf-fa-eye"
               text="_('See referenced row')"
               @click="goto"/>
-  <span v-if="isForeignKey"
-        v-text="displayValue"/>
+  <span bbn-if="isForeignKey"
+        bbn-text="displayValue"/>
 </div>

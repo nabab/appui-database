@@ -7,7 +7,7 @@
 use bbn\Appui\Database;
 
 /** @var bbn\Mvc\Model $model */
-if ($model->hasData(['engine', 'host', 'db', 'table', 'type', 'value', 'res'], true)) {
+if ($model->hasData(['engine', 'host', 'db', 'table', 'type', 'res'], true)) {
   $dbc = new Database($model->db);
   $table_id = $dbc->tableId(
   	$model->data['table'],
