@@ -26,7 +26,7 @@
         }, d => {
           if (d.success) {
             this.getPopup({
-              title: bbn._("Data Browser") + ' (' + d.data.table + ')',
+              label: bbn._("Data Browser") + ' (' + d.data.table + ')',
               source: d.data,
               component: 'appui-database-table-data',
               componentOptions: {

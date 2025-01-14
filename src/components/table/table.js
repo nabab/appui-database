@@ -142,8 +142,8 @@
         return col;
       },
       buttons(name){
-        return '<bbn-button text="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
-          '<a href="' + this.root + 'tabs/db/' + this.cfg.host + '/' + name + '"><bbn-button text="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
+        return '<bbn-button label="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
+          '<a href="' + this.root + 'tabs/db/' + this.cfg.host + '/' + name + '"><bbn-button label="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
       }
     },
     created() {

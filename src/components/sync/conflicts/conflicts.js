@@ -149,8 +149,8 @@
         })
       },
       _fix(ids){
-        this.getPopup().open({
-          title: bbn._('Select the data source'),
+        this.getPopup({
+          label: bbn._('Select the data source'),
           component: this.$options.components.fixForm,
           source: {
             ids: ids,
@@ -197,7 +197,7 @@
             <bbn-button icon="nf nf-mdi-vector_difference"
                         @click="openDiff"
                         :notext="true"
-                        text="` + bbn._('Compare') + `"
+                        label="` + bbn._('Compare') + `"
                         bbn-else/>
           </div>
         `,
@@ -226,7 +226,7 @@
               }
             })
             this.getPopup({
-              title: bbn._("Records"),
+              label: bbn._("Records"),
               width: '90%',
               component: 'appui-database-sync-diff',
               source: {

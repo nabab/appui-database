@@ -40,14 +40,14 @@
       },
       setDisplayColumns() {
         this.getPopup({
-          title: false,
+          label: false,
           component: "appui-database-table-columns-multipicker",
           source: this.source
         });
       },
       browse() {
         this.getPopup({
-          title: "",
+          label: "",
           component: 'appui-database-table-info',
           componentOptions: {
             db: this.table.currentData.db,
@@ -60,13 +60,13 @@
       },
       browseItemViewer() {
         this.getPopup({
-          title: false,
+          label: false,
           component: "appui-database-itemviewerselector"
         });
       },
       browseRowEditor() {
         this.getPopup({
-          title: false,
+          label: false,
           component: "appui-database-roweditorselector"
         });
       }

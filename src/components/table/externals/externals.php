@@ -5,15 +5,15 @@
              :info="true" 
   >
     <bbns-column field="table"
-                 title="<?= _('Table') ?>"
+                 label="<?= _('Table') ?>"
                  cls="bbn-c">
      </bbns-column>
      <bbns-column field="column"
-                 title="<?= _('Column') ?>"
+                 label="<?= _('Column') ?>"
                  cls="bbn-c">
      </bbns-column>
      <bbns-column field="link"
-                 title="<?= _('Link in table') ?>"
+                 label="<?= _('Link in table') ?>"
                  cls="bbn-c">
      </bbns-column>
   </bbn-table>

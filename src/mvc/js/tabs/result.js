@@ -37,7 +37,7 @@
           fields[0].forEach( (v, i) => {
             res.push({
               field: v,
-              title: v
+              label: v
             });
           });
           return res;

@@ -66,7 +66,7 @@
       },
       showTableCreation(){
         this.getPopup({
-          title: bbn._("New table"),
+          label: bbn._("New table"),
           component: 'appui-database-table-form',
           data: this.cfg,
           width: "120em",
@@ -233,7 +233,7 @@
         let res = [];
         if ( row.is_real ){
           res.push({
-            title: bbn._('Refresh table\'s structure'),
+            label: bbn._('Refresh table\'s structure'),
             action: this.refresh,
             icon: 'nf nf-fa-refresh',
             notext: true
@@ -241,7 +241,7 @@
         }
         else{
           res.push({
-            title: bbn._('Delete virtual table'),
+            label: bbn._('Delete virtual table'),
             action: this.delete,
             icon: 'nf nf-fa-trash_o',
             notext: true
@@ -281,7 +281,7 @@
           '">' + row.name + '</a>';
         }
         else {
-          return '<span title="'+ bbn._('The table is not real') +'" href="' + this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/' + this.currentData.db + '/' + row.name + '" class="bbn-b' +
+          return '<span label="'+ bbn._('The table is not real') +'" href="' + this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.host + '/' + this.currentData.db + '/' + row.name + '" class="bbn-b' +
           (col ? ' bbn-' + col : '') +
           '">' + row.name + '</span>';
         }

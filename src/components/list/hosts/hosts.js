@@ -8,7 +8,7 @@
         url: 'home',
         icon: this.source?.icon,
         notext: true,
-        title: bbn._('List'),
+        label: bbn._('List'),
         load: true,
         bcolor: '#666',
         fcolor: '#FFF'

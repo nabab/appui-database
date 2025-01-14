@@ -7,7 +7,7 @@
                url: 'home',
                icon: '<?= $icon ?>',
                notext: true,
-               title: '<?= \bbn\Str::escapeSquotes(_('List')) ?>',
+               label: '<?= \bbn\Str::escapeSquotes(_('List')) ?>',
                load: true,
                bcolor: '#666',
                fcolor: '#FFF'

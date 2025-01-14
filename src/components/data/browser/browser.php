@@ -5,7 +5,7 @@
              :disabled="true">
   </bbn-input>
   <bbn-button icon="nf nf-custom-folder_open"
-              :text="_('Browse')"
+              :label="_('Browse')"
               @click.stop="browse">
   </bbn-button>
 </div>

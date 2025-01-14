@@ -34,7 +34,7 @@
           <div class="bbn-vpadding">
             <bbn-button @click="addColumn()"
                         :disabled="edited !== -1"
-                        :text="_('Add a new column')"/>
+                        :label="_('Add a new column')"/>
 
           </div>
 
@@ -44,22 +44,22 @@
                 <i class="nf nf-mdi-key_variant"
                    :style="{visibility: formData.columns[i].constraint ? 'visible' : 'hidden'}"/>
               </span>
-              <bbn-button :text="_('Move up')"
+              <bbn-button :label="_('Move up')"
                           icon="nf nf-fa-long_arrow_up"
                           :notext="true"
                           @click="moveUp(i)"
                           :disabled="(edited !== -1) || (i === 0) || (numMovableColumns <= 1)"/>
-              <bbn-button :text="_('Move down')"
+              <bbn-button :label="_('Move down')"
                           icon="nf nf-fa-long_arrow_down"
                           :notext="true"
                           @click="moveDown(i)"
                           :disabled="(edited !== -1) || (i === numMovableColumns - 1) || (numMovableColumns <= 1)"/>
-              <bbn-button :text="_('Edit')"
+              <bbn-button :label="_('Edit')"
                           icon="nf nf-fa-edit"
                           :notext="true"
                           @click="edited = i"
                           :disabled="edited !== -1"/>
-              <bbn-button :text="_('Remove')"
+              <bbn-button :label="_('Remove')"
                           icon="nf nf-fa-trash"
                           :notext="true"
                           @click="removeColumn(i)"

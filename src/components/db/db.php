@@ -21,9 +21,9 @@
                  :info="true"
                  uid="name">
         <bbns-column field="name"
-                     title="<?= _('Table') ?>"
+                     label="<?= _('Table') ?>"
                      component="appui-database-table-columns-cell"/>
-        <bbns-column title="<?= _("Action") ?>"
+        <bbns-column label="<?= _("Action") ?>"
                      :width="200"
                      cls="bbn-c"
                      :component="$options.components.dropdown"/>

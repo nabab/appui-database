@@ -76,7 +76,7 @@
               }
               else {
                 this.getPopup({
-                  title: bbn._("Records"),
+                  label: bbn._("Records"),
                   width: '90%',
                   component: 'appui-database-sync-diff',
                   source: {
@@ -111,7 +111,7 @@
               }
               else {
                 this.getPopup({
-                  title: bbn._("Records"),
+                  label: bbn._("Records"),
                   width: '90%',
                   component: 'appui-database-sync-diff',
                   source: {
@@ -177,8 +177,8 @@
         })
       },
       _fix(id){
-        this.getPopup().open({
-          title: bbn._('Select the data source'),
+        this.getPopup({
+          label: bbn._('Select the data source'),
           component: this.$options.components.fixForm,
           source: {
             id: id

@@ -19,16 +19,16 @@
                ref="table"
                :pageable="false">
       <bbns-column field="table"
-                   title="<?= _('Table') ?>"/>
+                   label="<?= _('Table') ?>"/>
       <bbns-column field="last"
                    type="datetime"
-                   title="<?= _('Last check') ?>"
+                   label="<?= _('Last check') ?>"
                    :width="150"
                    cls="bbn-c"
                    :render="renderLast"/>
       <bbns-column bbn-for="(db, i) in source.dbs"
                    :field="db"
-                   :title="db"
+                   :label="db"
                    :key="i"
                    :component="$options.components.compare"
                    :width="150"

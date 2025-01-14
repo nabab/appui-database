@@ -73,7 +73,7 @@
             <bbn-button icon="nf nf-mdi-vector_difference"
                         @click="openDiff"
                         :notext="true"
-                        text="` + bbn._('Compare') + `"
+                        label="` + bbn._('Compare') + `"
                         bbn-else/>
           </div>
         `,
@@ -103,7 +103,7 @@
               }
             })
             this.getPopup({
-              title: bbn._("Structures"),
+              label: bbn._("Structures"),
               width: '90%',
               component: 'appui-database-sync-diff',
               source: {

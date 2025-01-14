@@ -58,7 +58,7 @@
       },
       showDbCreation(){
         this.getPopup({
-          title: bbn._("New database"),
+          label: bbn._("New database"),
           component: 'appui-database-db-form',
           width: 500,
           height: '20em',

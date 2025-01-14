@@ -53,9 +53,9 @@
                    uid="name"
                    >
           <bbns-column field="name"
-                       title="<?= _('Database') ?>"
+                       label="<?= _('Database') ?>"
                        component="appui-database-db-cell"/>
-          <bbns-column title="<?= _("Action") ?>"
+          <bbns-column label="<?= _("Action") ?>"
                        :width="200"
                        cls="bbn-c"
                        :component="$options.components.dropdown"/>

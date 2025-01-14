@@ -5,7 +5,7 @@
     methods: {
       viewButton(id, idx, data){
         return '<a href="' + this.source.root + 'tabs/db/' + data.code + '">' +
-          '<bbn-button icon="nf nf-fa-eye" text="' + bbn._("View") + '" :notext="true"></bbn-button></a>';
+          '<bbn-button icon="nf nf-fa-eye" label="' + bbn._("View") + '" :notext="true"></bbn-button></a>';
       }
     },
   };

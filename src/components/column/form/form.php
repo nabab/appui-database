@@ -175,11 +175,11 @@
       </template>
     </div>
     <div class="bbn-c bbn-w-100 bbn-vpadding">
-      <bbn-button :text="buttonTitle"
+      <bbn-button :label="buttonTitle"
                   :action="change"
                   :disabled="!isFormValid"
                   class="bbn-right-margin"/>
-      <bbn-button :text="_('Cancel')"
+      <bbn-button :label="_('Cancel')"
                   :action="cancel"/>
     </div>
   </bbn-form>

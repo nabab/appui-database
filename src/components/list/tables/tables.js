@@ -8,7 +8,7 @@
         url: 'home',
         icon: this.source?.icon,
         notext: true,
-        title: bbn._('List'),
+        label: bbn._('List'),
         load: true,
         bcolor: '#666',
         fcolor: '#FFF'
@@ -17,7 +17,7 @@
         url: 'console',
         icon: "nf nf-md-console",
         notext: true,
-        title: bbn._('Console'),
+        label: bbn._('Console'),
         component: "appui-database-console",
         bcolor: '#666',
         fcolor: '#FFF'

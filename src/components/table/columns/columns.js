@@ -3,18 +3,18 @@
     data() {
       let columns = [
         {
-          title: ' ',
+          label: ' ',
           cls: 'bbn-c',
           width: 40,
           buttons: this.getButtons,
         }, {
           field: 'position',
-          title: '<a title=\'' + bbn._('Position in the table') + '>#</a>',
+          label: '<a title=\'' + bbn._('Position in the table') + '>#</a>',
           cls: 'bbn-c',
           width: '40'
         }, {
           field: 'key',
-          title: '<i class=\'nf nf-fa-key\' title=\'' + bbn._('Are there keys on the column?') + '></i>',
+          label: '<i class=\'nf nf-fa-key\' title=\'' + bbn._('Are there keys on the column?') + '></i>',
           render: this.writeKeyInCol,
           cls: 'bbn-c bbn-bg-black bbn-xl',
           width: '40'
@@ -22,37 +22,37 @@
           field: 'name',
           minWidth: 200,
           render: this.writeColumn,
-          title: bbn._('Columns'),
+          label: bbn._('Columns'),
         }, {
           field: 'type',
-          title: '' + bbn._('Type'),
+          label: '' + bbn._('Type'),
           cls: 'bbn-c',
           render: this.writeType,
           width: '100'
         }, {
           field: 'option.viewer',
-          title: bbn._('Viewer'),
+          label: bbn._('Viewer'),
           cls: 'bbn-c',
           width: '100'
         }, {
           field: 'option.editor',
-          title: bbn._('Editor'),
+          label: bbn._('Editor'),
           cls: 'bbn-c',
           width: '100'
         }, {
           field: 'maxlength',
-          title: '' + bbn._('Length'),
+          label: '' + bbn._('Length'),
           cls: 'bbn-c',
           width: '70'
         }, {
           field: 'null',
-          title: '<i class=\'nf nf-fa-ban\' title=\'' + bbn._('Can the field be null?') + '></i>',
+          label: '<i class=\'nf nf-fa-ban\' title=\'' + bbn._('Can the field be null?') + '></i>',
           cls: 'bbn-c',
           width: '70',
           render: this.writeNull
         }, {
           field: 'default_value',
-          title: '' + bbn._('Default'),
+          label: '' + bbn._('Default'),
           render: this.writeDefault,
           cls: 'bbn-c',
           width: '80'
@@ -91,7 +91,7 @@
           width: '30em',
           height: '15em',
           source: row,
-          title: false,
+          label: false,
           component: 'appui-database-table-columns-option'
         });
       },
@@ -217,7 +217,7 @@
         data.oldindex = data.index;
         let editColumnsData = this.source.editColumnsData;
         this.getPopup({
-          title: 'Edit a column',
+          label: 'Edit a column',
           component: 'appui-database-column-editor',
           source : {
             db: cp.source.db,

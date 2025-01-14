@@ -9,7 +9,7 @@
                     :placeholder="!tables.length ? (!lastReception ? _('Loading') + '...' : _('No conflicts found')) : _('Select a table')"/>
       <bbn-button bbn-if="currentTable"
                   icon="nf nf-fa-refresh"
-                  text="<?= _('Refresh') ?>"
+                  label="<?= _('Refresh') ?>"
                   :notext="true"
                   @click="refreshFile"/>
       <i bbn-if="currentTableDate"
@@ -62,11 +62,11 @@
                 }]"
                 @hook:mounted="setWatch">
       <bbns-column field="id"
-                   title="ID"
+                   label="ID"
                    :render="renderJSON"/>
       <bbns-column bbn-for="(db, i) in source.dbs"
                    :field="db"
-                   :title="db"
+                   :label="db"
                    :key="i"
                    :component="$options.components.compare"
                    :width="150"

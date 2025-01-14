@@ -27,11 +27,11 @@
       <span bbn-if="source.option.viewer"
             bbn-html="source.option.viewer + '<br>'"/>
       <bbn-button icon="nf nf-fa-edit"
-                  :text="source.option.viewer ? _('Change') : _('Set')"
+                  :label="source.option.viewer ? _('Change') : _('Set')"
                   @click="browseItemViewer"/>
       <bbn-button bbn-if="source.option.viewer"
                   icon="nf nf-fa-trash"
-                  :text="_('Unset')"
+                  :label="_('Unset')"
                   @click="saveViewer(null, source.option.viewer)"/>
     </div>
 
@@ -43,11 +43,11 @@
       <span bbn-if="source.option.editor"
             bbn-html="source.option.editor + '<br>'"/>
       <bbn-button icon="nf nf-fa-edit"
-                  :text="source.option.editor ? _('Change') : _('Set')"
+                  :label="source.option.editor ? _('Change') : _('Set')"
                   @click="browseRowEditor"/>
       <bbn-button bbn-if="source.option.editor"
                   icon="nf nf-fa-trash"
-                  :text="_('Unset')"
+                  :label="_('Unset')"
                   @click="saveEditor(null, source.option.editor)"/>
     </div>
 
@@ -59,7 +59,7 @@
       <span bbn-if="source.option.dcolumns?.length"
             bbn-html="source.option.dcolumns.join(', ') + '<br>'"/>
       <bbn-button icon="nf nf-fa-edit"
-                  :text="source.option.dcolumns?.length ? _('Change') : _('Set')"
+                  :label="source.option.dcolumns?.length ? _('Change') : _('Set')"
                   @click="setDisplayColumns"/>
     </div>
   </div>

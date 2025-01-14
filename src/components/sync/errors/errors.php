@@ -26,29 +26,29 @@
               action: scanClear
             }]">
     <bbns-column field="db"
-                :title="_('From')"
+                :label="_('From')"
                 :source="source.dbs"
                 :width="100"/>
     <bbns-column field="dt"
-                :title="_('Date')"
+                :label="_('Date')"
                 type="datetime"
                 :width="140"
                 :render="renderDate"/>
     <bbns-column field="action"
-                :title="_('Operation')"
+                :label="_('Operation')"
                 :source="['INSERT', 'UPDATE', 'DELETE']"
                 :width="100"/>
     <bbns-column field="tab"
-                :title="_('Table')"
+                :label="_('Table')"
                 :source="source.tables"/>
     <bbns-column field="vals"
                 :render="renderVals"
-                :title="_('Values')"
+                :label="_('Values')"
                 :filterable="false"
                 :sortable="false"/>
     <bbns-column field="diff"
                 :render="renderDiff"
-                :title="_('Diff')"
+                :label="_('Diff')"
                 type="boolean"
                 :sortable="false"
                 cls="bbn-c"
@@ -60,7 +60,7 @@
                   text: _('No'),
                   value: false
                 }]"/>
-    <bbns-column :title="_('Actions')"
+    <bbns-column :label="_('Actions')"
                 :width="170"
                 :buttons="getButtons"
                 clas="bbn-c"/>
