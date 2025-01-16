@@ -15,7 +15,7 @@
               :size="250">
       <div class="bbn-100 bbn-lg">
         <div class="bbn-header bbn-spadding">
-          <bbn-button icon="nf nf-mdi-export"
+          <bbn-button icon="nf nf-md-export"
                       :notext="true"
                       @click="exportDb"/>
         </div>

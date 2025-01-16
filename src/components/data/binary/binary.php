@@ -2,7 +2,7 @@
 
 <div class="appui-database-data-binary">
   <bbn-button :notext="true"
-              icon="nf nf-mdi-content_copy"
+              icon="nf nf-md-content_copy"
               label="_('Copy uid')"
               @click="copy"/>
   <bbn-button bbn-if="isConstraint"

@@ -34,7 +34,7 @@
                     :menu="false"/>
     <bbns-container component="appui-database-table-data"
                     url="data"
-                    icon="nf nf-mdi-format_list_bulleted_type"
+                    icon="nf nf-md-format_list_bulleted_type"
                     label="<?= _('Data') ?>"
                     :source="currentData"
                     :pinned="true"
@@ -49,7 +49,7 @@
                     :menu="false"/>
     <bbns-container component="appui-database-table-history"
                     url="history"
-                    icon="nf nf-mdi-clock_start"
+                    icon="nf nf-md-clock_start"
                     label="<?= _('History') ?>"
                     :source="currentData"
                     :pinned="true"

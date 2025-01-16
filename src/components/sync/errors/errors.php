@@ -12,7 +12,7 @@
             @hook:mounted="setWatch"
             :toolbar="[{
               text: '<?= _('Fix') ?>',
-              icon: 'nf nf-mdi-auto_fix',
+              icon: 'nf nf-md-auto_fix',
               action: fixSelected,
               disabled: !selected.length
             }, {
@@ -22,7 +22,7 @@
               disabled: !selected.length
             }, {
               text: '<?= _('Scan & clear') ?>',
-              icon: 'nf nf-mdi-washing_machine',
+              icon: 'nf nf-md-washing_machine',
               action: scanClear
             }]">
     <bbns-column field="db"

@@ -70,7 +70,7 @@
             <i class="bbn-right-sspace nf nf-fa-times bbn-red bbn-middle"
                bbn-if="!source[field]"
                style="height:2.1em"/>
-            <bbn-button icon="nf nf-mdi-vector_difference"
+            <bbn-button icon="nf nf-md-vector_difference"
                         @click="openDiff"
                         :notext="true"
                         label="` + bbn._('Compare') + `"

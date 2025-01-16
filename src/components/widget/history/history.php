@@ -11,7 +11,7 @@
               :notext="true">
   </bbn-button><br><br>
   <bbn-button :label="_('History list')"
-              icon="nf nf-mdi-format_list_bulleted"
+              icon="nf nf-md-format_list_bulleted"
               url="history/list">
   </bbn-button>
 </div>

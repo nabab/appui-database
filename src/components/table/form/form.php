@@ -41,7 +41,7 @@
           <template bbn-for="(col, i) in formData.columns">
             <div class="bbn-nowrap bbn-s">
               <span class="bbn-right-smargin">
-                <i class="nf nf-mdi-key_variant"
+                <i class="nf nf-md-key_variant"
                    :style="{visibility: formData.columns[i].constraint ? 'visible' : 'hidden'}"/>
               </span>
               <bbn-button :label="_('Move up')"

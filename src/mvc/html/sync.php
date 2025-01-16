@@ -10,14 +10,14 @@
   <bbns-container label="<?= _('Conflicts') ?>"
                   url="conflicts"
                   :fixed="true"
-                  icon="nf nf-mdi-vector_difference"
+                  icon="nf nf-md-vector_difference"
                   :source="source"
                   component="appui-database-sync-conflicts">
   </bbns-container>
   <bbns-container label="<?= _('Structures') ?>"
                   url="structures"
                   :fixed="true"
-                  icon="nf nf-mdi-table_settings"
+                  icon="nf nf-md-table_settings"
                   :source="source"
                   component="appui-database-sync-structures">
   </bbns-container>

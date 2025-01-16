@@ -46,7 +46,7 @@
                uid="id"
                :toolbar="[{
                   text: '<?= _('Fix') ?>',
-                  icon: 'nf nf-mdi-auto_fix',
+                  icon: 'nf nf-md-auto_fix',
                   action: fixSelected,
                   disabled: !selected.length
                 }, {
@@ -76,7 +76,7 @@
                    }"/>
       <bbns-column :buttons="[{
                      text: '<?= _('Fix') ?>',
-                     icon: 'nf nf-mdi-auto_fix',
+                     icon: 'nf nf-md-auto_fix',
                      notext: true,
                      action: fix
                    }, {
@@ -91,7 +91,7 @@
     <div bbn-else-if="!currentTable"
          class="bbn-overlay bbn-middle">
       <div class="bbn-xl bbn-b bbn-vmiddle">
-        <i class="bbn-right-sspace nf nf-mdi-subdirectory_arrow_left"
+        <i class="bbn-right-sspace nf nf-md-subdirectory_arrow_left"
            style="transform: rotate(90deg)"/>
         <span><?= _('SELECT A TABLE') ?></span>
       </div>

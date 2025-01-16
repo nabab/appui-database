@@ -7,6 +7,6 @@
 
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 
-$ctrl->setIcon('nf nf-mdi-view_dashboard')
+$ctrl->setIcon('nf nf-md-view_dashboard')
   ->setObj(['notext' => true])
   ->combo(_('Home'), true);

@@ -23,21 +23,21 @@
       getButtons(row){
         let ar = [{
           text: bbn._('Compare with the source'),
-          icon: 'nf nf-mdi-vector_difference_ba',
+          icon: 'nf nf-md-vector_difference_ba',
           notext: true,
           action: row => {
             this.diff(row, row.db)
           }
         }, {
           text: bbn._('Compare with the destinations'),
-          icon: 'nf nf-mdi-vector_difference_ab',
+          icon: 'nf nf-md-vector_difference_ab',
           notext: true,
           action: row => {
             this.diff(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))
           }
         }, {
           text: bbn._('Compare the source with the destinations'),
-          icon: 'nf nf-mdi-vector_difference',
+          icon: 'nf nf-md-vector_difference',
           notext: true,
           action: row => {
             this.diffDbs(row, bbn.fn.filter(this.source.dbs, db => db !== row.db))
@@ -45,7 +45,7 @@
         }, {
           text: bbn._('Fix'),
           notext: true,
-          icon: 'nf nf-mdi-auto_fix',
+          icon: 'nf nf-md-auto_fix',
           action: this.fix,
           disabled: !row.diff
         }, {
