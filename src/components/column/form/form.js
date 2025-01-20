@@ -29,11 +29,15 @@
       engine: {},
       otypes: {
         type: Array,
-        default: []
+        default() {
+          return [];
+        }
       },
       predefined: {
         type: Array,
-        default: []
+        default() {
+          return [];
+        }
       },
       constraints: {
         type: Array,

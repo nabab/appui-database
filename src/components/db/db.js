@@ -29,10 +29,10 @@
     methods:{
       getToolbar(){
         let ar = [{
-					text: bbn._("Create table"),
+					label: bbn._("Create table"),
           action: this.showTableCreation
         }, {
-					text: bbn._("Refresh host"),
+					label: bbn._("Refresh host"),
           action: () => {
             this.closest('bbn-container').reload();
           }
