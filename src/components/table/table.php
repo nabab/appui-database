@@ -12,7 +12,7 @@
               :autoload="false"
               bbn-else>
     <bbns-container component="appui-database-table-info"
-                    url="info"
+                    url="home"
                     label="<?= _('Info') ?>"
                     :source="currentData"
                     icon="nf nf-oct-info"
