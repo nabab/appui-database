@@ -105,7 +105,7 @@
           {
             text: bbn._('Remove'),
             action: () => {
-              this.remove(row);
+              this.removeItem(row);
             },
             icon: 'nf nf-fa-times'
           },
@@ -176,7 +176,7 @@
       writeDefault(row) {
         return row.default || '-';
       },
-      remove(data) {
+      removeItem(data) {
         this.confirm(bbn._("Are you sure you want to delete this column?"), () => {
           const requestData = {
             engine: this.cp.source.engine,

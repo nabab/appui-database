@@ -52,7 +52,7 @@
           text: bbn._('Delete'),
           icon: 'nf nf-fa-trash',
           notext: true,
-          action: this.remove
+          action: this.removeItem
         }];
         return ar;
       },
@@ -131,7 +131,7 @@
           });
         }
       },
-      remove(row){
+      removeItem(row){
         if (row.id) {
           this.confirm(bbn._('Are you sure you want to delete this record from sync?'), () => {
             this._remove(row.id);

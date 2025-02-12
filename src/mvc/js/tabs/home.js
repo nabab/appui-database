@@ -40,7 +40,7 @@
       edit(row){
         return this.$refs.table.edit(row,{width: '500px', height: '450px'}, bbn._("Edit Host"));
       },
-      remove(row){
+      removeItem(row){
 
       },
       renderUser(row){

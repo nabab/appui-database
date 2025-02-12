@@ -96,7 +96,7 @@
           }
         }
       },
-      remove(row){
+      removeItem(row){
         if (row.id) {
           this.confirm(bbn._('Are you sure you want to delete this record from sync?'), () => {
             this._remove(row.id);
