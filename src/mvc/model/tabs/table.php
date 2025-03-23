@@ -81,8 +81,8 @@ if (
   foreach ($engines as $engine) {
     $res['editColumnsData'][$engine] =   [
       'types' => bbn\Db\Languages\Sql::$types,
-      'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'database', 'appui'),
-      'root' => APPUI_DATABASES_ROOT
+      'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'engines', 'database', 'appui'),
+      'root' => $model->pluginUrl('appui-database')
     ];
   }
 }

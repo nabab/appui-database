@@ -10,7 +10,7 @@
 if ($ctrl->hasArguments(4)) {
   $ctrl->addData(
     [
-      'root' => APPUI_DATABASES_ROOT,
+      'root' => $ctrl->pluginUrl('appui-database'),
       'engine' => $ctrl->arguments[0],
       'host' => $ctrl->arguments[1],
       'db' => $ctrl->arguments[2],

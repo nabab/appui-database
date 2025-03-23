@@ -14,6 +14,7 @@ if (
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
+    throw $e;
   }
 
   $constraints = [];

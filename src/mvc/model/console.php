@@ -6,6 +6,7 @@
 
 use bbn\X;
 use bbn\Str;
+use PHPSQLParser\PHPSQLParser;
 /** @var bbn\Mvc\Model $model */
 
 if ($model->hasData('code')) {
@@ -99,26 +100,10 @@ if ($model->hasData('code')) {
     case Delete;
   }
 
-  $getQueryAction = function(string $query): Actions
+  $getQueryAction = function(string $query): string
   {
     $exploded_query = explode(" ", $query);
-    switch (strtolower($exploded_query[0])) {
-      case "insert":
-        return Actions::Insert;
-      case "select":
-        return Actions::Select;
-        break;
-      case "Update":
-        return Actions::Update;
-        break;
-      case "Delete":
-        return Actions::Delete;
-        break;
-      default:
-        return Actions::Select;
-        break;
-    }
-    return Actions::Select;
+    return strtoupper($exploded_query[0]);
   };
 
   $createConnection = function(string $host, string $engine, string $db) use (&$model)
@@ -147,17 +132,16 @@ if ($model->hasData('code')) {
     $model->db->change($model->data['database']);
   }
   // parse query into cfg
-  $connection = $createConnection('dev_clovis@db.m3l.co', 'mysql', $model->data['database']);
-  $parser = new SQLParser($connection);
-  $cfg = $parser->parse($model->data['code']);
-  $action = $getQueryAction($model->data['code']);
+  $connection = $model->db;
+  $cfg = $model->db->parseQuery($model->data['code']);
+  $action = $getQueryAction(array_keys((array)$cfg)[0]);
 
-  if ($action === Actions::Select) {
-    $data = $connection->rselectAll($cfg);
+  if ($action === 'SELECT') {
+    $data = $connection->getRows($model->data['code']);
   }
   // return cfg
   return [
-    'limit' => $cfg['limit'],
+    'limit' => isset($cfg['LIMIT']) ? $cfg['LIMIT']['rowcount'] : 0,
     'data' => $data,
     'str_tab' => $tabToStr($data)
   ];

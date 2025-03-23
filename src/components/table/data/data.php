@@ -1,7 +1,7 @@
 <div>
   <bbn-table :source="root + 'data/data'"
              ref="table"
-             :toolbar="[{text: _('New row'), action: 'insert'}]"
+             :toolbar="[{label: _('New row'), action: 'insert'}]"
              :pageable="true"
              :sortable="true"
              :filterable="true"
@@ -17,8 +17,7 @@
                engine: source.engine
              }"
              @click-row="clickRow"
-             @editsuccess="success"
-  >
+             @editsuccess="success">
   </bbn-table>
   <input type="text" ref="copyUid" style="opacity:0;position:absolute" class="test">
 </div>

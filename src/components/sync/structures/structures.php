@@ -37,7 +37,7 @@
                      field: db
                    }"/>
       <bbns-column :buttons="[{
-                     text: '<?= _('Refresh') ?>',
+                     label: '<?= _('Refresh') ?>',
                      icon: 'nf nf-fa-refresh',
                      notext: true,
                      action: refreshFile

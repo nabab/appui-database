@@ -5,6 +5,7 @@ $model->data['limit'] = isset($model->data['limit']) && is_int($model->data['lim
 $model->data['start'] = isset($model->data['start']) && is_int($model->data['start']) ? $model->data['start'] : 0;
 $dbc                  = $model->inc->dbc ?? new \bbn\Appui\Database($model->db);
 $tabs                 = $dbc->fullTables();
+bbn\X::ddump($tabs);
 $res                  = [
   'total' => count($tabs),
   'data' => []

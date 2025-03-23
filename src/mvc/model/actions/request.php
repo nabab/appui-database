@@ -6,6 +6,8 @@
 
 use bbn\X;
 use bbn\Str;
+use PHPSQLParser\PHPSQLParser;
+
 /** @var bbn\Mvc\Model $model */
 
 enum Actions
@@ -44,7 +46,7 @@ if ($model->hasData('code')) {
     $model->db->change($model->data['database']);
   }
   // parse query into cfg
-  $parser = new SQLParser($model->db);
+  $parser = new PHPSQLParser($model->db);
   $cfg = $parser->parse($model->data['code']);
   $action = getQueryAction($model->data['code']);
 

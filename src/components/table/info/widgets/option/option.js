@@ -7,8 +7,8 @@
       let table = this.closest('appui-database-table');
       bbn.fn.each(table.currentData.structure.fields, (c, name) => {
         let text = name;
-        let otext = bbn.fn.getField(table.currentData.ocolumns, 'text', {code: text});
-        tmp.push({value: name, text: otext || text});
+        let otext = bbn.fn.getField(table.currentData.ocolumns, 'label', {code: text});
+        tmp.push({value: name, label: otext || text});
       });
 
       return {

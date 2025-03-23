@@ -1,0 +1,55 @@
+[
+  {
+    "text": "Database",
+    "code": "database",
+    "items": [
+        {
+            "text": "Connections",
+            "code": "connections",
+            "cfg": {
+                "show_alias": 1,
+                "notext": 1
+            }
+        },
+        {
+            "text": "Function",
+            "code": "functions"
+        },
+        {
+            "text": "Procedures",
+            "code": "procedures"
+        },
+        {
+            "text": "Tables",
+            "code": "tables",
+            "cfg": {
+                "show_code": 1,
+                "show_value": 1,
+                "allow_children": 1,
+                "inheritance": "cascade"
+            }
+        }
+    ]
+  }, {
+    "text": "Engine",
+    "code": "engine",
+    "items": [
+        {
+            "text": "Connections",
+            "code": "connections"
+        },
+        {
+            "text": "Databases",
+            "code": "dbs"
+        },
+        {
+            "text": "Preconfigured Columns",
+            "code": "pcolumns"
+        }
+    ],
+    "cfg": {
+        "show_code": 1,
+        "allow_children": 1
+    }
+  }
+]

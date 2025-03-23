@@ -168,12 +168,13 @@
         let res = [];
         for (const [key, value] of Object.entries(columnsStructure.fields)) {
           let column = {
-            "field": key,
-            "text": key,
-            "editor": this.getColumnEditor(key, value.type, value.key),
-            "component": this.getComponent(value.component, value.type),
-            "cls": 'bbn-c'
+            field: key,
+            label: value?.option?.text || key,
+            editor: value?.option?.editor || this.getColumnEditor(key, value.type, value.key),
+            component: value?.option?.component || this.getComponent(value.component, value.type),
+            cls: 'bbn-c'
           };
+
           if (value.key === 'MUL') {
             column = this.getForeignKeyEditorData(column, key);
             column = this.getForeignKeyComponent(column, key);
