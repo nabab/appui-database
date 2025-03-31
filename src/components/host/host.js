@@ -28,10 +28,10 @@
     methods:{
       getToolbar(){
         let ar = [{
-					text: bbn._("Create database"),
+					label: bbn._("Create database"),
           action: this.showDbCreation
         }, {
-					text: bbn._("Refresh host"),
+					label: bbn._("Refresh host"),
           action: () => {
             this.closest('bbn-container').reload()
           }
