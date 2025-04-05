@@ -1,231 +1,237 @@
 [
     {
         "cfg": {
-            "show_code": 1
+            "show_code": 1,
+            "show_icon": 1
         },
-        "text": "MySQL",
-        "code": "mysql",
-        "icon": "nf nf-dev-mysql",
+        "text": "Engines",
+        "code": "engines",
         "items": [
             {
-                "cfg": {
-                    "show_code": 1,
-                    "show_alias": 1,
-                    "schema": [
-                        {
-                            "title": "Connection's name",
-                            "field": "text",
-                            "type": "string",
-                            "options": [],
-                            "required": true,
-                            "hidden": false,
-                            "editable": true,
-                            "showable": true
-                        },
-                        {
-                            "title": "user@host",
-                            "field": "code",
-                            "type": "string",
-                            "options": [],
-                            "required": true,
-                            "hidden": false,
-                            "editable": true,
-                            "showable": true
-                        },
-                        {
-                            "title": "Environment",
-                            "options": [],
-                            "field": "environment",
-                            "showable": true,
-                            "editable": true,
-                            "type": "",
-                            "hidden": false,
-                            "source": [
-                                {
-                                    "text": "Development",
-                                    "value": "dev"
-                                },
-                                {
-                                    "text": "Test",
-                                    "value": "test"
-                                },
-                                {
-                                    "text": "Production",
-                                    "value": "prod"
-                                }
-                            ]
-                        }
-                    ],
-                    "alias_name": "Server"
-                },
-                "text": "Connections",
-                "code": "connections"
-            },
-            {
-                "cfg": {
-                    "allow_children": 1
-                },
-                "text": "Databases",
-                "code": "dbs"
-            },
-            {
-                "text": "Preconfigured Columns",
-                "code": "pcolumns",
+                "text": "MySQL",
+                "code": "mysql",
+                "icon": "nf nf-dev-mysql",
                 "items": [
                     {
-                        "text": "Primary key binary 16",
-                        "code": "primary_binary",
-                        "type": "binary",
-                        "index": "primary",
-                        "maxlength": 16
+                        "cfg": {
+                            "show_code": 1,
+                            "show_alias": 1,
+                            "schema": [
+                                {
+                                    "title": "Connection's name",
+                                    "field": "text",
+                                    "type": "string",
+                                    "options": [],
+                                    "required": true,
+                                    "hidden": false,
+                                    "editable": true,
+                                    "showable": true
+                                },
+                                {
+                                    "title": "user@host",
+                                    "field": "code",
+                                    "type": "string",
+                                    "options": [],
+                                    "required": true,
+                                    "hidden": false,
+                                    "editable": true,
+                                    "showable": true
+                                },
+                                {
+                                    "title": "Environment",
+                                    "options": [],
+                                    "field": "environment",
+                                    "showable": true,
+                                    "editable": true,
+                                    "type": "",
+                                    "hidden": false,
+                                    "source": [
+                                        {
+                                            "text": "Development",
+                                            "value": "dev"
+                                        },
+                                        {
+                                            "text": "Test",
+                                            "value": "test"
+                                        },
+                                        {
+                                            "text": "Production",
+                                            "value": "prod"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "alias_name": "Server"
+                        },
+                        "text": "Connections",
+                        "code": "connections"
                     },
                     {
-                        "text": "Primary key binary 16 with history",
-                        "code": "primary_history",
-                        "type": "binary",
-                        "index": "primary",
-                        "maxlength": 16,
-                        "ref_table": "bbn_history_uids",
-                        "ref_column": "bbn_uid",
-                        "UPDATE": "CASCADE",
-                        "DELETE": "CASCADE"
+                        "cfg": {
+                            "allow_children": 1
+                        },
+                        "text": "Databases",
+                        "code": "dbs"
                     },
                     {
-                        "text": "ID option",
-                        "code": "id_option",
-                        "type": "binary",
-                        "index": "index",
-                        "maxlength": 16,
-                        "ref_table": "bbn_options",
-                        "ref_column": "id",
-                        "UPDATE": "CASCADE",
-                        "DELETE": "CASCADE"
-                    },
-                    {
-                        "text": "ID user",
-                        "code": "id_user",
-                        "type": "binary",
-                        "index": "index",
-                        "maxlength": 16,
-                        "ref_table": "bbn_users",
-                        "ref_column": "id",
-                        "UPDATE": "CASCADE",
-                        "DELETE": "CASCADE"
-                    },
-                    {
-                        "text": "Datetime now not null",
-                        "code": "datetime_now",
-                        "type": "datetime",
-                        "default": "now()",
-                        "defaultExpression": 1
-                    },
-                    {
-                        "text": "Yes \/ No",
-                        "code": "yes_no",
-                        "type": "tinyint",
-                        "maxlength": 1,
-                        "unsigned": 1,
-                        "default": 0
-                    },
-                    {
-                        "text": "Money unsigned",
-                        "code": "money_unsigned",
-                        "type": "decimal",
-                        "maxlength": 20,
-                        "decimals": 2,
-                        "signed": 0,
-                        "default": 0
+                        "text": "Preconfigured Columns",
+                        "code": "pcolumns",
+                        "items": [
+                            {
+                                "text": "Primary key binary 16",
+                                "code": "primary_binary",
+                                "type": "binary",
+                                "index": "primary",
+                                "maxlength": 16
+                            },
+                            {
+                                "text": "Primary key binary 16 with history",
+                                "code": "primary_history",
+                                "type": "binary",
+                                "index": "primary",
+                                "maxlength": 16,
+                                "ref_table": "bbn_history_uids",
+                                "ref_column": "bbn_uid",
+                                "UPDATE": "CASCADE",
+                                "DELETE": "CASCADE"
+                            },
+                            {
+                                "text": "ID option",
+                                "code": "id_option",
+                                "type": "binary",
+                                "index": "index",
+                                "maxlength": 16,
+                                "ref_table": "bbn_options",
+                                "ref_column": "id",
+                                "UPDATE": "CASCADE",
+                                "DELETE": "CASCADE"
+                            },
+                            {
+                                "text": "ID user",
+                                "code": "id_user",
+                                "type": "binary",
+                                "index": "index",
+                                "maxlength": 16,
+                                "ref_table": "bbn_users",
+                                "ref_column": "id",
+                                "UPDATE": "CASCADE",
+                                "DELETE": "CASCADE"
+                            },
+                            {
+                                "text": "Datetime now not null",
+                                "code": "datetime_now",
+                                "type": "datetime",
+                                "default": "now()",
+                                "defaultExpression": 1
+                            },
+                            {
+                                "text": "Yes \/ No",
+                                "code": "yes_no",
+                                "type": "tinyint",
+                                "maxlength": 1,
+                                "unsigned": 1,
+                                "default": 0
+                            },
+                            {
+                                "text": "Money unsigned",
+                                "code": "money_unsigned",
+                                "type": "decimal",
+                                "maxlength": 20,
+                                "decimals": 2,
+                                "signed": 0,
+                                "default": 0
+                            }
+                        ],
+                        "cfg": {
+                            "show_value": 1
+                        }
                     }
-                ],
-                "cfg": {
-                    "show_value": 1
-                }
-            }
-        ]
-    },
-    {
-        "cfg": {
-            "show_code": 1
-        },
-        "text": "PostgreSQL",
-        "code": "pgsql",
-        "icon": "nf nf-dev-postgresql",
-        "items": [
-            {
-                "text": "Connections",
-                "code": "connections"
+                ]
             },
-            {
-                "text": "Databases",
-                "code": "dbs"
-            }
-        ]
-    },
-    {
-        "text": "SQLite",
-        "code": "sqlite",
-        "icon": "nf nf-dev-sqllite",
-        "items": [
             {
                 "cfg": {
                     "show_code": 1
                 },
-                "text": "Databases",
-                "code": "dbs"
+                "text": "PostgreSQL",
+                "code": "pgsql",
+                "icon": "nf nf-dev-postgresql",
+                "items": [
+                    {
+                        "text": "Connections",
+                        "code": "connections"
+                    },
+                    {
+                        "text": "Databases",
+                        "code": "dbs"
+                    }
+                ]
             },
             {
-                "cfg": {
-                    "show_code": 1,
-                    "show_value": 1,
-                    "schema": [
-                        {
-                            "title": "Path",
-                            "field": "path",
-                            "type": "string",
-                            "showable": true,
-                            "editable": true,
-                            "hidden": false,
-                            "options": []
+                "text": "SQLite",
+                "code": "sqlite",
+                "icon": "nf nf-dev-sqllite",
+                "items": [
+                    {
+                        "cfg": {
+                            "show_code": 1
                         },
-                        {
-                            "title": "Root",
-                            "field": "root",
-                            "type": "",
-                            "showable": true,
-                            "nullable": true,
-                            "editable": true,
-                            "source": [
-                                "data",
-                                "app",
-                                "lib",
-                                "cdn"
-                            ],
-                            "hidden": false,
-                            "options": []
+                        "text": "Databases",
+                        "code": "dbs"
+                    },
+                    {
+                        "cfg": {
+                            "show_code": 1,
+                            "show_value": 1,
+                            "schema": [
+                                {
+                                    "title": "Path",
+                                    "field": "path",
+                                    "type": "string",
+                                    "showable": true,
+                                    "editable": true,
+                                    "hidden": false,
+                                    "options": []
+                                },
+                                {
+                                    "title": "Root",
+                                    "field": "root",
+                                    "type": "",
+                                    "showable": true,
+                                    "nullable": true,
+                                    "editable": true,
+                                    "source": [
+                                        "data",
+                                        "app",
+                                        "lib",
+                                        "cdn"
+                                    ],
+                                    "hidden": false,
+                                    "options": []
+                                },
+                                {
+                                    "title": "Environment",
+                                    "field": "environment",
+                                    "type": "",
+                                    "showable": true,
+                                    "editable": true,
+                                    "nullable": true,
+                                    "hidden": false,
+                                    "source": [
+                                        "dev",
+                                        "test",
+                                        "prod"
+                                    ],
+                                    "options": []
+                                }
+                            ]
                         },
-                        {
-                            "title": "Environment",
-                            "field": "environment",
-                            "type": "",
-                            "showable": true,
-                            "editable": true,
-                            "nullable": true,
-                            "hidden": false,
-                            "source": [
-                                "dev",
-                                "test",
-                                "prod"
-                            ],
-                            "options": []
-                        }
-                    ]
-                },
-                "text": "Paths",
-                "code": "paths"
+                        "text": "Paths",
+                        "code": "paths"
+                    }
+                ]
             }
         ]
-    },
-    {
+    }, {
         "cfg": {
             "show_alias": 1,
             "notext": 1
