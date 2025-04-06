@@ -4,6 +4,7 @@
  * Date: 18/07/2017
  * Time: 20:49
  */
+use bbn\Db;
 
 /** @var \bbn\Mvc\Controller $ctrl The current controller */
 if ($ctrl->hasArguments(2)) {
@@ -15,6 +16,6 @@ if ($ctrl->hasArguments(2)) {
   )
    // ->setUrl($ctrl->getPath().'/'.$ctrl->data['host'])
     //->setIcon('nf nf-fa-server')
-    ->setIcon('nf nf-fa-th_list')
+    ->setIcon(Db::getEngineIcon($ctrl->data['engine'])    )
     ->combo($ctrl->data['host'], true);
 }

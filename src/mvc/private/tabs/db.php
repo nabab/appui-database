@@ -18,6 +18,6 @@ if ($ctrl->hasArguments(3)) {
   )
    // ->setUrl($ctrl->getPath().'/'.$ctrl->data['host'].'/'.$ctrl->data['db'])
     //->setIcon('nf nf-fa-database')
-    ->setIcon('nf nf-fa-list')
+    ->setIcon('nf nf-fa-database')
     ->combo($ctrl->data['db'], true);
 }

@@ -20,6 +20,7 @@ if (defined('BBN_BASEURL')) {
       ->setIcon('nf nf-fa-database')
       ->addData([
         'icon' => 'nf nf-fa-home',
+        'isRoot' => true,
       ]);
   }
   // Routing
@@ -89,7 +90,12 @@ if (defined('BBN_BASEURL')) {
             $title = $db;
             $url = $root.$engine.'/'.$host.'/'.$db;
             $ctrl->setIcon('nf nf-fa-database')
-                ->addData(['icon' => 'nf nf-fa-database']);
+            ->addData([
+              'icon' => 'nf nf-fa-database',
+              'hasConsole' => true,
+              'database' => $db,
+              'engine' => $engine
+            ]);
           }
           else {
             //host
@@ -120,7 +126,7 @@ if (defined('BBN_BASEURL')) {
 
   if ($url) {
     if ( $combo ){
-      $ctrl->combo($title, true);
+      $ctrl->combo($title, $ctrl->data);
     }
 
     $ctrl->setUrl($url);

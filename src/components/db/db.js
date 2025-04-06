@@ -55,11 +55,11 @@
             }
           });
         }
-        if (this.currentData?.is_real) {
+        if (this.currentData?.is_real && this.currentData?.size) {
           ar.push({
             content: '<span class="bbn-iblock">#' + bbn._("Size") +
             	': </span>&nbsp;<span class="bbn-b bbn-iblock">' +
-            	this.currentData.size + '</span>'
+            	bbn.fn.formatBytes(this.currentData.size) + '</span>'
           });
         }
         return ar;

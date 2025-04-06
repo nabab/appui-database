@@ -25,7 +25,7 @@
           }
         });
       },
-      addMysqlHost(){
+      addMysqlHost() {
         if (this.source.dashboard
           && this.source.dashboard.widgets
           && this.source.dashboard.widgets.hosts_mysql
@@ -34,25 +34,25 @@
           this.addHost('mysql', this.source.dashboard.widgets.hosts_mysql.key);
         }
       },
-      insert(){
+      insert() {
         return this.$refs.table.insert(null,{width: '500px', height: '450px'}, bbn._("New Host"));
       },
-      edit(row){
+      edit(row) {
         return this.$refs.table.edit(row,{width: '500px', height: '450px'}, bbn._("Edit Host"));
       },
-      removeItem(row){
+      removeItem(row) {
 
       },
-      renderUser(row){
+      renderUser(row) {
         this.$nextTick(()=>{
           return row.username
         })
       },
-      renderHost(row){
+      renderHost(row) {
         //return '<a href="' + appui.databases.source.root + 'tabs/' + row.name + '">'+ row.text +'</a>'
-        return '<a href="' + appui.databases.source.root + 'tabs/' + row.code + '">'+ row.text +'</a>'
+        return '<a href="' + appui.plugins['appui-database'].source.root + 'tabs/' + row.code + '">'+ row.text +'</a>'
       },
-      writeText(data){
+      writeText(data) {
         let txt = data.text;
         if ( data.text !== data.name ){
           txt += ' (<em>' + data.name + '</em>)';

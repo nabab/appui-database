@@ -37,7 +37,7 @@ if (
     'is_virtual' => $db_id ? true : false,
     'info' => $model->inc->options->option($db_id),
     'engine' => $model->data['engine'],
-    'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
+    'size' => $isReal ? $model->db->dbSize($model->data['db']) : 0,
     'constraints' => $constraints
   ];
 }
