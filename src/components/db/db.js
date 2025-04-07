@@ -82,24 +82,29 @@
           }
         });
       },
-      analyze(db) {
-        if (!bbn.fn.isString(db)) {
-          db = this.getRef('table').currentSelected;
+      analyze(table) {
+        if (!bbn.fn.isString(table)) {
+          table = this.getRef('table').currentSelected;
         }
 
         bbn.fn.post(this.root + 'actions/table/analyze', {
           host_id: this.currentData.info.id,
-          db: db
+          db: this.currentData.db,
+          table
         }, d => {
           if (d.success) {
+            bbn.fn.log("ANALYZE", d);
+            appui.success(bbn._("Table analyzed!"));
           }
         });
       },
-      toOption(db){
+      toOption(table){
+        bbn.fn.log(table);
+        return;
         if (!bbn.fn.isString(db)) {
           db = this.getRef('table').currentSelected;
         }
-        bbn.fn.post(this.root + 'actions/table/options', {
+        bbn.fn.post(this.root + 'actions/table/option', {
           host_id: this.currentData.info.id,
           db: db
         }, d => {
@@ -337,16 +342,16 @@
           let db = this.closest('appui-database-db');
           let r = [{
             text: bbn._("Analyze"),
-            value: 'analyze'
+            action: d => this.db.analyze(d)
           }, {
             text: db.currentData.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
-            value: 'toOption'
+            action: d => this.db.toOption(d)
           }, {
             text: bbn._("Duplicate"),
-            value: 'duplicate'
+            action: d => this.db.duplicate(d)
           }, {
             text: bbn._("Drop"),
-            value: 'drop'
+            action: d => this.db.drop(d)
           }];
           return {
             db: db,
