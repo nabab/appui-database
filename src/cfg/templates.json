@@ -1,55 +1,133 @@
 [
-  {
-    "text": "Database",
-    "code": "database",
-    "items": [
-        {
-            "text": "Connections",
-            "code": "connections",
-            "cfg": {
-                "show_alias": 1,
-                "notext": 1
+    {
+        "text": "Database",
+        "code": "database",
+        "items": [
+            {
+                "text": "Connections",
+                "code": "connections",
+                "cfg": {
+                    "relations": 1,
+                    "notext": 1
+                }
+            },
+            {
+                "text": "Function",
+                "code": "functions"
+            },
+            {
+                "text": "Procedures",
+                "code": "procedures"
+            },
+            {
+                "text": "Tables",
+                "code": "tables",
+                "cfg": {
+                    "show_code": 1,
+                    "show_value": 1,
+                    "allow_children": 1,
+                    "inheritance": "cascade"
+                }
             }
-        },
-        {
-            "text": "Function",
-            "code": "functions"
-        },
-        {
-            "text": "Procedures",
-            "code": "procedures"
-        },
-        {
-            "text": "Tables",
-            "code": "tables",
-            "cfg": {
-                "show_code": 1,
-                "show_value": 1,
-                "allow_children": 1,
-                "inheritance": "cascade"
+        ]
+    },
+    {
+        "text": "Engine",
+        "code": "engine",
+        "items": [
+            {
+                "text": "Connections",
+                "code": "connections",
+                "cfg": {
+                    "show_code": 1,
+                    "relations": 1,
+                    "schema": [
+                        {
+                            "title": "Connection's name",
+                            "field": "text",
+                            "type": "string",
+                            "options": [],
+                            "required": true,
+                            "hidden": false,
+                            "editable": true,
+                            "showable": true
+                        },
+                        {
+                            "title": "user@host",
+                            "field": "code",
+                            "type": "string",
+                            "options": [],
+                            "required": true,
+                            "hidden": false,
+                            "editable": true,
+                            "showable": true
+                        },
+                        {
+                            "title": "Environment",
+                            "options": [],
+                            "field": "environment",
+                            "showable": true,
+                            "editable": true,
+                            "type": "",
+                            "hidden": false,
+                            "source": [
+                                {
+                                    "text": "Development",
+                                    "value": "dev"
+                                },
+                                {
+                                    "text": "Test",
+                                    "value": "test"
+                                },
+                                {
+                                    "text": "Production",
+                                    "value": "prod"
+                                }
+                            ]
+                        }
+                    ],
+                    "alias_name": "Server",
+                    "id_root_alias": [
+                        "servers",
+                        "options",
+                        "server",
+                        "appui",
+                        "plugins",
+                        "apst-app"
+                    ]
+                }
+            },
+            {
+                "text": "Databases",
+                "code": "dbs",
+                "cfg": {
+                    "allow_children": 1
+                }
+            },
+            {
+                "text": "Preconfigured Columns",
+                "code": "pcolumns",
+                "cfg": {
+                    "show_value": 1
+                }
             }
+        ],
+        "cfg": {
+            "show_code": 1
         }
-    ]
-  }, {
-    "text": "Engine",
-    "code": "engine",
-    "items": [
-        {
-            "text": "Connections",
-            "code": "connections"
-        },
-        {
-            "text": "Databases",
-            "code": "dbs"
-        },
-        {
-            "text": "Preconfigured Columns",
-            "code": "pcolumns"
-        }
-    ],
-    "cfg": {
-        "show_code": 1,
-        "allow_children": 1
+    },
+    {
+        "text": "Table",
+        "code": "table",
+        "items": [
+            {
+                "text": "Columns",
+                "code": "columns"
+            },
+            {
+                "text": "Keys",
+                "code": "keys"
+            }
+        ]
     }
-  }
 ]

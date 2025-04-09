@@ -15,7 +15,7 @@
                     {
                         "cfg": {
                             "show_code": 1,
-                            "show_alias": 1,
+                            "relations": "alias",
                             "schema": [
                                 {
                                     "title": "Connection's name",
@@ -233,7 +233,7 @@
         ]
     }, {
         "cfg": {
-            "show_alias": 1,
+            "relations": "alias",
             "notext": 1
         },
         "text": "Synchronization",

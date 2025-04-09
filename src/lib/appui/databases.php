@@ -688,7 +688,7 @@ class databases extends bbn\Models\Cls\Cache
           $this->o->setCfg($id_keys, [
             'show_code' => 1,
             'show_value' => 1,
-            'show_alias' => 1,
+            'relations' => 'alias',
             'allow_children' => 1
           ]);
         }
@@ -759,7 +759,7 @@ class databases extends bbn\Models\Cls\Cache
           ])) ){
             $this->o->setCfg($id, [
               'show_code' => 1,
-              'show_alias' => 1
+              'relations' => 'alias'
             ]);
             $num_keys++;
             $opt_key = $cfg;
