@@ -91,9 +91,7 @@
                         "servers",
                         "options",
                         "server",
-                        "appui",
-                        "plugins",
-                        "apst-app"
+                        "appui"
                     ]
                 }
             },
