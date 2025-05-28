@@ -8,7 +8,7 @@ if (dbsync::isInit()
 ) {
   if (!empty($model->data['filters'])
     && !empty($model->data['filters']['conditions'])
-    && (($idx = X::find($model->data['filters']['conditions'], ['field' => 'diff'])) !== null)
+    && (($idx = X::search($model->data['filters']['conditions'], ['field' => 'diff'])) !== null)
   ) {
     $diff_cond = $model->data['filters']['conditions'][$idx]['value'];
     $limit = $model->data['limit'];

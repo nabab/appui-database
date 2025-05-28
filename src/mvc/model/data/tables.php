@@ -28,7 +28,7 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
   }
   if ($dbconn->check() && ($real_tables = $dbconn->getTables($model->data['db']))) {
     foreach ( $real_tables as $i => $t ){
-      $idx = X::find($res['data'], ["name" => $t]);
+      $idx = X::search($res['data'], ["name" => $t]);
       $num_rcolumns = \count($dbconn->getColumns($model->data['db'].'.'.$t));
       $keys = $dbconn->getKeys($model->data['db'].'.'.$t);
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;

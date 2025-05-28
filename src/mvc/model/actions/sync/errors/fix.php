@@ -37,14 +37,14 @@ if ($dbs = array_values($model->inc->options->getCodes('sync', 'database', 'appu
       if ($model->data['source'] === 'sync') {
         $data = X::jsonBase64Decode($sync->vals);
       }
-      else if (($idx = X::find($m['data'], ['db' => $model->data['source']])) !== null) {
+      else if (($idx = X::search($m['data'], ['db' => $model->data['source']])) !== null) {
         $data = $m['data'][$idx]['data'];
       }
       foreach ($dbs as $db) {
         if ($db !== $model->data['source']) {
           $model->db->change($db);
           if (($db === $model->db->getCurrent())
-            && (($idx = X::find($m['data'], ['db' => $db])) !== null)
+            && (($idx = X::search($m['data'], ['db' => $db])) !== null)
           ) {
             $filters = $m['data'][$idx]['filters'];
             $cdata = $m['data'][$idx]['data'];

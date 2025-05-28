@@ -55,7 +55,7 @@ if (!empty($dbs)) {
       $model->db->change($model->data['source']);
     }
     if ($model->data['source'] === $model->db->getCurrent()) {
-      if (($idxFile = \bbn\X::find($fileData, ['id' => $id])) !== null) {
+      if (($idxFile = \bbn\X::search($fileData, ['id' => $id])) !== null) {
         $fields = array_keys($model->db->getColumns($table));
         if (!empty($excluded)) {
           $fields = array_values(array_filter($fields, function($field) use($excluded){
