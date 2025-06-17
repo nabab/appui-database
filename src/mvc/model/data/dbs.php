@@ -13,12 +13,12 @@ $res = [
 
 if ($model->hasData('host_id', true)) {
   try {
-    $conn = $model->inc->dbc->connection($model->data['host_id']);
+    $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine'] ?? '');
   }
   catch (\Exception $e) {
-    return ['error' => $e->getMessage()];
+    $res['error'] = $e->getMessage();
   }
-  $real_dbs = $conn->getDatabases();
+  $real_dbs = $conn ? $conn->getDatabases() : [];
   $db_excluded = [
     'sys',
     'test',
@@ -27,7 +27,7 @@ if ($model->hasData('host_id', true)) {
     'mysql',
     '#mysql50#lost+found'
   ];
-  $full_dbs = $model->inc->dbc->fullDbs($model->data['host_id']);
+  $full_dbs = $model->inc->dbc->fullDbs($model->data['host_id'], $model->data['engine'] ?? '');
   $res['data'] = array_map(
     function ($a) use (&$real_dbs) {
       $idx = array_search($a['name'], $real_dbs);

@@ -9,7 +9,7 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
   if ( ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine'])) &&
     ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id, $model->data['engine']))
   ){
-    $tables = $model->inc->dbc->fullTables($db_id);
+    $tables = $model->inc->dbc->fullTables($db_id, $host_id, $model->data['engine']);
     foreach ( $tables as $t ){
       $res['data'][] = X::mergeArrays($t, [
         'is_real' => false,
@@ -29,8 +29,8 @@ if ($model->hasData(['host', 'db', 'engine'], true)) {
   if ($dbconn->check() && ($real_tables = $dbconn->getTables($model->data['db']))) {
     foreach ( $real_tables as $i => $t ){
       $idx = X::search($res['data'], ["name" => $t]);
-      $num_rcolumns = \count($dbconn->getColumns($model->data['db'].'.'.$t));
-      $keys = $dbconn->getKeys($model->data['db'].'.'.$t);
+      $num_rcolumns = \count($dbconn->getColumns($t));
+      $keys = $dbconn->getKeys($t);
       $num_rkeys = $keys && $keys['keys'] ? \count($keys['keys']) : 0;
       $num_vcolumns = $tables ? X::getField($tables, ['name' => $t], 'num_columns') : 0;
       $num_vkeys = $tables ? X::getField($tables, ['name' => $t], 'num_keys') : 0;

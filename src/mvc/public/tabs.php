@@ -69,10 +69,10 @@ if (defined('BBN_BASEURL')) {
         //host's nav
         $combo = true;
         $url = $root.$engine.'/'.$host;
-        $title = $host;
+        $title = $ctrl->inc->options->text($host);
         $icon = Db::getEngineIcon($engine);
         $ctrl->setIcon($icon)
-              ->addData(['icon' => $icon]);
+             ->addData(['icon' => $icon]);
       }
     }
     // Lower level containers

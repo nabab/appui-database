@@ -16,5 +16,5 @@ if ($ctrl->hasArguments(2)) {
    // ->setUrl($ctrl->getPath().'/'.$ctrl->data['host'])
     //->setIcon('nf nf-fa-server')
     ->setIcon('nf nf-fa-th_list')
-    ->combo($ctrl->data['host'], $ctrl->data);
+    ->combo($ctrl->data['title'], $ctrl->data);
 }

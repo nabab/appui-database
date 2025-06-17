@@ -1,9 +1,10 @@
 <div class="bbn-overlay">
-  <div bbn-if="!ready" class="bbn-overlay bbn-middle">
-    <bbn-loader></bbn-loader>
+  <div bbn-if="!ready"
+       class="bbn-overlay bbn-middle">
+    <bbn-loader/>
   </div>
-  <div class="bbn-overlay bbn-middle"
-       bbn-else-if="currentData?.error">
+  <div bbn-else-if="currentData?.error"
+       class="bbn-overlay bbn-middle">
     <div class="bbn-block bbn-padding bbn-shadow bbn-state-error bbn-lg bbn-xlmargin"
          bbn-text="currentData.error"/>
   </div>
@@ -29,15 +30,14 @@
           <?= _("Host") ?>
         </div>
         <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
-             bbn-text="currentData.host"/>
-
-        <div class="bbn-w-100 bbn-spadding bbn-c"
-             bbn-if="currentData.ip && (currentData.host !== currentData.ip)">
-          <?= _("Ip") ?>
-        </div>
-        <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
-             bbn-if="currentData.ip && (currentData.host !== currentData.ip)"
-             bbn-text="currentData.ip"/>
+             bbn-text="currentData?.info?.text"/>
+        <template bbn-if="currentData.ip && (currentData.info?.code !== currentData.ip)">
+          <div class="bbn-w-100 bbn-spadding bbn-c">
+            <?= _("Ip") ?>
+          </div>
+          <div class="bbn-w-100 bbn-b bbn-alt-background bbn-spadding bbn-c"
+               bbn-text="currentData.ip"/>
+        </template>
       </div>
     </bbn-pane>
     <bbn-pane :resizable="true">
