@@ -1,25 +1,21 @@
 <?php
-/*
- * Describe what it does
- *
- **/
 use bbn\X;
-
-/** @var bbn\Mvc\Model $model */
 
 $res = [
   'data' => []
 ];
 
 if ($model->hasData('host_id', true)) {
+  $hostId = $model->data['host_id'];
+  $engine = $model->data['engine'] ?? '';
   try {
-    $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine'] ?? '');
+    $conn = $model->inc->dbc->connection($hostId, $engine);
   }
   catch (\Exception $e) {
     $res['error'] = $e->getMessage();
   }
-  $real_dbs = $conn ? $conn->getDatabases() : [];
-  $db_excluded = [
+
+  $dbsExcluded = [
     'sys',
     'test',
     'lost+found',
@@ -27,19 +23,6 @@ if ($model->hasData('host_id', true)) {
     'mysql',
     '#mysql50#lost+found'
   ];
-  $full_dbs = $model->inc->dbc->fullDbs($model->data['host_id'], $model->data['engine'] ?? '');
-  $res['data'] = array_map(
-    function ($a) use (&$real_dbs) {
-      $idx = array_search($a['name'], $real_dbs);
-      $a['is_real'] = $idx !== false;
-      if ($a['is_real']) {
-        array_splice($real_dbs, $idx, 1);
-      }
-      $a['is_virtual'] = true;
-      return $a;
-    },
-    $full_dbs
-  );
   $default = [
     'name' => null,
     'text' => null,
@@ -51,26 +34,40 @@ if ($model->hasData('host_id', true)) {
     'size' => null,
     'is_bbn' => null,
     'has_history' => null,
-    'last_check' => null
+    'last_check' => null,
+    'engine' => $conn ? $conn->getEngine() : ($engine ?: null),
   ];
-  if ($model->hasData('engine', true)) {
-    $default['engine'] = $model->data['engine'];
-  }
+  $dbs = $conn ? $conn->getDatabases() : [];
+  $dbsOptions = $model->inc->dbc->fullDbs($hostId, $engine);
+  $res['data'] = array_map(
+    function ($a) use (&$dbs, $default, $conn) {
+      $idx = array_search($a['name'], $dbs);
+      $a['is_real'] = $idx !== false;
+      if ($a['is_real']) {
+        array_splice($dbs, $idx, 1);
+        $a['size'] = $conn ? $conn->dbSize($a['name']) : 0;
+      }
 
-  foreach ( $real_dbs as $i => $db ){
-    if (!in_array($db, $db_excluded)) {
-      $res['data'][] = [
+      $a['is_virtual'] = true;
+      return array_merge($default, $a);
+    },
+    $dbsOptions
+  );
+
+  foreach ($dbs as $db) {
+    if (!in_array($db, $dbsExcluded)) {
+      $res['data'][] = array_merge($default, [
         'name' => $db,
         'text' => $db,
-        'is_real' => true
-      ];
+        'is_real' => true,
+        'size' => $conn ? $conn->dbSize($db) : 0
+      ]);
     }
   }
-  foreach ($res['data'] as $i => $r) {
-    $res['data'][$i] = array_merge($default, $r);
-  }
+
   X::sortBy($res['data'], 'name');
 }
+
 $res['total'] = \count($res['data']);
 //$res['data'] = \array_slice($res['data'], $model->data['start'], $model->data['limit']);
 return $res;
