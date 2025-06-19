@@ -27,7 +27,8 @@
           mariadb: 'MariaDB',
           pgsql: 'PostgreSQL',
           sqlite: 'SQLite'
-        }
+        },
+        hasCollation: this.source?.engine !== 'sqlite',
       };
     },
     computed: {
@@ -35,7 +36,7 @@
         let ar = [{
           icon: 'nf nf-md-database_plus',
 					label: bbn._("Create database"),
-          action: this.showDbCreation
+          action: this.createDb
         }, {
           icon: 'nf nf-md-refresh',
 					label: bbn._("Refresh host"),
@@ -65,6 +66,57 @@
       },
       isHorizontal(){
         return this.orientation === 'horizontal';
+      },
+      currentInfo(){
+        const list = [{
+          text: bbn._("Engine"),
+          value: this.engines[this.currentData.engine]
+        }, {
+          text: bbn._("Host"),
+          value: this.currentData.name
+        }];
+
+        if (this.currentData.ip) {
+          list.push({
+            text: bbn._("IP"),
+            value: this.currentData.ip
+          });
+        }
+
+        if (this.currentData.user) {
+          list.push({
+            text: bbn._("User"),
+            value: this.currentData.user
+          });
+        }
+
+        if (this.currentData.charset) {
+          list.push({
+            text: bbn._("Charset"),
+            value: this.currentData.charset
+          });
+        }
+
+        if (this.currentData.collation) {
+          list.push({
+            text: bbn._("Collation"),
+            value: this.currentData.collation
+          });
+        }
+
+        if (this.currentData.version) {
+          list.push({
+            text: bbn._("Version"),
+            value: this.currentData.version
+          });
+        }
+
+        list.push({
+          text: bbn._("Size"),
+          value: this.formatBytes(this.currentData.size)
+        });
+
+        return list;
       }
     },
     methods:{
@@ -84,14 +136,14 @@
           action: this.drop
         }]
       },
-      showDbCreation(){
+      createDb(){
         this.getPopup({
           label: bbn._("New database"),
           component: 'appui-database-db-form',
-          width: 500,
-          height: '20em',
+          scrollable: true,
           source: {
-            host_id: this.source.id
+            host_id: this.source.id,
+            engine: this.source.engine
           }
         })
       },
@@ -203,6 +255,10 @@
       },
       onTableToggle(){
         this.hasMultipleSelected = this.getRef('table')?.currentSelected?.length > 1;
+      },
+      renderRealVirtual(row, col){
+        const icon = !!row[col.field] ? 'nf nf-fa-check bbn-green' : 'nf nf-fa-times bbn-red';
+        return '<i class="' + icon + '"></i>';
       }
     },
     mounted(){
@@ -223,42 +279,6 @@
           }
         })
       });
-    },
-    components: {
-      dropdown: {
-        props: ['source'],
-        template: `<bbn-dropdown :source="src"
-        												 placeholder="` + bbn._("Choose an action") + `"
-							                   @change="select"/>`,
-        data() {
-          let host = this.closest('appui-database-host');
-          let r = [{
-            text: bbn._("Analyze"),
-            value: 'analyze'
-          }, {
-            text: this.source.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
-            value: 'toOption'
-          }, {
-            text: bbn._("Duplicate"),
-            value: 'duplicate'
-          }, {
-            text: bbn._("Drop"),
-            value: 'drop'
-          }];
-          return {
-            host: host,
-            src: r
-          }
-        },
-        methods: {
-          select(code) {
-            bbn.fn.log("select", code, this.source);
-            if (bbn.fn.isFunction(this.host[code])) {
-              this.host[code](this.source.name)
-            }
-          }
-        }
-      }
     }
   }
 })();

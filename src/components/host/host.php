@@ -18,7 +18,6 @@
                   class="bbn-flex-fill">
       <bbn-pane :resizable="true"
                 :size="isHorizontal ? 250 : 'max-content'">
-                <div>
         <div class="bbn-m bbn-smargin bbn-secondary-border bbn-radius"
              style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
           <!--<div class="bbn-header bbn-spadding">
@@ -29,54 +28,15 @@
           <div class="bbn-secondary bbn-c bbn-xspadding bbn-upper bbn-b"><?=_("Information")?></div>
           <div class="bbn-spadding bbn-c bbn-flex-column"
                style="gap: var(--space)">
-            <div :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Engine")?></div>
-              <div class="bbn-light"
-                   bbn-text="engines[currentData.engine]"/>
-            </div>
-            <div :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Host")?></div>
-              <div class="bbn-light"
-                   bbn-text="currentData?.name"/>
-            </div>
-            <div bbn-if="currentData.ip"
+            <div bbn-for="c in currentInfo"
                  :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("IP")?></div>
+              <div class="bbn-upper bbn-secondary-text-alt bbn-b"
+                   bbn-text="c.text"/>
               <div class="bbn-light"
-                   bbn-text="currentData.ip"/>
-            </div>
-            <div bbn-if="currentData?.user"
-                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("User")?></div>
-              <div class="bbn-light"
-                   bbn-text="currentData.user"/>
-            </div>
-            <div bbn-if="currentData?.charset"
-                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Charset")?></div>
-              <div class="bbn-light"
-                   bbn-text="currentData.charset"/>
-            </div>
-            <div bbn-if="currentData?.collation"
-                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Collation")?></div>
-              <div class="bbn-light"
-                   bbn-text="currentData.collation"/>
-            </div>
-            <div bbn-if="currentData?.version"
-                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Version")?></div>
-              <div class="bbn-light"
-                   bbn-text="currentData.version"/>
-            </div>
-            <div :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
-              <div class="bbn-upper bbn-secondary-text-alt"><?=_("Size")?></div>
-              <div class="bbn-light"
-                   bbn-text="formatBytes(currentData.size)"/>
+                   bbn-text="c.value"/>
             </div>
           </div>
         </div>
-                </div>
       </bbn-pane>
       <bbn-pane :resizable="true">
         <div class="bbn-overlay bbn-spadding bbn-radius">
@@ -95,14 +55,34 @@
                       style="border-color: var(--header-background)"
                       button-mode="menu">
               <bbns-column field="name"
-                          label="<?= _('Database') ?>"
-                          component="appui-database-db-cell"/>
-              <bbns-column field="name"
-                          label="<?= _('Size') ?>"
-                          field="size"
-                          :render="row => formatBytes(row.size)"
-                          :width="100"
-                          cls="bbn-c"/>
+                           label="<?= _('Database') ?>"
+                           component="appui-database-db-cell"/>
+              <bbns-column field="is_real"
+                           label="<i class='nf nf-cod-database'></i>"
+                           full-label="<?= _("Exists in the host") ?>"
+                           :render="renderRealVirtual"
+                           :width="30"
+                           cls="bbn-c"/>
+              <bbns-column field="is_virtual"
+                           label="<i class='nf nf-md-opera'></i>"
+                           full-label="<?= _("Exists as options") ?>"
+                           :render="renderRealVirtual"
+                           :width="30"
+                           cls="bbn-c"/>
+              <bbns-column label="<?= _('Charset') ?>"
+                           field="charset"
+                           :width="150"
+                           cls="bbn-c"/>
+              <bbns-column bbn-if="hasCollation"
+                           label="<?= _('Collation') ?>"
+                           field="collation"
+                           :width="200"
+                           cls="bbn-c"/>
+              <bbns-column label="<?= _('Size') ?>"
+                           field="size"
+                           :render="row => formatBytes(row.size)"
+                           :width="100"
+                           cls="bbn-c"/>
               <bbns-column :buttons="getTableButtons"
                            :width="30"
                            cls="bbn-c"/>

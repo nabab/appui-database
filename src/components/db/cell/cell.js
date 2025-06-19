@@ -2,9 +2,8 @@
 (()=> {
   return {
     data(){
-      let host = this.closest('appui-database-host');
       return {
-        link:  host.root + 'tabs/' + host.currentData.engine + '/' + host.currentData.host + '/' + this.source.name + '/home'
+        link:  appui.plugins['appui-database'] + '/tabs/' + this.source.engine + '/' + this.source.id_host + '/' + this.source.name + '/home'
       };
     }
   };

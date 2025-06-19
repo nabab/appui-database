@@ -66,8 +66,17 @@ if ($model->hasData(['host', 'engine'], true)
 
         break;
       case 'pgsql':
-        break;
-      case 'sqlite':
+        if ($v = $conn->getRow('SHOW server_encoding')) {
+          $serverInfo['charset'] = $v['server_encoding'];
+        }
+
+        if ($v = $conn->getRow('SELECT default_collate_name AS collation FROM information_schema.character_sets')) {
+          $serverInfo['collation'] = $v['collation'];
+        }
+
+        if ($v = $conn->getRow('SHOW server_version')) {
+          $serverInfo['version'] = $v['version'];
+        }
         break;
     }
   }
