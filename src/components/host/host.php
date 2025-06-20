@@ -44,7 +44,11 @@
                style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
             <bbn-table ref="table"
                       @toggle="onTableToggle"
-                      :source="currentData.dbs"
+                      :source="root + 'data/dbs'"
+                      :data="{
+                        host_id: currentData.id,
+                        engine: currentData.engine
+                      }"
                       :selection="true"
                       :pageable="true"
                       :limit="50"
@@ -71,12 +75,12 @@
                            cls="bbn-c"/>
               <bbns-column label="<?= _('Charset') ?>"
                            field="charset"
-                           :width="150"
+                           :width="120"
                            cls="bbn-c"/>
               <bbns-column bbn-if="hasCollation"
                            label="<?= _('Collation') ?>"
                            field="collation"
-                           :width="200"
+                           :width="150"
                            cls="bbn-c"/>
               <bbns-column label="<?= _('Size') ?>"
                            field="size"

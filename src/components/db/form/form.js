@@ -1,16 +1,50 @@
 // Javascript Document
-(()=>{
-  return{
+(() => {
+  return {
+    props: {
+      host: {
+        type: String,
+        required: true
+      },
+      engine: {
+        type: String,
+        required: true
+      },
+      charset: {
+        type: String,
+        default: ''
+      },
+      collation: {
+        type: String,
+        default: ''
+      }
+    },
     data(){
       return {
         root: appui.plugins['appui-database'] + '/',
-        data: {
+        formData: {
           name: '',
-          host_id: this.source.host_id,
-          engine: this.source.engine,
-          charset: this.source.charset || '',
-          collation: this.source.collation || ''
+          host_id: this.host,
+          engine: this.engine,
+          charset: this.charset,
+          collation: this.collation,
+          options: 0
         }
+      }
+    },
+    methods: {
+      onSuccess(d) {
+        if (d.success) {
+          appui.success();
+          this.closest('bbn-container').reload();
+          this.closest('bbn-router').route(this.formData.name);
+        }
+        else {
+          appui.error(d.error || bbn._('An error occurred'));
+        }
+      },
+      onError(d) {
+        appui.error(d.error || bbn._('An error occurred'));
       }
     }
   }

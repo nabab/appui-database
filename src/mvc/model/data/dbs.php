@@ -1,13 +1,16 @@
 <?php
 use bbn\X;
 use bbn\Db\Languages\Sqlite;
+use bbn\Str;
 
 $res = [
   'data' => []
 ];
 
-if ($model->hasData('host_id', true)) {
-  $engine = $model->data['engine'] ?? '';
+if ($model->hasData(['host_id', 'engine'], true)) {
+  $engine = Str::isUid($model->data['engine']) ? $model->inc->dbc->engineCode($model->data['engine']) : $model->data['engine'];
+  $engineId = Str::isUid($model->data['engine']) ? $model->data['engine'] : $model->inc->dbc->engineId($engine);
+  $isSqlite = $engine === 'sqlite';
   $hostId = $model->inc->dbc->hostId($model->data['host_id'], $engine);
   try {
     $conn = $model->inc->dbc->connection($hostId, $engine);
@@ -27,6 +30,8 @@ if ($model->hasData('host_id', true)) {
   $default = [
     'name' => null,
     'text' => null,
+    'engine' => $engine,
+    'id_engine' => $engineId,
     'id_host' => $hostId,
     'is_real' => false,
     'is_virtual' => false,
@@ -36,10 +41,8 @@ if ($model->hasData('host_id', true)) {
     'size' => null,
     'is_bbn' => null,
     'has_history' => null,
-    'last_check' => null,
-    'engine' => $conn ? $conn->getEngine() : ($engine ?: null),
+    'last_check' => null
   ];
-  $isSqlite = $default['engine'] === 'sqlite';
   $dbs = $conn ? $conn->getDatabases() : [];
   if (!$conn
     && $isSqlite
@@ -130,7 +133,13 @@ if ($model->hasData('host_id', true)) {
       }
 
       if ($isSqlite) {
-        $res['data'][$i]['charset'] = '';
+        try {
+          $c = $model->inc->dbc->connection($hostId, $engine, $d['name']);
+          if ($charset = $c->getRow("PRAGMA encoding")) {
+            $res['data'][$i]['charset'] = $charset['encoding'];
+          }
+        }
+        catch (\Exception $e) {}
       }
     }
   }
@@ -138,6 +147,9 @@ if ($model->hasData('host_id', true)) {
   X::sortBy($res['data'], 'name');
 }
 
-$res['total'] = \count($res['data']);
-//$res['data'] = \array_slice($res['data'], $model->data['start'], $model->data['limit']);
+$res['total'] = count($res['data']);
+if (isset($model->data['start'], $model->data['limit'])) {
+  $res['data'] = array_slice($res['data'], $model->data['start'], $model->data['limit']);
+}
+
 return $res;

@@ -124,26 +124,33 @@
       getTableButtons(row){
         return [{
           text: bbn._("Analyze"),
-          action: this.analyze
+          action: this.analyze,
+          icon: 'nf nf-md-flask',
         }, {
           text: row.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
-          action: this.toOption
+          action: this.toOption,
+          icon: 'nf nf-md-opera',
         }, {
           text: bbn._("Duplicate"),
-          action: this.duplicate
+          action: this.duplicate,
+          icon: 'nf nf-md-content_copy',
         }, {
           text: bbn._("Drop"),
-          action: this.drop
+          action: this.drop,
+          icon: 'nf nf-md-trash_can',
         }]
       },
       createDb(){
         this.getPopup({
           label: bbn._("New database"),
-          component: 'appui-database-db-form',
           scrollable: true,
-          source: {
-            host_id: this.source.id,
-            engine: this.source.engine
+          component: 'appui-database-db-form',
+          componentOptions: {
+            host: this.source.id,
+            engine: this.source.engine,
+            charset: this.source.charset || '',
+            collation: this.source.collation || ''
+
           }
         })
       },
