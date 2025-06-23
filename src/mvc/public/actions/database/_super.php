@@ -1,5 +1,7 @@
 <?php
 
+return true;
+
 /** @var bbn\Mvc\Controller $ctrl */
 if ($ctrl->hasArguments(3)) {
   $ctrl->setData(

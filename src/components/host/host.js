@@ -122,12 +122,12 @@
     methods:{
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
-        return [{
+        return row.is_real ? [{
           text: bbn._("Analyze"),
           action: this.analyze,
           icon: 'nf nf-md-flask',
         }, {
-          text: row.isVirtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
+          text: row.is_virtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
           action: this.toOption,
           icon: 'nf nf-md-opera',
         }, {
@@ -138,7 +138,7 @@
           text: bbn._("Drop"),
           action: this.drop,
           icon: 'nf nf-md-trash_can',
-        }]
+        }] : [];
       },
       createDb(){
         this.getPopup({
@@ -183,40 +183,21 @@
           }
         });
       },
-      drop(db) {
-        this.confirm(
-          (bbn.fn.isString(db) ? bbn._("Are you sure you want to drop the database %s ?", db) : bbn._("Are you sure you want to drop these databases?"))
-          + '<br>'
-          + bbn._("This action is irreversible"),
-          () => {
-            if (!db) {
-              db = this.getRef('table').currentSelected;
+      drop(db, opt = false){
+        this.getPopup({
+          label: false,
+          component: this.$options.components.drop,
+          componentOptions: {
+            host: this.source.id,
+            database: db.name || this.getRef('table').currentSelected,
+            options: !!db.is_virtual
+          },
+          componentEvents: {
+              success: () => {
+                this.getRef('table').updateData();
+              }
             }
-            bbn.fn.post(this.root + 'actions/database/drop', {
-              host_id: this.source.id,
-              db: db
-            }, d => {
-              if (d.success) {
-                let t = this.getRef('table');
-                if (bbn.fn.isString(db)) {
-                  db = [db];
-                }
-                bbn.fn.each(db, a => {
-                  if (!d.undeleted || !d.undeleted.includes(a)) {
-                    t.delete(t.getIndex(a), false);
-                  }
-                });
-                if (d.error) {
-	                appui.error(d.error);
-                }
-              }
-              else if (d.error) {
-                appui.error(d.error);
-              }
-              bbn.fn.log('success')
-            })
-          }
-        )
+        });
       },
       exportDb(){
         //this.closest('bbn-router').route('host/export')
@@ -286,6 +267,75 @@
           }
         })
       });
+    },
+    components: {
+      drop: {
+        template: `
+          <bbn-form class="bbn-lpadding bbn-c bbn-lg"
+                    :action="action"
+                    :source="formSource"
+                    submit-text="` + bbn._('Yes') + `"
+                    cancel-text="` + bbn._('No') + `"
+                    :prefilled="true"
+                    @success="onSuccess"
+                    @error="onError">
+            <div bbn-text="message"/>
+            <div class="bbn-light bbn-i">(` + bbn._("this action is irreversible") + `)</div>
+            <div bbn-if="options"
+                 class="bbn-middle bbn-top-space">
+              <bbn-switch bbn-model="formSource.options"
+                          class="bbn-right-sspace"/>
+              <span>` + bbn._("Delete from options") + `</span>
+            </div>
+          </bbn-form>
+        `,
+        props: {
+          host: {
+            type: String,
+            required: true
+          },
+          database: {
+            type: [String, Array],
+            required: true
+          },
+          options: {
+            type: Boolean,
+            default: false
+          }
+        },
+        data(){
+          return {
+            action: appui.plugins['appui-database'] + '/actions/database/drop',
+            formSource: {
+              host_id: this.host,
+              db: this.database,
+              options: false
+            },
+            message: bbn.fn.isString(this.database) ?
+              bbn._("Are you sure you want to drop the database %s ?", this.database) :
+              bbn._("Are you sure you want to drop the selected databases?")
+          }
+        },
+        methods: {
+          onSuccess(d){
+            if (d.success) {
+              this.$emit('success');
+              if (d.error) {
+                appui.error(d.error);
+              }
+              else {
+                appui.success();
+              }
+            }
+            else {
+              appui.error(d.error || bbn._('An error occurred'));
+            }
+          },
+          onError(d){
+            appui.error(d.error || bbn._('An error occurred'));
+          }
+        }
+      }
     }
   }
 })();

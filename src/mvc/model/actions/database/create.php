@@ -1,6 +1,7 @@
 <?php
 use bbn\Mvc\Model;
 use bbn\Str;
+use bbn\Db\Languages\Sqlite;
 
 /** @var Model $model */
 if ($model->hasData(['host_id', 'engine', 'name'], true)) {
@@ -9,18 +10,31 @@ if ($model->hasData(['host_id', 'engine', 'name'], true)) {
   }
   else {
     try {
-      $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine']);
+      if (($isSqlite = $model->data['engine'] === 'sqlite')
+        && !str_ends_with($model->data['name'], '.sqlite')
+        && !str_ends_with($model->data['name'], '.db')
+      ) {
+        $model->data['name'] .= '.sqlite';
+      }
+
+      if (!$isSqlite) {
+        $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine']);
+      }
     }
     catch (\Exception $e) {
       $model->data['res']['error'] = $e->getMessage();
     }
 
-    if ($conn->check()) {
-      if ($conn->createDatabase(
-        $model->data['name'],
-        $model->data['charset'] ?? null,
-        $model->data['collation'] ?? null
-      )) {
+    if ($isSqlite || $conn->check()) {
+      if (($isSqlite
+          && Sqlite::createDatabaseOnHost($model->data['name'], $model->data['host_id']))
+        || ($isSqlite
+          && $conn->createDatabase(
+            $model->data['name'],
+            $model->data['charset'] ?? null,
+            $model->data['collation'] ?? null
+          ))
+      ) {
         $model->data['res']['success'] = true;
         if ($model->hasData('options', true)) {
           $model->inc->dbc->addDatabase(

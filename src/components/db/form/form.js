@@ -35,9 +35,17 @@
     methods: {
       onSuccess(d) {
         if (d.success) {
+          let db = this.formData.name;
+          if ((this.engine === 'sqlite')
+            && (!db.endsWith('.sqlite'))
+            && (!db.endsWith('.db'))
+          ) {
+            db += '.sqlite';
+          }
+
           appui.success();
           this.closest('bbn-container').reload();
-          this.closest('bbn-router').route(this.formData.name);
+          this.closest('bbn-router').route(db);
         }
         else {
           appui.error(d.error || bbn._('An error occurred'));
