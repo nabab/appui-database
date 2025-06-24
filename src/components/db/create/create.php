@@ -3,7 +3,8 @@
           :scrollable="false"
           :action="root + 'actions/database/create'"
           @success="onSuccess"
-          @error="onError">
+          @error="onError"
+          class="appui-database-db-create">
   <div class="bbn-grid-fields bbn-padding">
     <span class="bbn-label"><?= _("Name") ?></span>
     <bbn-input bbn-model="formData.name"/>
