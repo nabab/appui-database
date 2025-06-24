@@ -43,7 +43,7 @@
       },
       select(item) {
         const data = item.data;
-        if (!data.is_vue) {
+        if (!data.isComponent) {
           return;
         }
         let table = this.closest('appui-database-table');
