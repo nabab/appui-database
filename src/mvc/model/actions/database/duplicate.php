@@ -2,9 +2,10 @@
 use bbn\Db\Languages\Sqlite;
 use bbn\X;
 
-if ($model->hasData(['host_id', 'db', 'name'], true)) {
-  $engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']);
-  $engine = $model->inc->dbc->engineCode($engineId);
+if ($model->hasData(['host_id', 'db', 'name'], true)
+  && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
+  && ($engine = $model->inc->dbc->engineCode($engineId))
+) {
   $isSqlite = $engine === 'sqlite';
 
   try {

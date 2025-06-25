@@ -12,7 +12,7 @@
                 }
             },
             {
-                "text": "Function",
+                "text": "Functions",
                 "code": "functions"
             },
             {
@@ -29,7 +29,11 @@
                     "inheritance": "cascade"
                 }
             }
-        ]
+        ],
+        "cfg": {
+            "allow_children": 1,
+            "show_code": 1
+        }
     },
     {
         "text": "Engine",
@@ -39,8 +43,9 @@
                 "text": "Connections",
                 "code": "connections",
                 "cfg": {
+                    "allow_children": 1,
                     "show_code": 1,
-                    "relations": 1,
+                    "relations": "alias",
                     "schema": [
                         {
                             "title": "Connection's name",
@@ -99,18 +104,22 @@
                 "text": "Databases",
                 "code": "dbs",
                 "cfg": {
-                    "allow_children": 1
+                    "allow_children": 1,
+                    "show_code": 1
                 }
             },
             {
                 "text": "Preconfigured Columns",
                 "code": "pcolumns",
                 "cfg": {
-                    "show_value": 1
+                    "allow_children": 1,
+                    "show_value": 1,
+                    "show_code": 1
                 }
             }
         ],
         "cfg": {
+            "allow_children": 1,
             "show_code": 1
         }
     },
@@ -120,12 +129,24 @@
         "items": [
             {
                 "text": "Columns",
-                "code": "columns"
+                "code": "columns",
+                "cfg": {
+                    "show_value": 1,
+                    "show_code": 1
+                }
             },
             {
                 "text": "Keys",
-                "code": "keys"
+                "code": "keys",
+                "cfg": {
+                    "show_value": 1,
+                    "show_code": 1
+                }
             }
-        ]
+        ],
+        "cfg": {
+            "allow_children": 1,
+            "show_code": 1
+        }
     }
 ]

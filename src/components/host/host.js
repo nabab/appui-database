@@ -62,7 +62,8 @@
           }, {
             icon: 'nf nf-md-database_export',
             label: bbn._("Export"),
-            action: this.exportDb
+            action: this.exportDb,
+            disabled: true
           });
         }
 
@@ -146,10 +147,12 @@
           text: bbn._("Import"),
           action: this.importDb,
           icon: 'nf nf-md-database_import',
+          disabled: true,
         }, {
           text: bbn._("Export"),
           action: this.exportDb,
           icon: 'nf nf-md-database_export',
+          disabled: true
         }, {
           text: row.is_virtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
           action: this.toOption,
@@ -258,19 +261,32 @@
       importDb(db){},
       exportDb(db){},
       toOption(db){
-        if (!bbn.fn.isString(db)) {
-          db = this.getRef('table').currentSelected;
+        let mess = '';
+        if (bbn.fn.isArray(db)) {
+          db = bbn.fn.map(db, d => d.name || d);
+          mess = bbn._(
+            "Are you sure you want to store the structure of the databases %s as options?",
+            bbn.fn.map(db, d => '"' + d + '"').join(", ")
+          );
         }
-        bbn.fn.post(this.root + 'actions/database/options', {
-          host_id: this.source.id,
-          db: db
-        }, d => {
-          if (d.success) {
-            appui.success();
-          }
-          else {
-            appui.error();
-          }
+        else {
+          db = db.name;
+          mess = bbn._("Are you sure you want to store the structure of the database \"%s\" as options?", db);
+        }
+        this.confirm(mess, () => {
+          bbn.fn.post(this.root + 'actions/database/options', {
+            host_id: this.source.id,
+            db
+          }, d => {
+            if (d.success) {
+              appui.success();
+            }
+            else {
+              appui.error();
+            }
+          }, () => {
+            appui.error(bbn._('An error occurred'));
+          });
         });
       },
       exportDb(){

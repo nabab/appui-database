@@ -23,12 +23,13 @@ if ($model->hasData(['host_id', 'engine', 'name'], true)) {
     }
     catch (\Exception $e) {
       $model->data['res']['error'] = $e->getMessage();
+      die(var_dump('aaa'));
     }
 
     if ($isSqlite || $conn->check()) {
       if (($isSqlite
           && Sqlite::createDatabaseOnHost($model->data['name'], $model->data['host_id']))
-        || ($isSqlite
+        || (!$isSqlite
           && $conn->createDatabase(
             $model->data['name'],
             $model->data['charset'] ?? null,

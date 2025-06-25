@@ -13,69 +13,34 @@
                 "icon": "nf nf-dev-mysql",
                 "items": [
                     {
-                        "cfg": {
-                            "show_code": 1,
-                            "relations": "alias",
-                            "schema": [
-                                {
-                                    "title": "Connection's name",
-                                    "field": "text",
-                                    "type": "string",
-                                    "options": [],
-                                    "required": true,
-                                    "hidden": false,
-                                    "editable": true,
-                                    "showable": true
-                                },
-                                {
-                                    "title": "user@host",
-                                    "field": "code",
-                                    "type": "string",
-                                    "options": [],
-                                    "required": true,
-                                    "hidden": false,
-                                    "editable": true,
-                                    "showable": true
-                                },
-                                {
-                                    "title": "Environment",
-                                    "options": [],
-                                    "field": "environment",
-                                    "showable": true,
-                                    "editable": true,
-                                    "type": "",
-                                    "hidden": false,
-                                    "source": [
-                                        {
-                                            "text": "Development",
-                                            "value": "dev"
-                                        },
-                                        {
-                                            "text": "Test",
-                                            "value": "test"
-                                        },
-                                        {
-                                            "text": "Production",
-                                            "value": "prod"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "alias_name": "Server"
-                        },
-                        "text": "Connections",
-                        "code": "connections"
+                        "id_alias": [
+                            "connections",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     },
                     {
-                        "cfg": {
-                            "allow_children": 1
-                        },
-                        "text": "Databases",
-                        "code": "dbs"
+                        "id_alias": [
+                            "dbs",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     },
                     {
-                        "text": "Preconfigured Columns",
-                        "code": "pcolumns",
+                        "id_alias": [
+                            "pcolumns",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ],
                         "items": [
                             {
                                 "text": "Primary key binary 16",
@@ -141,94 +106,110 @@
                                 "signed": 0,
                                 "default": 0
                             }
-                        ],
-                        "cfg": {
-                            "show_value": 1
-                        }
+                        ]
                     }
-                ]
+                ],
+                "cfg": {
+                    "id_template": [
+                        "engine",
+                        "templates",
+                        "database",
+                        "appui",
+                        "plugins"
+                    ]
+                }
             },
             {
-                "cfg": {
-                    "show_code": 1
-                },
                 "text": "PostgreSQL",
                 "code": "pgsql",
                 "icon": "nf nf-dev-postgresql",
                 "items": [
                     {
-                        "text": "Connections",
-                        "code": "connections"
+                        "id_alias": [
+                            "connections",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     },
                     {
-                        "text": "Databases",
-                        "code": "dbs"
+                        "id_alias": [
+                            "dbs",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
+                    },
+                    {
+                        "id_alias": [
+                            "pcolumns",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     }
-                ]
+                ],
+                "cfg": {
+                    "id_template": [
+                        "engine",
+                        "templates",
+                        "database",
+                        "appui",
+                        "plugins"
+                    ]
+                }
             },
             {
                 "text": "SQLite",
                 "code": "sqlite",
-                "icon": "nf nf-dev-sqllite",
+                "icon": "nf nf-dev-sqlite",
                 "items": [
                     {
-                        "cfg": {
-                            "show_code": 1
-                        },
-                        "text": "Databases",
-                        "code": "dbs"
+                        "id_alias": [
+                            "connections",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     },
                     {
-                        "cfg": {
-                            "show_code": 1,
-                            "show_value": 1,
-                            "schema": [
-                                {
-                                    "title": "Path",
-                                    "field": "path",
-                                    "type": "string",
-                                    "showable": true,
-                                    "editable": true,
-                                    "hidden": false,
-                                    "options": []
-                                },
-                                {
-                                    "title": "Root",
-                                    "field": "root",
-                                    "type": "",
-                                    "showable": true,
-                                    "nullable": true,
-                                    "editable": true,
-                                    "source": [
-                                        "data",
-                                        "app",
-                                        "lib",
-                                        "cdn"
-                                    ],
-                                    "hidden": false,
-                                    "options": []
-                                },
-                                {
-                                    "title": "Environment",
-                                    "field": "environment",
-                                    "type": "",
-                                    "showable": true,
-                                    "editable": true,
-                                    "nullable": true,
-                                    "hidden": false,
-                                    "source": [
-                                        "dev",
-                                        "test",
-                                        "prod"
-                                    ],
-                                    "options": []
-                                }
-                            ]
-                        },
-                        "text": "Paths",
-                        "code": "paths"
+                        "id_alias": [
+                            "dbs",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
+                    },
+                    {
+                        "id_alias": [
+                            "pcolumns",
+                            "engine",
+                            "templates",
+                            "database",
+                            "appui",
+                            "plugins"
+                        ]
                     }
-                ]
+                ],
+                "cfg": {
+                    "id_template": [
+                        "engine",
+                        "templates",
+                        "database",
+                        "appui",
+                        "plugins"
+                    ]
+                }
             }
         ]
     }, {

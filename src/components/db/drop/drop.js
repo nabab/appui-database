@@ -23,8 +23,8 @@
           options: false
         },
         message: bbn.fn.isString(this.database) ?
-          bbn._("Are you sure you want to drop the database %s ?", this.database) :
-          bbn._("Are you sure you want to drop the databases %s?", this.database.map(d => '"' + d + '"').join(", "))
+          bbn._("Are you sure you want to drop the database \"%s\"?", this.database) :
+          bbn._("Are you sure you want to drop the databases %s?", bbn.fn.map(this.database, d => '"' + d + '"').join(", "))
       }
     },
     methods: {
