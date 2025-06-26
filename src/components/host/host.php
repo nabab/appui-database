@@ -44,6 +44,7 @@
                style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
             <bbn-table ref="table"
                       @toggle="onTableToggle"
+                      @dataloaded="clearTableSelection"
                       :source="root + 'data/dbs'"
                       :data="{
                         host_id: currentData.id,

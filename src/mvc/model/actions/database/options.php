@@ -1,7 +1,7 @@
 <?php
 use bbn\Appui\Database;
 
-set_time_limit(600);
+set_time_limit(0);
 if ($model->hasData(['host_id', 'db'])
   && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
   && ($engine = $model->inc->dbc->engineCode($engineId))
