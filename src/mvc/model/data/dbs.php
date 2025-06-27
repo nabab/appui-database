@@ -64,7 +64,7 @@ if ($model->hasData(['host_id', 'engine'], true)) {
     array_push($dbs, ...array_values(array_filter($odbs, fn($d) => !in_array($d, $dbs))));
     $res['data'] = array_map(
       function($a) use ($model, $hostId, $engine) {
-        return $model->inc->dbc->analyzeDatabase($a, $hostId, $engine);
+        return $model->inc->dbc->infoDatabase($a, $hostId, $engine);
       },
       array_values(array_filter($dbs, fn($d) => !in_array($d, $dbsExcluded)))
     );

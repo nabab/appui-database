@@ -29,17 +29,15 @@ if (
 
   $res = [
     'success' => true,
-    'data' => [
-      'host' => $model->data['host'],
-      'db' => $model->data['db'],
-      'db_id' => $db_id,
-      'is_real' => $isReal,
-      'is_virtual' => $db_id ? true : false,
-      'info' => $model->inc->options->option($db_id),
-      'engine' => $model->data['engine'],
-      'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
-      'constraints' => $constraints
-    ]
+    'host' => $model->data['host'],
+    'db' => $model->data['db'],
+    'db_id' => $db_id,
+    'is_real' => $isReal,
+    'is_virtual' => $db_id ? true : false,
+    'info' => $model->inc->options->option($db_id),
+    'engine' => $model->data['engine'],
+    'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
+    'constraints' => $constraints
   ];
 }
 return $res;

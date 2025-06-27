@@ -18,13 +18,8 @@
                   class="bbn-flex-fill">
       <bbn-pane :resizable="true"
                 :size="isHorizontal ? 250 : 'max-content'">
-        <div class="bbn-m bbn-smargin bbn-secondary-border bbn-radius"
+        <div class="bbn- bbn-smargin bbn-secondary-border bbn-radius"
              style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
-          <!--<div class="bbn-header bbn-spadding">
-            <bbn-button icon="nf nf-md-export"
-                        :notext="true"
-                        @click="exportDb"/>
-          </div>-->
           <div class="bbn-secondary bbn-c bbn-xspadding bbn-upper bbn-b"><?=_("Information")?></div>
           <div class="bbn-spadding bbn-c bbn-flex-column"
                style="gap: var(--space)">

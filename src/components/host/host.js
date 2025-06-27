@@ -18,7 +18,6 @@
       return {
         orientation: 'horizontal',
         root: appui.plugins['appui-database'] + '/',
-        force: false,
         hasMultipleSelected: false,
         currentData: this.source,
         ready: !!this.source,
@@ -27,8 +26,7 @@
           mariadb: 'MariaDB',
           pgsql: 'PostgreSQL',
           sqlite: 'SQLite'
-        },
-        hasCollation: this.source?.engine !== 'sqlite',
+        }
       };
     },
     computed: {
@@ -52,13 +50,17 @@
           ar.push({
             content: '<div class="bbn-toolbar-separator"/>'
           }, {
-            icon: 'nf nf-md-flask',
-            label: bbn._("Analyze"),
-            action: () => this.analyzeDb(this.getRef('table')?.currentSelected || [])
+            icon: 'nf nf-md-database_refresh',
+            label: bbn._("Refresh"),
+            action: () => this.refreshDb(this.getRef('table')?.currentSelected || [])
           }, {
             icon: 'nf nf-md-trash_can',
             label: bbn._("Drop"),
             action: () => this.dropDb(this.getRef('table')?.currentSelected || [])
+          }, {
+            icon: 'nf nf-md-flask',
+            label: bbn._("Analyze"),
+            action: () => this.analyzeDb(this.getRef('table')?.currentSelected || [])
           }, {
             icon: 'nf nf-md-database_export',
             label: bbn._("Export"),
@@ -122,15 +124,18 @@
         });
 
         return list;
+      },
+      hasCollation(){
+        return this.currentData?.engine !== 'sqlite';
       }
     },
     methods:{
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
         return row.is_real ? [{
-          text: bbn._("Analyze"),
-          action: this.analyzeDb,
-          icon: 'nf nf-md-flask',
+          text: bbn._("Refresh"),
+          action: this.refreshDb,
+          icon: 'nf nf-md-database_refresh',
         }, {
           text: bbn._("Duplicate"),
           action: this.duplicateDb,
@@ -143,6 +148,10 @@
           text: bbn._("Drop"),
           action: this.dropDb,
           icon: 'nf nf-md-trash_can',
+        }, {
+          text: bbn._("Analyze"),
+          action: this.analyzeDb,
+          icon: 'nf nf-md-flask',
         }, {
           text: bbn._("Import"),
           action: this.importDb,
@@ -165,17 +174,39 @@
           scrollable: true,
           component: 'appui-database-db-create',
           componentOptions: {
-            host: this.source.id,
-            engine: this.source.engine,
-            charset: this.source.charset || '',
-            collation: this.source.collation || ''
+            host: this.currentData.id,
+            engine: this.currentData.engine,
+            charset: this.currentData.charset || '',
+            collation: this.currentData.collation || ''
 
           }
         })
       },
+      refreshDb(row){
+        this.post(this.root + 'actions/database/refresh', {
+          host_id: this.currentData.id,
+          db: bbn.fn.isArray(row) ? row : row.name
+        }, d => {
+          if (d.success && (d.data !== undefined)) {
+            bbn.fn.iterate(d.data, (v, db) => {
+              let r = bbn.fn.getRow(this.getRef('table').currentData, 'data.name', db);
+              if (r) {
+                bbn.fn.iterate(v, (val, k) => {
+                  r.data[k] = val;
+                });
+              }
+            });
+            this.clearTableSelection();
+            appui.success();
+          }
+          else {
+            appui.error(d.error || bbn._('An error occurred'));
+          }
+        });
+      },
       analyzeDb(row){
-        bbn.fn.post(this.root + 'actions/database/analyze', {
-          host_id: this.source.id,
+        this.post(this.root + 'actions/database/analyze', {
+          host_id: this.currentData.id,
           db: bbn.fn.isArray(row) ? row : row.name
         }, d => {
           if (d.success && (d.data !== undefined)) {
@@ -196,12 +227,12 @@
         });
       },
       duplicateDb(row) {
-        if (this.source?.id && row?.name?.length) {
+        if (this.currentData?.id && row?.name?.length) {
           this.getPopup({
             label: bbn._("Duplicate database"),
             component: 'appui-database-db-duplicate',
             componentOptions: {
-              host: this.source.id,
+              host: this.currentData.id,
               database: row.name,
               options: !!row.is_virtual
             },
@@ -214,12 +245,12 @@
         }
       },
       renameDb(row) {
-        if (this.source?.id && row?.name?.length) {
+        if (this.currentData?.id && row?.name?.length) {
           this.getPopup({
             label: bbn._("Rename database"),
             component: 'appui-database-db-rename',
             componentOptions: {
-              host: this.source.id,
+              host: this.currentData.id,
               database: row.name,
               options: !!row.is_virtual
             },
@@ -250,12 +281,12 @@
           options = !!row.is_virtual;
         }
 
-        if (this.source?.id && database.length) {
+        if (this.currentData?.id && database.length) {
           this.getPopup({
             label: false,
             component: 'appui-database-db-drop',
             componentOptions: {
-              host: this.source.id,
+              host: this.currentData.id,
               database,
               options
             },
@@ -282,8 +313,8 @@
           mess = bbn._("Are you sure you want to store the structure of the database \"%s\" as options?", db);
         }
         this.confirm(mess, () => {
-          bbn.fn.post(this.root + 'actions/database/options', {
-            host_id: this.source.id,
+          this.post(this.root + 'actions/database/options', {
+            host_id: this.currentData.id,
             db
           }, d => {
             if (d.success) {
@@ -300,7 +331,7 @@
       importDb(){},
       exportDb(row){
         //this.closest('bbn-router').route('host/export')
-        bbn.fn.link(this.root + 'tabs/' + this.source.engine + '/' + this.source.id + '/export');
+        bbn.fn.link(this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.id + '/export');
       },
       onTableToggle(){
         this.hasMultipleSelected = this.getRef('table')?.currentSelected?.length > 1;
@@ -318,7 +349,7 @@
     },
     mounted(){
       if (!this.ready) {
-        this.post(appui.plugins['appui-database'] + '/data/host', {
+        this.post(this.root + 'data/host', {
           engine: this.engine,
           host: this.host
         }, d => {
