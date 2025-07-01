@@ -133,6 +133,12 @@
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
         return row.is_real ? [{
+          text: bbn._("Open"),
+          action: () => {
+            bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id + '/' + row.name + '/home')
+          },
+          icon: 'nf nf-md-open_in_app',
+        }, {
           text: bbn._("Refresh"),
           action: this.refreshDb,
           icon: 'nf nf-md-database_refresh',
@@ -149,9 +155,13 @@
           action: this.dropDb,
           icon: 'nf nf-md-trash_can',
         }, {
-          text: bbn._("Analyze"),
-          action: this.analyzeDb,
-          icon: 'nf nf-md-flask',
+          text: bbn._("Maintenance"),
+          icon: 'nf nf-fa-screwdriver_wrench',
+          items: [{
+            text: bbn._("Analyze"),
+            action: this.analyzeDb,
+            icon: 'nf nf-md-flask',
+          }]
         }, {
           text: bbn._("Import"),
           action: this.importDb,

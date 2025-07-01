@@ -39,7 +39,7 @@
             <bbn-table ref="table"
                       @toggle="onTableToggle"
                       @dataloaded="clearTableSelection"
-                      :source="root + 'data/tables/' + currentData.engine + '/' + currentData.host + '/' + currentData.db"
+                      :source="root + 'data/tables/' + currentData.engine + '/' + currentData.host + '/' + currentData.name"
                       :data="{
                         host_id: currentData.id,
                         engine: currentData.engine

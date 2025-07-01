@@ -6,7 +6,7 @@
       const routerSource = [{
         fixed: true,
         url: 'home',
-        icon: this.source.icon,
+        icon: this.source.icon || 'nf nf-fa-list_alt',
         notext: true,
         label: bbn._('List'),
         load: true,

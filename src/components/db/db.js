@@ -23,6 +23,12 @@
         hasMultipleSelected: false,
         currentData: this.source,
         ready: !!this.source,
+        engines: {
+          mysql: 'MySQL',
+          mariadb: 'MariaDB',
+          pgsql: 'PostgreSQL',
+          sqlite: 'SQLite'
+        }
       };
     },
     computed: {
@@ -68,26 +74,15 @@
       },
       currentInfo(){
         const list = [{
+          text: bbn._("Database"),
+          value: this.currentData.name
+        }, {
           text: bbn._("Engine"),
           value: this.engines[this.currentData.engine]
         }, {
           text: bbn._("Host"),
-          value: this.currentData.name
+          value: this.currentData.host
         }];
-
-        if (this.currentData.ip) {
-          list.push({
-            text: bbn._("IP"),
-            value: this.currentData.ip
-          });
-        }
-
-        if (this.currentData.user) {
-          list.push({
-            text: bbn._("User"),
-            value: this.currentData.user
-          });
-        }
 
         if (this.currentData.charset) {
           list.push({
@@ -100,13 +95,6 @@
           list.push({
             text: bbn._("Collation"),
             value: this.currentData.collation
-          });
-        }
-
-        if (this.currentData.version) {
-          list.push({
-            text: bbn._("Version"),
-            value: this.currentData.version
           });
         }
 
@@ -170,7 +158,7 @@
           source: {
             host: this.currentData.host,
             engine: this.currentData.engine,
-            db: this.currentData.db,
+            db: this.currentData.name,
             table_id: this.currentData.info.id,
             types: this.currentData.types,
             predefined: this.currentData.predefined,
@@ -180,8 +168,8 @@
       },
       refreshTable(row) {
         this.post(this.root + 'actions/table/refresh', {
-          host_id: this.currentData.id,
-          db: this.currentData.info.id,
+          host_id: this.currentData.id_host,
+          db: this.currentData.id,
           table: bbn.fn.isArray(row) ? row : row.name
         }, d => {
           if (d.success && (d.data !== undefined)) {
@@ -203,8 +191,8 @@
       },
       analyzeTable(row) {
         this.post(this.root + 'actions/table/analyze', {
-          host_id: this.currentData.id,
-          db: this.currentData.info.id,
+          host_id: this.currentData.id_host,
+          db: this.currentData.id,
           table: bbn.fn.isArray(row) ? row : row.name
         }, d => {
           if (d.success && (d.data !== undefined)) {
@@ -315,7 +303,7 @@
         }
         this.confirm(mess, () => {
           this.post(this.root + 'actions/table/options', {
-            host_id: this.currentData.id,
+            host_id: this.currentData.id_host,
             db
           }, d => {
             if (d.success) {

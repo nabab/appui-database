@@ -16,6 +16,5 @@ if ($ctrl->hasArguments(2)) {
   )
    // ->setUrl($ctrl->getPath().'/'.$ctrl->data['host'])
     //->setIcon('nf nf-fa-server')
-    ->setIcon(Db::getEngineIcon($ctrl->data['engine'])    )
     ->combo($ctrl->data['host'], true);
 }
