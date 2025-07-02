@@ -87,7 +87,7 @@ if ($model->hasData(['host', 'engine'], true)
     'size' => $size,
     'dataTypes' => $c::$types,
     'predefined' => $model->inc->options->fullOptions('pcolumns', $model->data['engine'], 'engines', 'database', 'appui') ?: [],
-    'dbs' => $dbs,
+    //'dbs' => $dbs,
     'id' => $hostId,
     'engine' => $model->data['engine']
   ], $hostInfo);

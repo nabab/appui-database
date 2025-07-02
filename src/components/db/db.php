@@ -21,14 +21,15 @@
         <div class="bbn- bbn-smargin bbn-secondary-border bbn-radius"
              style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
           <div class="bbn-secondary bbn-c bbn-xspadding bbn-upper bbn-b"><?=_("Information")?></div>
-          <div class="bbn-spadding bbn-c bbn-grid-fields">
-            <template bbn-for="c in currentInfo"
-                      class="appui-database-db-info-item">
-              <div class="bbn-upper bbn-secondary-text-alt bbn-b bbn-label"
+          <div class="bbn-spadding bbn-c bbn-flex-column"
+               style="gap: var(--space)">
+            <div bbn-for="c in currentInfo"
+                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
+              <div class="bbn-upper bbn-secondary-text-alt bbn-b"
                    bbn-text="c.text"/>
               <div class="bbn-light"
                    bbn-text="c.value"/>
-            </template>
+            </div>
           </div>
         </div>
       </bbn-pane>
@@ -39,9 +40,9 @@
             <bbn-table ref="table"
                       @toggle="onTableToggle"
                       @dataloaded="clearTableSelection"
-                      :source="root + 'data/tables/' + currentData.engine + '/' + currentData.host + '/' + currentData.name"
+                      :source="root + 'data/tables/' + currentData.engine + '/' + currentData.id_host + '/' + currentData.name"
                       :data="{
-                        host_id: currentData.id,
+                        host_id: currentData.id_host,
                         engine: currentData.engine
                       }"
                       :selection="true"
@@ -55,7 +56,7 @@
                       style="border-color: var(--header-background)"
                       button-mode="menu">
               <bbns-column field="name"
-                           label="<?= _('Database') ?>"
+                           label="<?= _('Table') ?>"
                            component="appui-database-table-columns-cell"/>
               <bbns-column field="is_real"
                            label="<i class='nf nf-cod-database'></i>"

@@ -82,6 +82,15 @@
         }, {
           text: bbn._("Host"),
           value: this.currentData.host
+        }, {
+          text: bbn._("No. Tables"),
+          value: this.currentData.num_real_tables
+        }, {
+          text: bbn._("No. Functions"),
+          value: this.currentData.num_real_functions
+        }, {
+          text: bbn._("No. Procedures"),
+          value: this.currentData.num_real_procedures
         }];
 
         if (this.currentData.charset) {
@@ -101,7 +110,26 @@
         list.push({
           text: bbn._("Size"),
           value: this.formatBytes(this.currentData.size)
+        }, {
+          text: bbn._("Options"),
+          value: this.currentData.is_virtual ? bbn._("Yes") : bbn._("No")
         });
+
+        if (this.currentData.is_virtual) {
+          list.push({
+            text: bbn._("No. connections in options"),
+            value: this.currentData.num_connections || 0
+          }, {
+            text: bbn._("No. tables in options"),
+            value: this.currentData.num_tables || 0
+          }, {
+            text: bbn._("No. functions in options"),
+            value: this.currentData.num_functions || 0
+          }, {
+            text: bbn._("No. procedures in options"),
+            value: this.currentData.num_procedures || 0
+          });
+        }
 
         return list;
       },

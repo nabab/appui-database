@@ -4,7 +4,8 @@ use bbn\Db\Languages\Sqlite;
 use bbn\Str;
 
 $res = [
-  'data' => []
+  'data' => [],
+  'total' => 0
 ];
 
 if ($model->hasData(['host_id', 'engine'], true)) {
@@ -60,22 +61,19 @@ if ($model->hasData(['host_id', 'engine'], true)) {
       $dbs = $conn ? $conn->getDatabases() : [];
     }
 
-    $odbs = array_map(fn($d) => $d['name'], $model->inc->dbc->dbs($hostId, $engine));
+    $odbs = array_map(fn($d) => $d['name'], $model->inc->dbc->dbs($hostId, $engine) ?: []);
     array_push($dbs, ...array_values(array_filter($odbs, fn($d) => !in_array($d, $dbs))));
+    $res['total'] = count($dbs);
+    sort($dbs);
+    if (isset($model->data['start'], $model->data['limit'])) {
+      $dbs = array_slice($dbs, $model->data['start'], $model->data['limit']);
+    }
+
     $res['data'] = array_map(
-      function($a) use ($model, $hostId, $engine) {
-        return $model->inc->dbc->infoDatabase($a, $hostId, $engine);
-      },
+      fn($a) => $model->inc->dbc->infoDatabase($a, $hostId, $engine),
       array_values(array_filter($dbs, fn($d) => !in_array($d, $dbsExcluded)))
     );
-
-    X::sortBy($res['data'], 'name');
   }
-}
-
-$res['total'] = count($res['data']);
-if (isset($model->data['start'], $model->data['limit'])) {
-  $res['data'] = array_slice($res['data'], $model->data['start'], $model->data['limit']);
 }
 
 return $res;
