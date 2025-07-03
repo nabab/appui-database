@@ -11,7 +11,9 @@
     <template bbn-if="options">
       <span class="bbn-label"><?= _("Options") ?></span>
       <bbn-switch bbn-model="formSource.options"
-                  class="bbn-right-sspace"/>
+                  class="bbn-right-sspace"
+                  :value="true"
+                  :novalue="false"/>
     </template>
   </div>
 </bbn-form>

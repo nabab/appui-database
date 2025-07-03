@@ -20,7 +20,7 @@
         formSource: {
           host_id: this.host,
           db: this.database,
-          options: false
+          options: !!this.options
         },
         message: bbn.fn.isString(this.database) ?
           bbn._("Are you sure you want to drop the database \"%s\"?", this.database) :

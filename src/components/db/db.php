@@ -24,7 +24,7 @@
           <div class="bbn-spadding bbn-c bbn-flex-column"
                style="gap: var(--space)">
             <div bbn-for="c in currentInfo"
-                 :class="['appui-database-host-info-item', {'bbn-middle': !isHorizontal}]">
+                 :class="['appui-database-db-info-item', {'bbn-middle': !isHorizontal}]">
               <div class="bbn-upper bbn-secondary-text-alt bbn-b"
                    bbn-text="c.text"/>
               <div class="bbn-light"
@@ -55,6 +55,9 @@
                       :scrollable="true"
                       style="border-color: var(--header-background)"
                       button-mode="menu">
+              <bbns-column :buttons="getTableButtons"
+                           :width="30"
+                           cls="bbn-c"/>
               <bbns-column field="name"
                            label="<?= _('Table') ?>"
                            component="appui-database-table-columns-cell"/>
@@ -83,9 +86,6 @@
                            field="size"
                            :render="row => formatBytes(row.size)"
                            :width="100"
-                           cls="bbn-c"/>
-              <bbns-column :buttons="getTableButtons"
-                           :width="30"
                            cls="bbn-c"/>
             </bbn-table>
           </div>

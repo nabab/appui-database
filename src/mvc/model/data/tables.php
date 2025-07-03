@@ -32,7 +32,7 @@ if ($model->hasData(['host_id', 'db', 'engine'], true)) {
       }
     }
 
-    $otables = array_map(fn($d) => $d['name'], $model->inc->dbc->tables($db, $hostId, $engine) ?: []);
+    $otables = !empty($dbId) ? array_map(fn($d) => $d['name'], $model->inc->dbc->tables($dbId, $hostId, $engine) ?: []) : [];
     array_push($tables, ...array_values(array_filter($otables, fn($d) => !in_array($d, $tables))));
     $res['total'] = count($tables);
     sort($tables);

@@ -28,7 +28,7 @@
           engine: this.engine,
           charset: this.charset,
           collation: this.collation,
-          options: 0
+          options: false
         }
       }
     },

@@ -54,6 +54,9 @@
                       :scrollable="true"
                       style="border-color: var(--header-background)"
                       button-mode="menu">
+              <bbns-column :buttons="getTableButtons"
+                           :width="30"
+                           cls="bbn-c"/>
               <bbns-column field="name"
                            label="<?= _('Database') ?>"
                            component="appui-database-db-cell"/>
@@ -82,9 +85,6 @@
                            field="size"
                            :render="row => formatBytes(row.size)"
                            :width="100"
-                           cls="bbn-c"/>
-              <bbns-column :buttons="getTableButtons"
-                           :width="30"
                            cls="bbn-c"/>
             </bbn-table>
           </div>

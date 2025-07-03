@@ -20,7 +20,8 @@
         formSource: {
           host_id: this.host,
           db: this.database,
-          name: ''
+          name: '',
+          options: !!this.options
         }
       }
     },

@@ -40,7 +40,7 @@
             this.closest('bbn-container').reload()
           }
         }, {
-          icon: 'nf nf-md-database_plus',
+          icon: 'nf nf-md-table_plus',
 					label: bbn._("Create"),
           action: this.createTable
         }];
@@ -82,15 +82,6 @@
         }, {
           text: bbn._("Host"),
           value: this.currentData.host
-        }, {
-          text: bbn._("No. Tables"),
-          value: this.currentData.num_real_tables
-        }, {
-          text: bbn._("No. Functions"),
-          value: this.currentData.num_real_functions
-        }, {
-          text: bbn._("No. Procedures"),
-          value: this.currentData.num_real_procedures
         }];
 
         if (this.currentData.charset) {
@@ -113,13 +104,19 @@
         }, {
           text: bbn._("Options"),
           value: this.currentData.is_virtual ? bbn._("Yes") : bbn._("No")
+        }, {
+          text: bbn._("No. Tables"),
+          value: this.currentData.num_real_tables
+        }, {
+          text: bbn._("No. Functions"),
+          value: this.currentData.num_real_functions
+        }, {
+          text: bbn._("No. Procedures"),
+          value: this.currentData.num_real_procedures
         });
 
         if (this.currentData.is_virtual) {
           list.push({
-            text: bbn._("No. connections in options"),
-            value: this.currentData.num_connections || 0
-          }, {
             text: bbn._("No. tables in options"),
             value: this.currentData.num_tables || 0
           }, {
@@ -128,6 +125,9 @@
           }, {
             text: bbn._("No. procedures in options"),
             value: this.currentData.num_procedures || 0
+          }, {
+            text: bbn._("No. connections in options"),
+            value: this.currentData.num_connections || 0
           });
         }
 
@@ -179,15 +179,17 @@
       createTable(){
         this.getPopup({
           label: bbn._("New table"),
-          component: 'appui-database-table-form',
+          component: 'appui-database-table-create',
           data: this.cfg,
           width: "120em",
+          maxWidth: "95%",
           height: "60em",
+          maxHeight: "95%",
           source: {
             host: this.currentData.host,
             engine: this.currentData.engine,
             db: this.currentData.name,
-            table_id: this.currentData.info.id,
+            table_id: this.currentData.info?.id,
             types: this.currentData.types,
             predefined: this.currentData.predefined,
             constraints: this.currentData.constraints

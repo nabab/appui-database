@@ -11,7 +11,9 @@
   <div bbn-if="options"
         class="bbn-middle bbn-top-space">
     <bbn-switch bbn-model="formSource.options"
-                class="bbn-right-sspace"/>
+                class="bbn-right-sspace"
+                :value="true"
+                :novalue="false"/>
     <span><?=_('Delete from options')?></span>
   </div>
 </bbn-form>

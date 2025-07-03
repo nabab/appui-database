@@ -20,7 +20,7 @@
     </template>
     <span class="bbn-label"><?= _("Options") ?></span>
     <bbn-switch bbn-model="formData.options"
-                  :value="1"
-                  :novalue="0"/>
+                :value="true"
+                :novalue="false"/>
   </div>
 </bbn-form>

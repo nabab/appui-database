@@ -2,31 +2,24 @@
 (()=> {
   return {
     data() {
-      let db = this.closest('appui-database-db');
       return {
         project: null,
-        db: null
+        root: appui.plugins['appui-database'] + '/',
+        link: ''
+      }
+    },
+    computed: {
+      isRealVirtual(){
+        return this.source.is_real && this.source.is_virtual;
+      },
+      isOnlyVirtual(){
+        return !this.source.is_real && this.source.is_virtual;
       }
     },
     mounted() {
-      this.db = this.closest('appui-database-db');
       this.project = this.closest('appui-project-ui');
-    },
-    computed: {
-      link() {
-        const db = this.db;
-        if (!db) {
-          return '';
-        }
-
-        let o = db.source || db;
-
-        if (this.project) {
-          return this.project.root + 'database/' + '/' + o.host + '/' + o.db + '/' + this.source.name + '/home';
-        }
-
-        return db ? db.root + 'tabs/' + o.engine + '/' + o.host + '/' + o.db + '/' + this.source.name + '/home' : ''
-      }
+      this.link = (this.project ? this.project.root + 'database/' : this.root + 'tabs/' + this.source.engine + '/') +
+        this.source.id_host + '/' + this.source.database + '/' + this.source.name + '/home';
     }
   }
 })();
