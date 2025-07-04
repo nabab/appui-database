@@ -3,7 +3,7 @@
     name: "",
     maxlength: null,
     decimals: null,
-    type: 'varchar',
+    type: '',
     defaultExpression: 0,
     default: null,
     extra: '',
@@ -39,6 +39,9 @@
       };
     },
     computed: {
+      hasColumns(){
+        return !!this.formData.columns?.length;
+      },
       numMovableColumns() {
         let tmp = this.formData.columns.length;
         if (this.edited !== -1) {

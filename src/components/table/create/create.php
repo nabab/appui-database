@@ -48,11 +48,11 @@
                         :novalue="false"/>
           </div>
         </div>
-        <div bbn-if="formData.columns?.length"
+        <div bbn-if="hasColumns"
              class="bbn-middle bbn-upper bbn-b bbn-spadding bbn-border-bottom bbn-m bbn-hspace">
           <?=_("Columns")?>
         </div>
-        <div bbn-if="formData.columns?.length"
+        <div bbn-if="hasColumns"
              class="bbn-grid-fields bbn-nowrap bbn-padding">
           <template bbn-for="(col, i) in formData.columns">
             <div class="bbn-nowrap bbn-s">

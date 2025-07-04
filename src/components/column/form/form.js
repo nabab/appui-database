@@ -8,7 +8,7 @@
   const defaults = {
     maxlength: null,
     decimals: null,
-    type: 'varchar',
+    type: '',
     defaultExpression: 0,
     default: null,
     extra: '',
@@ -284,24 +284,27 @@
       },
 
       defaultValueTypes() {
-        let res = [
-          {
-            text: bbn._("SQL Expression"),
-            value: 'expression',
-          },
-          {
-            text: bbn._("No default value"),
-            value: ''
-          },
-        ];
+        let res = [{
+          text: bbn._("SQL Expression"),
+          value: 'expression'
+        }, {
+          text: bbn._("No default value"),
+          value: ''
+        }];
 
         if (this.source.null) {
-          res.unshift({text: bbn._("Null"), value: "null"});
+          res.unshift({
+            text: bbn._("Null"),
+            value: "null"
+          });
         }
 
         bbn.fn.iterate(this.types, arr => {
           if (arr.includes(this.source.type)) {
-            res.unshift({text: bbn._("As defined"), value: "defined"});
+            res.unshift({
+              text: bbn._("As defined"),
+              value: "defined"
+            });
             return false;
           }
         });
@@ -365,7 +368,7 @@
       },
       resetAll() {
         bbn.fn.iterate(defaults, (a, n) => {
-          if (!['name', 'type'].includes(n)) {
+          if (!['name'].includes(n)) {
             this.source[n] = a;
           }
         });
@@ -457,9 +460,9 @@
         if (ov === 'predefined') {
           return;
         }
+
         bbn.fn.log(`RADIO TYPE IS CHANGED FROM ${ov} to ${v}`);
         this.resetAll();
-        this.source.type = "";
       },
     },
     mounted() {

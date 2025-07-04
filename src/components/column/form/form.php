@@ -102,7 +102,7 @@
                           :novalue="false"/>
           </div>
           <label><?= _("Default Value") ?></label>
-          <bbn-radio :source="defaultValueTypes"
+          <bbn-radiobuttons :source="defaultValueTypes"
                             bbn-model="defaultValueType"
                             :required="radioType === 'free'"/>
           <div bbn-if="['defined', 'expression'].includes(defaultValueType)">
