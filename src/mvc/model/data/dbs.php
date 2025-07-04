@@ -70,7 +70,7 @@ if ($model->hasData(['host_id', 'engine'], true)) {
     }
 
     $res['data'] = array_map(
-      fn($a) => $model->inc->dbc->infoDatabase($a, $hostId, $engine),
+      fn($a) => $model->inc->dbc->infoDb($a, $hostId, $engine),
       array_values(array_filter($dbs, fn($d) => !in_array($d, $dbsExcluded)))
     );
   }

@@ -27,13 +27,15 @@ if ($model->hasData(['host', 'db', 'engine'], true)
   }
 
   $res = X::mergeArrays(
-    $model->inc->dbc->infoDatabase(
+    $model->inc->dbc->infoDb(
       $model->data['db'],
       $hostId,
       $model->data['engine']
     ), [
       'success' => true,
-      'constraints' => $constraints
+      'constraints' => $constraints,
+      'pcolumns' => $model->inc->dbc->enginePcolumns($model->data['engine']),
+      'data_types' => $model->inc->dbc->engineDataTypes($model->data['engine']),
     ]
   );
 }

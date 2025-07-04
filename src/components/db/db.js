@@ -181,17 +181,17 @@
           label: bbn._("New table"),
           component: 'appui-database-table-create',
           data: this.cfg,
-          width: "120em",
+          //width: "120em",
           maxWidth: "95%",
-          height: "60em",
+          //height: "60em",
           maxHeight: "95%",
           source: {
             host: this.currentData.host,
             engine: this.currentData.engine,
             db: this.currentData.name,
             table_id: this.currentData.info?.id,
-            types: this.currentData.types,
-            predefined: this.currentData.predefined,
+            types: this.currentData.data_types,
+            predefined: this.currentData.pcolumns,
             constraints: this.currentData.constraints
           }
         });

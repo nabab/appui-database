@@ -1,6 +1,6 @@
 <!-- HTML Document -->
 
-<div class="appui-database-table-form bbn-padding bbn-c bbn-w-100">
+<div class="appui-database-table-create bbn-spadding bbn-c bbn-w-100">
   <bbn-form :source="formData"
             ref="form"
             :scrollable="false"
@@ -10,34 +10,50 @@
             :confirm-message="_('Are you sure you are ready to create the table?')"
             @keydown.esc.stop.prevent
             @success="onCreate">
-    <div class="bbn-flex-width">
-      <div>
-        <h3 class="bbn-c">
+    <div class="bbn-flex-width"
+         style="column-gap: var(--sspace)">
+      <div class="bbn-radius bbn-background-tertiary bbn-tertiary-text"
+           style="min-width: 30rem">
+        <div class="bbn-middle bbn-upper bbn-b bbn-spadding bbn-border-bottom bbn-lg">
           <?= _("Table information") ?>
-        </h3>
-        <div class="bbn-grid-fields bbn-nowrap">
-
+        </div>
+        <div class="bbn-grid-fields bbn-nowrap bbn-padding">
           <label><?= _("Table's name") ?></label>
           <div>
-            <bbn-input class="bbn-padding"
+            <bbn-input class="bbn-w-100"
                        bbn-model="formData.name"
                        :required="true"/>
           </div>
-
+          <label><?= _("Charset") ?></label>
+          <div>
+            <bbn-dropdown class="bbn-w-100"
+                          bbn-model="formData.charset"
+                          :source="[]"/>
+          </div>
+          <label><?= _("Collation") ?></label>
+          <div>
+            <bbn-dropdown class="bbn-w-100"
+                          bbn-model="formData.collation"
+                          :source="[]"/>
+          </div>
           <label><?= _("Comment") ?></label>
           <div>
-            <bbn-input class="bbn-padding"
+            <bbn-input class="bbn-w-100"
                        bbn-model="formData.comment"/>
           </div>
-
-          <div> </div>
-          <div class="bbn-vpadding">
-            <bbn-button @click="addColumn()"
-                        :disabled="edited !== -1"
-                        :label="_('Add a new column')"/>
-
+          <label><?= _("Options") ?></label>
+          <div>
+            <bbn-switch bbn-model="formData.options"
+                        :value="true"
+                        :novalue="false"/>
           </div>
-
+        </div>
+        <div bbn-if="formData.columns?.length"
+             class="bbn-middle bbn-upper bbn-b bbn-spadding bbn-border-bottom bbn-m bbn-hspace">
+          <?=_("Columns")?>
+        </div>
+        <div bbn-if="formData.columns?.length"
+             class="bbn-grid-fields bbn-nowrap bbn-padding">
           <template bbn-for="(col, i) in formData.columns">
             <div class="bbn-nowrap bbn-s">
               <span class="bbn-right-smargin">
@@ -70,8 +86,13 @@
           </template>
         </div>
       </div>
-      <div class="bbn-flex-fill">
-        <div bbn-if="edited > -1">
+      <div class="bbn-flex-fill bbn-background-secondary bbn-secondary-text bbn-radius bbn-grid"
+           style="grid-auto-rows: max-content auto; min-width: 30rem">
+        <div class="bbn-middle bbn-upper bbn-b bbn-spadding bbn-border-bottom bbn-lg">
+          <?= _("Column definition") ?>
+        </div>
+        <div bbn-if="edited > -1"
+             class="bbn-padding">
           <appui-database-column-form :source="formData.columns[edited]"
                                       :otypes="source.types"
                                       :engine="source.engine"
@@ -82,6 +103,13 @@
                                       @cancel="onCancel"
                                       @change="onChange"/>
         </div>
+        <div bbn-else
+             class="bbn-padding bbn-middle">
+            <bbn-button @click="addColumn()"
+                        :label="_('Add a new column')"
+                        icon="nf nf-fa-plus"/>
+
+          </div>
       </div>
     </div>
   </bbn-form>

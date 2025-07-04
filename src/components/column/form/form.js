@@ -298,7 +298,8 @@
         if (this.source.null) {
           res.unshift({text: bbn._("Null"), value: "null"});
         }
-        bbn.fn.iterate(this.types, arr=>{
+
+        bbn.fn.iterate(this.types, arr => {
           if (arr.includes(this.source.type)) {
             res.unshift({text: bbn._("As defined"), value: "defined"});
             return false;

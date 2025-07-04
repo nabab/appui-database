@@ -1,7 +1,4 @@
-// Javascript Document
-
-
-(()=>{
+(() => {
   const defaultColumn = {
     name: "",
     maxlength: null,
@@ -19,16 +16,22 @@
     update:'CASCADE'
   };
   return {
-    props: ['source'],
-    data () {
+    props: {
+      source: {
+        type: Object,
+        required: true
+      }
+    },
+    data(){
       return {
         root: appui.plugins["appui-database"] + '/',
-        name: '',
-        comment: '',
         edited: -1,
         formData: {
-          name: this.name,
-          comment: this.comment,
+          name: this.source.name || '',
+          charset: '',
+          collation: '',
+          options: !!this.source.options,
+          comment: this.source.comment || '',
           columns: []
         },
         keys: [],
@@ -109,8 +112,7 @@
         }
       },
       addColumn(idx, cfg) {
-        bbn.fn.log("Add column", idx, cfg);
-        if (this.formData.columns[idx]) {
+        if (bbn.fn.isNumber(idx) && this.formData.columns[idx]) {
           this.formData.columns.splice(idx, 0, bbn.fn.extend({}, defaultColumn, cfg || {}));
         }
         else {
@@ -133,6 +135,7 @@
         else {
           this.formData.columns.splice(this.edited, 1);
         }
+
         this.edited = -1;
       },
       getColDescription(col) {
