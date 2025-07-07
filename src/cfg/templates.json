@@ -2,26 +2,38 @@
     {
         "text": "Database",
         "code": "database",
+        "icon": "nf nf-cod-database",
         "items": [
             {
                 "text": "Connections",
                 "code": "connections",
+                "icon": "nf nf-md-lan_connect",
                 "cfg": {
+                    "allow_children": 1,
                     "relations": 1,
                     "notext": 1
                 }
             },
             {
                 "text": "Functions",
-                "code": "functions"
+                "code": "functions",
+                "icon": "nf nf-md-function",
+                "cfg": {
+                    "allow_children": 1
+                }
             },
             {
                 "text": "Procedures",
-                "code": "procedures"
+                "code": "procedures",
+                "icon": "nf nf-cod-server_process",
+                "cfg": {
+                    "allow_children": 1
+                }
             },
             {
                 "text": "Tables",
                 "code": "tables",
+                "icon": "nf nf-md-folder_table_outline",
                 "cfg": {
                     "show_code": 1,
                     "show_value": 1,
@@ -38,10 +50,12 @@
     {
         "text": "Engine",
         "code": "engine",
+        "icon": "nf nf-md-engine",
         "items": [
             {
                 "text": "Connections",
                 "code": "connections",
+                "icon": "nf nf-md-lan_connect",
                 "cfg": {
                     "allow_children": 1,
                     "show_code": 1,
@@ -103,6 +117,7 @@
             {
                 "text": "Databases",
                 "code": "dbs",
+                "icon": "nf nf-dev-database",
                 "cfg": {
                     "allow_children": 1,
                     "show_code": 1
@@ -111,6 +126,7 @@
             {
                 "text": "Preconfigured Columns",
                 "code": "pcolumns",
+                "icon": "nf nf-md-table_column",
                 "cfg": {
                     "allow_children": 1,
                     "show_value": 1,
@@ -126,11 +142,14 @@
     {
         "text": "Table",
         "code": "table",
+        "icon": "nf nf-cod-table",
         "items": [
             {
                 "text": "Columns",
                 "code": "columns",
+                "icon": "nf nf-fa-columns",
                 "cfg": {
+                    "allow_children": 1,
                     "show_value": 1,
                     "show_code": 1
                 }
@@ -138,7 +157,9 @@
             {
                 "text": "Keys",
                 "code": "keys",
+                "icon": "nf nf-md-key_chain_variant",
                 "cfg": {
+                    "allow_children": 1,
                     "show_value": 1,
                     "show_code": 1
                 }
