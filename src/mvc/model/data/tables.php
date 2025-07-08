@@ -31,6 +31,12 @@ if ($model->hasData(['host_id', 'db', 'engine'], true)) {
         $res['error'] = $e->getMessage();
       }
     }
+    if ($model->hasData('simple', true)) {
+      return [
+        'data' => $tables,
+        'total' => count($tables)
+      ];
+    }
 
     $otables = !empty($dbId) ? array_map(fn($d) => $d['name'], $model->inc->dbc->tables($dbId, $hostId, $engine) ?: []) : [];
     array_push($tables, ...array_values(array_filter($otables, fn($d) => !in_array($d, $tables))));

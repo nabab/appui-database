@@ -22,8 +22,7 @@ if ($model->hasData(['host_id', 'engine', 'name'], true)) {
       }
     }
     catch (\Exception $e) {
-      $model->data['res']['error'] = $e->getMessage();
-      die(var_dump('aaa'));
+      $model->data['res']['error'] = Str::text2html($e->getMessage());
     }
 
     if ($isSqlite || $conn->check()) {

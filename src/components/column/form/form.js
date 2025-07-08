@@ -10,7 +10,7 @@
     decimals: null,
     type: '',
     defaultExpression: 0,
-    default: null,
+    default: '',
     extra: '',
     signed: 1,
     "null": 0,
@@ -18,7 +18,9 @@
     ref_column: '',
     index: '',
     delete:'CASCADE',
-    update:'CASCADE'
+    update:'CASCADE',
+    charset: '',
+    collation: ''
   };
 
   return {
@@ -45,25 +47,36 @@
           return [];
         }
       },
+      charsets: {
+        type: Array,
+        default() {
+          return [];
+        }
+      },
+      collations: {
+        type: Array,
+        default() {
+          return [];
+        }
+      }
     },
     data(){
-      let data = {
-        engine: this.engine,
-        host: this.host,
-        db: this.db,
-        tables: this.tables
-      };
+      const isNew = this.source.name === '';
       return {
-        isNew: this.source.name === '',
-        oldName: this.source.name,
-        question: '',
-        buttonTitle: '',
         root: appui.plugins['appui-database'] + '/',
+        isNew,
+        oldName: this.source.name,
+        question: isNew ? bbn._('What kind of column do you want to create ?') : bbn._('Edit you column here:'),
         checked: 0,
         defaultValueType: '',
-        formData: data,
+        formData: {
+          engine: this.engine,
+          host: this.host,
+          db: this.db,
+          tables: this.tables
+        },
         values: [],
-        radioType: this.source.ref_column ? 'constraint' : (this.source.name ? 'free' : 'predefined'),
+        radioType: this.source.ref_column ? 'constraint' : (this.source.name || !this.predefined?.length ? 'free' : 'predefined'),
         predefinedType: "",
         columnsNamesOk: false,
         onDelete: [
@@ -183,6 +196,28 @@
       };
     },
     computed: {
+      radioTypes(){
+        let res = [];
+        if (this.predefined?.length) {
+          res.push({
+            text: bbn._('A predefined one'),
+            value: 'predefined'
+          });
+        }
+
+        if (this.constraints?.length) {
+          res.push({
+            text: bbn._('A reference to another table'),
+            value: 'constraint'
+          });
+        }
+
+        res.push({
+          text: bbn._('Configure it yourself'),
+          value: 'free'
+        });
+        return res;
+      },
       constraint: {
         get() {
           return this.source.ref_table && this.source.ref_column ? this.source.ref_table + '.' + this.source.ref_column : '';
@@ -282,22 +317,18 @@
         }
         return {};
       },
-
       defaultValueTypes() {
         let res = [{
+          text: bbn._("Null"),
+          value: "null",
+          disabled: !this.source.null
+        }, {
           text: bbn._("SQL Expression"),
           value: 'expression'
         }, {
           text: bbn._("No default value"),
           value: ''
         }];
-
-        if (this.source.null) {
-          res.unshift({
-            text: bbn._("Null"),
-            value: "null"
-          });
-        }
 
         bbn.fn.iterate(this.types, arr => {
           if (arr.includes(this.source.type)) {
@@ -313,10 +344,23 @@
       nameIsEmpty() {
         return this.source.name === '';
       },
+      formButtons(){
+        return [{
+          label: bbn._('Cancel'),
+          action: this.cancel,
+          icon: 'nf nf-fa-times_circle'
+        }, {
+          label: this.isNew ? bbn._('Create column') : bbn._('Edit column'),
+          action: this.change,
+          disabled: !this.isFormValid,
+          preset: 'submit'
+        }];
+      },
       isFormValid() {
         if (!this.source.name || !this.radioType || !this.columnsNamesOk) {
           return false;
         }
+
         switch (this.radioType) {
           case "constraint":
             if (!this.constraint) {
@@ -368,24 +412,34 @@
       },
       resetAll() {
         bbn.fn.iterate(defaults, (a, n) => {
-          if (!['name'].includes(n)) {
+          if (!['name', 'type', 'charset', 'collation'].includes(n)) {
             this.source[n] = a;
           }
         });
       },
       checkColumnsNames() {
-        let cp = this.closest("appui-database-table-form");
-        if (cp) {
-          let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
-          this.columnsNamesOk = num <= 1;
+        if (this.source?.name) {
+          let cp = this.closest("appui-database-table-create");
+          if (cp) {
+            let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
+            this.columnsNamesOk = num <= 1;
+          }
+          else {
+            cp = this.closest("bbn-form");
+            this.columnsNamesOk = cp.isModified() && cp.isValid();
+          }
         }
-        else {
-          cp = this.closest("bbn-form");
-          this.columnsNamesOk = cp.isModified() && cp.isValid();
-        }
-      },
+      }
     },
     watch: {
+      'source.name'(){
+        this.checkColumnsNames();
+      },
+      'source.null'(v){
+        if (!v && (this.defaultValueType === 'null')) {
+          this.defaultValueType = '';
+        }
+      },
       constraint(v) {
         if (v) {
           let row = bbn.fn.getRow(this.constraints, {value: v});
@@ -449,7 +503,7 @@
         if (v) {
           let o = bbn.fn.getRow(this.predefined, {id: v});
           bbn.fn.each(Object.keys(defaults), n => {
-            this.$set(this.source, n, o[n] === undefined ? defaults[n] : o[n]);
+            this.source[n] = o[n] === undefined ? defaults[n] : o[n];
           });
           this.radioType = this.constraint ? 'constraint' : 'free';
           this.predefinedType = "";
@@ -464,15 +518,6 @@
         bbn.fn.log(`RADIO TYPE IS CHANGED FROM ${ov} to ${v}`);
         this.resetAll();
       },
-    },
-    mounted() {
-      if (!this.isNew) {
-        this.buttonTitle = bbn._('Edit column');
-        this.question = bbn._('Edit you column here:');
-      } else {
-        this.buttonTitle = bbn._('Create column');
-        this.question = bbn._('What kind of column do you want to create ?');
-      }
     }
   };
 })();

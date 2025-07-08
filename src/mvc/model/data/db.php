@@ -13,6 +13,10 @@ if ($model->hasData(['host', 'db', 'engine'], true)
     $conn = $model->inc->dbc->connection($hostId, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
+    return [
+      'error' => $e->getMessage(),
+      'success' => false
+    ];
   }
 
   $constraints = [];
@@ -36,6 +40,8 @@ if ($model->hasData(['host', 'db', 'engine'], true)
       'constraints' => $constraints,
       'pcolumns' => $model->inc->dbc->enginePcolumns($model->data['engine']),
       'data_types' => $model->inc->dbc->engineDataTypes($model->data['engine']),
+      'charsets' => $conn->charsets(),
+      'collations' => $conn->collations(),
     ]
   );
 }

@@ -1,35 +1,31 @@
-<div class="appui-database-form-column">
+<div class="appui-database-column-form">
   <!---<span class="bbn-m bbn-b bbn-space-right bbn-iblock"
             bbn-if="option && (option.text !== option.code)"
             bbn-text="option.text"/>
       <span class="bbn-m bbn-b bbn-space-right bbn-iblock"
             bbn-text="source.name"/> -->
   <bbn-form :scrollable="false"
-            mode="normal"
+            mode="big"
             ref="form"
             :confirm-leave="false"
             :source="source"
-            @success="onSuccess"
-            :windowed="false">
-    <div class="bbn-grid-fields">
-      <div class="bbn-grid-full bbn-m bbn-i bbn-c bbn-b">
-        {{question}}
-      </div>
-      <div class="bbn-grid-full bbn-m bbn-bottom-space">
-        <bbn-radiobuttons :source="[{
-                            text: _('A predefined one'),
-                            value: 'predefined'
-                          }, {
-                            text: _('A reference to another table'),
-                            value: 'constraint'
-                          }, {
-                            text: _('Configure it yourself'),
-                            value: 'free'
-                          }]"
-                          storage-full-name="appui-database-column-form-radio-type"
-                          bbn-model="radioType"
-                          ref="radioType"/>
-      </div>
+            @success.stop="onSuccess"
+            :windowed="false"
+            :buttons="formButtons"
+            @submit.stop
+            @change.stop
+            @cancel.stop>
+    <div class="bbn-grid-fields bbn-bottom-space">
+      <template bbn-if="radioTypes?.length > 1">
+        <div class="bbn-grid-full bbn-m bbn-i bbn-c bbn-b">
+          {{question}}
+        </div>
+        <div class="bbn-grid-full bbn-m bbn-bottom-space">
+          <bbn-radiobuttons :source="radioTypes"
+                            bbn-model="radioType"
+                            ref="radioType"/>
+        </div>
+      </template>
       <div bbn-if="radioType === 'predefined'"
            class="bbn-grid-full bbn-m bbn-vspadding bbn-c">
         <bbn-dropdown class="bbn-wider"
@@ -41,15 +37,15 @@
         <div class="bbn-label"><?=_("Name")?></div>
         <bbn-input class="bbn-wider"
                     bbn-model="source.name"
-                    :required="true"
-                    @change="checkColumnsNames"/>
-        <template bbn-if="radioType === 'constraint'" >
+                    :required="true"/>
+        <template bbn-if="radioType === 'constraint'">
           <label ><?= _("Reference Table") ?></label>
           <bbn-dropdown class="bbn-wider"
                         bbn-model="constraint"
                         :required="true"
                         :source="constraints"
-                        :placeholder="_('Choose the reference')"/>
+                        :placeholder="_('Choose the reference')"
+                        :limit="0"/>
           <label ><?= _("On delete") ?></label>
           <bbn-dropdown class="bbn-narrow"
                         bbn-model="source.delete"
@@ -107,30 +103,40 @@
                             :required="radioType === 'free'"/>
           <div bbn-if="['defined', 'expression'].includes(defaultValueType)">
           </div>
-          <div bbn-if="defaultValueType === 'defined'">
+          <div bbn-if="(defaultValueType === 'defined') && defaultComponent">
             <component :is="defaultComponent"
-                      bbn-bind="defaultComponentOptions"
-                      bbn-model="source.default"
-                      :required="true"/>
+                       bbn-bind="defaultComponentOptions"
+                       bbn-model="source.default"
+                       :required="true"
+                       class="bbn-w-100"/>
           </div>
           <div bbn-else-if="defaultValueType === 'expression'">
             <bbn-input bbn-model="source.default"
-                      :required="true"/>
+                      :required="true"
+                      class="bbn-w-100"/>
           </div>
           <label><?= _("Indexes") ?></label>
           <div>
             <bbn-radiobuttons :source="constraintIndexes"
                               bbn-model="source.index"/>
           </div>
+          <template bbn-if="charsets?.length">
+            <label><?= _("Charset") ?></label>
+            <div>
+              <bbn-dropdown class="bbn-w-100"
+                            bbn-model="source.charset"
+                            :source="charsets"/>
+            </div>
+          </template>
+          <template bbn-if="collations?.length">
+            <label><?= _("Collation") ?></label>
+            <div>
+              <bbn-dropdown class="bbn-w-100"
+                            bbn-model="source.collation"
+                            :source="collations"/>
+            </div>
+          </template>
       </template>
-    </div>
-    <div class="bbn-c bbn-w-100 bbn-vpadding">
-      <bbn-button :label="buttonTitle"
-                  :action="change"
-                  :disabled="!isFormValid"
-                  class="bbn-right-margin"/>
-      <bbn-button :label="_('Cancel')"
-                  :action="cancel"/>
     </div>
   </bbn-form>
 </div>

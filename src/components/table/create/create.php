@@ -24,29 +24,35 @@
                        bbn-model="formData.name"
                        :required="true"/>
           </div>
-          <label><?= _("Charset") ?></label>
-          <div>
-            <bbn-dropdown class="bbn-w-100"
-                          bbn-model="formData.charset"
-                          :source="[]"/>
-          </div>
-          <label><?= _("Collation") ?></label>
-          <div>
-            <bbn-dropdown class="bbn-w-100"
-                          bbn-model="formData.collation"
-                          :source="[]"/>
-          </div>
+          <template bbn-if="source.charsets?.length">
+            <label><?= _("Charset") ?></label>
+            <div>
+              <bbn-dropdown class="bbn-w-100"
+                            bbn-model="formData.charset"
+                            :source="source.charsets"/>
+            </div>
+          </template>
+          <template bbn-if="source.collations?.length">
+            <label><?= _("Collation") ?></label>
+            <div>
+              <bbn-dropdown class="bbn-w-100"
+                            bbn-model="formData.collation"
+                            :source="source.collations"/>
+            </div>
+          </template>
           <label><?= _("Comment") ?></label>
           <div>
             <bbn-input class="bbn-w-100"
                        bbn-model="formData.comment"/>
           </div>
-          <label><?= _("Options") ?></label>
-          <div>
-            <bbn-switch bbn-model="formData.options"
-                        :value="true"
-                        :novalue="false"/>
-          </div>
+          <template bbn-if="source.options">
+            <label><?= _("Options") ?></label>
+            <div>
+              <bbn-switch bbn-model="formData.options"
+                          :value="true"
+                          :novalue="false"/>
+            </div>
+          </template>
         </div>
         <div bbn-if="hasColumns"
              class="bbn-middle bbn-upper bbn-b bbn-spadding bbn-border-bottom bbn-m bbn-hspace">
@@ -54,11 +60,11 @@
         </div>
         <div bbn-if="hasColumns"
              class="bbn-grid-fields bbn-nowrap bbn-padding">
-          <template bbn-for="(col, i) in formData.columns">
+          <template bbn-for="(col, i) in columnsList">
             <div class="bbn-nowrap bbn-s">
               <span class="bbn-right-smargin">
                 <i class="nf nf-md-key_variant"
-                   :style="{visibility: formData.columns[i].constraint ? 'visible' : 'hidden'}"/>
+                   :style="{visibility: columnsList[i].constraint ? 'visible' : 'hidden'}"/>
               </span>
               <bbn-button :label="_('Move up')"
                           icon="nf nf-fa-long_arrow_up"
@@ -96,19 +102,24 @@
           <appui-database-column-form :source="formData.columns[edited]"
                                       :otypes="source.types"
                                       :engine="source.engine"
-                                      :host="source.host"
+                                      :host="source.id_host"
                                       :db="source.db"
                                       :predefined="source.predefined"
                                       :constraints="source.constraints"
+                                      :charsets="source.charsets"
+                                      :collations="source.collations"
                                       @cancel="onCancel"
                                       @change="onChange"/>
         </div>
         <div bbn-else
-             class="bbn-padding bbn-middle">
+             class="bbn-padding bbn-flex-column bbn-middle bbn-grid-gap">
             <bbn-button @click="addColumn()"
                         :label="_('Add a new column')"
                         icon="nf nf-fa-plus"/>
-
+            <bbn-button bbn-if="!formData.columns?.length"
+                        :label="_('Import columns from another table')"
+                        icon="nf nf-fa-plus"
+                        :disabled="true"/>
           </div>
       </div>
     </div>

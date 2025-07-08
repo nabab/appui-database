@@ -186,13 +186,18 @@
           //height: "60em",
           maxHeight: "95%",
           source: {
+            id_host: this.currentData.id_host,
             host: this.currentData.host,
             engine: this.currentData.engine,
             db: this.currentData.name,
-            table_id: this.currentData.info?.id,
             types: this.currentData.data_types,
             predefined: this.currentData.pcolumns,
-            constraints: this.currentData.constraints
+            constraints: this.currentData.constraints,
+            charsets: this.currentData.charsets,
+            charset: this.currentData.charset,
+            collations: this.currentData.collations,
+            collation: this.currentData.collation,
+            options: !!this.currentData.is_virtual
           }
         });
       },
