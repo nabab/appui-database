@@ -1,5 +1,37 @@
 [
     {
+        "text": "Table",
+        "code": "table",
+        "icon": "nf nf-cod-table",
+        "items": [
+            {
+                "text": "Columns",
+                "code": "columns",
+                "icon": "nf nf-fa-columns",
+                "cfg": {
+                    "allow_children": 0,
+                    "show_value": 1,
+                    "show_code": 1
+                }
+            },
+            {
+                "text": "Keys",
+                "code": "keys",
+                "icon": "nf nf-md-key_chain_variant",
+                "cfg": {
+                    "allow_children": 0,
+                    "show_value": 1,
+                    "show_code": 1
+                }
+            }
+        ],
+        "cfg": {
+            "show_code": 1,
+            "show_value": 1,
+            "allow_children": 1
+        }
+    },
+    {
         "text": "Database",
         "code": "database",
         "icon": "nf nf-cod-database",
@@ -9,7 +41,7 @@
                 "code": "connections",
                 "icon": "nf nf-md-lan_connect",
                 "cfg": {
-                    "allow_children": 1,
+                    "allow_children": 0,
                     "relations": 1,
                     "notext": 1
                 }
@@ -19,7 +51,8 @@
                 "code": "functions",
                 "icon": "nf nf-md-function",
                 "cfg": {
-                    "allow_children": 1
+                    "allow_children": 0,
+                    "show_code": 1
                 }
             },
             {
@@ -27,7 +60,8 @@
                 "code": "procedures",
                 "icon": "nf nf-cod-server_process",
                 "cfg": {
-                    "allow_children": 1
+                    "allow_children": 0,
+                    "show_code": 1
                 }
             },
             {
@@ -35,10 +69,13 @@
                 "code": "tables",
                 "icon": "nf nf-md-folder_table_outline",
                 "cfg": {
-                    "show_code": 1,
-                    "show_value": 1,
-                    "allow_children": 1,
-                    "inheritance": "cascade"
+                    "id_template": [
+                      "table",
+                      "templates",
+                      "database",
+                      "appui",
+                      "plugins"
+                    ]
                 }
             }
         ],
@@ -110,7 +147,8 @@
                         "servers",
                         "options",
                         "server",
-                        "appui"
+                        "appui",
+                        "plugins"
                     ]
                 }
             },
@@ -119,8 +157,13 @@
                 "code": "dbs",
                 "icon": "nf nf-dev-database",
                 "cfg": {
-                    "allow_children": 1,
-                    "show_code": 1
+                    "id_template": [
+                        "database",
+                        "templates",
+                        "database",
+                        "appui",
+                        "plugins"
+                    ]
                 }
             },
             {
@@ -128,7 +171,7 @@
                 "code": "pcolumns",
                 "icon": "nf nf-md-table_column",
                 "cfg": {
-                    "allow_children": 1,
+                    "allow_children": 0,
                     "show_value": 1,
                     "show_code": 1
                 }
@@ -136,38 +179,8 @@
         ],
         "cfg": {
             "allow_children": 1,
-            "show_code": 1
-        }
-    },
-    {
-        "text": "Table",
-        "code": "table",
-        "icon": "nf nf-cod-table",
-        "items": [
-            {
-                "text": "Columns",
-                "code": "columns",
-                "icon": "nf nf-fa-columns",
-                "cfg": {
-                    "allow_children": 1,
-                    "show_value": 1,
-                    "show_code": 1
-                }
-            },
-            {
-                "text": "Keys",
-                "code": "keys",
-                "icon": "nf nf-md-key_chain_variant",
-                "cfg": {
-                    "allow_children": 1,
-                    "show_value": 1,
-                    "show_code": 1
-                }
-            }
-        ],
-        "cfg": {
-            "allow_children": 1,
-            "show_code": 1
+            "show_code": 1,
+            "show_icon": 1
         }
     }
 ]
