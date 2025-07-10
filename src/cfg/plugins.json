@@ -9,7 +9,8 @@
                 "id_alias": [
                     "widgets",
                     "dashboard",
-                    "appui"
+                    "appui",
+                    "plugins"
                 ],
                 "icon": "nf nf-md-widgets",
                 "items": [
