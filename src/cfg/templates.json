@@ -99,7 +99,7 @@
                     "relations": "alias",
                     "schema": [
                         {
-                            "title": "Connection's name",
+                            "label": "Connection's name",
                             "field": "text",
                             "type": "string",
                             "options": [],
@@ -109,7 +109,7 @@
                             "showable": true
                         },
                         {
-                            "title": "user@host",
+                            "label": "user@host",
                             "field": "code",
                             "type": "string",
                             "options": [],
@@ -119,12 +119,11 @@
                             "showable": true
                         },
                         {
-                            "title": "Environment",
+                            "label": "Environment",
                             "options": [],
                             "field": "environment",
                             "showable": true,
                             "editable": true,
-                            "type": "",
                             "hidden": false,
                             "source": [
                                 {
