@@ -26,18 +26,13 @@ function getQueryAction(string $query): Actions
       return Actions::Insert;
     case "select":
       return Actions::Select;
-      break;
     case "update":
       return Actions::Update;
-      break;
     case "delete":
       return Actions::Delete;
-      break;
 		default:
       return Actions::Select;
-      break;
   }
-  return Actions::Select;
 }
 
 if ($model->hasData('code')) {
@@ -53,11 +48,13 @@ if ($model->hasData('code')) {
   // execute query
 	$data = [];
   if ($action === Actions::Select) {
-    $data = $model->db->rselectAll($cfg)
-	} else if ($action === Actions::Delete) {
+    $data = $model->db->rselectAll($cfg);
+	}
+  elseif ($action === Actions::Delete) {
     $data = $model->db->rselectAll($cfg);
     $model->db->delete($cfg);
-  } else if ($action === Actions::Update) {
+  }
+  elseif ($action === Actions::Update) {
     $data = $model->db->rselectAll($cfg);
     $model->db->update($cfg);
   }

@@ -19,7 +19,8 @@ if (defined('BBN_BASEURL')) {
       ->setColor('#666', '#EEE')
       ->setIcon('nf nf-fa-database')
       ->addData([
-        'icon' => 'nf nf-fa-home',
+        'homeIcon' => 'nf nf-fa-home',
+        'homeLabel' => _("Home"),
         'isRoot' => true,
       ]);
   }
@@ -44,18 +45,20 @@ if (defined('BBN_BASEURL')) {
         $ctrl->obj->error = _("Database engine not supported");
         return;
       }
-      $engine = $ctrl->arguments[0];
 
+      $engine = $ctrl->arguments[0];
       $host = $ctrl->arguments[1];
       if ($ctrl->hasArguments(3)) {
         //the db
         $db = $ctrl->arguments[2];
       }
+
       if ($ctrl->hasArguments(4)) {
         // the table
         $table = $ctrl->arguments[3];
       }
     }
+
     // 1st level containers
     if (BBN_BASEURL === $root) {
       // Hosts list (home)
@@ -69,10 +72,12 @@ if (defined('BBN_BASEURL')) {
         //host's nav
         $combo = true;
         $url = $root.$engine.'/'.$host;
-        $title = $host;
-        $icon = Db::getEngineIcon($engine);
-        $ctrl->setIcon($icon)
-              ->addData(['icon' => $icon]);
+        $title = $ctrl->inc->options->text($host);
+        $ctrl->setIcon(Db::getEngineIcon($engine))
+             ->addData([
+              'homeIcon' => 'nf nf-md-database',
+              'homeLabel' => _("Databases"),
+            ]);
       }
     }
     // Lower level containers
@@ -89,13 +94,14 @@ if (defined('BBN_BASEURL')) {
             $combo = true;
             $title = $db;
             $url = $root.$engine.'/'.$host.'/'.$db;
-            $ctrl->setIcon('nf nf-fa-database')
-            ->addData([
-              'icon' => 'nf nf-fa-database',
-              'hasConsole' => true,
-              'database' => $db,
-              'engine' => $engine
-            ]);
+            $ctrl->setIcon('nf nf-md-database_outline')
+                 ->addData([
+                   'homeIcon' => 'nf nf-md-table_large',
+                   'homeLabel' => _("Tables"),
+                   'hasConsole' => true,
+                   'database' => $db,
+                   'engine' => $engine
+                 ]);
           }
           else {
             //host
@@ -115,6 +121,8 @@ if (defined('BBN_BASEURL')) {
           else {
             $ctrl->addToObj('./tabs/db/'.$engine.'/'.$host.'/'.$db, [], true);
             $url = $root.$engine.'/'.$host.'/'.$db.'/home';
+            $ctrl->setTitle(_("Tables"))
+                  ->setIcon('nf nf-md-table_large');
           }
           break;
           // Table

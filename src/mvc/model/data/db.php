@@ -4,16 +4,19 @@
 use bbn\X;
 
 $res['success'] = false;
-if (
-  $model->hasData(['host', 'db', 'engine'], true) &&
-  ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
-){
-  $isReal = \in_array($model->data['db'], $model->db->getDatabases());
-  $db_id = $model->inc->dbc->dbId($model->data['db'], $host_id);
+if ($model->hasData(['host', 'db', 'engine'], true)
+  && ($hostId = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
+) {
+  $isReal = in_array($model->data['db'], $model->db->getDatabases());
+  $dbId = $model->inc->dbc->dbId($model->data['db'], $hostId);
   try {
-    $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
+    $conn = $model->inc->dbc->connection($hostId, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
+    return [
+      'error' => $e->getMessage(),
+      'success' => false
+    ];
   }
 
   $constraints = [];
@@ -27,19 +30,19 @@ if (
     }
   }
 
-  $res = [
-    'success' => true,
-    'data' => [
-      'host' => $model->data['host'],
-      'db' => $model->data['db'],
-      'db_id' => $db_id,
-      'is_real' => $isReal,
-      'is_virtual' => $db_id ? true : false,
-      'info' => $model->inc->options->option($db_id),
-      'engine' => $model->data['engine'],
-      'size' => $isReal ? bbn\Str::saySize($model->db->dbSize($model->data['db'])) : 0,
-      'constraints' => $constraints
+  $res = X::mergeArrays(
+    $model->inc->dbc->infoDb(
+      $model->data['db'],
+      $hostId,
+      $model->data['engine']
+    ), [
+      'success' => true,
+      'constraints' => $constraints,
+      'pcolumns' => $model->inc->dbc->enginePcolumns($model->data['engine']),
+      'data_types' => $model->inc->dbc->engineDataTypes($model->data['engine']),
+      'charsets' => $conn->charsets(),
+      'collations' => $conn->collations(),
     ]
-  ];
+  );
 }
 return $res;

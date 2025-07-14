@@ -1,76 +1,79 @@
 <?php
-/*
- * Describe what it does
- *
- **/
 use bbn\X;
-
-/** @var bbn\Mvc\Model $model */
+use bbn\Db\Languages\Sqlite;
+use bbn\Str;
 
 $res = [
-  'data' => []
+  'data' => [],
+  'total' => 0
 ];
 
-if ($model->hasData('host_id', true)) {
-  try {
-    $conn = $model->inc->dbc->connection($model->data['host_id']);
-  }
-  catch (\Exception $e) {
-    return ['error' => $e->getMessage()];
-  }
-  $real_dbs = $conn->getDatabases();
-  $db_excluded = [
-    'sys',
-    'test',
-    'lost+found',
-    'performance_schema',
-    'mysql',
-    '#mysql50#lost+found'
-  ];
-  $full_dbs = $model->inc->dbc->fullDbs($model->data['host_id']);
-  $res['data'] = array_map(
-    function ($a) use (&$real_dbs) {
-      $idx = array_search($a['name'], $real_dbs);
-      $a['is_real'] = $idx !== false;
-      if ($a['is_real']) {
-        array_splice($real_dbs, $idx, 1);
-      }
-      $a['is_virtual'] = true;
-      return $a;
-    },
-    $full_dbs
-  );
-  $default = [
-    'name' => null,
-    'text' => null,
-    'is_real' => false,
-    'is_virtual' => false,
-    'num_connections' => null,
-    'num_procedures' => null,
-    'num_tables' => null,
-    'size' => null,
-    'is_bbn' => null,
-    'has_history' => null,
-    'last_check' => null
-  ];
-  if ($model->hasData('engine', true)) {
-    $default['engine'] = $model->data['engine'];
-  }
-
-  foreach ( $real_dbs as $i => $db ){
-    if (!in_array($db, $db_excluded)) {
-      $res['data'][] = [
-        'name' => $db,
-        'text' => $db,
-        'is_real' => true
-      ];
+if ($model->hasData(['host_id', 'engine'], true)) {
+  $engine = Str::isUid($model->data['engine']) ?
+    $model->inc->dbc->engineCode($model->data['engine']) :
+    $model->data['engine'];
+  $engineId = Str::isUid($model->data['engine']) ?
+    $model->data['engine'] :
+    $model->inc->dbc->engineId($engine);
+  $hostId = $model->inc->dbc->hostId($model->data['host_id'], $engine);
+  if (!empty($engine)
+    && !empty($engineId)
+    && !empty($hostId)
+  ) {
+    $isSqlite = $engine === 'sqlite';
+    try {
+      $conn = $model->inc->dbc->connection($hostId, $engine);
     }
+    catch (\Exception $e) {
+      if (!$isSqlite) {
+        $res['error'] = $e->getMessage();
+      }
+    }
+
+    $dbsExcluded = [
+      'sys',
+      'test',
+      'lost+found',
+      'performance_schema',
+      'mysql',
+      '#mysql50#lost+found'
+    ];
+    $dbs = [];
+    if ($isSqlite
+      && ($path = $model->inc->options->code($hostId))
+    ) {
+      $pbits = X::split($path, '/');
+      foreach ($pbits as &$bit) {
+        if (str_starts_with($bit, 'BBN_') && defined($bit)) {
+          $bit = constant($bit);
+          if (str_ends_with($bit, '/')) {
+            $bit = rtrim($bit, '/');
+          }
+        }
+      }
+
+      $path = X::join($pbits, '/');
+      if (is_dir($path)) {
+        $dbs = Sqlite::getHostDatabases($path);
+      }
+    }
+    else {
+      $dbs = $conn ? $conn->getDatabases() : [];
+    }
+
+    $odbs = array_map(fn($d) => $d['name'], $model->inc->dbc->dbs($hostId, $engine) ?: []);
+    array_push($dbs, ...array_values(array_filter($odbs, fn($d) => !in_array($d, $dbs))));
+    $res['total'] = count($dbs);
+    sort($dbs);
+    if (isset($model->data['start'], $model->data['limit'])) {
+      $dbs = array_slice($dbs, $model->data['start'], $model->data['limit']);
+    }
+
+    $res['data'] = array_map(
+      fn($a) => $model->inc->dbc->infoDb($a, $hostId, $engine),
+      array_values(array_filter($dbs, fn($d) => !in_array($d, $dbsExcluded)))
+    );
   }
-  foreach ($res['data'] as $i => $r) {
-    $res['data'][$i] = array_merge($default, $r);
-  }
-  X::sortBy($res['data'], 'name');
 }
-$res['total'] = \count($res['data']);
-//$res['data'] = \array_slice($res['data'], $model->data['start'], $model->data['limit']);
+
 return $res;

@@ -2,4 +2,4 @@
 
 <bbn-router :autoload="true"
             :nav="true"
-            :source="routerSource"></bbn-router>
+            :source="routerSource"/>

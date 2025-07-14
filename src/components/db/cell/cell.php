@@ -1,34 +1,45 @@
 <!-- HTML Document -->
-<div>
-  <div class="bbn-w-100 bbn-nowrap">
-    <a class="bbn-b bbn-m"
-       :href="link"
-       bbn-text="source.name"/>
-    &nbsp;|&nbsp;
-    <span bbn-if="source.is_real"
-          class="bbn-success-text">
-      <?= _("Exists in the host") ?>
-    </span>
-    <span bbn-else
-          class="bbn-error-text">
-      <?= _("Doesn't exist in the host") ?>
-    </span>
-    &nbsp;|&nbsp;
-    <span bbn-if="source.is_virtual"
-          class="bbn-success-text">
-      <?= _("Exists as options") ?>
-    </span>
-    <span bbn-else
-          class="bbn-error-text">
-      <?= _("Doesn't exist as options") ?>
-    </span>
-    <br>
-    <span bbn-if="source.last_check">
-      <?= _("Info date") ?>
-      <span bbn-text="fdate(source.last_check)"/>
-    </span>
-    <span bbn-else>
-      <?= _("The info has never been built") ?>
-    </span>
+<div :class="['appui-database-db-cell', 'bbn-spadding', 'bbn-w-100', 'bbn-nowrap', {'bbn-i': isOnlyVirtual}]">
+  <a class="bbn-b"
+     :href="link"
+     bbn-text="source.name"/>
+  <div :class="['bbn-vmiddle', 'bbn-top-xsspace', 'bbn-light', {
+         'bbn-success-text': isRealVirtual,
+         'bbn-secondary-text-alt': !isRealVirtual
+       }]"
+       style="gap: var(--sspace)">
+    <div :class="['bbn-vmiddle', 'bbn-nowrap', {
+           'bbn-error-text': isRealVirtual && (source.num_real_tables !== source.num_tables)
+         }]"
+         title="<?=_("Number of tables (real|options)")?>">
+      <i class="nf nf-md-table bbn-right-xsspace"/>
+      <span bbn-if="isRealVirtual || !isOnlyVirtual"
+            bbn-text="source.num_real_tables || 0"/>
+      <span bbn-if="isRealVirtual">|</span>
+      <span bbn-if="isRealVirtual || isOnlyVirtual"
+            bbn-text="source.num_tables || 0"/>
+    </div>
+    <div :class="['bbn-vmiddle', 'bbn-nowrap', {
+           'bbn-error-text': isRealVirtual && (source.num_real_procedures !== source.num_procedures)
+         }]"
+         title="<?=_("Number of procedures (real|options)")?>">
+      <i class="nf nf-md-alpha_p_circle_outline bbn-right-xsspace"/>
+      <span bbn-if="isRealVirtual || !isOnlyVirtual"
+            bbn-text="source.num_real_procedures || 0"/>
+      <span bbn-if="isRealVirtual">|</span>
+      <span bbn-if="isRealVirtual || isOnlyVirtual"
+            bbn-text="source.num_procedures || 0"/>
+    </div>
+    <div :class="['bbn-vmiddle', 'bbn-nowrap', {
+           'bbn-error-text': isRealVirtual && (source.num_real_functions !== source.num_functions)
+         }]"
+         title="<?=_("Number of functions (real|options)")?>">
+      <i class="nf nf-md-function bbn-right-xsspace"/>
+      <span bbn-if="isRealVirtual || !isOnlyVirtual"
+            bbn-text="source.num_real_functions || 0"/>
+      <span bbn-if="isRealVirtual">|</span>
+      <span bbn-if="isRealVirtual || isOnlyVirtual"
+            bbn-text="source.num_functions || 0"/>
+    </div>
   </div>
 </div>

@@ -1,14 +1,11 @@
-// Javascript Document
-
-
-(()=>{
+(() => {
   const defaultColumn = {
     name: "",
     maxlength: null,
     decimals: null,
-    type: 'varchar',
+    type: '',
     defaultExpression: 0,
-    default: null,
+    default: '',
     extra: '',
     signed: 1,
     "null": 0,
@@ -16,19 +13,27 @@
     ref_column: '',
     index: '',
     delete:'CASCADE',
-    update:'CASCADE'
+    update:'CASCADE',
+    charset: '',
+    collation: ''
   };
   return {
-    props: ['source'],
-    data () {
+    props: {
+      source: {
+        type: Object,
+        required: true
+      }
+    },
+    data(){
       return {
         root: appui.plugins["appui-database"] + '/',
-        name: '',
-        comment: '',
         edited: -1,
         formData: {
-          name: this.name,
-          comment: this.comment,
+          name: this.source.name || '',
+          charset: this.source.charset || '',
+          collation: this.source.collation || '',
+          options: !!this.source.options,
+          comment: this.source.comment || '',
           columns: []
         },
         keys: [],
@@ -36,6 +41,12 @@
       };
     },
     computed: {
+      hasColumns(){
+        return !!this.columnsList?.length;
+      },
+      columnsList(){
+        return this.formData.columns;
+      },
       numMovableColumns() {
         let tmp = this.formData.columns.length;
         if (this.edited !== -1) {
@@ -72,11 +83,12 @@
             };
 
             if (a.ref_column) {
+              res.keys[kn].constraint = a.name;
               res.keys[kn].ref_db = this.source.db;
               res.keys[kn].ref_table = a.ref_table;
               res.keys[kn].ref_column = a.ref_column;
-              res.keys[kn].update = this.update;
-              res.keys[kn].delete = this.delete;
+              res.keys[kn].update = a.update;
+              res.keys[kn].delete = a.delete;
             }
           }
         });
@@ -91,7 +103,7 @@
             table.updateData();
           }
 
-          bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.host + '/' + this.source.db + '/' + this.formData.name + '/columns');
+          bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.id_host + '/' + this.source.db + '/' + this.formData.name + '/columns');
           this.getRef('form').closePopup();
         }
       },
@@ -109,8 +121,7 @@
         }
       },
       addColumn(idx, cfg) {
-        bbn.fn.log("Add column", idx, cfg);
-        if (this.formData.columns[idx]) {
+        if (bbn.fn.isNumber(idx) && this.formData.columns[idx]) {
           this.formData.columns.splice(idx, 0, bbn.fn.extend({}, defaultColumn, cfg || {}));
         }
         else {
@@ -127,13 +138,15 @@
         });
       },
       onCancel(o) {
-        if (o) {
-          this.formData.columns.splice(this.edited, 1, o);
-        }
-        else {
-          this.formData.columns.splice(this.edited, 1);
-        }
         this.edited = -1;
+        this.$nextTick(() => {
+          if (o) {
+            this.formData.columns.splice(this.edited, 1, o);
+          }
+          else {
+            this.formData.columns.splice(this.edited, 1);
+          }
+        });
       },
       getColDescription(col) {
         let str = '<strong>' + col.name + '</strong> ' + col.type;

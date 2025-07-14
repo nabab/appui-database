@@ -47,7 +47,7 @@ if (
     'db' => $model->data['db'],
     'db_id' => $db_id ?: null,
     'table' => $model->data['table'],
-    'comment' => $conn->getTableComment($model->data['db'].'.'.$model->data['table']),
+    'comment' => $conn->getTableComment($model->data['table']),
     'table_id' => $table_id ?? null,
     'ocolumns' => $table_id ? $model->inc->options->fullOptions('columns', $table_id) : [],
     'is_real' => \in_array($model->data['table'], $conn->getTables($model->data['db'])),
@@ -74,8 +74,8 @@ if (
   }
  
   if ($res['is_real']) {
-    $res['size'] = $conn->tableSize($model->data['db'].'.'.$model->data['table']);
-    $res['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
+    $res['size'] = $conn->tableSize($model->data['table']);
+    $res['count'] = $conn->count($model->data['table']);
   }
   $engines = ['mysql', 'sqlite', 'postgre'];
   foreach ($engines as $engine) {

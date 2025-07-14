@@ -16,6 +16,7 @@ if ($res['total']) {
   $url = $model->pluginUrl('appui-database');
   $res['data'] = array_map(
     function ($a) use ($url) {
+      die(var_dump($a));
       return [
         'text' => $a['text'],
         'url'  => $url.'/tabs/mysql-'.$a['name']

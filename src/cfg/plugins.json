@@ -9,7 +9,8 @@
                 "id_alias": [
                     "widgets",
                     "dashboard",
-                    "appui"
+                    "appui",
+                    "plugins"
                 ],
                 "icon": "nf nf-md-widgets",
                 "items": [
@@ -39,12 +40,38 @@
                         "buttonsRight": "[{\"text\":\"Add a new MySQL host\",\"icon\":\"nf nf-fa-plus\",\"action\":\"addMysqlHost\"}]"
                     },
                     {
+                        "text": "PostgreSQL Databases",
+                        "code": "dbs_pgsql",
+                        "observe": false,
+                        "closable": true,
+                        "itemComponent": "appui-database-widget-database",
+                        "limit": 10
+                    },
+                    {
+                        "text": "PostgreSQL Hosts",
+                        "code": "hosts_pgsql",
+                        "observe": false,
+                        "closable": true,
+                        "itemComponent": "appui-database-widget-database",
+                        "limit": 10,
+                        "buttonsRight": "[{\"text\":\"Add a new PostgreSQL host\",\"icon\":\"nf nf-fa-plus\",\"action\":\"addPgsqlHost\"}]"
+                    },
+                    {
                         "text": "SQLite Databases",
                         "code": "dbs_sqlite",
                         "observe": false,
                         "closable": true,
                         "itemComponent": "appui-database-widget-database",
                         "limit": 10
+                    },
+                    {
+                        "text": "SQLite Hosts",
+                        "code": "hosts_sqlite",
+                        "observe": false,
+                        "closable": true,
+                        "itemComponent": "appui-database-widget-database",
+                        "limit": 10,
+                        "buttonsRight": "[{\"text\":\"Add a new SQLite host\",\"icon\":\"nf nf-fa-plus\",\"action\":\"addSqliteHost\"}]"
                     },
                     {
                         "text": "Tables",

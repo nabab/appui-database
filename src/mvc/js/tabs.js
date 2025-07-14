@@ -6,9 +6,9 @@
       const routerSource = [{
         fixed: true,
         url: 'home',
-        icon: this.source.icon,
+        icon: this.source.homeIcon,
         notext: true,
-        label: bbn._('List'),
+        label: this.source.homeLabel,
         load: true,
         bcolor: '#666',
         fcolor: '#FFF'

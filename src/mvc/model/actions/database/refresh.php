@@ -13,7 +13,7 @@ if ($model->hasData(['host_id', 'db'], true)
   if (is_array($model->data['db'])) {
     $r = [];
     foreach ($model->data['db'] as $db) {
-      $r[$db] = $model->inc->dbc->analyzeDatabase($db, $hostId, $engine);
+      $r[$db] = $model->inc->dbc->infoDb($db, $hostId, $engine);
     }
 
     return [

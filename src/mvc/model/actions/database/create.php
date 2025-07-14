@@ -1,23 +1,49 @@
 <?php
+use bbn\Mvc\Model;
 use bbn\Str;
+use bbn\Db\Languages\Sqlite;
 
-/** @var bbn\Mvc\Model $model */
-if ($model->hasData(['host_id', 'name'], true)) {
-  if (!str::checkName($model->data['name'])) {
+/** @var Model $model */
+if ($model->hasData(['host_id', 'engine', 'name'], true)) {
+  if (!Str::checkName($model->data['name'])) {
     $model->data['res']['error'] = _("This name is not authorized");
   }
   else {
     try {
-      $conn = $model->inc->dbc->connection($model->data['host_id']);
+      if (($isSqlite = $model->data['engine'] === 'sqlite')
+        && !str_ends_with($model->data['name'], '.sqlite')
+        && !str_ends_with($model->data['name'], '.db')
+      ) {
+        $model->data['name'] .= '.sqlite';
+      }
+
+      if (!$isSqlite) {
+        $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine']);
+      }
     }
     catch (\Exception $e) {
-      $model->data['res']['error'] = $e->getMessage();
+      $model->data['res']['error'] = Str::text2html($e->getMessage());
     }
 
-    if ($conn->check()) {
-      $model->data['res']['return'] = $conn->createDatabase($model->data['name']);
-      $model->data['res']['success'] = !!$model->data['res']['return'];
-      $model->data['res']['is_same'] = $conn === $model->db;
+    if ($isSqlite || $conn->check()) {
+      if (($isSqlite
+          && Sqlite::createDatabaseOnHost($model->data['name'], $model->data['host_id']))
+        || (!$isSqlite
+          && $conn->createDatabase(
+            $model->data['name'],
+            $model->data['charset'] ?? null,
+            $model->data['collation'] ?? null
+          ))
+      ) {
+        $model->data['res']['success'] = true;
+        if ($model->hasData('options', true)) {
+          $model->inc->dbc->addDatabase(
+            $model->data['name'],
+            $model->data['host_id'],
+            $model->data['engine']
+          );
+        }
+      }
     }
 
   }

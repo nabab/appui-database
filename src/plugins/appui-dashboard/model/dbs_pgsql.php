@@ -1,25 +1,27 @@
 <?php
-/** @var bbn\Mvc\Model $model */
 
 use bbn\Appui\Database;
 
+/** @var bbn\Mvc\Model $model */
 $model->data['limit'] = isset($model->data['limit']) && is_int($model->data['limit']) ? $model->data['limit'] : 5;
 $model->data['start'] = isset($model->data['start']) && is_int($model->data['start']) ? $model->data['start'] : 0;
 $dbc                  = $model->inc->dbc ?? new Database($model->db);
-$hosts                = $dbc->fullHosts('mysql') ?: [];
+$dbs                  = $dbc->fullDbs('', 'pgsql');
 $res                  = [
-  'total' => count($hosts),
+  'total' => count($dbs),
   'data' => []
 ];
 
 if ($res['total']) {
   $url = $model->pluginUrl('appui-database');
   $res['data'] = array_map(
-    fn($a) => [
-      'text' => $a['text'],
-      'url'  => $url.'/tabs/mysql/'.$a['id']
-    ],
-    array_splice($hosts, $model->data['start'], $model->data['limit'])
+    function ($a) use ($url) {
+      return [
+        'text' => $a['text'],
+        'url'  => $url.'/tabs/pgsql-'.$a['name']
+      ];
+    },
+    array_splice($dbs, $model->data['start'], $model->data['limit'])
   );
 }
 
