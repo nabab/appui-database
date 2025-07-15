@@ -2,6 +2,7 @@
   <bbn-table :source="tableSource"
              :sortable="true"
              :filterable="true"
+             uid="code"
              :info="true"
              button-mode="menu"
              :columns= "columns"
