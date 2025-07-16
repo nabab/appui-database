@@ -350,7 +350,7 @@
           action: this.cancel,
           icon: 'nf nf-fa-times_circle'
         }, {
-          label: this.isNew ? bbn._('Create column') : bbn._('Edit column'),
+          label: bbn._('Save column'),
           action: this.change,
           disabled: !this.isFormValid,
           preset: 'submit'

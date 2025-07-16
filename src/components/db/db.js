@@ -141,6 +141,12 @@
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
         return row.is_real ? [{
+          text: bbn._("Open"),
+          action: () => {
+            bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id_host + '/' + this.currentData.name + '/' + row.name + '/home')
+          },
+          icon: 'nf nf-md-open_in_app',
+        }, {
           text: bbn._("Refresh"),
           action: this.refreshTable,
           icon: 'nf nf-md-table_refresh',
@@ -157,9 +163,13 @@
           action: this.dropTable,
           icon: 'nf nf-md-trash_can',
         }, {
-          text: bbn._("Analyze"),
-          action: this.analyzeTable,
-          icon: 'nf nf-md-flask',
+          text: bbn._("Maintenance"),
+          icon: 'nf nf-fa-screwdriver_wrench',
+          items: [{
+            text: bbn._("Analyze"),
+            action: this.analyzeTable,
+            icon: 'nf nf-md-flask',
+          }]
         }, {
           text: bbn._("Import"),
           action: this.importTable,
@@ -204,7 +214,7 @@
       refreshTable(row) {
         this.post(this.root + 'actions/table/refresh', {
           host_id: this.currentData.id_host,
-          db: this.currentData.id,
+          db: this.currentData.name,
           table: bbn.fn.isArray(row) ? row : row.name
         }, d => {
           if (d.success && (d.data !== undefined)) {
@@ -248,13 +258,16 @@
         });
       },
       duplicateTable(row) {
-        if (this.currentData?.id && row?.name?.length) {
+        if (this.currentData?.id_host
+          && this.currentData?.name
+          && row?.name?.length
+        ) {
           this.getPopup({
             label: bbn._("Duplicate table"),
             component: 'appui-database-table-duplicate',
             componentOptions: {
-              host: this.currentData.id,
-              database: this.currentData.info.id,
+              host: this.currentData.id_host,
+              database: this.currentData.name,
               table: row.name,
               options: !!row.is_virtual
             },
