@@ -3,6 +3,7 @@ use bbn\Db\Languages\Sqlite;
 use bbn\X;
 
 if ($model->hasData(['host_id', 'db', 'name'], true)
+  && $model->hasData('with_data')
   && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
   && ($engine = $model->inc->dbc->engineCode($engineId))
 ) {
@@ -21,7 +22,7 @@ if ($model->hasData(['host_id', 'db', 'name'], true)
     if (($isSqlite
         && Sqlite::duplicateDatabaseOnHost($model->data['db'], $model->data['name'], $model->data['host_id']))
       || (!$isSqlite
-        && $conn->duplicateDatabase($model->data['db'], $model->data['name']))
+        && $conn->duplicateDatabase($model->data['db'], $model->data['name'], !empty($model->data['with_data'])))
     ) {
       if ($model->hasData('options', true)
         && ($dbId = $model->inc->dbc->dbId($model->data['db'], $model->data['host_id'], $engine))

@@ -21,6 +21,7 @@
           host_id: this.host,
           db: this.database,
           name: '',
+          with_data: true,
           options: !!this.options
         }
       }

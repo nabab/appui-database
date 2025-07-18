@@ -20,6 +20,18 @@
         "id_option": ["dbs_sqlite", "widgets", "appui-dashboard", "plugins", "database", "appui"]
       },
       {
+        "code": "hosts_sqlite",
+        "id_option": ["hosts_sqlite", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "dbs_pgsql",
+        "id_option": ["dbs_pgsql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "hosts_pgsql",
+        "id_option": ["hosts_pgsql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
         "code": "tables",
         "id_option": ["tables", "widgets", "appui-dashboard", "plugins", "database", "appui"]
       }
@@ -44,6 +56,18 @@
       {
         "code": "dbs_sqlite",
         "id_option": ["dbs_sqlite", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "hosts_sqlite",
+        "id_option": ["hosts_sqlite", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "dbs_pgsql",
+        "id_option": ["dbs_pgsql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
+      },
+      {
+        "code": "hosts_pgsql",
+        "id_option": ["hosts_pgsql", "widgets", "appui-dashboard", "plugins", "database", "appui"]
       },
       {
         "code": "tables",

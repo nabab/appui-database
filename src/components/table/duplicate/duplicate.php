@@ -8,6 +8,10 @@
     <span bbn-text="table"/>
     <span class="bbn-label"><?= _("New table name") ?></span>
     <bbn-input bbn-model="formSource.name"/>
+    <span class="bbn-label"><?= _("Duplicate the data") ?></span>
+    <bbn-switch bbn-model="formSource.with_data"
+                :value="true"
+                :novalue="false"/>
     <template bbn-if="options">
       <span class="bbn-label"><?= _("Options") ?></span>
       <bbn-switch bbn-model="formSource.options"

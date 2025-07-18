@@ -26,6 +26,7 @@
           db: this.database,
           table: this.table,
           name: '',
+          with_data: true,
           options: !!this.options
         }
       }
