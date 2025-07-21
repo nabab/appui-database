@@ -219,15 +219,7 @@
           host_id: this.currentData.id,
           db: bbn.fn.isArray(row) ? row : row.name
         }, d => {
-          if (d.success && (d.data !== undefined)) {
-            bbn.fn.iterate(d.data, (v, db) => {
-              let r = bbn.fn.getRow(this.getRef('table').currentData, 'data.name', db);
-              if (r) {
-                bbn.fn.iterate(v, (val, k) => {
-                  r.data[k] = val;
-                });
-              }
-            });
+          if (d.success) {
             this.clearTableSelection();
             appui.success();
           }
@@ -302,6 +294,7 @@
             },
             componentEvents: {
                 success: () => {
+                  this.clearTableSelection();
                   this.getRef('table').updateData();
                 }
               }

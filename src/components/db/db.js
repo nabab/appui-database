@@ -140,51 +140,60 @@
     methods:{
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
-        return row.is_real ? [{
-          text: bbn._("Open"),
-          action: () => {
-            bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id_host + '/' + this.currentData.name + '/' + row.name + '/home')
-          },
-          icon: 'nf nf-md-open_in_app',
-        }, {
-          text: bbn._("Refresh"),
-          action: this.refreshTable,
-          icon: 'nf nf-md-table_refresh',
-        }, {
-          text: bbn._("Duplicate"),
-          action: this.duplicateTable,
-          icon: 'nf nf-md-content_copy',
-        }, {
-          text: bbn._("Rename"),
-          action: this.renameTable,
-          icon: 'nf nf-md-square_edit_outline',
-        }, {
-          text: bbn._("Drop"),
-          action: this.dropTable,
-          icon: 'nf nf-md-trash_can',
-        }, {
-          text: bbn._("Maintenance"),
-          icon: 'nf nf-fa-screwdriver_wrench',
-          items: [{
-            text: bbn._("Analyze"),
-            action: this.analyzeTable,
-            icon: 'nf nf-md-flask',
-          }]
-        }, {
-          text: bbn._("Import"),
-          action: this.importTable,
-          icon: 'nf nf-md-database_import',
-          disabled: true,
-        }, {
-          text: bbn._("Export"),
-          action: this.exportTable,
-          icon: 'nf nf-md-database_export',
-          disabled: true
-        }, {
-          text: row.is_virtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
-          action: this.toOption,
-          icon: 'nf nf-md-opera',
-        }] : [];
+        const btns = [];
+        if (row.is_real) {
+          btns.push({
+            text: bbn._("Open"),
+            action: () => {
+              bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id_host + '/' + this.currentData.name + '/' + row.name + '/home')
+            },
+            icon: 'nf nf-md-open_in_app',
+          }, {
+            text: bbn._("Refresh"),
+            action: this.refreshTable,
+            icon: 'nf nf-md-table_refresh',
+          }, {
+            text: bbn._("Duplicate"),
+            action: this.duplicateTable,
+            icon: 'nf nf-md-content_copy',
+          }, {
+            text: bbn._("Rename"),
+            action: this.renameTable,
+            icon: 'nf nf-md-square_edit_outline',
+          }, {
+            text: bbn._("Drop"),
+            action: this.dropTable,
+            icon: 'nf nf-md-trash_can',
+          }, {
+            text: bbn._("Maintenance"),
+            icon: 'nf nf-fa-screwdriver_wrench',
+            items: [{
+              text: bbn._("Analyze"),
+              action: this.analyzeTable,
+              icon: 'nf nf-md-flask',
+            }]
+          }, {
+            text: bbn._("Import"),
+            action: this.importTable,
+            icon: 'nf nf-md-database_import',
+            disabled: true,
+          }, {
+            text: bbn._("Export"),
+            action: this.exportTable,
+            icon: 'nf nf-md-database_export',
+            disabled: true
+          });
+        }
+
+        if (this.currentData?.is_virtual) {
+          btns.push({
+            text: row.is_virtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
+            action: this.toOption,
+            icon: 'nf nf-md-opera',
+          });
+        }
+
+        return btns;
       },
       createTable(){
         this.getPopup({
@@ -234,21 +243,14 @@
           }
         });
       },
-      analyzeTable(row) {
+      analyzeTable(row, a, b) {
+        bbn.fn.log('aaaa', row, a, b)
         this.post(this.root + 'actions/table/analyze', {
           host_id: this.currentData.id_host,
-          db: this.currentData.id,
+          db: this.currentData.name,
           table: bbn.fn.isArray(row) ? row : row.name
         }, d => {
-          if (d.success && (d.data !== undefined)) {
-            bbn.fn.iterate(d.data, (v, t) => {
-              let r = bbn.fn.getRow(this.getRef('table').currentData, 'data.name', t);
-              if (r) {
-                bbn.fn.iterate(v, (val, k) => {
-                  r.data[k] = val;
-                });
-              }
-            });
+          if (d.success) {
             this.clearTableSelection();
             appui.success();
           }
@@ -280,13 +282,16 @@
         }
       },
       renameTable(row) {
-        if (this.currentData?.id && row?.name?.length) {
+        if (this.currentData?.id_host
+          && this.currentData?.name
+          && row?.name?.length
+        ) {
           this.getPopup({
             label: bbn._("Rename table"),
             component: 'appui-database-table-rename',
             componentOptions: {
-              host: this.currentData.id,
-              database: this.currentData.info.id,
+              host: this.currentData.id_host,
+              database: this.currentData.name,
               table: row.name,
               options: !!row.is_virtual
             },
@@ -317,18 +322,22 @@
           options = !!row.is_virtual;
         }
 
-        if (this.currentData?.id && table.length) {
+        if (this.currentData?.id_host
+          && this.currentData?.name
+          && table.length
+        ) {
           this.getPopup({
             label: false,
             component: 'appui-database-table-drop',
             componentOptions: {
-              host: this.currentData.id,
-              database: this.currentData.info.id,
+              host: this.currentData.id_host,
+              database: this.currentData.name,
               table,
               options
             },
             componentEvents: {
                 success: () => {
+                  this.clearTableSelection();
                   this.getRef('table').updateData();
                 }
               }
@@ -337,22 +346,23 @@
       },
       toOption(row){
         let mess;
-        let db;
+        let table;
         if (bbn.fn.isArray(row)) {
-          db = bbn.fn.map(row, d => d.name || d);
+          table = bbn.fn.map(row, d => d.name || d);
           mess = bbn._(
             "Are you sure you want to store the structure of the tables %s as options?",
             bbn.fn.map(row, d => '"' + d + '"').join(", ")
           );
         }
         else {
-          db = row.name;
-          mess = bbn._("Are you sure you want to store the structure of the table \"%s\" as options?", db);
+          table = row.name;
+          mess = bbn._("Are you sure you want to store the structure of the table \"%s\" as options?", table);
         }
         this.confirm(mess, () => {
           this.post(this.root + 'actions/table/options', {
             host_id: this.currentData.id_host,
-            db
+            database: this.currentData.name,
+            table
           }, d => {
             if (d.success) {
               appui.success();

@@ -1,72 +1,35 @@
 <?php
-/**
- * What is my purpose?
- *
- **/
-
-use bbn\Appui\Database;
+use bbn\X;
 
 /** @var bbn\Mvc\Model $model */
-if ($model->hasData(['engine', 'host', 'db', 'table', 'name', 'res'], true)) {
-  $dbc = new Database($model->db);
+if ($model->hasData(['host_id', 'db', 'table', 'name'], true)
+  && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
+  && ($engine = $model->inc->dbc->engineCode($engineId))
+) {
+  $db = $model->data['db'];
+  $table = $model->data['table'];
+  $newName = $model->data['name'];
   try {
-    $conn = $dbc->connection(
-      $model->data['host'],
-      $model->data['engine'],
-	  	$model->data['db']
-    );
+    $conn = $model->inc->dbc->connection($model->data['host_id'], $engine, $db);
   }
   catch (\Exception $e) {
-    return [
-      'success' => false,
-      'error' => $e->getMessage()
-    ];
+    return ['error' => $e->getMessage()];
   }
 
   if ($conn->check()) {
-    $tables =  $conn->getTables();
-    $renamed = 0;
-    $exists = in_array($model->data['name'], $tables);
-    if (!$exists) {
-      try {
-        if ($conn->renameTable($model->data['table'], $model->data['name'])) {
-          $renamed++;
-        }
+    if ($conn->renameTable($table, $newName)) {
+      if ($model->hasData('options', true)
+        && ($tableId = $model->inc->dbc->tableId($table, $db, $model->data['host_id'], $engine))
+      ) {
+        $model->inc->dbc->renameTable($tableId, $newName);
       }
-      catch (\Exception $e) {
-        return [
-          'success' => false,
-          'error' => $e->getMessage()
-        ];
-      }
+
+      return ['success' => true];
     }
-
-    if ($exists || $renamed) {
-      $table_id = $dbc->tableId(
-        $model->data['table'],
-        $model->data['db'],
-        $model->data['host'],
-        $model->data['engine']
-      );
-      if ($table_id) {
-        $opt = $model->inc->options->option($table_id);
-        $change = [
-          'code' => $model->data['name']
-        ];
-
-        if ($opt['text'] === $model->data['table ']) {
-          $change['text'] = $model->data['name'];
-        }
-
-        if ($model->inc->options->setProp($table_id, $change)) {
-          $renamed++;
-        }
-      }
-      if ($renamed) {
-        $model->data['res']['success'] = true;
-      }
+    else {
+      return ['error' => X::_("Impossible to rename the table %s to %s", $table, $newName)];
     }
   }
 }
 
-return $model->data['res'];
+return ['success' => false];

@@ -1,39 +1,44 @@
 <?php
-/**
- * What is my purpose?
- *
- **/
-
+use bbn\Mvc\Model;
 use bbn\X;
-use bbn\Str;
-use Exception;
-/** @var bbn\Mvc\Model $model */
 
-$res = ['success' => false, 'num_deleted' => 0];
-if ($model->hasData(['host', 'db', 'engine', 'table'], true)) {
+/** @var Model $model */
+
+if ($model->hasData(['host_id', 'db', 'table'], true)
+  && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
+  && ($engine = $model->inc->dbc->engineCode($engineId))
+) {
+  if (!is_array($model->data['table'])) {
+    $model->data['table'] = [$model->data['table']];
+  }
+
   try {
-    $dbconn = $model->inc->dbc->connection($model->data['host'], $model->data['engine'], $model->data['db']);
-  }
-  catch (Exception $e) {
-    $res['error'] = Str::text2html($e->getMessage());
-  }
-  if ($dbconn->check()) {
-    if (!is_array($model->data['table'])) {
-      $model->data['table'] = [$model->data['table']];
-    }
+    $model->data['res']['undeleted'] = [];
+    $conn = $model->inc->dbc->connection($model->data['host_id'], $engine, $model->data['db']);
+    foreach ($model->data['table'] as $table) {
+      if ($conn->check()
+        && $conn->dropTable($table)
+      ) {
+        if ($model->hasData('options', true)
+          && ($tableId = $model->inc->dbc->tableId($table, $model->data['db'], $model->data['host_id'], $engine))
+        ) {
+          $model->inc->dbc->removeTable($tableId);
+        }
 
-    foreach ($model->data['table'] as $t) {
-	    try {
-        $res['num_deleted'] += (int)$dbconn->dropTable($t, $model->data['db']);
+        $model->data['res']['success'] = true;
       }
-      catch (Exception $e) {
-        $res['error'] = Str::text2html($e->getMessage());
-        break;
+      else {
+        $model->data['res']['undeleted'][] = $table;
       }
     }
+  }
+  catch (\Exception $e) {
+    $model->data['res']['error'] = $e->getMessage();
+  }
 
-    $res['success'] = $res['num_deleted'] === count($model->data['table']);
+  if (!empty($model->data['res']['undeleted'])) {
+    $model->data['res']['error'] = X::_("Impossible to delete the following tables: %s", X::join($model->data['res']['undeleted'], ', '));
   }
 }
 
-return $res;
+return $model->data['res'];

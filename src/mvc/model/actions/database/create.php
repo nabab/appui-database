@@ -1,22 +1,28 @@
 <?php
 use bbn\Mvc\Model;
 use bbn\Str;
+use bbn\X;
 use bbn\Db\Languages\Sqlite;
 
 /** @var Model $model */
 if ($model->hasData(['host_id', 'engine', 'name'], true)) {
-  if (!Str::checkName($model->data['name'])) {
+  $isSqlite = $model->data['engine'] === 'sqlite';
+  if ($isSqlite) {
+    $ext = X::extension($model->data['name']);
+    $filename = X::basename($model->data['name'], '.' . $ext);
+    if (!Str::checkName($filename)) {
+      $model->data['res']['error'] = _("This name is not authorized");
+    }
+    else if ($ext !== 'sqlite' && $ext !== 'db') {
+      $model->data['name'] = $filename . '.sqlite';
+    }
+  }
+  else if (!Str::checkName($model->data['name'])) {
     $model->data['res']['error'] = _("This name is not authorized");
   }
-  else {
-    try {
-      if (($isSqlite = $model->data['engine'] === 'sqlite')
-        && !str_ends_with($model->data['name'], '.sqlite')
-        && !str_ends_with($model->data['name'], '.db')
-      ) {
-        $model->data['name'] .= '.sqlite';
-      }
 
+  if (empty($model->data['res']['error'])) {
+    try {
       if (!$isSqlite) {
         $conn = $model->inc->dbc->connection($model->data['host_id'], $model->data['engine']);
       }
