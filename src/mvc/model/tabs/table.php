@@ -85,5 +85,9 @@ if (
       'root' => $model->pluginUrl('appui-database')
     ];
   }
+
+  if ($conn) {
+    $conn->close();
+  }
 }
 return $res;

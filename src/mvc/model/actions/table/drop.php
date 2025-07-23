@@ -31,6 +31,10 @@ if ($model->hasData(['host_id', 'db', 'table'], true)
         $model->data['res']['undeleted'][] = $table;
       }
     }
+
+    if ($conn) {
+      $conn->close();
+    }
   }
   catch (\Exception $e) {
     $model->data['res']['error'] = $e->getMessage();

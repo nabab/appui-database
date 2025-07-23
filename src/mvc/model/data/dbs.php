@@ -73,6 +73,9 @@ if ($model->hasData(['host_id', 'engine'], true)) {
       fn($a) => $model->inc->dbc->infoDb($a, $hostId, $engine),
       array_values(array_filter($dbs, fn($d) => !in_array($d, $dbsExcluded)))
     );
+    if ($conn) {
+      $conn->close();
+    }
   }
 }
 

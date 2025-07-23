@@ -24,7 +24,7 @@ if ($model->hasData(['host_id', 'db', 'engine'], true)) {
     $isSqlite = $engine === 'sqlite';
     try {
       $conn = $model->inc->dbc->connection($hostId, $engine, $db);
-      $tables = $conn->getTables($db);
+      $tables = $conn ? $conn->getTables($db) : [];
     }
     catch (\Exception $e) {
       if (!$isSqlite) {
@@ -50,6 +50,9 @@ if ($model->hasData(['host_id', 'db', 'engine'], true)) {
       fn($a)  => $model->inc->dbc->infoTable($a, $db, $hostId, $engine),
       $tables
     );
+    if ($conn) {
+      $conn->close();
+    }
   }
 }
 

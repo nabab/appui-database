@@ -96,5 +96,9 @@ if (
       'root' => APPUI_DATABASES_ROOT
     ];
   }
+
+  if ($conn) {
+    $conn->close();
+  }
 }
 return $res;
