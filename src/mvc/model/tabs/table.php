@@ -80,10 +80,14 @@ if (
   $engines = ['mysql', 'sqlite', 'postgre'];
   foreach ($engines as $engine) {
     $res['editColumnsData'][$engine] =   [
-      'types' => bbn\Db\Languages\Sql::$types,
+      'types' => $model->inc->dbc->engineDataTypes($engine),
       'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'engines', 'database', 'appui'),
       'root' => $model->pluginUrl('appui-database')
     ];
+  }
+
+  if ($conn) {
+    $conn->close();
   }
 }
 return $res;

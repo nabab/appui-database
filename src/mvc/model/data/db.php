@@ -44,5 +44,8 @@ if ($model->hasData(['host', 'db', 'engine'], true)
       'collations' => $conn->collations(),
     ]
   );
+  if ($conn) {
+    $conn->close();
+  }
 }
 return $res;
