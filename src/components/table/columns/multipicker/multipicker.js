@@ -2,9 +2,15 @@
   return {
     data() {
       return {
+        root: appui.plugins['appui-database'] + '/',
         formData: {
           id: this.source.option?.id,
+          type: 'dcolumns',
           dcolumns: this.source.option?.dcolumns || [],
+          engine: this.source.engine,
+          host: this.source.host,
+          db: this.source.db,
+          table: this.source.table
         }
       }
     },
@@ -21,6 +27,13 @@
         return this.fields.map(f => {
           return {text: f.name, value: f.name};
         })
+      }
+    },
+    methods: {
+      onSuccess() {
+        if (this.source.option.dcolumns !== this.formData.dcolumns) {
+          this.source.option.dcolumns = this.formData.dcolumns;
+        }
       }
     }
   };

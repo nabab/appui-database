@@ -2,7 +2,9 @@
  <!--  :action="source.root +'actions/column/validform'" -->
 
 <div class="bbn-iblock">
-  <bbn-form :source="formData">
+  <bbn-form :source="formData"
+            :action="root + 'actions/table/set'"
+            @success="onSuccess">
     <div class="bbn-padding">
       <h3 class="bbn-c"><?= _("Displayed column(s) selector") ?></h3>
       <p>

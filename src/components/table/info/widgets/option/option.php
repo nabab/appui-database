@@ -56,8 +56,8 @@
       <bbn-tooltip source="<?= _("Pick the column(s) that you want to see from this table in other lists") ?>"/>
     </label>
     <div>
-      <span bbn-if="source.option.dcolumns?.length"
-            bbn-html="source.option.dcolumns.join(', ') + '<br>'"/>
+      <span bbn-if="hasDisplayedColumns"
+            bbn-html="displayedColumnsStr"/>
       <bbn-button icon="nf nf-fa-edit"
                   :label="source.option.dcolumns?.length ? _('Change') : _('Set')"
                   @click="setDisplayColumns"/>

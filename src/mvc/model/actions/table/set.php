@@ -22,8 +22,8 @@ if ($model->hasData(['engine', 'host', 'db', 'table', 'type', 'res'], true)) {
       }
       break;
     case 'dcolumns':
-      if ($table_id && \is_array($model->data['value'])) {
-        $model->data['res']['success'] = $model->inc->options->setProp($table_id, ['dcolumns' => $model->data['value']]);
+      if ($table_id && \is_array($model->data['dcolumns'])) {
+        $model->data['res']['success'] = $model->inc->options->setProp($table_id, ['dcolumns' => $model->data['dcolumns']]);
       }
       break;
     case 'comment':

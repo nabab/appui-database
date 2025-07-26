@@ -16,6 +16,18 @@
         columns: tmp
       };
     },
+    computed: {
+      hasDisplayedColumns() {
+        return this.source.option.dcolumns && this.source.option.dcolumns.length;
+      },
+      displayedColumnsStr() {
+        if (this.hasDisplayedColumns) {
+          return this.source.option.dcolumns.join(', ') + '<br>'
+        }
+
+        return '';
+      }
+    },
     methods: {
       editEditor(ev, editableCp) {
         ev.preventDefault();
@@ -42,7 +54,9 @@
         this.getPopup({
           label: false,
           component: "appui-database-table-columns-multipicker",
-          source: this.source
+          componentOptions: {
+            source: this.source,
+          }
         });
       },
       browse() {
@@ -56,7 +70,6 @@
             table: this.table.currentData.table,
           },
         });
-        bbn.fn.log("keskia la d'dans ?", this.table.currentData);
       },
       browseItemViewer() {
         this.getPopup({
