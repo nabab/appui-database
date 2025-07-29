@@ -30,6 +30,7 @@ if (
     }
   }
   unset($f);
+  $constraintTables = [];
   foreach ( $structure['keys'] as $k => $a ){
     if (
       $a['unique'] &&
@@ -39,6 +40,10 @@ if (
       $externals[$a['columns'][0]] = $tmp;
     }
     if ( !empty($a['ref_column']) ){
+      if (!in_array($a['ref_table'], $constraintTables)) {
+        $constraintTables[] = $a['ref_table'];
+      }
+
       $constraints[$a['columns'][0]] = [
         'column' => $a['ref_column'],
         'table' => $a['ref_table'],
@@ -66,9 +71,10 @@ if (
       'structure' => $structure,
       'externals' => $externals,
       'constraints' => $constraints,
+      'constraint_tables' => array_map(fn($a) => $conn->getColumns($a), $constraintTables),
       'history' => false,
       'tableCfg' => $cfg['js']['columns'],
-      'projectId' => BBN_PROJECT,
+      'projectId' => constant('BBN_PROJECT'),
       'editColumnsData' => [],
     ]
   ];

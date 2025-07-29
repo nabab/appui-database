@@ -24,9 +24,24 @@
         return bbn.fn.order(ar, 'position');
       },
       textValues() {
-        return this.fields.map(f => {
-          return {text: f.name, value: f.name};
-        })
+        const ar = [];
+        const st = this.source.structure;
+        bbn.fn.each(this.fields, f => {
+          ar.push({text: f.name, value: f.name});
+          if (st.cols[f.name] && this.source.constraint_tables) {
+            bbn.fn.each(st.cols[f.name], k => {
+              if (st.keys[k]?.ref_table && this.source.constraint_tables[st.keys[k].ref_table]) {
+                const t = st.keys[k].ref_table;
+                const c = st.keys[k].ref_column;
+                const cols = this.source.constraint_tables[t];
+                for (let name in cols) {
+                  ar.push({text: f.name + ':' + name, value: f.name + '.' + c + ':' + t + '.'  + name});
+                }
+              }
+            })
+          }
+        });
+        return ar;
       }
     },
     methods: {

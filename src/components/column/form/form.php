@@ -15,7 +15,7 @@
             @submit.stop
             @change.stop
             @cancel.stop>
-    <div class="bbn-grid-fields bbn-bottom-space">
+    <div class="bbn-grid-fields bbn-padding">
       <template bbn-if="radioTypes?.length > 1">
         <div class="bbn-grid-full bbn-m bbn-i bbn-c bbn-b">
           {{question}}
@@ -115,11 +115,11 @@
                       :required="true"
                       class="bbn-w-100"/>
           </div>
-          <label><?= _("Indexes") ?></label>
+          <!--label><?= _("Indexes") ?></label>
           <div>
             <bbn-radiobuttons :source="constraintIndexes"
-                              bbn-model="source.index"/>
-          </div>
+                              bbn-model="source.key"/>
+          </div-->
           <template bbn-if="charsets?.length">
             <label><?= _("Charset") ?></label>
             <div>

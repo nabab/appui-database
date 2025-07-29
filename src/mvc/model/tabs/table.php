@@ -11,31 +11,37 @@ if (
     $table_id = $model->inc->dbc->tableId($model->data['table'], $db_id);
   }
 
-  $structure = $model->inc->dbc->modelize($model->data['table'], $model->data['db'], $host_id);
-  $constraints = [];
-  $externals = [];
-  foreach ( $structure['keys'] as $k => $a ){
-    if (
-      $a['unique'] &&
-      (count($a['columns']) === 1) &&
-      ($tmp = $model->db->getForeignKeys($a['columns'][0], $model->data['table'], $model->data['db']))
-    ){
-      $externals[$a['columns'][0]] = $tmp;
-    }
-    if ( !empty($a['ref_column']) ){
-      $constraints[$a['columns'][0]] = [
-        'column' => $a['ref_column'],
-        'table' => $a['ref_table'],
-        'db' => $a['ref_db']
-      ];
-    }
-  }
   try {
     /** @var bbn\Db $conn */
     $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
   }
   catch (\Exception $e) {
     $res['error'] = $e->getMessage();
+  }
+
+  $structure = $model->inc->dbc->modelize($model->data['table'], $model->data['db'], $host_id);
+  $constraints = [];
+  $constraintTables = [];
+  $externals = [];
+  foreach ( $structure['keys'] as $k => $a ){
+    if (
+      $a['unique'] &&
+      (count($a['columns']) === 1) &&
+      ($tmp = $conn->getForeignKeys($a['columns'][0], $model->data['table'], $model->data['db']))
+    ){
+      $externals[$a['columns'][0]] = $tmp;
+    }
+    if (($k !== 'PRIMARY') && !empty($a['ref_column'])) {
+      if (!isset($constraintTables[$a['ref_table']])) {
+        $constraintTables[$a['ref_table']] = $conn->getColumns($a['ref_table']);
+      }
+
+      $constraints[$a['columns'][0]] = [
+        'column' => $a['ref_column'],
+        'table' => $a['ref_table'],
+        'db' => $a['ref_db']
+      ];
+    }
   }
 
   $cfg = $model->inc->dbc->getGridConfig($model->data['table'], $model->data['db'], $model->data['host'], $model->data['engine']);
@@ -57,6 +63,7 @@ if (
     'structure' => $structure,
     'externals' => $externals,
     'constraints' => $constraints,
+    'constraint_tables' => $constraintTables,
     'primary' => $structure['keys']['PRIMARY'] ? $structure['keys']['PRIMARY']['columns'] : [],
     'history' => false,
     'tableCfg' => $cfg['js']['columns'],
