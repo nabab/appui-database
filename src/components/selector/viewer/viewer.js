@@ -46,9 +46,11 @@
         if (!data.isComponent) {
           return;
         }
-        let table = this.closest('appui-database-table');
-        table.save('viewer', this.getComponentFullName(data.uid), '');
-        this.getPopup().close();
+        bbn.fn.log("SELECTED COMPONENT", data.uid);
+        this.$emit('save', this.getComponentFullName(data.uid));
+        setTimeout(() => {
+          this.getPopup().close();
+        }, 250);
       }
     },
     mounted() {

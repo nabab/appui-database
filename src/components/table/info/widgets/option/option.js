@@ -38,17 +38,17 @@
           source: {value: ''}
         });
       },
-      saveTitle(v, ov) {
-        this.table.save('title', v, ov);
+      saveTitle(v) {
+        this.table.save('title', v);
       },
-      saveEditor(v, ov) {
-        this.table.save('editor', v, ov);
+      saveEditor(v) {
+        this.table.save('editor', v);
       },
-      saveViewer(v, ov) {
-        this.table.save('viewer', v, ov);
+      saveViewer(v) {
+        this.table.save('viewer', v);
       },
-      saveDisplayColumns(v, ov) {
-        this.table.save('dcolumns', v, ov);
+      saveDisplayColumns(v) {
+        this.table.save('dcolumns', v);
       },
       setDisplayColumns() {
         this.getPopup({
@@ -74,13 +74,23 @@
       browseItemViewer() {
         this.getPopup({
           label: false,
-          component: "appui-database-itemviewerselector"
+          component: "appui-database-selector-viewer",
+          componentEvents: {
+            save: v => {
+              this.saveViewer(v);
+            }
+          }
         });
       },
       browseRowEditor() {
         this.getPopup({
           label: false,
-          component: "appui-database-roweditorselector"
+          component: "appui-database-selector-editor",
+          componentEvents: {
+            save: v => {
+              this.saveEditor(v);
+            }
+          }
         });
       }
     }

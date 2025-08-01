@@ -100,7 +100,7 @@
           }
         );
       },
-      save(type, value, oldValue) {
+      save(type, value) {
         bbn.fn.post(
           appui.plugins['appui-database'] + '/actions/table/set',
           bbn.fn.extend({
