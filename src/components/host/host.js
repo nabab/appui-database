@@ -159,7 +159,7 @@
           icon: 'nf nf-fa-screwdriver_wrench',
           items: [{
             text: bbn._("Analyze"),
-            action: this.analyzeDb,
+            action: () => this.analyzeDb(row),
             icon: 'nf nf-md-flask',
           }]
         }, {
@@ -322,6 +322,8 @@
           }, d => {
             if (d.success) {
               appui.success();
+              this.clearTableSelection();
+              this.getRef('table').updateData();
             }
             else {
               appui.error();

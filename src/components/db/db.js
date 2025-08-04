@@ -169,7 +169,7 @@
             icon: 'nf nf-fa-screwdriver_wrench',
             items: [{
               text: bbn._("Analyze"),
-              action: this.analyzeTable,
+              action: () => this.analyzeTable(row),
               icon: 'nf nf-md-flask',
             }]
           }, {
@@ -243,8 +243,7 @@
           }
         });
       },
-      analyzeTable(row, a, b) {
-        bbn.fn.log('aaaa', row, a, b)
+      analyzeTable(row, row2) {
         this.post(this.root + 'actions/table/analyze', {
           host_id: this.currentData.id_host,
           db: this.currentData.name,
@@ -361,11 +360,13 @@
         this.confirm(mess, () => {
           this.post(this.root + 'actions/table/options', {
             host_id: this.currentData.id_host,
-            database: this.currentData.name,
+            db: this.currentData.name,
             table
           }, d => {
             if (d.success) {
               appui.success();
+              this.clearTableSelection();
+              this.getRef('table').updateData();
             }
             else {
               appui.error();

@@ -26,7 +26,7 @@ if ($model->hasData(['host_id', 'db', 'table'], true)
     if (is_array($model->data['table'])) {
       $failed = [];
       foreach ($model->data['table'] as $table) {
-        if (!$model->inc->dbc->importTable($table, $idDb)) {
+        if (!$model->inc->dbc->importTable($table, $idDb, $model->data['host_id'])) {
           $failed[] = $table;
         }
       }
