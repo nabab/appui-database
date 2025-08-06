@@ -1,6 +1,4 @@
 <?php
-/** @var bbn\Mvc\Model $model */
-
 use bbn\X;
 
 $res['success'] = false;

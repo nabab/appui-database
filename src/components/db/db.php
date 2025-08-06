@@ -10,15 +10,15 @@
   </div>
   <div bbn-else
        class="bbn-overlay bbn-flex-height">
-    <bbn-toolbar :source="toolbar"
-                 class="bbn-no-border bbn-spadding"/>
+    <appui-database-menu :source="toolbar"/>
     <bbn-splitter :orientation="orientation"
                   :resizable="false"
                   :collapsible="true"
                   class="bbn-flex-fill">
       <bbn-pane :resizable="true"
-                :size="isHorizontal ? 250 : 'max-content'">
-        <div class="bbn- bbn-smargin bbn-secondary-border bbn-radius"
+                :size="isHorizontal ? 250 : 'max-content'"
+                :scrollable="true">
+        <div class="bbn-smargin bbn-secondary-border bbn-radius"
              style="box-shadow: 1px 1px 0.15rem var(--shadow-box)">
           <div class="bbn-secondary bbn-c bbn-xspadding bbn-upper bbn-b"><?=_("Information")?></div>
           <div class="bbn-spadding bbn-c bbn-flex-column"

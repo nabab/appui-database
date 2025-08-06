@@ -1,110 +1,94 @@
 <?php
-/** @var bbn\Mvc\Model $model */
 use bbn\X;
-use bbn\Str;
+use bbn\Appui\History;
 
 $res['success'] = false;
-if (
-  $model->hasData(['host', 'db', 'engine'], true) &&
-  ($host_id = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
-){
-  if ($db_id = $model->inc->dbc->dbId($model->data['db'], $host_id)) {
-    $table_id = $model->inc->dbc->tableId($model->data['table'], $db_id);
-  }
-
-  $structure = $model->inc->dbc->modelize($model->data['table'], $model->data['db'], $host_id);
-  $constraints = [];
-  $externals = [];
+if ($model->hasData(['host', 'db', 'engine', 'table'], true)
+  && ($hostId = $model->inc->dbc->hostId($model->data['host'], $model->data['engine']))
+) {
+  $table = $model->data['table'];
+  $db = $model->data['db'];
+  $host = $model->data['host'];
+  $engine = $model->data['engine'];
   try {
-    $conn = $model->inc->dbc->connection($host_id, $model->data['engine'], $model->data['db']);
+    $infoTable = $model->inc->dbc->infoTable($table, $db, $hostId, $engine);
+    $conn = $model->inc->dbc->connection($hostId, $engine, $db);
+    $structure = $model->inc->dbc->modelize($table, $db, $hostId, $engine);
   }
   catch (\Exception $e) {
     $res['error'] = $e->getMessage();
   }
-  foreach ($structure['fields'] as $k => &$f) {
-    if ($f['type'] === 'longtext') {
-      $example = $conn->selectOne($model->data['table'], $k, [[$k, 'isnotnull']]);
-      if (Str::isJson($example)) {
-        $f['type'] = 'json';
-      }
-    }
-  }
-  unset($f);
+
+  $constraints = [];
   $constraintTables = [];
-  foreach ( $structure['keys'] as $k => $a ){
-    if (
-      $a['unique'] &&
-      (count($a['columns']) === 1) &&
-      ($tmp = $conn->getForeignKeys($a['columns'][0], $model->data['table'], $model->data['db']))
-    ){
+  $externals = [];
+  foreach ($structure['keys'] as $k => $a) {
+    if ($a['unique']
+      && (count($a['columns']) === 1)
+      && ($tmp = $conn->getForeignKeys($a['columns'][0], $table, $db))
+    ) {
       $externals[$a['columns'][0]] = $tmp;
     }
-    if ( !empty($a['ref_column']) ){
-      if (!in_array($a['ref_table'], $constraintTables)) {
-        $constraintTables[] = $a['ref_table'];
+
+    if (($k !== 'PRIMARY') && !empty($a['ref_column'])) {
+      if (!isset($constraintTables[$a['ref_table']])) {
+        $constraintTables[$a['ref_table']] = $conn->getColumns($a['ref_table']);
       }
 
       $constraints[$a['columns'][0]] = [
         'column' => $a['ref_column'],
         'table' => $a['ref_table'],
-        'db' => $a['ref_db'],
-        'num' => $conn->count($conn->tfn($a['ref_table'], $a['ref_db']))
+        'db' => $a['ref_db']
       ];
     }
   }
-  $cfg = $model->inc->dbc->getGridConfig($model->data['table'], $model->data['db'], $model->data['host'], $model->data['engine']);
-  $res = [
+
+  $cfg = $model->inc->dbc->getGridConfig($table, $db, $host, $engine);
+  $engines = $model->inc->dbc->engines();
+  $res =  X::mergeArrays($infoTable, [
     'success' => true,
-    'data' => [
-      'host' => $model->data['host'],
-      'engine' => $model->data['engine'],
-      'db' => $model->data['db'],
-      'db_id' => $db_id ?: null,
-      'table' => $model->data['table'],
-      'comment' => $conn->getTableComment($model->data['db'].'.'.$model->data['table']),
-      'table_id' => $table_id ?? null,
-      'ocolumns' => $table_id ? $model->inc->options->fullOptions('columns', $table_id) : [],
-      'is_real' => \in_array($model->data['table'], array_keys($conn->getTables($model->data['db']))),
-      'is_virtual' => isset($table_id) ? true : false,
-      'option' => isset($table_id) ? $model->inc->options->option($table_id) : null,
-      'col_info' => isset($table_id) ? $model->inc->dbc->fullColumns($table_id) : [],
-      'structure' => $structure,
-      'externals' => $externals,
-      'constraints' => $constraints,
-      'constraint_tables' => array_map(fn($a) => $conn->getColumns($a), $constraintTables),
-      'history' => false,
-      'tableCfg' => $cfg['js']['columns'],
-      'projectId' => constant('BBN_PROJECT'),
-      'editColumnsData' => [],
-    ]
-  ];
-  if (!isset($res['data']['option']['dcolumns'])) {
-    $res['data']['option']['dcolumns'] = [];
-  }
-  if (($model->data['db'] === $model->db->getCurrent())
-      && class_exists('bbn\\Appui\\History')
-      && \bbn\Appui\History::hasHistory($model->db)
-      && ($tmp = \bbn\Appui\History::getTableCfg($model->data['db'].'.'.$model->data['table']))
-     ) {
-    $res['data']['history'] = $tmp;
+    'root' => $model->data['root'],
+    'comment' => !empty($conn) ? $conn->getTableComment($table) : '',
+    'ocolumns' => !empty($infoTable['id']) ? $model->inc->options->fullOptions('columns', $infoTable['id']) : [],
+    'option' => !empty($infoTable['id']) ? $model->inc->options->option($infoTable['id']) : null,
+    'col_info' => !empty($infoTable['id']) ? $model->inc->dbc->fullColumns($infoTable['id']) : [],
+    'structure' => $structure,
+    'externals' => $externals,
+    'constraints' => $constraints,
+    'constraint_tables' => $constraintTables,
+    'primary' => $structure['keys']['PRIMARY'] ? $structure['keys']['PRIMARY']['columns'] : [],
+    'history' => false,
+    'tableCfg' => $cfg['js']['columns'],
+    'editColumnsData' => array_combine(
+      $engines,
+      array_map(
+        fn($eng) => [
+          'types' => $model->inc->dbc->engineDataTypes($eng),
+          'predefined' => $model->inc->options->fullOptions('pcolumns', $eng, 'engines', 'database', 'appui'),
+          'root' => $model->pluginUrl('appui-database')
+        ],
+        $engines
+      )
+    ),
+    'count' => !empty($infoTable['is_real']) && !empty($conn) ? $conn->count($table) : 0,
+  ]);
+  if (!isset($res['option']['dcolumns'])) {
+    $res['option']['dcolumns'] = [];
   }
 
-  if ($res['data']['is_real']) {
-    $res['data']['size'] = \bbn\Str::saySize($conn->tableSize($model->data['db'].'.'.$model->data['table']));
-    $res['data']['count'] = $conn->count($model->data['db'].'.'.$model->data['table']);
-  }
-
-  $engines = ['mysql', 'sqlite', 'postgre'];
-  foreach ($engines as $engine) {
-    $res['data']['editColumnsData'][$engine] =   [
-      'types' => bbn\Db\Languages\Sql::$types,
-      'predefined' => $model->inc->options->fullOptions('pcolumns', $engine, 'database', 'appui'),
-      'root' => APPUI_DATABASES_ROOT
-    ];
+  if (!empty($infoTable['is_real'])
+    && !empty($conn)
+    && ($conn->getHash() === $model->db->getHash())
+    && class_exists('bbn\\Appui\\History')
+    && History::hasHistory($conn)
+    && ($tmp = History::getTableCfg($db.'.'.$table))
+  ) {
+    $res['history'] = $tmp;
   }
 
   if ($conn) {
     $conn->close();
   }
 }
+
 return $res;

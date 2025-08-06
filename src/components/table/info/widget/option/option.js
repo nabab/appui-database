@@ -4,15 +4,13 @@
   return {
     data(){
       let tmp = [];
-      let table = this.closest('appui-database-table');
-      bbn.fn.each(table.currentData.structure.fields, (c, name) => {
+      bbn.fn.each(this.source.structure.fields, (c, name) => {
         let text = name;
-        let otext = bbn.fn.getField(table.currentData.ocolumns, 'label', {code: text});
+        let otext = bbn.fn.getField(this.source.ocolumns, 'label', {code: text});
         tmp.push({value: name, label: otext || text});
       });
 
       return {
-        table: table,
         columns: tmp
       };
     },
@@ -39,16 +37,16 @@
         });
       },
       saveTitle(v) {
-        this.table.save('title', v);
+        this.main.save('title', v);
       },
       saveEditor(v) {
-        this.table.save('editor', v);
+        this.main.save('editor', v);
       },
       saveViewer(v) {
-        this.table.save('viewer', v);
+        this.main.save('viewer', v);
       },
       saveDisplayColumns(v) {
-        this.table.save('dcolumns', v);
+        this.main.save('dcolumns', v);
       },
       setDisplayColumns() {
         this.getPopup({
@@ -64,10 +62,10 @@
           label: "",
           component: 'appui-database-table-info',
           componentOptions: {
-            db: this.table.currentData.db,
-            host: this.table.host,
-            engine: this.table.currentData.engine,
-            table: this.table.currentData.table,
+            db: this.main.currentData.db,
+            host: this.main.currentData.host,
+            engine: this.main.currentData.engine,
+            table: this.main.currentData.table,
           },
         });
       },

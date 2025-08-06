@@ -18,7 +18,7 @@
       return {
         orientation: 'horizontal',
         root: appui.plugins['appui-database'] + '/',
-        hasMultipleSelected: false,
+        hasSelected: false,
         currentData: this.source,
         ready: !!this.source,
         engines: {
@@ -33,40 +33,68 @@
       toolbar(){
         let ar = [{
           icon: 'nf nf-md-refresh',
-					label: bbn._("Refresh"),
+					text: bbn._("Refresh"),
           action: () => {
             this.closest('bbn-container').reload()
           }
         }, {
           icon: 'nf nf-md-database_plus',
-					label: bbn._("Create"),
+					text: bbn._("Create"),
           action: this.createDb
         }, {
           icon: 'nf nf-md-database_import',
-					label: bbn._("Import"),
-          action: this.importDb
+					text: bbn._("Import"),
+          action: this.importDb,
+          disabled: true
         }];
-        if (this.hasMultipleSelected) {
+        if (this.hasSelected) {
+          const table = this.getRef('table');
+          const currentSelected = table?.currentSelected || [];
+          const currentSelectedVirtual = bbn.fn.filter(
+            currentSelected,
+            d => !!bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+          );
+          const currentSelectedNoVirtual = bbn.fn.filter(
+            currentSelected,
+            d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+          );
           ar.push({
-            content: '<div class="bbn-toolbar-separator"/>'
+            separator: true
           }, {
             icon: 'nf nf-md-database_refresh',
-            label: bbn._("Refresh"),
-            action: () => this.refreshDb(this.getRef('table')?.currentSelected || [])
+            text: bbn._("Refresh"),
+            action: () => this.refreshDb(currentSelected)
           }, {
             icon: 'nf nf-md-trash_can',
-            label: bbn._("Drop"),
-            action: () => this.dropDb(this.getRef('table')?.currentSelected || [])
+            text: bbn._("Drop"),
+            action: () => this.dropDb(currentSelected)
           }, {
             icon: 'nf nf-md-flask',
-            label: bbn._("Analyze"),
-            action: () => this.analyzeDb(this.getRef('table')?.currentSelected || [])
+            text: bbn._("Analyze"),
+            action: () => this.analyzeDb(currentSelected)
           }, {
             icon: 'nf nf-md-database_export',
-            label: bbn._("Export"),
-            action: this.exportDb,
+            text: bbn._("Export"),
+            action: () => this.exportDb(currentSelected),
             disabled: true
+          }, {
+            icon: 'nf nf-md-opera',
+            text: bbn._("Options"),
+            items: [{
+              icon: 'nf nf-md-opera',
+              text: currentSelectedVirtual.length ?
+                (!currentSelectedNoVirtual.length ? bbn._("Update structure") : bbn._("Store or update structure")) :
+                bbn._("Store structure"),
+              action: () => this.toOption(currentSelected)
+            }]
           });
+          if (currentSelectedVirtual.length) {
+            ar[ar.length - 1].items.push({
+              icon: 'nf nf-md-opera',
+              text: bbn._("Remove"),
+              action: () => this.removeFromOption(currentSelectedVirtual)
+            });
+          };
         }
 
         return ar;
@@ -132,51 +160,75 @@
     methods:{
       formatBytes: bbn.fn.formatBytes,
       getTableButtons(row){
-        return row.is_real ? [{
-          text: bbn._("Open"),
-          action: () => {
-            bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id + '/' + row.name + '/home')
-          },
-          icon: 'nf nf-md-open_in_app',
-        }, {
-          text: bbn._("Refresh"),
-          action: this.refreshDb,
-          icon: 'nf nf-md-database_refresh',
-        }, {
-          text: bbn._("Duplicate"),
-          action: this.duplicateDb,
-          icon: 'nf nf-md-content_copy',
-        }, {
-          text: bbn._("Rename"),
-          action: this.renameDb,
-          icon: 'nf nf-md-square_edit_outline',
-        }, {
-          text: bbn._("Drop"),
-          action: this.dropDb,
-          icon: 'nf nf-md-trash_can',
-        }, {
-          text: bbn._("Maintenance"),
-          icon: 'nf nf-fa-screwdriver_wrench',
-          items: [{
-            text: bbn._("Analyze"),
-            action: () => this.analyzeDb(row),
-            icon: 'nf nf-md-flask',
-          }]
-        }, {
-          text: bbn._("Import"),
-          action: this.importDb,
-          icon: 'nf nf-md-database_import',
-          disabled: true,
-        }, {
-          text: bbn._("Export"),
-          action: this.exportDb,
-          icon: 'nf nf-md-database_export',
-          disabled: true
-        }, {
-          text: row.is_virtual ? bbn._("Update structure in options") : bbn._("Store structure as options"),
-          action: this.toOption,
-          icon: 'nf nf-md-opera',
-        }] : [];
+        const btns = [];
+        if (row.is_real) {
+          btns.push({
+            text: bbn._("Open"),
+            action: () => {
+              bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id + '/' + row.name + '/home')
+            },
+            icon: 'nf nf-md-open_in_app',
+          }, {
+            text: bbn._("Refresh"),
+            action: this.refreshDb,
+            icon: 'nf nf-md-database_refresh',
+          }, {
+            text: bbn._("Duplicate"),
+            action: this.duplicateDb,
+            icon: 'nf nf-md-content_copy',
+          }, {
+            text: bbn._("Rename"),
+            action: this.renameDb,
+            icon: 'nf nf-md-square_edit_outline',
+          }, {
+            text: bbn._("Drop"),
+            action: this.dropDb,
+            icon: 'nf nf-md-trash_can',
+          }, {
+            text: bbn._("Maintenance"),
+            icon: 'nf nf-fa-screwdriver_wrench',
+            items: [{
+              text: bbn._("Analyze"),
+              action: () => this.analyzeDb(row),
+              icon: 'nf nf-md-flask',
+            }]
+          }, {
+            text: bbn._("Import"),
+            action: this.importDb,
+            icon: 'nf nf-md-database_import',
+            disabled: true,
+          }, {
+            text: bbn._("Export"),
+            action: this.exportDb,
+            icon: 'nf nf-md-database_export',
+            disabled: true
+          });
+
+          if (row.is_virtual) {
+            btns.push({
+              text: bbn._("Options"),
+              icon: 'nf nf-md-opera',
+              items: [{
+                text: bbn._("Update structure"),
+                action: () => this.toOption(row),
+                icon: 'nf nf-md-update',
+              }, {
+                text: bbn._("Remove"),
+                action: () => this.removeFromOption(row),
+                icon: 'nf nf-md-trash_can',
+              }]
+            });
+          }
+          else {
+            btns.push({
+              text: bbn._("Store structure"),
+              action: this.toOption,
+              icon: 'nf nf-md-opera',
+            });
+          }
+        }
+
+        return btns;
       },
       createDb(){
         this.getPopup({
@@ -333,13 +385,46 @@
           });
         });
       },
+      removeFromOption(row){
+        let mess;
+        let db;
+        if (bbn.fn.isArray(row)) {
+          db = bbn.fn.map(row, d => d.name || d);
+          mess = bbn._(
+            "Are you sure you want to remove the databases %s from options?",
+            bbn.fn.map(row, d => '"' + d + '"').join(", ")
+          );
+        }
+        else {
+          db = row.name;
+          mess = bbn._("Are you sure you want to remove the database \"%s\" from options?", db);
+        }
+        this.confirm(mess, () => {
+          this.post(this.root + 'actions/database/options', {
+            host_id: this.currentData.id,
+            db,
+            remove: true
+          }, d => {
+            if (d.success) {
+              appui.success();
+              this.clearTableSelection();
+              this.getRef('table').updateData();
+            }
+            else {
+              appui.error();
+            }
+          }, () => {
+            appui.error(bbn._('An error occurred'));
+          });
+        });
+      },
       importDb(){},
       exportDb(row){
         //this.closest('bbn-router').route('host/export')
         bbn.fn.link(this.root + 'tabs/' + this.currentData.engine + '/' + this.currentData.id + '/export');
       },
       onTableToggle(){
-        this.hasMultipleSelected = this.getRef('table')?.currentSelected?.length > 1;
+        this.hasSelected = !!this.getRef('table')?.currentSelected?.length;
       },
       clearTableSelection(){
         const table = this.getRef('table');

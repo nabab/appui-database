@@ -13,10 +13,10 @@
     },
     methods: {
       rename(v) {
-        this.table.rename(v)
+        this.main.rename(v)
       },
       saveComment(v, ov) {
-        this.table.save('comment', v, ov)
+        this.main.save('comment', v, ov)
       },
       format(n){
         return bbn.fn.money(n, false, '');

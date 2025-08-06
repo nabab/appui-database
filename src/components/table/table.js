@@ -23,12 +23,12 @@
       let mixins = [{
         data(){
           return {
-            table: null,
+            main: null,
             isMobile: bbn.fn.isMobile()
           }
         },
         beforeMount(){
-          this.table = this.closest('appui-database-table');
+          this.main = this.closest('appui-database-table');
         }
       }];
 
@@ -51,9 +51,110 @@
         },
         currentData: this.source || null,
         ready: !!this.source,
+        engines: {
+          mysql: 'MySQL',
+          mariadb: 'MariaDB',
+          pgsql: 'PostgreSQL',
+          sqlite: 'SQLite'
+        },
+        currentPageComponent: null
       };
     },
     computed: {
+      toolbar(){
+        let ar = [{
+          icon: 'nf nf-md-refresh',
+					text: bbn._("Refresh"),
+          action: this.reload
+        }];
+        if (!this.currentData.is_virtual) {
+          ar.push({
+            icon: 'nf nf-md-opera',
+            text: bbn._("Store as options"),
+            action: this.dbToOption
+          });
+        }
+        else {
+          ar.push({
+            icon: 'nf nf-md-opera',
+            text: bbn._("Remove from options"),
+            action: this.removeDbFromOption
+          });
+        }
+
+        if (this.currentPageComponent?.mainMenu?.length) {
+          ar.push({separator: true}, ...this.currentPageComponent.mainMenu);
+        }
+
+        return ar;
+      },
+      isHorizontal(){
+        return this.orientation === 'horizontal';
+      },
+      currentInfo(){
+        const list = [{
+          text: bbn._("Table"),
+          value: this.currentData.name
+        }, {
+          text: bbn._("Database"),
+          value: this.currentData.database
+        }, {
+          text: bbn._("Engine"),
+          value: this.engines[this.currentData.engine]
+        }, {
+          text: bbn._("Host"),
+          value: this.currentData.host
+        }];
+
+        if (this.currentData.charset) {
+          list.push({
+            text: bbn._("Charset"),
+            value: this.currentData.charset
+          });
+        }
+
+        if (this.currentData.collation) {
+          list.push({
+            text: bbn._("Collation"),
+            value: this.currentData.collation
+          });
+        }
+
+        list.push({
+          text: bbn._("Size"),
+          value: this.formatBytes(this.currentData.size)
+        }, {
+          text: bbn._("No. Records"),
+          value: this.currentData.count || 0
+        }, {
+          text: bbn._("No. Columns"),
+          value: this.currentData.num_real_columns
+        }, {
+          text: bbn._("No. Keys"),
+          value: this.currentData.num_real_keys
+        }, {
+          text: bbn._("No. Constraints"),
+          value: this.currentData.num_real_constraints
+        }, {
+          text: bbn._("Options"),
+          value: this.currentData.is_virtual ? bbn._("Yes") : bbn._("No")
+        });
+
+        if (this.currentData.is_virtual) {
+          list.push({
+            text: bbn._("No. Columns in options"),
+            value: this.currentData.num_columns || 0
+          }, {
+            text: bbn._("No. Keys in options"),
+            value: this.currentData.num_keys || 0
+          }, {
+            text: bbn._("No. Constraints in options"),
+            value: this.currentData.num_constraints || 0
+          });
+        }
+
+        return list;
+      },
       option() {
         return this.source?.option || this.currentData?.option || {};
       },
@@ -81,6 +182,10 @@
       }
     },
     methods:{
+      formatBytes: bbn.fn.formatBytes,
+      reload(){
+        this.closest('bbn-container').reload()
+      },
       rename(newName) {
         bbn.fn.post(
           this.root + 'actions/table/rename',
@@ -144,6 +249,21 @@
       buttons(name){
         return '<bbn-button label="' + bbn._('Refresh whole structure in database') + '" @click="action(\'refresh\')" :notext="true" icon="zmdi zmdi-refresh-sync"></bbn-button> ' +
           '<a href="' + this.root + 'tabs/db/' + this.cfg.host + '/' + name + '"><bbn-button label="' + bbn._('View tables') + '" :notext="true" icon="nf nf-fa-eye"></bbn-button></a>';
+      },
+      onRouterRoute(url){
+        this.$nextTick(() => {
+          if (url) {
+            const view = this.getRef('router').getView(url)
+            if (view?.component) {
+              const comp = this.find(view.component);
+              if (comp) {
+                this.currentPageComponent = comp;
+                return;
+              }
+            }
+          }
+        });
+        this.currentPageComponent = null;
       }
     },
     created() {
