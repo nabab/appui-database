@@ -81,7 +81,7 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
     && ($conn->getHash() === $model->db->getHash())
     && class_exists('bbn\\Appui\\History')
     && History::hasHistory($conn)
-    && ($tmp = History::getTableCfg($db.'.'.$table))
+    && ($tmp = History::getTableCfg($db.'.'.$table, true))
   ) {
     $res['history'] = $tmp;
   }

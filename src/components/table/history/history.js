@@ -20,6 +20,19 @@
           });
         }
         return r;
+      },
+      columns(){
+        const cols = [];
+        if (this.source?.history?.fields) {
+          bbn.fn.iterate(this.source.history.fields, (v, k) => {
+            cols.push({
+              text: k,
+              value: v.id_option
+            });
+          });
+        }
+
+        return bbn.fn.order(cols, 'text', 'ASC');
       }
     },
     methods: {
@@ -32,7 +45,8 @@
               componentOptions: {
                 host: this.source.id_host,
                 db: this.source.database,
-                table: this.source.name
+                table: this.source.name,
+                columns: Object.keys(this.source.structure.fields).sort()
               },
               maxWidth: '35rem'
             });

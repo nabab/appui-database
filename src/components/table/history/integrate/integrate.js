@@ -12,6 +12,9 @@
       table: {
         type: String,
         required: true
+      },
+      columns: {
+        type: Array
       }
     },
     data() {
@@ -23,7 +26,8 @@
           db: this.db,
           table: this.table,
           user: appui.user.id,
-          date: bbn.fn.dateSQL()
+          date: bbn.fn.dateSQL(),
+          activeColumn: null
         }
       }
     },

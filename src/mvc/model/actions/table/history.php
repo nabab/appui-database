@@ -1,6 +1,7 @@
 <?php
 use bbn\Appui\History;
 
+$succ = false;
 if ($model->hasData(['host', 'db', 'table'], true)
   && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host']))
   && ($engine = $model->inc->dbc->engineCode($engineId))
@@ -16,20 +17,15 @@ if ($model->hasData(['host', 'db', 'table'], true)
         $table,
         $db,
         $host,
-        $engine,
-        $model->data['user'] ?? null,
-        $model->data['date'] ?? null
+        !empty($model->data['user']) ? $model->data['user'] : null,
+        !empty($model->data['date']) ? $model->data['date'] : null,
+        !empty($model->data['activeColumn']) ? $model->data['activeColumn'] : null
       );
-
-      // aggiornare struttura opzioni della tabella, creare opzioni per db se necessario
-    
-      // se la tabella non è vuota creare i records di history basandosi sull'utente e la data inviata
-
     }
   }
   catch (\Exception $e) {
     return ['error' => $e->getMessage()];
   }
-
-  
 }
+
+return ['success' => $succ];

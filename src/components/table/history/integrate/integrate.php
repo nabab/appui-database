@@ -10,11 +10,16 @@
     <div class="bbn-grid-fields">
       <span class="bbn-label"><?=_("User")?></span>
       <bbn-dropdown :source="users"
-                    bbn-model="formSource.user"
-                    :placeholder="_('Select a user')"/>
+                    bbn-model="formSource.user"/>
       <span class="bbn-label"><?=_("Date")?></span>
       <bbn-datetimepicker bbn-model="formSource.date"
                           :show-second="true"/>
+      <template bbn-if="columns.length">
+        <span class="bbn-label"><?=_("Active column")?></span>
+        <bbn-dropdown :source="columns"
+                      bbn-model="formSource.activeColumn"
+                      :nullable="true"/>
+      </template>
     </div>
   </div>
 </bbn-form>
