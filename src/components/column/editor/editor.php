@@ -16,6 +16,5 @@
                               :table="table"
                               @change="submit"
                               @cancel="cancel"
-                              >
-  </appui-database-column-form>
+                              :columns="columns"/>
 </bbn-form>

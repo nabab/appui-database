@@ -115,20 +115,20 @@
             source: appui.plugins['appui-database'] + '/data/external-values',
             data: {
               host: this.source.host,
-              db: this.source.structure.keys[fieldName].ref_db,
+              db: this.source.structure.keys[fieldName]?.ref_db,
               engine: this.source.engine,
-              table: this.source.structure.keys[fieldName].ref_table,
-              column: this.source.structure.keys[fieldName].ref_column
+              table: this.source.structure.keys[fieldName]?.ref_table,
+              column: this.source.structure.keys[fieldName]?.ref_column
             }
           };
         } else {
           column.options = {
             source: {
               host: this.source.host,
-              db: this.source.structure.keys[fieldName].ref_db,
+              db: this.source.structure.keys[fieldName]?.ref_db,
               engine: this.source.engine,
-              table: this.source.structure.keys[fieldName].ref_table,
-              refColumn: this.source.structure.keys[fieldName].ref_column,
+              table: this.source.structure.keys[fieldName]?.ref_table,
+              refColumn: this.source.structure.keys[fieldName]?.ref_column,
             }
           };
         }

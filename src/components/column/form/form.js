@@ -26,9 +26,15 @@
   return {
     props: {
       source: {},
-      db: {},
-      host: {},
-      engine: {},
+      db: {
+        type: String
+      },
+      host: {
+        type: String
+      },
+      engine: {
+        type: String
+      },
       otypes: {
         type: Array,
         default() {
@@ -58,6 +64,12 @@
         default() {
           return [];
         }
+      },
+      columns: {
+        type: Array,
+        default(){
+          return [];
+        }
       }
     },
     data(){
@@ -66,7 +78,7 @@
         root: appui.plugins['appui-database'] + '/',
         isNew,
         oldName: this.source.name,
-        question: isNew ? bbn._('What kind of column do you want to create ?') : bbn._('Edit you column here:'),
+        question: isNew ? bbn._('What kind of column do you want to create ?') : bbn._('Edit your column here:'),
         checked: 0,
         defaultValueType: '',
         formData: {
@@ -419,15 +431,9 @@
       },
       checkColumnsNames() {
         if (this.source?.name) {
-          let cp = this.closest("appui-database-table-create");
-          if (cp) {
-            let num = bbn.fn.count(cp.formData.columns, {name: this.source.name});
-            this.columnsNamesOk = num <= 1;
-          }
-          else {
-            cp = this.closest("bbn-form");
-            this.columnsNamesOk = cp.isModified() && cp.isValid();
-          }
+          const form = this.getRef('form');
+          this.columnsNamesOk = (form.originalData.name === this.source.name)
+            || !bbn.fn.count(this.columns, {name: this.source.name});
         }
       }
     },

@@ -109,7 +109,8 @@
                                       :charsets="source.charsets"
                                       :collations="source.collations"
                                       @cancel="onCancel"
-                                      @change="onChange"/>
+                                      @change="onChange"
+                                      :columns="formData.columns"/>
         </div>
         <div bbn-else
              class="bbn-padding bbn-flex-column bbn-middle bbn-grid-gap">

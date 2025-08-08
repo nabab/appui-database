@@ -1,69 +1,23 @@
-( () => {
+(() => {
   return {
+    props: {
+      source: {
+        type: Object
+      }
+    },
     data() {
-      let columns = [
-        {
-          label: ' ',
-          cls: 'bbn-c',
-          width: 40,
-          buttons: this.getButtons,
-        }, {
-          field: 'position',
-          label: '<a title=\'' + bbn._('Position in the table') + '>#</a>',
-          cls: 'bbn-c',
-          width: '40'
-        }, {
-          field: 'key',
-          label: '<i class=\'nf nf-fa-key\' title=\'' + bbn._('Are there keys on the column?') + '></i>',
-          render: this.writeKeyInCol,
-          cls: 'bbn-c bbn-bg-black bbn-xl',
-          width: '40'
-        }, {
-          field: 'name',
-          minWidth: 200,
-          render: this.writeColumn,
-          label: bbn._('Columns'),
-        }, {
-          field: 'type',
-          label: '' + bbn._('Type'),
-          cls: 'bbn-c',
-          render: this.writeType,
-          width: '100'
-        }, {
-          field: 'option.viewer',
-          label: bbn._('Viewer'),
-          cls: 'bbn-c',
-          width: '100'
-        }, {
-          field: 'option.editor',
-          label: bbn._('Editor'),
-          cls: 'bbn-c',
-          width: '100'
-        }, {
-          field: 'maxlength',
-          label: '' + bbn._('Length'),
-          cls: 'bbn-c',
-          width: '70'
-        }, {
-          field: 'null',
-          label: '<i class=\'nf nf-fa-ban\' title=\'' + bbn._('Can the field be null?') + '></i>',
-          cls: 'bbn-c',
-          width: '70',
-          render: this.writeNull
-        }, {
-          field: 'default_value',
-          label: '' + bbn._('Default'),
-          render: this.writeDefault,
-          cls: 'bbn-c',
-          width: '80'
-        }];
       return {
-        columns: columns,
         cp: null,
       };
     },
-    props: ['source'],
     computed: {
+      mainMenu(){
+        return [{
+          text: bbn._("Add column"),
+          icon: 'nf nf-md-table_column_plus_after',
+          action: this.addColumn
+        }];
+      },
       tableSource(){
         let r = [];
         bbn.fn.iterate(this.source.structure.fields, (a, n) => {
@@ -78,13 +32,40 @@
           host: this.cp.source.host,
           engine: this.cp.source.engine,
           table: this.cp.source.table,
-          otypes:  editColumnsData.mysql.types,
-          predefined: editColumnsData.mysql.predefined,
-          root: editColumnsData.mysql.root,
+          otypes:  editColumnsData[this.cp.source.engine].types,
+          predefined: editColumnsData[this.cp.source.engine].predefined,
+          root: editColumnsData[this.cp.source.engine].root,
+          columns: this.tableSource
         } : {};
       }
     },
     methods: {
+      addColumn(){
+        (this.main || this).getPopup({
+          label: bbn._("Add a column"),
+          component: 'appui-database-column-editor',
+          componentOptions: bbn.fn.extend({
+            source: {
+              name: "",
+              maxlength: null,
+              decimals: null,
+              type: '',
+              defaultExpression: 0,
+              default: '',
+              extra: '',
+              signed: 1,
+              "null": 0,
+              ref_table: '',
+              ref_column: '',
+              index: '',
+              delete:'CASCADE',
+              update:'CASCADE',
+              charset: '',
+              collation: ''
+            }
+          }, this.editorOptions)
+        });
+      },
       editOption(row) {
         bbn.fn.log("Hello", arguments);
         this.getPopup({
@@ -96,45 +77,39 @@
         });
       },
       getButtons(row) {
-        let button = [
-          {
-            text: bbn._('Edit column'),
-            action: 'edit',
-            icon: 'nf nf-fa-edit'
+        let button = [{
+          text: bbn._('Edit column'),
+          action: 'edit',
+          icon: 'nf nf-fa-edit'
+        }, {
+          text: bbn._('Remove'),
+          action: () => {
+            this.removeItem(row);
           },
-          {
-            text: bbn._('Remove'),
-            action: () => {
-              this.removeItem(row);
-            },
-            icon: 'nf nf-fa-times'
+          icon: 'nf nf-fa-times'
+        }, {
+          text: bbn._('Move Up'),
+          action: () => {
+            this.moveUp(row);
           },
-          {
-            text: bbn._('Move Up'),
-            action: () => {
-              this.moveUp(row);
-            },
-            icon: 'nf nf-fa-arrow_up'
+          icon: 'nf nf-fa-arrow_up'
+        }, {
+          text: bbn._('Move Down'),
+          action: () => {
+            this.moveDown(row);
           },
-          {
-            text: bbn._('Move Down'),
-            action: () => {
-              this.moveDown(row);
-            },
-            icon: 'nf nf-fa-arrow_down'
-          }
-        ];
+          icon: 'nf nf-fa-arrow_down'
+        }];
         if (row.option) {
-          button.push(
-            {
-              text: bbn._('Edit Option'),
-              action: () => {
-                this.editOption(row);
-              },
-              icon: 'nf nf-fa-edit'
-            }
-          );
+          button.push({
+            text: bbn._('Edit Option'),
+            action: () => {
+              this.editOption(row);
+            },
+            icon: 'nf nf-fa-edit'
+          });
         }
+
         return button;
       },
       getStateColor(row) {
@@ -144,19 +119,13 @@
         }
         return col;
       },
-      writeKeyInCol(row) {
-        if (!row.key) {
-          return ' ';
-        }
-        return '<i class="nf nf-fa-key ' + (row.key === 'PRI' ? 'bbn-yellow' : 'bbn-grey') + '"> </i>';
+      renderKey(row) {
+        return row.key ? `<i class="nf nf-fa-key bbn-m ${row.key === 'PRI' ? 'bbn-primary-text-alt' : 'bbn-tertiary-text-alt'}"></i>` : '';
       },
-      writeType(row) {
-        if (row.type === 'int') {
-          row.type += ' (<em>' + (row.signed ? '' : 'un') + 'signed)</em>';
-        }
-        return row.type;
+      renderSigned(row){
+        return row.signed ? '' : '<i class="nf nf-fa-check"></i>';
       },
-      writeColumn(row) {
+      renderName(row) {
         let col = this.getStateColor(row);
         let st = '';
         if (row.option && (row.option.text != row.name)) {
@@ -170,11 +139,11 @@
         }
         return st;
       },
-      writeNull(row) {
-        return row.null ? '<i class="nf nf-fa-check"> </i>' : ' ';
+      renderType(row){
+        return row.type + (row.maxlength ? ' (' + row.maxlength + ')' : '');
       },
-      writeDefault(row) {
-        return row.default || '-';
+      renderNull(row) {
+        return row.null ? '<i class="nf nf-fa-check"></i>' : '';
       },
       removeItem(data) {
         this.confirm(bbn._("Are you sure you want to delete this column?"), () => {

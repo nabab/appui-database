@@ -5,16 +5,34 @@
         type: Object,
         required: true,
       },
-      otypes: {},
-      engine: {},
-      host: {},
-      db: {},
-      table: {},
-      predefined: {},
+      otypes: {
+        type: Array
+      },
+      engine: {
+        type: String
+      },
+      host: {
+        type: String
+      },
+      db: {
+        type: String
+      },
+      table: {
+        type: String
+      },
+      predefined: {
+        type: Array
+      },
       root: {
         type: String,
         default: appui.plugins["appui-database"] + '/'
       },
+      columns: {
+        type: Array,
+        default(){
+          return [];
+        }
+      }
     },
     methods: {
       update() {

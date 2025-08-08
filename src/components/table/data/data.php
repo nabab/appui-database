@@ -12,7 +12,7 @@
              :url="root + 'actions/data/update'"
              :data="{
                db: source.db,
-               host: source.host,
+               host: source.id_host,
                table: source.table,
                engine: source.engine
              }"
