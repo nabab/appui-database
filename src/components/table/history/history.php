@@ -8,8 +8,7 @@
                 class="bbn-top-space"/>
   </div>
   <div bbn-else>
-    <appui-history-list :source="source.history"
-                        :table="source.id"
+    <appui-history-list :table="source.id"
                         :columns="columns"/>
   </div>
 </div>
