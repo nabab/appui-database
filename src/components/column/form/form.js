@@ -25,7 +25,10 @@
 
   return {
     props: {
-      source: {},
+      source: {
+        type: Object,
+        required: true
+      },
       db: {
         type: String
       },
@@ -70,6 +73,14 @@
         default(){
           return [];
         }
+      },
+      windowed: {
+        type: Boolean,
+        default: false
+      },
+      options: {
+        type: Boolean,
+        default: false
       }
     },
     data(){
@@ -363,7 +374,6 @@
           icon: 'nf nf-fa-times_circle'
         }, {
           label: bbn._('Save column'),
-          action: this.change,
           disabled: !this.isFormValid,
           preset: 'submit'
         }];
@@ -378,49 +388,46 @@
             if (!this.constraint) {
               return false;
             }
+
             break;
           case "predefined":
             if (!this.predefinedType) {
               return false;
             }
+
             break;
           case "free":
             if (!this.source.type) {
               return false;
             }
-            if ((this.types.decimal.includes(this.source.type) || this.types.int.includes(this.source.type)) && !this.source.maxlength) {
+
+            if ((this.types.decimal.includes(this.source.type)
+                || this.types.int.includes(this.source.type))
+              && !this.source.maxlength
+            ) {
               return false;
             }
-            if (this.types.decimal.includes(this.source.type) && !this.source.decimals) {
+            if (this.types.decimal.includes(this.source.type)
+              && !this.source.decimals
+            ) {
               return false;
             }
+
             break;
           default:
             return false;
         }
+
         return true;
       }
     },
     methods: {
-      onSuccess(data) {
-        const table = this.closest('bbn-floater')?.opener;
-        if (table) {
-          const cp = table.closest('appui-database-table-columns');
-          if (cp) {
-            if (this.isNew) {
-              cp.insertColumn(data);
-            } else {
-              cp.updateColumn(data);
-            }
-          }
-        }
+      onSuccess(d, ev) {
+        this.$emit("change", d, ev);
       },
       cancel() {
         let o = this.getRef('form').originalData;
         this.$emit("cancel", o.name ? o : null);
-      },
-      change() {
-        this.$emit("change");
       },
       resetAll() {
         bbn.fn.iterate(defaults, (a, n) => {
@@ -433,8 +440,13 @@
         if (this.source?.name) {
           const form = this.getRef('form');
           this.columnsNamesOk = (form.originalData.name === this.source.name)
-            || !bbn.fn.count(this.columns, {name: this.source.name});
+            || !bbn.fn.count(this.columns, c => (c !== this.source) && (c.name === this.source.name));
         }
+      }
+    },
+    created(){
+      if (this.options && (this.source.options === undefined)) {
+        this.$set(this.source, 'options', false);
       }
     },
     watch: {

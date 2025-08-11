@@ -1,12 +1,8 @@
 <!-- HTML Document -->
  <!--  :action="source.root +'actions/column/validform'" -->
 
-<bbn-form
-          ref="form"
-          :source="source"
-          :buttons="[]">
-  <appui-database-column-form
-                              ref="colform"
+<div>
+  <appui-database-column-form ref="form"
                               :source="source"
                               :otypes="otypes"
                               :engine="engine"
@@ -14,7 +10,9 @@
                               :db="db"
                               :predefined="predefined"
                               :table="table"
-                              @change="submit"
-                              @cancel="cancel"
-                              :columns="columns"/>
-</bbn-form>
+                              @submit="onSubmit"
+                              @cancel="onCancel"
+                              :columns="columns"
+                              :windowed="true"
+                              :options="options"/>
+</div>

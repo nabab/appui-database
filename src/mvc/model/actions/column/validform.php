@@ -1,27 +1,26 @@
 <?php
-/**
- * What is my purpose?
- *
- **/
-
-/** @var bbn\Mvc\Model $model */
-
-use bbn\X;
 
 $res = ['success' => false];
+if ($model->hasData(['engine', 'db', 'host', 'table'], true)) {
+  try {
+    $conn = $model->inc->dbc->connection($model->data['host'], $model->data['engine'], $model->data['db']);
+  }
+  catch (\Exception $e) {
+    $res['error'] = $e->getMessage();
+    return $res;
+  }
 
-if ($model->hasData(['engine', 'db', 'host', 'table'])) {
-  $database = new bbn\Appui\Database($model->db);
-  $conn = $database->connection($model->data['host'], $model->data['engine'], $model->data['db']);
   $data = [];
-  if ($model->hasData('name') && $model->data['name'] !== '') {
+  if ($model->hasData('name', true)) {
     try {
 	    $data = $conn->getColumnValues($model->data['table'], $model->data['name']);
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $res['error'] = $e->getMessage();
       return $res;
     }
   }
+
   $res = [
     'success' => true,
     'num' => count($data)

@@ -11,9 +11,9 @@
              :columns="columns"
              :url="root + 'actions/data/update'"
              :data="{
-               db: source.db,
+               db: source.database,
                host: source.id_host,
-               table: source.table,
+               table: source.name,
                engine: source.engine
              }"
              @click-row="clickRow"

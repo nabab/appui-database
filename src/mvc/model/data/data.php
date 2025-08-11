@@ -1,49 +1,54 @@
 <?php
-/** @var \bbn\Mvc\Model $model */
-
-use Exception;
 use bbn\X;
 use bbn\Str;
 use bbn\Appui\Grid;
 
-$d =& $model->data;
-if ($model->hasData('limit', true) && X::hasProps($d['data'], ['db', 'host', 'table', 'engine'], true)) {
+$d = $model->data['data'] ?? [];
+if ($model->hasData('limit', true)
+  && X::hasProps($d, ['db', 'host', 'table', 'engine'], true)
+) {
+  $host = $d['host'];
+  $table = $d['table'];
+  $db = $d['db'];
+  $engine = $d['engine'];
   try {
-    $conn = $model->inc->dbc->connection($d['data']['host'], $d['data']['engine'], $d['data']['db']);
+    $conn = $model->inc->dbc->connection($host, $engine, $db);
   }
   catch (\Exception $e) {
     throw new Exception($e->getMessage());
   }
 
   if (!$conn->check()) {
-    throw new Exception(_("Impossible to connect to db").' '.$d['data']['db']);
+    throw new Exception(_("Impossible to connect to db %s", $db));
   }
 
-  $cfg = $model->inc->dbc->getGridConfig($d['data']['table'], $d['data']['db'], $d['data']['host'], $d['data']['engine']);
-  $grid = new Grid($conn, $d, $cfg['php']);
-  if (!$grid->check()) {
-    throw new Exception(_("Impossible to make a grid with table").' '.$d['data']['table']);
-  }
-
-  if ($table = $grid->getDatatable()) {
-    foreach ($table['data'] as $idx => $t) {
-      //die(var_dump($t));
-      $table['data'][$idx] = array_map(
-        function($a) {
-          //removes the html tag different from <br> and cuts the string
-          if ( is_string($a) && (strlen($a) > 100) ){
-            $a = Str::cut(strip_tags(Str::sanitizeHtml($a), '<br>'), 100);
-          }
-
-          return $a;
-        },
-        $t
-      );
+  if ($cfg = $model->inc->dbc->getGridConfig($table, $db, $host, $engine)
+    && !empty($cfg['php'])
+  ) {
+    $grid = new Grid($conn, $model->data, $cfg['php']);
+    if (!$grid->check()) {
+      throw new Exception(_("Impossible to make a grid with table %s", $table));
     }
-	$table['config'] = $cfg;
-    return $table;
+
+    if ($table = $grid->getDatatable()) {
+      foreach ($table['data'] as $idx => $t) {
+        //removes the html tag different from <br> and cuts the string
+        $table['data'][$idx] = array_map(
+          fn($a) => is_string($a) && (strlen($a) > 100) ?
+            Str::cut(strip_tags(Str::sanitizeHtml($a), '<br>'), 100) :
+            $a,
+          $t
+        );
+      }
+
+      $table['config'] = $cfg;
+      return $table;
+    }
+    else {
+      throw new \Exception(_("Impossible to get the data from table %s", $table));
+    }
   }
   else {
-    throw new \Exception(_("Impossible to get the data from table").' '.$d['data']['table']);
+    throw new \Exception(_("Impossible to get the grid cfg for the table %s", $table));
   }
 }

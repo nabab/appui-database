@@ -32,63 +32,49 @@
         default(){
           return [];
         }
+      },
+      options: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
-      update() {
-        let i = 1;
-        let path = appui.plugins["appui-database"] + "/" + "actions/column/update";
-        bbn.fn.post(path, {
-          data: this.source,
-          db: this.db,
-          host: this.host,
-          engine: this.engine,
-          table: this.table,
-          name: this.getRef('form').originalData.name,
-        }, d => {
+      save(data) {
+        this.post(this.root + (!this.root.endsWith('/') ? '/' : '') + "actions/column/update", data, d => {
           if (d.success) {
             this.getPopup().close();
           }
         });
       },
-      /*
-      * This method is submitting changes in a column in a table inside a database
-      */
-      submit() {
-        /*if (this.source.source.oldtype === this.source.source.type) {
-          return this.update();
-        }*/
-        let path = appui.plugins["appui-database"] + "/" + "actions/column/validform";
-        let data = {
+      onSubmit(ev, data, originalData) {
+        ev.preventDefault();
+        let obj = {
           db: this.db,
           host: this.host,
           engine: this.engine,
           table: this.table,
-          name: this.getRef('form').originalData.name,
+          name: originalData.name,
         };
-        bbn.fn.post(path, data, (d) => {
-          if (d.success) {
-            if (d.num) {
-              this.confirm(bbn._("The column holds data which might get corrupted by this change"), () => {
-                this.update();
-              });
-            }
-            else {
-              this.update();
+        this.post(
+          this.root + (!this.root.endsWith('/') ? '/' : '') + "actions/column/validform",
+          obj,
+          d => {
+            if (d.success) {
+              obj.data = data;
+              if (d.num) {
+                this.confirm(bbn._("The column holds data which might get corrupted by this change"), () => {
+                  this.save(obj);
+                });
+              }
+              else {
+                this.save(obj);
+              }
             }
           }
-        });
+        );
       },
-      cancel () {
-        this.$refs.form.cancel();
-      },
-    },
-    watch: {
-      "source.source": {
-        deep: true,
-        handler() {
-          this.$refs.colform.checkColumnsNames();
-        }
+      onCancel() {
+        this.getPopup().close();
       }
     }
   };

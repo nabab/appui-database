@@ -7,7 +7,7 @@
     },
     data() {
       return {
-        cp: null,
+        main: null,
       };
     },
     computed: {
@@ -27,15 +27,16 @@
       },
       editorOptions() {
         let editColumnsData = this.source.editColumnsData;
-        return this.cp ? {
-          db: this.cp.source.db,
-          host: this.cp.source.host,
-          engine: this.cp.source.engine,
-          table: this.cp.source.table,
-          otypes:  editColumnsData[this.cp.source.engine].types,
-          predefined: editColumnsData[this.cp.source.engine].predefined,
-          root: editColumnsData[this.cp.source.engine].root,
-          columns: this.tableSource
+        return this.main ? {
+          db: this.main.currentData.database,
+          host: this.main.currentData.id_host,
+          engine: this.main.currentData.engine,
+          table: this.main.currentData.name,
+          otypes:  editColumnsData[this.main.currentData.engine].types,
+          predefined: editColumnsData[this.main.currentData.engine].predefined,
+          root: editColumnsData[this.main.currentData.engine].root,
+          columns: this.tableSource,
+          options: !!this.main.currentData.is_virtual
         } : {};
       }
     },
@@ -226,9 +227,6 @@
       addKey() {
         return;
       },
-    },
-    mounted() {
-      this.cp = this.closest('bbn-container');
     }
   };
 })();
