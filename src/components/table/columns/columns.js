@@ -64,7 +64,12 @@
               charset: '',
               collation: ''
             }
-          }, this.editorOptions)
+          }, this.editorOptions),
+          componentEvents: {
+            success: d => {
+              this.main.reload();
+            }
+          }
         });
       },
       editOption(row) {
@@ -145,6 +150,10 @@
       },
       renderNull(row) {
         return row.null ? '<i class="nf nf-fa-check"></i>' : '';
+      },
+      renderRealVirtual(row, col){
+        const icon = !!row[col.field] ? 'nf nf-fa-check bbn-green' : 'nf nf-fa-times bbn-red';
+        return '<i class="' + icon + '"></i>';
       },
       removeItem(data) {
         this.confirm(bbn._("Are you sure you want to delete this column?"), () => {

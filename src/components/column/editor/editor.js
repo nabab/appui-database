@@ -40,11 +40,19 @@
     },
     methods: {
       save(data) {
-        this.post(this.root + (!this.root.endsWith('/') ? '/' : '') + "actions/column/update", data, d => {
-          if (d.success) {
-            this.getPopup().close();
-          }
-        });
+        if (bbn.fn.isObject(data)) {
+          const url = this.root + (!this.root.endsWith('/') ? '/' : '') + 'actions/column/' + (data.name?.length ? 'update' : 'create');
+          this.post(url, data, d => {
+            if (d.success) {
+              this.$emit('success', d);
+              appui.success(bbn._("The column has been saved"));
+              this.getPopup().close();
+            }
+          });
+        }
+        else {
+          appui.error(bbn._("Invalid data"));
+        }
       },
       onSubmit(ev, data, originalData) {
         ev.preventDefault();
@@ -60,7 +68,12 @@
           obj,
           d => {
             if (d.success) {
-              obj.data = data;
+              obj.data = bbn.fn.clone(data);
+              obj.options = data.options || false;
+              if (obj.data.options !== undefined) {
+                delete obj.data.options;
+              }
+
               if (d.num) {
                 this.confirm(bbn._("The column holds data which might get corrupted by this change"), () => {
                   this.save(obj);

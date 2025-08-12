@@ -52,7 +52,7 @@
                  label="<?=_("Collation")?>"
                  :width="150"
                  cls="bbn-c"/>
-    <!-- <bbns-column field="is_real"
+    <bbns-column field="is_real"
                   label="<i class='nf nf-cod-database'></i>"
                   full-label="<?= _("Exists in the host") ?>"
                   :render="renderRealVirtual"
@@ -63,7 +63,7 @@
                   full-label="<?= _("Exists as options") ?>"
                   :render="renderRealVirtual"
                   :width="30"
-                  cls="bbn-c"/> -->
+                  cls="bbn-c"/>
     <bbns-column field="option.viewer"
                  label="<?=_("Viewer")?>"
                  :width="100"

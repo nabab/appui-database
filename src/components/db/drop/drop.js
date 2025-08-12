@@ -30,7 +30,7 @@
     methods: {
       onSuccess(d){
         if (d.success) {
-          this.$emit('success');
+          this.$emit('success'. d);
           if (d.error) {
             appui.error(d.error);
           }

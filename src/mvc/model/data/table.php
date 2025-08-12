@@ -22,6 +22,9 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
   $constraints = [];
   $constraintTables = [];
   $externals = [];
+  $oColumns = !empty($infoTable['id']) ?
+    $model->inc->options->fullOptions('columns', $infoTable['id']) :
+    [];
   foreach ($structure['keys'] as $k => $a) {
     if ($a['unique']
       && (count($a['columns']) === 1)
@@ -43,13 +46,18 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
     }
   }
 
+  foreach ($structure['fields'] as $k => $f) {
+    $structure['fields'][$k]['is_real'] = true;
+    $structure['fields'][$k]['is_virtual'] = !is_null(X::search($oColumns, ['code' => $k]));
+  }
+
   $cfg = $model->inc->dbc->getGridConfig($table, $db, $host, $engine);
   $engines = $model->inc->dbc->engines();
   $res =  X::mergeArrays($infoTable, [
     'success' => true,
     'root' => $model->data['root'],
     'comment' => !empty($conn) ? $conn->getTableComment($table) : '',
-    'ocolumns' => !empty($infoTable['id']) ? $model->inc->options->fullOptions('columns', $infoTable['id']) : [],
+    'ocolumns' => $oColumns,
     'option' => !empty($infoTable['id']) ? $model->inc->options->option($infoTable['id']) : null,
     'col_info' => !empty($infoTable['id']) ? $model->inc->dbc->fullColumns($infoTable['id']) : [],
     'structure' => $structure,

@@ -431,6 +431,8 @@
         if (table?.currentSelected?.length) {
           table.currentSelected.splice(0);
         }
+
+        this.hasSelected = false;
       },
       renderRealVirtual(row, col){
         const icon = !!row[col.field] ? 'nf nf-fa-check bbn-green' : 'nf nf-fa-times bbn-red';

@@ -37,7 +37,7 @@
     data(){
       return {
         orientation: "horizontal",
-        root: appui.plugins['appui-databases'] + '/',
+        root: appui.plugins['appui-database'] + '/',
         cfg: this.source ? {
           engine: this.source.engine,
           host: this.source.host,
@@ -71,14 +71,14 @@
           ar.push({
             icon: 'nf nf-md-opera',
             text: bbn._("Store as options"),
-            action: this.dbToOption
+            action: this.tableToOption
           });
         }
         else {
           ar.push({
             icon: 'nf nf-md-opera',
             text: bbn._("Remove from options"),
-            action: this.removeDbFromOption
+            action: this.removeTableFromOption
           });
         }
 
@@ -264,6 +264,51 @@
           }
         });
         this.currentPageComponent = null;
+      },
+      tableToOption() {
+        this.confirm(
+          bbn._("Are you sure you want to store the structure of the table \"%s\" as options?", this.currentData.name),
+          () => {
+            this.post(this.root + 'actions/table/options', {
+              host_id: this.currentData.id_host,
+              db: this.currentData.database,
+              table: this.currentData.name,
+            }, d => {
+              if (d.success) {
+                appui.success();
+                this.reload();
+              }
+              else {
+                appui.error(d.error || bbn._('An error occurred'));
+              }
+            }, () => {
+              appui.error(bbn._('An error occurred'));
+            });
+          }
+        );
+      },
+      removeTableFromOption(){
+        this.confirm(
+          bbn._("Are you sure you want to remove the table \"%s\" from options?", this.currentData.name),
+          () => {
+            this.post(this.root + 'actions/table/options', {
+              host_id: this.currentData.id_host,
+              db: this.currentData.database,
+              table: this.currentData.name,
+              remove: true
+            }, d => {
+              if (d.success) {
+                appui.success();
+                this.reload()
+              }
+              else {
+                appui.error(d.error || bbn._('An error occurred'));
+              }
+            }, () => {
+              appui.error(bbn._('An error occurred'));
+            });
+          }
+        );
       }
     },
     created() {

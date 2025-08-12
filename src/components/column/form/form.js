@@ -446,7 +446,7 @@
     },
     created(){
       if (this.options && (this.source.options === undefined)) {
-        this.$set(this.source, 'options', false);
+        this.source.options = true;
       }
     },
     watch: {
