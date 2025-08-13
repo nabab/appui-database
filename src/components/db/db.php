@@ -54,7 +54,8 @@
                       class="bbn-radius"
                       :scrollable="true"
                       style="border-color: var(--header-background)"
-                      button-mode="menu">
+                      button-mode="menu"
+                      :tr-class="trClass">
               <bbns-column :buttons="getTableButtons"
                            :width="30"
                            cls="bbn-c"/>

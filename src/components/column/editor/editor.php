@@ -1,7 +1,4 @@
-<!-- HTML Document -->
- <!--  :action="source.root +'actions/column/validform'" -->
-
-<div>
+<div class="appui-database-column-editor">
   <appui-database-column-form ref="form"
                               :source="source"
                               :otypes="otypes"

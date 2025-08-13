@@ -1,16 +1,20 @@
 <div class="bbn-overlay">
   <bbn-table :source="tableSource"
-             uid="code"
+             uid="name"
              :scrollable="true"
              button-mode="menu"
              editor="appui-database-column-editor"
              editable="popup"
              :editor-options="editorOptions"
-             ref="table">
+             ref="table"
+             :tr-class="trClass"
+             :selection="true"
+             @toggle="onTableToggle">
     <bbns-column :buttons="getButtons"
                  :width="40"
                  cls="bbn-c"/>
-    <bbns-column field="position"
+    <bbns-column bbn-if="hasPosition"
+                 field="position"
                  label="<i class='nf nf-md-numeric bbn-lg'></i>"
                  flabel="<?=_("Position in the table")?>"
                  :width="40"
@@ -23,7 +27,8 @@
                  :render="renderKey"/>
     <bbns-column field="name"
                  label="<?=_("Name")?>"
-                 :min-width="200"/>
+                 :min-width="200"
+                 :render="renderName"/>
     <bbns-column field="type"
                  label="<?=_("Type")?>"
                  :width="100"

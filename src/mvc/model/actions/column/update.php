@@ -2,7 +2,8 @@
 use bbn\X;
 
 $res = ['success' => false];
-if ($model->hasData(['engine', 'db', 'host', 'table', 'data'], true)) {
+
+if ($model->hasData(['engine', 'db', 'host', 'table', 'data', 'name'], true)) {
   $engine = $model->data['engine'];
   $db = $model->data['db'];
   $host = $model->data['host'];
@@ -17,7 +18,7 @@ if ($model->hasData(['engine', 'db', 'host', 'table', 'data'], true)) {
   }
 
   $currentCfg = $conn->modelize($table);
-  die(var_dump($currentCfg, $data));
+  die();
   $cfg = [];
   $colEndName = $model->data['data']['name'];
 

@@ -138,13 +138,11 @@
         });
       },
       onCancel(o) {
+        const idx = this.edited;
         this.edited = -1;
         this.$nextTick(() => {
-          if (o) {
-            this.formData.columns.splice(this.edited, 1, o);
-          }
-          else {
-            this.formData.columns.splice(this.edited, 1);
+          if (!o) {
+            this.formData.columns.splice(idx, 1);
           }
         });
       },

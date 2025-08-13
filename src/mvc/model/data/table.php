@@ -46,9 +46,21 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
     }
   }
 
+  $columns = [];
   foreach ($structure['fields'] as $k => $f) {
-    $structure['fields'][$k]['is_real'] = true;
-    $structure['fields'][$k]['is_virtual'] = !is_null(X::search($oColumns, ['code' => $k]));
+    $f['name'] = $k;
+    $f['is_real'] = true;
+    $f['is_virtual'] = !is_null(X::search($oColumns, ['code' => $k]));
+    $columns[] = $f;
+  }
+
+  foreach ($oColumns as $c) {
+    if (is_null(X::search($columns, ['name' => $c['code']]))) {
+      $c['name'] = $c['code'];
+      $c['is_real'] = false;
+      $c['is_virtual'] = true;
+      $columns[] = $c;
+    }
   }
 
   $cfg = $model->inc->dbc->getGridConfig($table, $db, $host, $engine);
@@ -57,6 +69,7 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
     'success' => true,
     'root' => $model->data['root'],
     'comment' => !empty($conn) ? $conn->getTableComment($table) : '',
+    'columns' => $columns,
     'ocolumns' => $oColumns,
     'option' => !empty($infoTable['id']) ? $model->inc->options->option($infoTable['id']) : null,
     'col_info' => !empty($infoTable['id']) ? $model->inc->dbc->fullColumns($infoTable['id']) : [],

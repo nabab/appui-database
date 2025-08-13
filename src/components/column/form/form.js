@@ -426,7 +426,9 @@
         this.$emit("change", d, ev);
       },
       cancel() {
-        let o = this.getRef('form').originalData;
+        const form = this.getRef('form');
+        const o = this.getRef('form').originalData;
+        form.cancel();
         this.$emit("cancel", o.name ? o : null);
       },
       resetAll() {

@@ -41,7 +41,7 @@
           }
         }, {
           icon: 'nf nf-md-table_plus',
-					text: bbn._("Create"),
+					text: bbn._("Create table"),
           action: this.createTable
         }];
         if (!this.currentData.is_virtual) {
@@ -75,19 +75,43 @@
           }, {
             icon: 'nf nf-md-table_refresh',
             text: bbn._("Refresh"),
-            action: () => this.refreshTable(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.refreshTable(csNoVirtual)
+            }
           }, {
-            icon: 'nf nf-md-trash_can',
+            icon: 'nf nf-md-trash_can_outline',
             text: bbn._("Drop"),
-            action: () => this.dropTable(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.dropTable(csNoVirtual)
+            }
           }, {
             icon: 'nf nf-md-flask',
             text: bbn._("Analyze"),
-            action: () => this.analyzeTable(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.analyzeTable(csNoVirtual)
+            }
           }, {
             icon: 'nf nf-md-database_export',
             text: bbn._("Export"),
-            action: () => this.exportTable(currentSelected),
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.exportTable(csNoVirtual)
+            },
             disabled: true
           }, {
             icon: 'nf nf-md-opera',
@@ -97,14 +121,23 @@
               text: currentSelectedVirtual.length ?
                 (!currentSelectedNoVirtual.length ? bbn._("Update structure") : bbn._("Store or update structure")) :
                 bbn._("Store structure"),
-              action: () => this.toOption(currentSelected)
+              action: () => {
+                const cs = table?.currentSelected || [];
+                this.toOption(cs)
+              }
             }]
           });
           if (currentSelectedVirtual.length) {
             ar[ar.length - 1].items.push({
               icon: 'nf nf-md-opera',
               text: bbn._("Remove"),
-              action: () => this.removeFromOption(currentSelectedVirtual)
+              action: () => {
+                const csVirtual = bbn.fn.filter(
+                  table?.currentSelected || [],
+                  d => !!bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+                );
+                this.removeFromOption(csVirtual)
+              }
             });
           }
         }
@@ -205,10 +238,10 @@
           }, {
             text: bbn._("Drop"),
             action: this.dropTable,
-            icon: 'nf nf-md-trash_can',
+            icon: 'nf nf-md-trash_can_outline',
           }, {
             text: bbn._("Maintenance"),
-            icon: 'nf nf-fa-screwdriver_wrench',
+            icon: 'nf nf-md-hammer_wrench',
             items: [{
               text: bbn._("Analyze"),
               action: () => this.analyzeTable(row),
@@ -227,26 +260,35 @@
           });
         }
 
+        const optBts = [];
         if (row.is_virtual) {
-          btns.push({
-            text: bbn._("Options"),
-            icon: 'nf nf-md-opera',
-            items: [{
+          if (row.is_real) {
+            optBts.push({
               text: bbn._("Update structure"),
               action: () => this.toOption(row),
               icon: 'nf nf-md-update',
-            }, {
-              text: bbn._("Remove"),
-              action: () => this.removeFromOption(row),
-              icon: 'nf nf-md-trash_can',
-            }]
+            });
+          }
+
+          optBts.push({
+            text: bbn._("Remove"),
+            action: () => this.removeFromOption(row),
+            icon: 'nf nf-md-trash_can_outline',
           });
         }
-        else {
-          btns.push({
+        else if (row.is_real) {
+          optBts.push({
             text: bbn._("Store structure"),
-            action: this.toOption,
+            action: () => this.toOption(row),
             icon: 'nf nf-md-opera',
+          });
+        }
+
+        if (optBts.length) {
+          btns.push({
+            text: bbn._("Options"),
+            icon: 'nf nf-md-opera',
+            items: optBts
           });
         }
 
@@ -300,7 +342,7 @@
           }
         });
       },
-      analyzeTable(row, row2) {
+      analyzeTable(row) {
         this.post(this.root + 'actions/table/analyze', {
           host_id: this.currentData.id_host,
           db: this.currentData.name,
@@ -362,6 +404,10 @@
       dropTable(row){
         let options = false;
         let table = '';
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           table = row;
           options = !!bbn.fn.filter(row, d => {
@@ -374,7 +420,7 @@
           }).length;
         }
         else {
-          table = row.name;
+          table = row.name  || row;
           options = !!row.is_virtual;
         }
 
@@ -403,6 +449,10 @@
       toOption(row){
         let mess;
         let table;
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           table = bbn.fn.map(row, d => d.name || d);
           mess = bbn._(
@@ -411,9 +461,10 @@
           );
         }
         else {
-          table = row.name;
+          table = row.name || row;
           mess = bbn._("Are you sure you want to store the structure of the table \"%s\" as options?", table);
         }
+
         this.confirm(mess, () => {
           this.post(this.root + 'actions/table/options', {
             host_id: this.currentData.id_host,
@@ -441,6 +492,10 @@
       removeFromOption(row){
         let mess;
         let table;
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           table = bbn.fn.map(row, d => d.name || d);
           mess = bbn._(
@@ -449,9 +504,10 @@
           );
         }
         else {
-          table = row.name;
+          table = row.name || row;
           mess = bbn._("Are you sure you want to remove the table \"%s\" from options?", table);
         }
+
         this.confirm(mess, () => {
           this.post(this.root + 'actions/table/options', {
             host_id: this.currentData.id_host,
@@ -534,6 +590,11 @@
       renderRealVirtual(row, col){
         const icon = !!row[col.field] ? 'nf nf-fa-check bbn-green' : 'nf nf-fa-times bbn-red';
         return '<i class="' + icon + '"></i>';
+      },
+      trClass(row){
+        if (row?.is_virtual && !row?.is_real) {
+           return 'bbn-i';
+        }
       }
     },
     mounted() {

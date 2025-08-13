@@ -99,7 +99,7 @@
         </div>
         <div bbn-if="edited > -1"
              class="bbn-padding">
-          <appui-database-column-form :source="formData.columns[edited]"
+          <appui-database-column-form :source="formData.columns[edited] || {}"
                                       :otypes="source.types"
                                       :engine="source.engine"
                                       :host="source.id_host"

@@ -39,7 +39,7 @@
           }
         }, {
           icon: 'nf nf-md-database_plus',
-					text: bbn._("Create"),
+					text: bbn._("Create database"),
           action: this.createDb
         }, {
           icon: 'nf nf-md-database_import',
@@ -63,19 +63,43 @@
           }, {
             icon: 'nf nf-md-database_refresh',
             text: bbn._("Refresh"),
-            action: () => this.refreshDb(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.refreshDb(csNoVirtual)
+            }
           }, {
-            icon: 'nf nf-md-trash_can',
+            icon: 'nf nf-md-trash_can_outline',
             text: bbn._("Drop"),
-            action: () => this.dropDb(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.dropDb(csNoVirtual)
+            }
           }, {
             icon: 'nf nf-md-flask',
             text: bbn._("Analyze"),
-            action: () => this.analyzeDb(currentSelected)
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.analyzeDb(csNoVirtual)
+            }
           }, {
             icon: 'nf nf-md-database_export',
             text: bbn._("Export"),
-            action: () => this.exportDb(currentSelected),
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.exportDb(csNoVirtual)
+            },
             disabled: true
           }, {
             icon: 'nf nf-md-opera',
@@ -85,14 +109,23 @@
               text: currentSelectedVirtual.length ?
                 (!currentSelectedNoVirtual.length ? bbn._("Update structure") : bbn._("Store or update structure")) :
                 bbn._("Store structure"),
-              action: () => this.toOption(currentSelected)
+              action: () => {
+                const cs = table?.currentSelected || [];
+                this.toOption(cs)
+              }
             }]
           });
           if (currentSelectedVirtual.length) {
             ar[ar.length - 1].items.push({
               icon: 'nf nf-md-opera',
               text: bbn._("Remove"),
-              action: () => this.removeFromOption(currentSelectedVirtual)
+              action: () => {
+                const csVirtual = bbn.fn.filter(
+                  table?.currentSelected || [],
+                  d => !!bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+                );
+                this.removeFromOption(csVirtual)
+              }
             });
           };
         }
@@ -155,6 +188,11 @@
       },
       hasCollation(){
         return this.currentData?.engine !== 'sqlite';
+      },
+      trClass(row){
+        if (row?.is_virtual && !row?.is_real) {
+           return 'bbn-i';
+        }
       }
     },
     methods:{
@@ -183,10 +221,10 @@
           }, {
             text: bbn._("Drop"),
             action: this.dropDb,
-            icon: 'nf nf-md-trash_can',
+            icon: 'nf nf-md-trash_can_outline',
           }, {
             text: bbn._("Maintenance"),
-            icon: 'nf nf-fa-screwdriver_wrench',
+            icon: 'nf nf-md-hammer_wrench',
             items: [{
               text: bbn._("Analyze"),
               action: () => this.analyzeDb(row),
@@ -204,28 +242,38 @@
             disabled: true
           });
 
-          if (row.is_virtual) {
-            btns.push({
-              text: bbn._("Options"),
-              icon: 'nf nf-md-opera',
-              items: [{
-                text: bbn._("Update structure"),
-                action: () => this.toOption(row),
-                icon: 'nf nf-md-update',
-              }, {
-                text: bbn._("Remove"),
-                action: () => this.removeFromOption(row),
-                icon: 'nf nf-md-trash_can',
-              }]
+        }
+
+        const optBts = [];
+        if (row.is_virtual) {
+          if (row.is_real) {
+            optBts.push({
+              text: bbn._("Update structure"),
+              action: () => this.toOption(row),
+              icon: 'nf nf-md-update',
             });
           }
-          else {
-            btns.push({
-              text: bbn._("Store structure"),
-              action: this.toOption,
-              icon: 'nf nf-md-opera',
-            });
-          }
+
+          optBts.push({
+            text: bbn._("Remove"),
+            action: () => this.removeFromOption(row),
+            icon: 'nf nf-md-trash_can_outline',
+          });
+        }
+        else if (row.is_real) {
+          optBts.push({
+            text: bbn._("Store structure"),
+            action: () => this.toOption(row),
+            icon: 'nf nf-md-content_save_cog_outline',
+          });
+        }
+
+        if (optBts.length) {
+          btns.push({
+            text: bbn._("Options"),
+            icon: 'nf nf-md-opera',
+            items: optBts
+          });
         }
 
         return btns;
@@ -319,6 +367,10 @@
       dropDb(row){
         let options = false;
         let database = '';
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           database = row;
           options = !!bbn.fn.filter(row, d => {
@@ -331,7 +383,7 @@
           }).length;
         }
         else {
-          database = row.name;
+          database = row.name || row;
           options = !!row.is_virtual;
         }
 
@@ -356,6 +408,10 @@
       toOption(row){
         let mess;
         let db;
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           db = bbn.fn.map(row, d => d.name || d);
           mess = bbn._(
@@ -364,9 +420,10 @@
           );
         }
         else {
-          db = row.name;
+          db = row.name || row;
           mess = bbn._("Are you sure you want to store the structure of the database \"%s\" as options?", db);
         }
+
         this.confirm(mess, () => {
           this.post(this.root + 'actions/database/options', {
             host_id: this.currentData.id,
@@ -388,6 +445,10 @@
       removeFromOption(row){
         let mess;
         let db;
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
         if (bbn.fn.isArray(row)) {
           db = bbn.fn.map(row, d => d.name || d);
           mess = bbn._(
@@ -396,9 +457,10 @@
           );
         }
         else {
-          db = row.name;
+          db = row.name || row;
           mess = bbn._("Are you sure you want to remove the database \"%s\" from options?", db);
         }
+
         this.confirm(mess, () => {
           this.post(this.root + 'actions/database/options', {
             host_id: this.currentData.id,
