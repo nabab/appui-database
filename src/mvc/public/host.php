@@ -5,7 +5,7 @@
  * Time: 20:49
  */
 
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 if ($ctrl->hasArguments(2)) {
   $ctrl->setData(
     [

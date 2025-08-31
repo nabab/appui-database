@@ -7,5 +7,5 @@
 
 /** @todo All in this file */
 
-/** @var \bbn\Mvc\Controller $ctrl */
+/** @var bbn\Mvc\Controller $ctrl */
 $ctrl->obj = $ctrl->getObjectModel($ctrl->post);

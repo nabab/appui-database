@@ -7,7 +7,7 @@
 
 
 
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 if ($ctrl->hasArguments(3)) {
   $ctrl->setData(
     [

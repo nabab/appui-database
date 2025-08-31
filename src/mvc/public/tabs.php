@@ -6,7 +6,7 @@
  */
 use bbn\X;
 use bbn\Db;
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 //the base_url
 $root = $ctrl->pluginUrl('appui-database').'/';
 // Root tabnav

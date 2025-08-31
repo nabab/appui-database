@@ -1,6 +1,6 @@
 <?php
 
-/** @var $this \bbn\Mvc\Controller */
+/** @var bbn\Mvc\Controller $ctrl */
 $ctrl->obj->url = 'result/'.time();
 
 $ctrl->data = $ctrl->post;

@@ -6,7 +6,7 @@
  */
 use bbn\Db;
 
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 if ($ctrl->hasArguments(2)) {
   $ctrl->setData([
     'engine' => $ctrl->arguments[0],

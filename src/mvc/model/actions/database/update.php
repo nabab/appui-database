@@ -5,7 +5,7 @@
  * Time: 05:25
  */
 
-/** @var \bbn\Mvc\Model $model */
+/** @var bbn\Mvc\Model $model */
 
 $res = ['success' => false];
 

@@ -6,7 +6,7 @@
  */
 
 
-/** @var \bbn\Mvc\Model $model */
+/** @var bbn\Mvc\Model $model */
 
 if ($model->hasData(['name', 'username', 'password', 'host', 'engine'])
     && ($id_host = $model->inc->dbc->importHost($model->data['username'].'@'.$model->data['host'],

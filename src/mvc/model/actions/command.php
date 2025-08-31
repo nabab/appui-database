@@ -1,6 +1,6 @@
 <?php
 
-/** @var $this \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 
 $res = ['success' => false];
 if ( isset($model->data['request']) ){

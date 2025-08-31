@@ -1,6 +1,6 @@
 <?php
 
-/** @var $this \bbn\Mvc\Model*/
+/** @var bbn\Mvc\Model $model */
 return [
   'request' => '# Write SDQL action here'
 ];

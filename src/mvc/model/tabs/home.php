@@ -1,7 +1,7 @@
 <?php
 use bbn\X;
 use bbn\Appui\Dashboard;
-/** @var \bbn\Mvc\Model $model */
+/** @var bbn\Mvc\Model $model */
 if ($model->inc->user->isDev()) {
   $res = [
     'dashboard' => [],

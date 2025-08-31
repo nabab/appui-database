@@ -5,7 +5,7 @@
  * Time: 20:49
  */
 
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 
 $ctrl->setIcon('nf nf-fa-home')
   ->setObj(['notext' => true])

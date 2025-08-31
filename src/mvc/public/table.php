@@ -1,7 +1,7 @@
 <?php
 
 
-/** @var \bbn\Mvc\Controller $ctrl The current controller */
+/** @var bbn\Mvc\Controller $ctrl The current controller */
 if ($ctrl->hasArguments(4)) {
   $ctrl->addData(
     [
