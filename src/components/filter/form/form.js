@@ -33,7 +33,7 @@
       "isnull": "Est nul",
       "isnotnull": "N’est pas nul"
     },
-    enums: {
+    enum: {
       "eq": "Est égal à",
       "neq": "N’est pas égal à",
       "isnull": "Est nul",
@@ -79,7 +79,7 @@
               return 'boolean';
             }
             if ( (field.maxlength == 10) && field.keys ){
-              return 'enums';
+              return 'enum';
             }
             return 'number';
           case 'float':
@@ -92,7 +92,8 @@
           case 'time':
             return 'date';
           case 'enum':
-            return 'enums';
+          case 'enums':
+            return 'enum';
           default:
             return 'string';
         }

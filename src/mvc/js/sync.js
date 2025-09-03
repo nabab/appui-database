@@ -40,7 +40,7 @@
             if ('conflictsFiles' in data.sync) {
               try {
                 let comp = appui.getRegistered('appui-database-sync-conflicts');
-                if (bbn.fn.isVue(comp) && bbn.fn.isFunction(comp.receive)) {
+                if (bbn.cp.isComponent(comp) && bbn.fn.isFunction(comp.receive)) {
                   comp.receive(data.sync.conflictsFiles);
                 }
               }
@@ -51,7 +51,7 @@
             if ('structuresFiles' in data.sync) {
               try {
                 let comp = appui.getRegistered('appui-database-sync-structures');
-                if (bbn.fn.isVue(comp) && bbn.fn.isFunction(comp.receive)) {
+                if (bbn.cp.isComponent(comp) && bbn.fn.isFunction(comp.receive)) {
                   comp.receive(data.sync.structuresFiles);
                 }
               }

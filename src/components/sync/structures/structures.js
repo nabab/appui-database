@@ -50,7 +50,7 @@
       appui.register('appui-database-sync-structures', this);
       try {
         let sync = appui.getRegistered('appui-database-sync');
-        if (bbn.fn.isVue(sync)
+        if (bbn.cp.isComponent(sync)
           && bbn.fn.isFunction(sync.startStructuresPoller)
         ) {
           sync.startStructuresPoller();
