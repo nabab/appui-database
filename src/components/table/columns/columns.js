@@ -273,7 +273,7 @@
         return row.null ? '<i class="nf nf-fa-check"></i>' : '';
       },
       renderRealVirtual(row, col){
-        const icon = !!row[col.field] ? 'nf nf-fa-check bbn-green' : 'nf nf-fa-times bbn-red';
+        const icon = !!row[col.field] ? 'nf nf-md-check_bold bbn-green' : 'nf nf-md-close_thick bbn-red';
         return '<i class="' + icon + '"></i>';
       },
       toOption(row) {

@@ -1,35 +1,41 @@
-<div class="bbn-overlay">
+<div class="appui-database-table-keys bbn-overlay">
   <bbn-table :source="tableSource"
              :sortable="true"
-             :filterable="true"
-             :info="true" 
-  >
+             button-mode="menu"
+             :scrollable="true"
+             ref="table"
+             :selection="true"
+             @toggle="onTableToggle">
+    <bbns-column cls="bbn-c"
+                 :buttons="buttons"
+                 width="40"/>
     <bbns-column field="name"
-                 label="<?= _('Keys') ?>"
-                 :render="writeKey"
-                 cls="bbn-c">
-    </bbns-column>
+                 label="<?= _('Name') ?>"
+                 cls="bbn-c"/>
     <bbns-column field="columns"
-                 :render="writeColInKey"
+                 :render="renderColumns"
                  label="<?= _('Columns') ?>"
-                 cls="bbn-c">
-    </bbns-column>
+                 cls="bbn-c"/>
     <bbns-column field="constraint"
-                 :render="writeConstraint"
-                 :filterable="false"
+                 :render="renderConstraint"
                  label="<?= _('Constraint') ?>"
-                 cls="bbn-c">
-    </bbns-column>
+                 cls="bbn-c"/>
     <bbns-column field="unique"
                  type="boolean"
                  label="<?= _('Unique') ?>"
                  cls="bbn-c"
-                 width="80">
-    </bbns-column>
-    <bbns-column label="<?= _('Actions') ?>"
-                 cls="bbn-c"
-                 :buttons="buttons"
-                 width="200">
-    </bbns-column>
+                 width="80"/>
+    <bbns-column field="is_real"
+                  label="<i class='nf nf-cod-database'></i>"
+                  full-label="<?= _("Exists in the host") ?>"
+                  :render="renderRealVirtual"
+                  :width="30"
+                  cls="bbn-c"/>
+    <bbns-column field="is_virtual"
+                  label="<i class='nf nf-md-opera'></i>"
+                  full-label="<?= _("Exists as options") ?>"
+                  :render="renderRealVirtual"
+                  :width="30"
+                  cls="bbn-c"/>
   </bbn-table>
 </div>

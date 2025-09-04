@@ -1,7 +1,78 @@
-( () => {
+(() => {
   return {
-    props: ['source'],
+    props: {
+      source: {
+        type: Object
+      }
+    },
+    data() {
+      return {
+        root: appui.plugins['appui-database'] + '/',
+        hasSelected: false,
+      };
+    },
     computed: {
+      mainMenu(){
+        const ret = [];
+        ret.push({
+          text: bbn._("Create key"),
+          icon: 'nf nf-md-key_plus',
+          action: this.createColumn
+        });
+        if (this.hasSelected) {
+          const table = this.getRef('table');
+          const currentSelected = table?.currentSelected || [];
+          const currentSelectedVirtual = bbn.fn.filter(
+            currentSelected,
+            d => !!bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+          );
+          const currentSelectedNoVirtual = bbn.fn.filter(
+            currentSelected,
+            d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+          );
+          ret.push({
+            separator: true
+          }, {
+            icon: 'nf nf-md-trash_can_outline',
+            text: bbn._("Drop"),
+            action: () => {
+              const csNoVirtual = bbn.fn.filter(
+                table?.currentSelected || [],
+                d => !bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+              );
+              this.dropColumn(csNoVirtual)
+            }
+          }, {
+            icon: 'nf nf-md-opera',
+            text: bbn._("Options"),
+            items: [{
+              icon: 'nf nf-md-opera',
+              text: currentSelectedVirtual.length ?
+                (!currentSelectedNoVirtual.length ? bbn._("Update structure") : bbn._("Store or update structure")) :
+                bbn._("Store structure"),
+              action: () => {
+                const cs = table?.currentSelected || [];
+                this.toOption(cs)
+              }
+            }]
+          });
+          if (currentSelectedVirtual.length) {
+            ret[ret.length - 1].items.push({
+              icon: 'nf nf-md-opera',
+              text: bbn._("Remove"),
+              action: () => {
+                const csVirtual = bbn.fn.filter(
+                  table?.currentSelected || [],
+                  d => !!bbn.fn.getField(table?.currentData || [], 'data', 'data.name', d)?.is_virtual
+                );
+                this.removeFromOption(csVirtual)
+              }
+            });
+          }
+        }
+
+        return ret;
+      },
       tableSource() {
         let r = [];
         bbn.fn.iterate(this.source.structure.keys, (a, n) => {
@@ -16,25 +87,10 @@
       }
     },
     methods: {
-      getStateColor(row) {
-        let col = false;
-        if (!row.is_real) {
-          col = 'red';
-        } else if (!row.is_virtual) {
-          col = 'purple';
-        } else if (row.is_same) {
-          col = 'green';
-        }
-        return col;
-      },
-      writeKey(row) {
-        let col = this.getStateColor(row);
-        return '<a' + (col ? ' class="bbn-' + col + '"' : '') + '>' + row.name + '</a>';
-      },
-      writeColInKey(row) {
+      renderColumns(row) {
         return row.columns.join(", ");
       },
-      writeConstraint(row) {
+      renderConstraint(row) {
         if (row.constraint) {
           return row.ref_table + '.' + row.ref_column
                  + ' &nbsp;&nbsp;&nbsp;<i class="nf nf-fa-info" title="'
@@ -45,6 +101,21 @@
                  + '"></i>';
         }
         return '-';
+      },
+      renderRealVirtual(row, col){
+        const icon = !!row[col.field] ? 'nf nf-md-check_bold bbn-green' : 'nf nf-md-close_thick bbn-red';
+        return '<i class="' + icon + '"></i>';
+      },
+      onTableToggle(){
+        this.hasSelected = !!this.getRef('table')?.currentSelected?.length;
+      },
+      clearTableSelection(){
+        const table = this.getRef('table');
+        if (table?.currentSelected?.length) {
+          table.currentSelected.splice(0);
+        }
+
+        this.hasSelected = false;
       }
     }
   }
