@@ -1,6 +1,6 @@
 <!-- HTML Document -->
 
-<div class="bbn-border bbn-radius bbn-spadding bbn-block">
+<div :class="[componentClass, 'bbn-border bbn-radius bbn-spadding bbn-block']">
   <component bbn-if="source.component"
              :is="source.component"
              bbn-bind="source.componentOptions"/>
