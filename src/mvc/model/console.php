@@ -5,10 +5,11 @@
  **/
 
 use bbn\X;
-use bbn\Str;
+use bbn\Db;
 use PHPSQLParser\PHPSQLParser;
 /** @var bbn\Mvc\Model $model */
 
+set_time_limit (0);
 if ($model->hasData('code')) {
   $getCellLength = function(array $tab, string $key)
   {
@@ -106,7 +107,7 @@ if ($model->hasData('code')) {
     return strtoupper($exploded_query[0]);
   };
 
-  $createConnection = function(string $host, string $engine, string $db) use (&$model)
+  $createConnection = function(string $host, string $engine, string $db) use (&$model): ?Db
   {
     $res = null;
 
@@ -136,13 +137,23 @@ if ($model->hasData('code')) {
   $cfg = $model->db->parseQuery($model->data['code']);
   $action = $getQueryAction(array_keys((array)$cfg)[0]);
 
+  $error = false;
+  $data = false;
+  $connection->disableTrigger();
   if ($action === 'SELECT') {
-    $data = $connection->getRows($model->data['code']);
+    try {
+      $data = $connection->getRows($model->data['code']);
+    }
+    catch (Exception $e) {
+      $error = $e->getMessage();
+    }
   }
+  $connection->enableTrigger();
   // return cfg
   return [
     'limit' => isset($cfg['LIMIT']) ? $cfg['LIMIT']['rowcount'] : 0,
     'data' => $data,
+    'error' => $error,
     'str_tab' => $tabToStr($data)
   ];
 }

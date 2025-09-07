@@ -9,8 +9,8 @@
           dcolumns: this.source.option?.dcolumns || [],
           engine: this.source.engine,
           host: this.source.host,
-          db: this.source.db,
-          table: this.source.table
+          db: this.source.database,
+          table: this.source.name
         }
       }
     },
