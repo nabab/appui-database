@@ -5,7 +5,8 @@
              :scrollable="true"
              ref="table"
              :selection="true"
-             @toggle="onTableToggle">
+             @toggle="onTableToggle"
+             :tr-class="trClass">
     <bbns-column cls="bbn-c"
                  :buttons="buttons"
                  width="40"/>

@@ -1,24 +1,17 @@
 <?php
 
 $res = ['success' => false];
-if ($model->hasData(['db', 'host_id', 'table', 'column'], true)
-  && $model->hasData('after')
-  && ($engineId = $model->inc->dbc->engineIdFromHost($model->data['host_id']))
-  && ($engine = $model->inc->dbc->engineCode($engineId))
-) {
+if ($model->hasData(['engine', 'db', 'host', 'table', 'data'], true)) {
+  $engine = $model->data['engine'];
   $db = $model->data['db'];
-  $host = $model->data['host_id'];
+  $host = $model->data['host'];
   $table = $model->data['table'];
-  $column = $model->data['column'];
-  $after = $model->data['after'];
+  $data = $model->data['data'];
   try {
     $conn = $model->inc->dbc->connection($host, $engine, $db);
-    die(var_dump($conn->modelize($table)));
-    if ($cfg = $conn->modelize($table)
-      && $conn->moveColumn($table, $column, $cfg, $after)
-    ) {
+    if ($conn->createColumn($table, $data['name'], $data)) {
       if ($model->hasData('options', true)) {
-         $model->inc->dbc->importColumn(
+        $model->inc->dbc->importColumn(
           $data['name'],
           $model->inc->dbc->tableId($table, $db, $host, $engine),
           $host

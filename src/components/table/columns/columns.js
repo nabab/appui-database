@@ -146,6 +146,52 @@
           }
         });
       },
+      dropColumn(row) {
+        let options = false;
+        let column = '';
+        if (bbn.fn.isArray(row) && (row.length === 1)) {
+          row = row[0].name || row[0];
+        }
+
+        if (bbn.fn.isArray(row)) {
+          column = bbn.fn.map(row, d => d.name || d);
+          options = !!bbn.fn.filter(row, d => {
+            return !!bbn.fn.getField(
+              this.getRef('table').currentData,
+              'data',
+              'data.name',
+              d.name || d
+            ).is_virtual;
+          }).length;
+        }
+        else {
+          column = row.name || row;
+          options = !!row.is_virtual;
+        }
+
+        if (this.source.id_host
+          && this.source.database
+          && this.source.name
+          && column.length
+        ) {
+          this.getPopup({
+            label: false,
+            component: 'appui-database-table-columns-drop',
+            componentOptions: {
+              host: this.source.id_host,
+              database: this.source.database,
+              table: this.source.name,
+              column,
+              options
+            },
+            componentEvents: {
+                success: () => {
+                  this.main.reload();
+                }
+              }
+          });
+        }
+      },
       editOption(row) {
         this.getPopup({
           width: '30em',
@@ -169,17 +215,15 @@
             buttons.push({
               text: bbn._('Move Up'),
               action: () => {
-                this.moveUp(row);
+                this.positionUp(row);
               },
-              icon: 'nf nf-fa-arrow_up',
-              disabled: true
+              icon: 'nf nf-fa-arrow_up'
             }, {
               text: bbn._('Move Down'),
               action: () => {
-                this.moveDown(row);
+                this.positionDown(row);
               },
-              icon: 'nf nf-fa-arrow_down',
-              disabled: true
+              icon: 'nf nf-fa-arrow_down'
             });
           }
 
@@ -364,43 +408,32 @@
 
         this.hasSelected = false;
       },
-      dropColumn(row) {
-        let options = false;
-        let column = '';
-        if (bbn.fn.isArray(row) && (row.length === 1)) {
-          row = row[0].name || row[0];
-        }
-
-        if (bbn.fn.isArray(row)) {
-          column = bbn.fn.map(row, d => d.name || d);
-          options = !!bbn.fn.filter(row, d => {
-            return !!bbn.fn.getField(
-              this.getRef('table').currentData,
-              'data',
-              'data.name',
-              d.name || d
-            ).is_virtual;
-          }).length;
-        }
-        else {
-          column = row.name || row;
-          options = !!row.is_virtual;
-        }
-
+      positionUp(row) {
         if (this.source.id_host
           && this.source.database
           && this.source.name
-          && column.length
+          && row.name
+          && row.position
+          && (row.position > 1)
         ) {
+          let after = null;
+          if (row.position > 2) {
+            after = bbn.fn.getField(this.tableSource, 'name', {position: row.position - 1});
+            if (!after) {
+              return;
+            }
+          }
+
           this.getPopup({
             label: false,
-            component: 'appui-database-table-columns-drop',
+            component: 'appui-database-table-columns-position',
             componentOptions: {
               host: this.source.id_host,
               database: this.source.database,
               table: this.source.name,
-              column,
-              options
+              column: row.name,
+              after,
+              options: !!row.is_virtual
             },
             componentEvents: {
                 success: () => {
@@ -410,67 +443,38 @@
           });
         }
       },
-      insertColumn(data) {
-        this.$set(this.source.structure.fields, data.name);
-        this.$forceUpdate();
-        this.$nextTick(() => {
-          this.getRef('table').updateData();
-        });
-      },
-      update(data, col, idx) {
-        let cp = this.closest('bbn-container');
-        data.olddecimal = data.decimal;
-        data.olddefault = data.default;
-        data.olddefaultExpression = data.defaultExpression;
-        data.oldname = data.name;
-        data.oldtype = data.type;
-        data.oldsigned = data.signed;
-        data.oldnull = data.null;
-        data.oldkey = data.key;
-        data.oldmaxlength = data.maxlength;
-        data.oldindex = data.index;
-        let editColumnsData = this.source.editColumnsData;
-        this.getPopup({
-          label: 'Edit a column',
-          component: 'appui-database-column-editor',
-          source : {
-            db: cp.source.db,
-            host: cp.source.host,
-            engine: cp.source.engine,
-            table: cp.source.table,
-            otypes:  editColumnsData.mysql.types,
-            predefined: editColumnsData.mysql.predefined,
-            source: data,
-            root: editColumnsData.mysql.root,
-          },
-        });
-        return;
-      },
-      moveUp(idx) {
-        if (idx.position > 1) {
-          let tmp = idx.position - 1;
-          bbn.fn.move(this.tableSource, tmp, tmp - 1);
-          bbn.fn.log('idx + tableSource', idx, this.tableSource);
+      positionDown (row) {
+        if (this.source.id_host
+          && this.source.database
+          && this.source.name
+          && row.name
+          && row.position
+          && (row.position < (this.tableSource.length))
+        ) {
+          const after = bbn.fn.getField(this.tableSource, 'name', {position: row.position + 1});
+          if (!after) {
+            return;
+          }
+
+          this.getPopup({
+            label: false,
+            component: 'appui-database-table-columns-position',
+            componentOptions: {
+              host: this.source.id_host,
+              database: this.source.database,
+              table: this.source.name,
+              column: row.name,
+              after,
+              options: !!row.is_virtual
+            },
+            componentEvents: {
+                success: () => {
+                  this.main.reload();
+                }
+              }
+          });
         }
-        return;
-      },
-      moveDown (idx) {
-        if (idx.position < this.tableSource.length) {
-          let tmp = idx.position - 1;
-          bbn.fn.move(this.tableSource, tmp, tmp + 1);
-          //bbn.fn.moveColumn(this.tableSource, tmp, tmp + 1);
-        }
-        return;
-      },
-      changeColPosition() {
-        return;
-      },
-      makePredefined() {
-        return;
-      },
-      addKey() {
-        return;
-      },
+      }
     }
   };
 })();
