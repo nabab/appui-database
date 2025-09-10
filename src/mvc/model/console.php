@@ -10,7 +10,15 @@ use PHPSQLParser\PHPSQLParser;
 /** @var bbn\Mvc\Model $model */
 
 set_time_limit (0);
-if ($model->hasData('code')) {
+if ($model->hasData('code', true)) {
+  if ($model->hasData(['engine', 'action'])) {
+    if ($model->data['action'] === 'save') {
+      $idQueries = $model->inc->options->fromCode('queries', $model->data['engine'], 'engines', 'database', 'appui');
+      $prefs = $model->inc->pref->getAll($idQueries);
+      $res = $model->inc->pref->addToGroup($idQueries, ['query' => $model->data['code']]);
+      return ['success' => true, 'prefs' => $prefs, 'idQueries' => $idQueries, 'res' => $res];
+    }
+  }
   $getCellLength = function(array $tab, string $key)
   {
     $res = strlen($key);
@@ -80,16 +88,20 @@ if ($model->hasData('code')) {
     return $res;
   };
 
-  $tabToStr = function(array $tab) use (&$getTabDelim, &$getTabKeyRow, &$getDataRowsString): string
+  $tabToStr = function(array $tab, $time) use (&$getTabDelim, &$getTabKeyRow, &$getDataRowsString): string
   {
     $res = "\n";
+    if (empty($tab)) {
+      return $res . "Empty set\n";
+    }
 
     $keys = array_keys($tab[0]);
     $res .= $getTabDelim($tab);
     $res .= $getTabKeyRow($tab) . "\n";
     $res .= $getTabDelim($tab);
     $res .= $getDataRowsString($tab);
-    $res .= $getTabDelim($tab);
+    $res .= $getTabDelim($tab) . "\n\n";
+    $res .= X::_('Retrieved %d rows, query executed in %s sec', count($tab), $time);
     return $res;
   };
 
@@ -123,9 +135,10 @@ if ($model->hasData('code')) {
   $rowAffected = function(int $nbr, float $time)
   {
     if ($nbr > 1) {
-      return 'Query OK, ' . $nbr . 'row affected (' . $time . 'sec)';
+      return X::_('Query OK %d rows affected (%s sec)', $nbr, $time);
     }
-    return 'Query OK, ' . $nbr . 'rows affected (' . $time . 'sec)';
+
+    return X::_('Query OK %d row affected (%d sec)', $nbr, $time);
   };
 
   // change database if required
@@ -139,10 +152,26 @@ if ($model->hasData('code')) {
 
   $error = false;
   $data = false;
+  $start = microtime(true);
   $connection->disableTrigger();
-  if ($action === 'SELECT') {
+  $res = ['parsed' => $cfg, 'query' => $model->data['code']];
+  if (!empty($cfg['SELECT']) || !empty($cfg['SHOW'])) {
+    if (empty($cfg['LIMIT'])) {
+      $res['query'] .= ' LIMIT 0, 100';
+    }
+
     try {
-      $data = $connection->getRows($model->data['code']);
+      $res['data'] = $connection->getRows($res['query']);
+      $res['str_tab'] = $tabToStr($res['data'], microtime(true) - $start);
+    }
+    catch (Exception $e) {
+      $error = $e->getMessage();
+    }
+  }
+  else {
+    try {
+      $nbr = $connection->query($res['query']);
+      $res['str_tab'] = $rowAffected($nbr, microtime(true) - $start);
     }
     catch (Exception $e) {
       $error = $e->getMessage();
@@ -150,17 +179,16 @@ if ($model->hasData('code')) {
   }
   $connection->enableTrigger();
   // return cfg
-  return [
+  return array_merge($res, [
     'limit' => isset($cfg['LIMIT']) ? $cfg['LIMIT']['rowcount'] : 0,
-    'data' => $data,
-    'error' => $error,
-    'str_tab' => $tabToStr($data)
-  ];
+    'error' => $error
+  ]);
 }
 
 return [
   'model' => $model->data,
   'database' => $model->db->getCurrent(),
-  'databases' => $model->db->getDatabases()
+  'databases' => $model->db->getDatabases(),
+  'engine' => $model->db->getEngine()
 ];
 

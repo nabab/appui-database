@@ -15,7 +15,7 @@
           code: this.code,
 					database: this.database
         }, data => {
-          this.result = data.data;
+          this.result = data.data || data.result;
         });
       }
     }

@@ -21,6 +21,15 @@
         component: "appui-database-console",
         bcolor: '#666',
         fcolor: '#FFF'
+      }, {
+        fixed: true,
+        url: 'queries',
+        icon: "nf nf-dev-azuresqldatabase",
+        notext: true,
+        label: bbn._('Stored queries'),
+        component: "appui-database-preferences",
+        bcolor: '#666',
+        fcolor: '#FFF'
       }];
       bbn.fn.log("ciao", this.source, routerSource);
       return {
