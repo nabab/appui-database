@@ -27,7 +27,7 @@
               bbn-html="bbn.fn.data2Html(f.old_value.fields[0])"/>
           <appui-database-data-record bbn-elseif="f.old_value.table"
                                       :source="f.old_value"/>
-          <div bbn-elseif="!f.old_value.value">-</div>
+          <div bbn-elseif="!f.old_value.value || ((typeof f.old_value.value === 'string') && ['[]', '{}'].includes(f.old_value.value.trim()))">-</div>
           <div bbn-elseif="!f.old_value.type"
               bbn-text="f.old_value.value"/>
           <div bbn-elseif="f.old_value.type === 'text'"
@@ -60,7 +60,7 @@
              bbn-html="bbn.fn.data2Html(f.fields[0])"/>
         <appui-database-data-record bbn-elseif="f.table"
                                     :source="f"/>
-        <div bbn-elseif="!f.value">-</div>
+        <div bbn-elseif="!f.value || ((typeof f.value === 'string') && ['[]', '{}'].includes(f.value.trim()))">-</div>
         <div bbn-elseif="!f.type"
              bbn-text="f.value"/>
         <div bbn-elseif="f.type === 'text'"
