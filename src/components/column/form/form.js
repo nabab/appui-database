@@ -219,6 +219,13 @@
       };
     },
     computed: {
+      positionsList() {
+        const arr = [
+          {text: bbn._('First'), value: 'first'}
+        ];
+        this.columns.map(a => arr.push({text: bbn._('After %s', a.name), value: 'after:' + a.name}));
+        return arr;
+      },
       radioTypes(){
         let res = [];
         if (this.predefined?.length) {
@@ -248,12 +255,12 @@
         set(v) {
           if (v.indexOf('.') > 0) {
             let bits = v.split('.');
-            this.$set(this.source, 'ref_table', bits[0]);
-            this.$set(this.source, 'ref_column', bits[1]);
+            this.source.ref_table = bits[0];
+            this.source.ref_column = bits[1];
           }
           else {
-            this.$set(this.source, 'ref_table', defaults.ref_table);
-            this.$set(this.source, 'ref_column', defaults.ref_column);
+            this.source.ref_table = defaults.ref_table;
+            this.source.ref_column = defaults.ref_column;
           }
         }
       },
@@ -437,6 +444,7 @@
             this.source[n] = a;
           }
         });
+        this.source.position = 'after:' + this.columns[this.columns.length - 1].name;
       },
       checkColumnsNames() {
         if (this.source?.name) {
@@ -525,6 +533,7 @@
           bbn.fn.each(Object.keys(defaults), n => {
             this.source[n] = o[n] === undefined ? defaults[n] : o[n];
           });
+          this.source.position = 'after:' + this.columns[this.columns.length - 1].name;
           this.radioType = this.constraint ? 'constraint' : 'free';
           this.predefinedType = "";
           this.$forceUpdate();

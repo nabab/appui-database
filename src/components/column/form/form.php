@@ -139,6 +139,13 @@
                         :novalue="false"/>
           </div>
         </template>
+
+        <label><?= _("Position") ?></label>
+        <div>
+          <bbn-dropdown class="bbn-w-100"
+                        bbn-model="source.position"
+                        :source="positionsList"/>
+        </div>
       </template>
     </div>
   </bbn-form>

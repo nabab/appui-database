@@ -14,7 +14,8 @@
         <div bbn-if="f.old_value">
           <component bbn-if="f.old_value.component"
                     :is="f.old_value.component"
-                    bbn-bind="f.old_value.componentOptions"/>
+                    bbn-bind="f.old_value.componentOptions"
+                    :source="oldValues"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && !f.old_value.fields[0].type"
               bbn-text="f.old_value.fields[0].value"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && f.old_value.fields[0].type === 'text'"
@@ -47,7 +48,8 @@
 
         <component bbn-if="f.component"
                    :is="f.component"
-                   bbn-bind="f.componentOptions"/>
+                   bbn-bind="f.componentOptions"
+                   :source="values"/>
         <div bbn-elseif="(f.fields?.length === 1) && !f.fields[0].type"
              bbn-text="f.fields[0].value"/>
         <div bbn-elseif="(f.fields?.length === 1) && f.fields[0].type === 'text'"

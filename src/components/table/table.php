@@ -38,7 +38,7 @@
         <div class="bbn-overlay bbn-spadding bbn-radius">
           <div class="bbn-100 bbn-radius"
                style="box-shadow: 1px 1px 0.15rem var(--shadow-box); border: var(--default-border-width) var(--default-border-style) var(--secondary-background)">
-            <bbn-router :nav="true"
+            <bbn-router mode="tabs"
                         :autoload="false"
                         class="bbn-radius"
                         ref="router"

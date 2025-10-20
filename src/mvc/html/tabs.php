@@ -1,5 +1,5 @@
 <!-- HTML Document -->
 
 <bbn-router :autoload="true"
-            :nav="true"
+            mode="tabs"
             :source="routerSource"/>

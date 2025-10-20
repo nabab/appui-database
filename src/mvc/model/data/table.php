@@ -33,7 +33,7 @@ if ($model->hasData(['host', 'db', 'engine', 'table'], true)
       $externals[$a['columns'][0]] = $tmp;
     }
 
-    if (($k !== 'PRIMARY') && !empty($a['ref_column'])) {
+    if (!empty($a['ref_column'])) {
       if (!isset($constraintTables[$a['ref_table']])) {
         $constraintTables[$a['ref_table']] = $conn->getColumns($a['ref_table']);
       }

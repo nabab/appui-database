@@ -1,5 +1,5 @@
 <bbn-router :autoload="false"
-            :nav="true">
+            mode="tabs">
   <bbns-container label="<?= _('Errors') ?>"
                   url="errors"
                   :fixed="true"
