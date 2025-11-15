@@ -34,7 +34,7 @@ if ($model->hasData('limit', true)
       foreach ($data['data'] as $idx => $t) {
         //removes the html tag different from <br> and cuts the string
         $data['data'][$idx] = array_map(
-          fn($a) => is_string($a) && (strlen($a) > 100) ?
+          fn($a) => is_string($a) && (Str::len($a) > 100) ?
             Str::cut(strip_tags(Str::sanitizeHtml($a), '<br>'), 100) :
             $a,
           $t

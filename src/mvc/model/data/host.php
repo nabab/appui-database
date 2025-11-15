@@ -1,5 +1,6 @@
 <?php
 use bbn\X;
+use bbn\Str;
 
 $res = ['success' => false];
 if ($model->hasData(['host', 'engine'], true)
@@ -10,7 +11,7 @@ if ($model->hasData(['host', 'engine'], true)
       'name' => $o['text'],
       'idServer' => $o['id_alias'],
     ]);
-    if (!empty($o['code']) && (strpos($o['code'], '@') !== false)) {
+    if (!empty($o['code']) && (Str::pos($o['code'], '@') !== false)) {
       $res['user'] = $o['code'];
     }
 

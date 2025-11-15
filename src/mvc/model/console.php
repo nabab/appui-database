@@ -5,6 +5,7 @@
  **/
 
 use bbn\X;
+use bbn\Str;
 use bbn\Db;
 use PHPSQLParser\PHPSQLParser;
 /** @var bbn\Mvc\Model $model */
@@ -21,11 +22,11 @@ if ($model->hasData('code', true)) {
   }
   $getCellLength = function(array $tab, string $key)
   {
-    $res = strlen($key);
+    $res = Str::len($key);
 
     foreach ($tab as $row) {
-      if ($res < strlen($row[$key])) {
-        $res = strlen($row[$key]);
+      if ($res < Str::len($row[$key])) {
+        $res = Str::len($row[$key]);
         //TODO: add limit
       }
     }
@@ -53,7 +54,7 @@ if ($model->hasData('code', true)) {
     $keys = array_keys($tab[0]);
     foreach ($keys as $key) {
       $res .= ' ' . $key;
-      $spaces = $getCellLength($tab, $key) - strlen($key);
+      $spaces = $getCellLength($tab, $key) - Str::len($key);
       foreach (range(0, $spaces) as $i) {
         $res .= ' ';
       }
@@ -68,7 +69,7 @@ if ($model->hasData('code', true)) {
 
     foreach ($row as $key => $cell) {
       $res .= ' ' . $cell;
-      $spaces = $getCellLength($tab, $key) - strlen($cell);
+      $spaces = $getCellLength($tab, $key) - Str::len($cell);
       foreach (range(0, $spaces) as $i) {
         $res .= ' ';
       }

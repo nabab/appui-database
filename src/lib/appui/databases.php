@@ -879,7 +879,7 @@ class databases extends bbn\Models\Cls\Cache
       if ( empty($table) ){
         array_walk($mod, function(&$w, $k) use(&$table, &$db, &$host, $keys, $fields){
           $table = $this->db->tsn($k);
-          $db = substr($k, 0, Strrpos($k, $table)-1);
+          $db = Str::sub($k, 0, Strrpos($k, $table)-1);
           $w['id_option'] = $this->tableId($table, $db, $host);
           $keys($w);
           $fields($w);

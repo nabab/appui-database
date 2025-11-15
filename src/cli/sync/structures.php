@@ -6,7 +6,7 @@ use \bbn\Str;
 $currentDb = $ctrl->db->getCurrent();
 if (Dbsync::isInit()
   && ($tables = array_map(function($t){
-    return substr($t, Strpos($t, '.') + 1);
+    return Str::sub($t, Strpos($t, '.') + 1);
   }, Dbsync::$tables))
   && ($dbs = array_keys($ctrl->inc->options->codeIds('sync', 'database', 'appui')))
 ) {

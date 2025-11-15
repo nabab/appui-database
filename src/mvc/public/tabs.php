@@ -5,6 +5,7 @@
  * Time: 20:15
  */
 use bbn\X;
+use bbn\Str;
 use bbn\Db;
 /** @var bbn\Mvc\Controller $ctrl The current controller */
 //the base_url
@@ -82,7 +83,7 @@ if (defined('BBN_BASEURL')) {
     }
     // Lower level containers
     elseif (X::indexOf(BBN_BASEURL, $root) === 0) {
-      $bits = X::split(substr(BBN_BASEURL, strlen($root)), '/');
+      $bits = X::split(Str::sub(BBN_BASEURL, Str::len($root)), '/');
       if (end($bits) === '') {
         array_pop($bits);
       }

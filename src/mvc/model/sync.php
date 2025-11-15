@@ -1,5 +1,6 @@
 <?php
 /** @var bbn\Mvc\Model $model */
+use bbn\Str;
 use \bbn\Appui\Dbsync;
 $resConflictsFiles = [];
 $conflictsFiles = \bbn\File\Dir::getFiles($model->dataPath('appui-database') . 'sync/conflicts/');
@@ -32,7 +33,7 @@ return [
     return $a['code'];
   }, $model->inc->options->fullOptions('sync', 'database', 'appui')),
   'tables' => array_map(function($t) use($model){
-    $t = substr($t, Strpos($t, '.') + 1);
+    $t = Str::sub($t, Str::pos($t, '.') + 1);
     return [
       'text' => $t,
       'value' => $t,
