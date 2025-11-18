@@ -11,13 +11,13 @@
     },
     computed: {
       currentLastReceptionDate(){
-        if (this.lastReception && this.lastReception.isValid()) {
+        if (this.lastReception && this.lastReception.isValid) {
           return this.lastReception.format('DD/MM/YYYY');
         }
         return false;
       },
       currentLastReceptionTime(){
-        if (this.lastReception && this.lastReception.isValid()) {
+        if (this.lastReception && this.lastReception.isValid) {
           return this.lastReception.format('HH:mm:ss');
         }
         return false;
@@ -25,7 +25,7 @@
     },
     methods: {
       renderLast(row){
-        return row.last ? dayjs(row.last).format('DD/MM/YYYY HH:mm:ss') : '';
+        return row.last ? bbn.date(row.last).format('DD/MM/YYYY HH:mm:ss') : '';
       },
       refreshFile(row){
         if (row.table) {
@@ -42,7 +42,7 @@
       },
       receive(structuresFiles){
         this.tables.splice(0, this.tables.length, ...structuresFiles);
-        this.lastReception = dayjs();
+        this.lastReception = bbn.date();
         this.getRef('table').updateData();
       }
     },

@@ -16,8 +16,8 @@
       currentTableDate(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && dayjs(d).isValid()) {
-            return dayjs(d).format('DD/MM/YYYY');
+          if (d && bbn.date(d).isValid) {
+            return bbn.date(d).format('DD/MM/YYYY');
           }
         }
         return false;
@@ -25,20 +25,20 @@
       currentTableTime(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && dayjs(d).isValid()) {
-            return dayjs(d).format('HH:mm:ss');
+          if (d && bbn.date(d).isValid) {
+            return bbn.date(d).format('HH:mm:ss');
           }
         }
         return false;
       },
       currentLastReceptionDate(){
-        if (this.lastReception && this.lastReception.isValid()) {
+        if (this.lastReception && this.lastReception.isValid) {
           return this.lastReception.format('DD/MM/YYYY');
         }
         return false;
       },
       currentLastReceptionTime(){
-        if (this.lastReception && this.lastReception.isValid()) {
+        if (this.lastReception && this.lastReception.isValid) {
           return this.lastReception.format('HH:mm:ss');
         }
         return false;
@@ -84,7 +84,7 @@
       receive(conflictsFiles){
         let oldTables = bbn.fn.extend(true, [], this.tables);
         this.tables.splice(0, this.tables.length, ...conflictsFiles);
-        this.lastReception = dayjs();
+        this.lastReception = bbn.date();
         this.getRef('tablesList').updateData();
         if (this.currentTable) {
           let idx = bbn.fn.search(conflictsFiles, {value: this.currentTable});
