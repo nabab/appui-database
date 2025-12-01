@@ -25,7 +25,7 @@
     },
     methods: {
       renderLast(row){
-        return row.last ? bbn.date(row.last).format('DD/MM/YYYY HH:mm:ss') : '';
+        return row.last ? bbn.dt(row.last).format('DD/MM/YYYY HH:mm:ss') : '';
       },
       refreshFile(row){
         if (row.table) {
@@ -42,7 +42,7 @@
       },
       receive(structuresFiles){
         this.tables.splice(0, this.tables.length, ...structuresFiles);
-        this.lastReception = bbn.date();
+        this.lastReception = bbn.dt();
         this.getRef('table').updateData();
       }
     },

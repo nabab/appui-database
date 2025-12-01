@@ -16,8 +16,8 @@
       currentTableDate(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && bbn.date(d).isValid) {
-            return bbn.date(d).format('DD/MM/YYYY');
+          if (d && bbn.dt(d).isValid) {
+            return bbn.dt(d).format('DD/MM/YYYY');
           }
         }
         return false;
@@ -25,8 +25,8 @@
       currentTableTime(){
         if (this.currentTable) {
           let d = bbn.fn.getField(this.tables, 'date', {value: this.currentTable});
-          if (d && bbn.date(d).isValid) {
-            return bbn.date(d).format('HH:mm:ss');
+          if (d && bbn.dt(d).isValid) {
+            return bbn.dt(d).format('HH:mm:ss');
           }
         }
         return false;
@@ -84,7 +84,7 @@
       receive(conflictsFiles){
         let oldTables = bbn.fn.extend(true, [], this.tables);
         this.tables.splice(0, this.tables.length, ...conflictsFiles);
-        this.lastReception = bbn.date();
+        this.lastReception = bbn.dt();
         this.getRef('tablesList').updateData();
         if (this.currentTable) {
           let idx = bbn.fn.search(conflictsFiles, {value: this.currentTable});

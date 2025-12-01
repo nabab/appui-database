@@ -18,7 +18,7 @@
         return row.diff ? '<i class="nf nf-fa-exclamation_triangle bbn-red"></i>' : '';
       },
       renderDate(row){
-        return row.dt && bbn.date(row.dt).isValid ? bbn.date(row.dt).format('DD/MM/YYYY HH:mm:ss') : '';
+        return row.dt && bbn.dt(row.dt).isValid ? bbn.dt(row.dt).format('DD/MM/YYYY HH:mm:ss') : '';
       },
       getButtons(row){
         let ar = [{
