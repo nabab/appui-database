@@ -1,6 +1,12 @@
 <!-- HTML Document -->
 
 <div :class="[componentClass, 'bbn-border bbn-radius bbn-spadding bbn-block']">
+  <div class="bbn-w-100 bbn-bottom-spadding" bbn-if="(operation === 'UPDATE') && !sub">
+    <bbn-button @click="toggleShown"
+                :icon="shown ? 'nf nf-fa-eye_slash' : 'nf nf-fa-eye'"
+                :notext="false"
+                :label="shown ? _('Hide unchanged values') : _('Show all values')"/>
+  </div>
   <component bbn-if="source.component"
              :is="source.component"
              bbn-bind="source.componentOptions"/>
@@ -9,8 +15,9 @@
               bbn-if="f.value || f.componentOptions || f.fields?.[0]?.value">
       <div class="bbn-label"
            bbn-text="f.label || f.name"
-           :class="{'bbn-b bbn-u': !!f.old_value}"></div>
-      <div>
+           bbn-if="shown || ('old_value' in f)"
+           :class="{'bbn-b bbn-u': 'old_value' in f}"></div>
+      <div bbn-if="shown || ('old_value' in f)">
         <div bbn-if="f.old_value">
           <component bbn-if="f.old_value.component"
                     :is="f.old_value.component"
@@ -27,7 +34,8 @@
           <div bbn-elseif="(f.old_value.fields?.length === 1)"
               bbn-html="bbn.fn.data2Html(f.old_value.fields[0])"/>
           <appui-database-data-record bbn-elseif="f.old_value.table"
-                                      :source="f.old_value"/>
+                                      :source="f.old_value"
+                                      :sub="true"/>
           <div bbn-elseif="!f.old_value.value || ((typeof f.old_value.value === 'string') && ['[]', '{}'].includes(f.old_value.value.trim()))">-</div>
           <div bbn-elseif="!f.old_value.type"
               bbn-text="f.old_value.value"/>
@@ -61,7 +69,8 @@
         <div bbn-elseif="(f.fields?.length === 1)"
              bbn-html="bbn.fn.data2Html(f.fields[0])"/>
         <appui-database-data-record bbn-elseif="f.table"
-                                    :source="f"/>
+                                    :source="f"
+                                    :sub="true"/>
         <div bbn-elseif="!f.value || ((typeof f.value === 'string') && ['[]', '{}'].includes(f.value.trim()))">-</div>
         <div bbn-elseif="!f.type"
              bbn-text="f.value"/>

@@ -3,8 +3,18 @@
 (() => {
   return {
     mixins: [bbn.cp.mixins.basic],
+    props: {
+      operation: {
+        type: String
+      },
+      sub: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
+        shown: this.sub || (this.operation !== 'UPDATE')
       };
     },
     computed: {
@@ -19,5 +29,10 @@
         return v;
       }
     },
+    methods: {
+      toggleShown() {
+        this.shown = !this.shown;
+      }
+    }
   }
 })();
