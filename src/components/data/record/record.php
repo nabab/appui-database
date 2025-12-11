@@ -23,6 +23,8 @@
                     :is="f.old_value.component"
                     bbn-bind="f.old_value.componentOptions"
                     :source="oldValues"/>
+          <div bbn-elseif="f.old_value.options?.source"
+               bbn-text="bbn.fn.getField(f.old_value.options.source, f.old_value.options.sourceText || 'text', {[f.old_value.options.sourceValue || 'value']: f.old_value.fields[0].value})"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && !f.old_value.fields[0].type"
               bbn-text="f.old_value.fields[0].value"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && f.old_value.fields[0].type === 'text'"
@@ -58,6 +60,8 @@
                    :is="f.component"
                    bbn-bind="f.componentOptions"
                    :source="values"/>
+        <div bbn-elseif="f.options?.source"
+              bbn-text="bbn.fn.getField(f.options.source, f.options.sourceText || 'text', {[f.options.sourceValue || 'value']: f.old_value.fields[0].value})"/>
         <div bbn-elseif="(f.fields?.length === 1) && !f.fields[0].type"
              bbn-text="f.fields[0].value"/>
         <div bbn-elseif="(f.fields?.length === 1) && f.fields[0].type === 'text'"
