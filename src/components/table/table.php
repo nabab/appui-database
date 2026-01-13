@@ -51,7 +51,7 @@
                               :pinned="true"
                               :menu="false"/> -->
               <bbns-container component="appui-database-table-columns"
-                              url="home"
+                              url="columns"
                               label="<?= _('Columns') ?>"
                               :source="currentData"
                               icon="nf nf-fa-columns"

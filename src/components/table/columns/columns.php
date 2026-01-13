@@ -5,6 +5,7 @@
              button-mode="menu"
              editor="appui-database-column-editor"
              editable="popup"
+             :storage-full-name="storageName"
              :editor-options="editorOptions"
              ref="table"
              :tr-class="trClass"

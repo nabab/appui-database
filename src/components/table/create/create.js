@@ -103,7 +103,7 @@
             table.updateData();
           }
 
-          bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.id_host + '/' + this.source.db + '/' + this.formData.name + '/home');
+          bbn.fn.link(this.root+ 'tabs/' + this.source.engine + '/' + this.source.id_host + '/' + this.source.db + '/' + this.formData.name);
           this.getRef('form').closePopup();
         }
       },

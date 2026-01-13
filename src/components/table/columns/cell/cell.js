@@ -19,7 +19,7 @@
     mounted() {
       this.project = this.closest('appui-project-ui');
       this.link = (this.project ? this.project.root + 'database/' : this.root + 'tabs/' + this.source.engine + '/') +
-        this.source.id_host + '/' + this.source.database + '/' + this.source.name + '/home';
+        this.source.host + '/' + this.source.database + '/table/' + this.source.name;
     }
   }
 })();

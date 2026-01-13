@@ -6,5 +6,5 @@ use bbn\Str;
 
 if ($ctrl->hasArguments()) {
   $ctrl->addData(['engine' => $ctrl->arguments[0]])
-    ->combo(X::_("Saved queries' list"), true)
+    ->combo(X::_("Saved queries' list"), true);
 }

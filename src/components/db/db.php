@@ -53,6 +53,7 @@
                       uid="name"
                       class="bbn-radius"
                       :scrollable="true"
+                      :storage-full-name="storageName"
                       style="border-color: var(--header-background)"
                       button-mode="menu"
                       :tr-class="trClass">

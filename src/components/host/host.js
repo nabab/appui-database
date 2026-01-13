@@ -203,7 +203,7 @@
           btns.push({
             text: bbn._("Open"),
             action: () => {
-              bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id + '/' + row.name + '/home')
+              bbn.fn.link(appui.plugins['appui-database'] + '/tabs/' + this.currentData.engine + '/' + this.currentData.id + '/' + row.name)
             },
             icon: 'nf nf-md-open_in_app',
           }, {

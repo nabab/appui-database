@@ -92,6 +92,9 @@
       },
       hasPosition(){
         return this.source.engine && this.enginesPosition.includes(this.source.engine);
+      },
+      storageName() {
+        return 'appui-database-table-columns-' + this.source.id_host + '-' + this.source.engine + '-' + this.source.database + '-' + this.source.name;
       }
     },
     methods: {
