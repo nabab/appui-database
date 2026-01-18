@@ -21,8 +21,7 @@
         <div bbn-if="f.old_value">
           <component bbn-if="f.old_value.component"
                     :is="f.old_value.component"
-                    bbn-bind="f.old_value.componentOptions"
-                    :source="oldValues"/>
+                    bbn-bind="{source: oldValues, ...(f.old_value.componentOptions || {})}"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && (!f.old_value.fields[0].type || (f.old_value.fields[0].type === 'unknown'))"
               bbn-text="f.old_value.fields[0].value"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && f.old_value.fields[0].type === 'text'"
