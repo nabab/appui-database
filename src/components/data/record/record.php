@@ -12,7 +12,7 @@
              bbn-bind="source.componentOptions"/>
   <div class="bbn-grid-fields" bbn-else>
     <template bbn-for="f in source.fields"
-              bbn-if="f.value || f.componentOptions || f.fields?.[0]?.value">
+              bbn-if="f.value || f.componentOptions || f.fields?.[0]?.value || f.old_value?.fields?.[0]?.value || f.old_value?.value">
       <div class="bbn-label"
            bbn-text="f.label || f.name"
            bbn-if="shown || ('old_value' in f)"
@@ -23,7 +23,7 @@
                     :is="f.old_value.component"
                     bbn-bind="f.old_value.componentOptions"
                     :source="oldValues"/>
-          <div bbn-elseif="(f.old_value.fields?.length === 1) && !f.old_value.fields[0].type"
+          <div bbn-elseif="(f.old_value.fields?.length === 1) && (!f.old_value.fields[0].type || (f.old_value.fields[0].type === 'unknown'))"
               bbn-text="f.old_value.fields[0].value"/>
           <div bbn-elseif="(f.old_value.fields?.length === 1) && f.old_value.fields[0].type === 'text'"
               bbn-text="f.old_value.fields[0].value"/>
@@ -39,7 +39,7 @@
                                       :source="f.old_value"
                                       :sub="true"/>
           <div bbn-elseif="!f.old_value.value || ((typeof f.old_value.value === 'string') && ['[]', '{}'].includes(f.old_value.value.trim()))">-</div>
-          <div bbn-elseif="!f.old_value.type"
+          <div bbn-elseif="!f.old_value.type || (f.old_value.type === 'unknown')"
               bbn-text="f.old_value.value"/>
           <div bbn-elseif="f.old_value.type === 'text'"
               bbn-text="f.old_value.value"/>
@@ -58,9 +58,8 @@
 
         <component bbn-if="f.component"
                    :is="f.component"
-                   bbn-bind="f.componentOptions"
-                   :source="values"/>
-        <div bbn-elseif="(f.fields?.length === 1) && !f.fields[0].type"
+                   bbn-bind="{source: values, ...(f.componentOptions || {})}"/>
+        <div bbn-elseif="(f.fields?.length === 1) && (!f.fields[0].type || (f.fields[0].type === 'unknown'))"
              bbn-text="f.fields[0].value"/>
         <div bbn-elseif="(f.fields?.length === 1) && f.fields[0].type === 'text'"
              bbn-text="f.fields[0].value"/>
@@ -76,7 +75,7 @@
                                     :source="f"
                                     :sub="true"/>
         <div bbn-elseif="!f.value || ((typeof f.value === 'string') && ['[]', '{}'].includes(f.value.trim()))">-</div>
-        <div bbn-elseif="!f.type"
+        <div bbn-elseif="!f.type || (f.type === 'unknown')"
              bbn-text="f.value"/>
         <div bbn-elseif="f.type === 'text'"
              bbn-text="f.value"/>
