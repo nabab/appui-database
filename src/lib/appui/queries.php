@@ -6,11 +6,13 @@
  * Time: 12:40
  */
 
-namespace appui;
-use bbn;
+namespace Appui;
 
+use bbn\Db;
+use bbn\Appui\Database;
+use bbn\Models\Cls\Db as DbCls;
 
-class queries extends bbn\Models\Cls\Db
+class queries extends DbCls
 {
   protected $dbc;
 
@@ -42,9 +44,9 @@ class queries extends bbn\Models\Cls\Db
     return $query;
   }
 
-  public function __construct(\bbn\Db $db){
+  public function __construct(Db $db){
     parent::__construct($db);
-    $this->dbc = new \Appui\Database($db);
+    $this->dbc = new Database($db);
   }
 
   public function build($id){
