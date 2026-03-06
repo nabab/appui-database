@@ -7,7 +7,6 @@
 use bbn\X;
 use bbn\Str;
 use bbn\Db;
-use PHPSQLParser\PHPSQLParser;
 /** @var bbn\Mvc\Model $model */
 
 set_time_limit (0);
@@ -25,8 +24,8 @@ if ($model->hasData('code', true)) {
     $res = Str::len($key);
 
     foreach ($tab as $row) {
-      if ($res < Str::len($row[$key])) {
-        $res = Str::len($row[$key]);
+      if ($res < Str::len((string)$row[$key])) {
+        $res = Str::len((string)$row[$key]);
         //TODO: add limit
       }
     }
@@ -68,8 +67,8 @@ if ($model->hasData('code', true)) {
     $res = '|';
 
     foreach ($row as $key => $cell) {
-      $res .= ' ' . $cell;
-      $spaces = $getCellLength($tab, $key) - Str::len($cell);
+      $res .= ' ' . ((string)$cell);
+      $spaces = $getCellLength($tab, $key) - Str::len((string)$cell);
       foreach (range(0, $spaces) as $i) {
         $res .= ' ';
       }
@@ -96,7 +95,6 @@ if ($model->hasData('code', true)) {
       return $res . "Empty set\n";
     }
 
-    $keys = array_keys($tab[0]);
     $res .= $getTabDelim($tab);
     $res .= $getTabKeyRow($tab) . "\n";
     $res .= $getTabDelim($tab);
@@ -120,7 +118,7 @@ if ($model->hasData('code', true)) {
     return strtoupper($exploded_query[0]);
   };
 
-  $createConnection = function(string $host, string $engine, string $db) use (&$model): ?Db
+  $createConnection = function(string $host, string $engine, string $db) use ($model): ?Db
   {
     $res = null;
 
