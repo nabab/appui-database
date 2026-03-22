@@ -11,8 +11,8 @@ use bbn\Db;
 //the base_url
 $root = $ctrl->pluginUrl('appui-database').'/';
 // Root tabnav
-if (defined('BBN_BASEURL')) {
-  if (empty(BBN_BASEURL)) {
+if ($ctrl->getConstant('baseURL') !== null) {
+  if (!$ctrl->getConstant('baseURL')) {
     $url = $root.'tabs';
     $combo = true;
     $title = _("Databases");
@@ -61,7 +61,7 @@ if (defined('BBN_BASEURL')) {
     }
 
     // 1st level containers
-    if (BBN_BASEURL === $root) {
+    if ($ctrl->getConstant('baseURL') === $root) {
       // Hosts list (home)
       if (!$engine) {
         //takes the controller in private tabs/home
@@ -82,8 +82,8 @@ if (defined('BBN_BASEURL')) {
       }
     }
     // Lower level containers
-    elseif (X::indexOf(BBN_BASEURL, $root) === 0) {
-      $bits = X::split(Str::sub(BBN_BASEURL, Str::len($root)), '/');
+    elseif ($ctrl->getConstant('baseURL') && X::indexOf($ctrl->getConstant('baseURL'), $root) === 0) {
+      $bits = X::split(Str::sub($ctrl->getConstant('baseURL'), Str::len($root)), '/');
       if (end($bits) === '') {
         array_pop($bits);
       }
